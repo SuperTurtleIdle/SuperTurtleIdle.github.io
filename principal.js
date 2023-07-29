@@ -448,6 +448,7 @@ document.addEventListener('DOMContentLoaded', function () {
         acutalizarRecursosSegundo(edificio);
         actualizarPorcentajeRecursos(edificio);
     }
+    actualizarContadores();
 });
 
 
@@ -1320,13 +1321,13 @@ document.getElementById("body").addEventListener("click", function () {
 //autoguardado
 
 function animacionAutosave() {
-    document.getElementById("panelAutosave").style.animation = "none";
-    void document.getElementById("panelAutosave").offsetWidth;
-    document.getElementById("panelAutosave").style.animation = "gameSaved 2s";
+    const panelAutosave = document.getElementById("panelAutosave");
+    panelAutosave.style.animation = "none";
+    void panelAutosave.offsetWidth;
+    panelAutosave.style.animation = "gameSaved 2s";
     guardarDatos();
 }
 
-const panelAutosave = document.getElementById("panelAutosave");
 setInterval(animacionAutosave, 5000);
 
 //guardado
@@ -1338,17 +1339,23 @@ function guardarDatos() {
     localStorage.setItem('savedata', datosJSON);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+
+function cargarDatos() {
     const datosGuardados = localStorage.getItem('savedata');
     if (datosGuardados) {
         const objetosRecuperados = JSON.parse(datosGuardados);
 
-        edificios = objetosRecuperados[0];
-        mejoras = objetosRecuperados[1];
-        jugador = objetosRecuperados[2];
-        estadisticas = objetosRecuperados[3];
-        opciones = objetosRecuperados[4];
-        actualizarContadores;
+        // Update the existing objects with the loaded data
+        Object.assign(jugador, objetosRecuperados.jugador);
+        Object.assign(edificios, objetosRecuperados.edificios);
+        Object.assign(mejoras, objetosRecuperados.mejoras);
+        Object.assign(estadisticas, objetosRecuperados.estadisticas);
 
     }
-});
+}
+
+document.addEventListener('DOMContentLoaded', cargarDatos);
+
+function borrarDatos() {
+    localStorage.removeItem('savedata');
+}
