@@ -1,0 +1,1567 @@
+/*Inicializacion*/
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    background: #23232D;
+    overflow: hidden;
+    font-family: fredoka;
+    font-weight: 300;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/*traduccion de google*/
+* font {
+    background: transparent;
+    font-weight: 400;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+@font-face {
+    font-family: fredoka;
+    src: url(font/fredoka.ttf);
+}
+
+/*Barras principales*/
+
+.bLateral {
+    height: 100%;
+    width: 15%;
+    background: #23232D;
+    float: left;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.bSuperior {
+    height: 10%;
+    width: 85%;
+    background: #31313D;
+    box-shadow: 0px -5px 38px 2px rgba(0, 0, 0, 0.48);
+    position: relative;
+    float: up;
+    z-index: 1;
+    margin-left: 15%;
+    display: flex;
+
+}
+
+.bInferior {
+    height: 90%;
+    width: 85%;
+    background: linear-gradient(226deg, #262637 53.65%, #442F39 100%);
+    position: relative;
+    margin-left: 15%;
+    overflow: scroll;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background-image: url(img/sys/fondo.png);
+
+    background-size: 100% 100%;
+    background-position: center;
+
+
+}
+
+
+/*-------------------limbo-------------------*/
+
+
+/*meter una shadow inset*/
+
+
+.tooltip {
+
+    position: absolute;
+    z-index: 10;
+    max-height: 1000px;
+    width: 20%;
+    border: white solid 2px;
+    filter: drop-shadow(0px 6px 0px #21191e);
+    border-radius: 0.1vw;
+    background: linear-gradient(335deg, #464052 0%, #333140 43.75%, #31313D 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    transition: all 0.2s;
+    box-shadow: 0px 10px 14px 0px rgba(0, 0, 0, 0.2) inset;
+    overflow: visible;
+    transform-origin: 100% 100%;
+    pointer-events: none;
+
+
+}
+
+
+.tooltipMejoraSuperior {
+
+    background: red;
+    max-height: 1000px;
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    background: transparent;
+
+}
+
+#mejoraNombre {
+
+    width: 70%;
+    max-height: 1000px;
+
+    font-weight: 500;
+    font-size: 1vw;
+    background: transparent;
+
+
+
+
+}
+
+#mejoraPrecio {
+
+    width: 30%;
+
+    text-align: right;
+    font-weight: 400;
+    background: transparent;
+    color: #7EFF69;
+
+
+
+
+}
+
+#mejoraPrecio img {
+
+    width: 15px;
+    height: 15px;
+    transform: translateY(2px);
+    background: transparent;
+
+
+
+
+}
+
+#mejoraTag {
+
+    background: #617D8C;
+    border-radius: 2px;
+    justify-self: center;
+    padding: 1px 6px;
+    font-weight: 500;
+    margin-top: 5px;
+
+
+}
+
+.tooltipMejoraInferior {
+
+    background: blue;
+    max-height: 1000px;
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    background: transparent;
+
+}
+
+#mejoraDescripcion {
+
+    text-align: center;
+    background: transparent;
+
+
+
+
+}
+
+.separadorMejora {
+    margin: 10px 0;
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(247deg, rgba(0, 0, 0, 0.00) 0%, rgba(255, 255, 255, 0.19) 24.59%, rgba(255, 255, 255, 0.18) 75.09%, rgba(0, 0, 0, 0.00) 100%);
+}
+
+#tooltipArrow {
+    margin-top: -10px;
+    height: 20px;
+    width: 30px;
+    position: flex;
+    z-index: 20;
+    background: transparent;
+    transform: translateY(18px);
+    margin-left: auto;
+    margin-right: 10.5%;
+
+
+
+
+
+}
+
+
+
+/*tooltips*/
+
+
+
+
+/*Texto cantidad clicks*/
+
+.textoClick {
+    display: flex;
+    background-color: transparent;
+    height: 2vw;
+    width: 8vw;
+    align-items: center;
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+    overflow: visible;
+    animation: bounceFade 0.5s ease-in-out;
+    transform-origin: left;
+
+}
+
+@keyframes bounceFade {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    25% {
+        transform: scale(0.85);
+        opacity: 0.85;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    75% {
+        transform: scale(0.9);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+}
+
+
+
+.textoClick img {
+
+    background-color: transparent;
+    display: flex;
+    height: 80%;
+    width: 20%;
+    margin-left: 3%;
+
+
+
+}
+
+.textoClick p {
+
+    background-color: transparent;
+    display: flex;
+    overflow: visible;
+    color: white;
+    font-size: 1.3vw;
+    font-weight: 500;
+    /*this goes so hard*/
+    text-shadow: 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black, 0 0 0.2vw black;
+    animation: textoclick 2s infinite;
+
+}
+
+@keyframes textoclick {
+    0% {
+        color: #ee6055;
+    }
+
+    50% {
+        color: #60d394;
+    }
+
+    100% {
+        color: #ee6055;
+    }
+
+}
+
+/*coso bloqueado*/
+
+.candado {
+
+    border: none;
+    height: 30px;
+    background: transparent;
+    width: 30px;
+    position: absolute;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    overflow: visible;
+    justify-content: center;
+}
+
+.candado img {
+
+    max-width: 250px;
+    max-height: 250px;
+    position: absolute;
+    display: inline;
+    object-fit: cover;
+    overflow: visible;
+    align-self: center;
+    justify-self: center;
+    transform: scale(1.5);
+    filter: grayscale(0.5)
+}
+
+.candado:active {
+    animation: noBuyAnimation 0.15s;
+}
+
+/*opciones*/
+
+.panelOpciones {
+
+    position: fixed;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 11;
+    height: 38%;
+    width: 30%;
+    border: white solid 2px;
+    filter: drop-shadow(0px 6px 0px #21191e);
+    border-radius: 0.1vw;
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    color: white;
+    transition: all 0.2s;
+    background-image: url(img/sys/fondonegro.png);
+    animation: gelatine 0.3s;
+    overflow-y: scroll;
+
+
+
+}
+
+.panelOpciones h1 {
+    font-size: 1.5vw;
+    text-align: center;
+    background: transparent;
+    line-height: 40px;
+}
+
+.panelOpciones p {
+    background: transparent;
+    text-align: center;
+    color: gray;
+    overflow: visible;
+
+}
+
+.panelOpciones img {
+
+    height: 90px;
+    width: 90px;
+    align-self: center;
+    background: transparent;
+    margin-top: 2%;
+}
+
+.panelOpciones h2 {
+    background: transparent;
+    margin-left: 3%;
+    font-weight: 500;
+    margin-bottom: -3%;
+}
+
+.panelOpciones button {
+
+    height: 100%;
+    width: 15%;
+    color: white;
+    vertical-align: middle;
+    border: white solid 1px;
+    margin-left: 3%;
+    transition: all 0.1s;
+    box-shadow: 0px 10px 14px 0px rgba(0, 0, 0, 0.4) inset;
+
+}
+
+.panelOpciones button:hover {
+
+    transform: scale(1.1);
+    color: black !important;
+    background: white !important;
+    font-weight: bold !important;
+    box-shadow: 0px 0px 0 0px rgba(0, 0, 0, 0.4) inset;
+
+}
+
+.panelOpciones button:active {
+    transform: scale(1);
+
+}
+
+.panelOpciones span {
+    overflow: visible;
+    background: transparent;
+    margin-bottom: 2%;
+}
+
+.panelOpciones h1 img {
+
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    right: 2%;
+    top: -1%;
+    border-radius: 3px;
+    cursor: pointer;
+
+}
+
+#estadisticas {
+    height: 43%;
+
+}
+
+.panelOpciones h3 {
+    background: transparent;
+    color: gray;
+    margin-left: 4%;
+    margin-bottom: 1%;
+}
+
+.numeroEstadisticas {
+    color: white;
+    font-weight: 400;
+}
+
+#changelog {
+    height: 30%;
+
+}
+
+#changelog span {
+
+    margin-left: 3%;
+}
+
+#changelog h3 {
+
+    align-self: center;
+    margin-top: auto;
+    cursor: pointer;
+}
+
+#panelAutosave {
+    height: 4%;
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    color: gray;
+    justify-content: center;
+    align-items: center;
+    border: 0px white solid;
+    font-size: 0.3vw;
+    animation: gameSaved 2s;
+    opacity: 0;
+    top: 0%;
+    right: 0;
+    bottom: -95%;
+    left: 0;
+}
+
+#panelAutosave img {
+
+    height: 90%;
+    width: 11%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+}
+
+
+/*-----------------------contenido--------------------------*/
+
+/*-----------Barra Lateral-----------*/
+
+/*Header*/
+
+.bannerLateral {
+    height: 5%;
+    width: 100%;
+    background: #31313D;
+    background-image: url(img/sys/bTurtle.png);
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: -50% 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.bannerLateral h1 {
+    color: white;
+    background-color: transparent;
+    margin-left: 20%;
+    font-size: 1.2vw;
+    ;
+
+
+}
+
+.bLateral h2 {
+    text-align: center;
+    font-size: 1vw;
+    color: white;
+    margin-bottom: 5%;
+    margin-top: 2%;
+}
+
+.bLateral h2 strong {
+    text-align: center;
+    font-size: 1vw;
+    color: FFB92E;
+    cursor: pointer;
+
+
+}
+
+.blateral h2 strong:hover {
+
+    font-weight: 500;
+}
+
+/*Categorias*/
+
+.listaLateral {
+    height: 40%;
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    gap: 1%;
+
+
+}
+
+.sinBoton {
+
+    height: 11%;
+    width: 80%;
+
+    display: flex;
+    align-items: center;
+    transition: 0.15s;
+    justify-content: center;
+    margin: -2% 0;
+    background: transparent;
+    cursor: pointer;
+
+}
+
+.sinBoton:hover p {
+
+
+    font-size: 1.2vw;
+    transition: 0.15s;
+    font-weight: 600;
+    color: FFB92E;
+
+
+}
+
+.sinBoton p,
+.botonLateral p {
+
+    color: white;
+    background-color: transparent;
+
+    font-size: 1vw;
+    font-weight: 300;
+    transition: 0.15s;
+
+}
+
+
+.botonLateral img {
+    height: 80%;
+    width: 13%;
+    padding: 1.5%;
+    background-color: transparent;
+    margin-left: 5%;
+    margin-right: 1%;
+
+}
+
+.separador {
+    margin: 3% 0 4% 0;
+    width: 80%;
+    height: 0.4%;
+    background: linear-gradient(247deg, rgba(0, 0, 0, 0.00) 0%, rgba(255, 255, 255, 0.19) 24.59%, rgba(255, 255, 255, 0.18) 75.09%, rgba(0, 0, 0, 0.00) 100%);
+}
+
+.botonLateral {
+
+    height: 12%;
+    width: 90%;
+    border-radius: 8px;
+    background: #31313D;
+    display: flex;
+    align-items: center;
+    transition: 0.15s;
+}
+
+.botonLateral:hover {
+    background-color: #FFB92E;
+    transition: 0.3s;
+    height: 14%;
+    width: 95%;
+
+}
+
+.botonLateral:hover p {
+    color: #31313D;
+    transition: 0.15s;
+    font-weight: 600;
+
+}
+
+/*Inferior*/
+
+.panelRecursos {
+    height: 60%;
+    width: 100%;
+    background: transparent;
+    display: flex;
+    flex-direction: column
+}
+
+.recursosLateral {
+    height: 50%;
+    width: 100%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 3%;
+    padding-bottom: 4%;
+
+}
+
+.recursosLateral h1 {
+    color: white;
+    font-size: 1.1vw;
+    background: transparent;
+
+}
+
+.botonRecursos {
+
+    height: 14%;
+    width: 94%;
+    background-color: 31313D;
+    border-radius: 10vw;
+    display: flex;
+    align-items: center;
+
+}
+
+.botonRecursos p {
+
+    color: white;
+    background-color: transparent;
+    font-size: 0.9vw;
+    font-weight: 400;
+    margin-left: auto;
+    margin-right: 4%;
+
+
+}
+
+.botonRecursos strong {
+
+    color: white;
+    background-color: transparent;
+
+    font-size: 0.98vw;
+    font-weight: 600;
+    margin-left: 2%;
+
+
+}
+
+.redondaBlanca {
+    background: white;
+    height: 100%;
+    width: 12%;
+    border-radius: 3vw;
+    display: flex;
+    background-image: url(img/icon/gear.png);
+    background-size: 70%;
+    background-position: center;
+    background-repeat: no-repeat
+}
+
+.panelTortuga {
+    height: 60%;
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    background-image: url(img/sys/fondoTortuga.png);
+    background-position: center;
+    background-size: 120%;
+    border-radius: 10% 10% 0% 0%;
+    align-items: center;
+    background-size: cover
+}
+
+.nombreTortuga {
+
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 90%;
+    height: 13%;
+    border-radius: 23vw;
+    transform: translate(0, 40%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.nombreTortuga p {
+    color: white;
+    background-color: transparent;
+    font-size: 1.2vw;
+    font-weight: 600;
+
+
+}
+
+.nombreTortuga p:hover {
+    text-shadow: white 0 0 5px;
+    cursor: pointer;
+
+}
+
+.panelTortuga img {
+
+    background-color: transparent;
+
+
+    display: flex;
+
+    transition: 0.2s;
+    user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+
+
+}
+
+.panelTortuga img:hover {
+    padding: 5%;
+    animation: gelatine 0.3s;
+    cursor: grab;
+}
+
+@keyframes gelatine {
+
+    from,
+    to {
+        transform: scale(1, 1);
+    }
+
+    25% {
+        transform: scale(0.9, 1.1);
+    }
+
+    50% {
+        transform: scale(1.1, 0.9);
+    }
+
+    75% {
+        transform: scale(0.95, 1.05);
+    }
+}
+
+
+
+/*------------Barra Superior------------*/
+
+.categoria {
+
+    display: flex;
+    background-color: transparent;
+    height: 100%;
+    width: 30%;
+    align-items: center;
+
+}
+
+.tCategoria {
+
+    height: 60%;
+    width: 80%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.tCategoria img {
+
+    height: 100%;
+    width: 19%;
+    background-color: transparent;
+    display: flex;
+    padding: 1% 3%;
+    margin-left: 10%;
+
+
+
+}
+
+.tCategoria h1 {
+    color: white;
+    font-size: 2vw;
+    background-color: transparent;
+    position: relative;
+    margin-right: auto;
+
+}
+
+.recursosSuperior {
+    background: transparent;
+    height: 100%;
+    width: 80%;
+    display: flex;
+    margin-left: auto;
+    margin-right: 3%;
+    justify-content: flex-end;
+    padding-right: 1%;
+    align-items: center;
+    gap: 1.1%;
+}
+
+.recursoDiv {
+    background: #23232D;
+    height: 50%;
+    width: 18%;
+    display: flex;
+    align-items: center;
+    border-radius: 0.2vw;
+    ;
+    outline: 1px white solid;
+}
+
+.recursosSuperior span {
+    background: transparent;
+    color: white;
+    font-size: 1.05vw;
+    margin-left: 4%;
+
+
+}
+
+.recursosSuperior img {
+    background: transparent;
+    height: 80%;
+    width: 19%;
+    margin-left: auto;
+    margin-right: %;
+    padding: 2%;
+}
+
+
+/*------------Barra Inferior------------*/
+
+
+.aldeaTortugaContenido {
+    background: transparent;
+    height: 93%;
+    width: 96%;
+    display: flex;
+    margin-top: 2%;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.panelInferiorAldea {
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    gap: 0.3%;
+    justify-content: center;
+}
+
+.panelConstruccion {
+
+    background: linear-gradient(205deg, rgba(55, 34, 47, 1) 0%, rgba(35, 35, 45, 0.7) 41%, rgba(39, 54, 75, 0.6) 100%);
+    height: 100%;
+    width: 73%;
+    display: flex;
+
+    border-radius: 5px;
+    flex-direction: column;
+
+}
+
+.panelConstruccionTitulo {
+
+    border-bottom: #3EE1FD solid 2px;
+    height: 6%;
+    width: 110%;
+    display: flex;
+    align-items: center;
+
+
+
+}
+
+.panelConstruccionTitulo span {
+
+    color: white;
+    font-size: 1.5vw;
+    background: transparent;
+    margin-left: 1%;
+
+}
+
+
+.bannerAldeaRecursos {
+
+    background: #23232D;
+    height: 5%;
+    width: 96.5%;
+    margin-top: 0.7%;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.bannerAldeaRecursosBoton {
+    height: 80%;
+    width: 30%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.9vw;
+
+
+
+
+}
+
+.bannerAldeaRecursosBoton img {
+    height: 80%;
+    width: 8.5%;
+    background: transparent;
+
+}
+
+.bannerAldeaRecursosBoton span {
+    background: transparent;
+    font-weight: 400;
+
+
+
+}
+
+.bannerAldeaRecursosBoton strong {
+    background: transparent;
+    font-weight: 400;
+    color: gray;
+
+
+}
+
+
+
+
+
+.selectorAldeaEdificio {
+    background: #31313D;
+    height: 5%;
+    margin: 0.8% 0%;
+    width: 96.5%;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+    gap: 0.4%;
+}
+
+.selectorAldeaEdificioBoton {
+    height: 80%;
+    width: 15%;
+    background: #31313D;
+    border: 1px #4f4054 solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8vw;
+    font-weight: 600;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.selectorAldeaEdificioBoton img {
+    height: 30px;
+    width: 30px;
+
+    background: transparent;
+}
+
+
+.selectorAldeaCantidad {
+    background: #31313D;
+    height: 4%;
+    margin: 0% 1.8%;
+    width: 96.5%;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 1vw;
+    font-weight: 400;
+    justify-content: center;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.selectorAldeaCantidad button {
+    width: 15%;
+    height: 80%;
+    border: 1px #FD5151 solid;
+
+    transition: all 0.2s;
+    cursor: pointer;
+    background: #23232D;
+    font-size: 1vw;
+    font-weight: 550;
+    line-height: 0;
+    color: white;
+}
+
+.selectorAldeaCantidad button:hover {
+    background: #FD5151 !important;
+
+}
+
+
+.listaEdificios {
+    background: transparent;
+    height: 69%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    padding-top: 1%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    gap: 0.2%;
+    row-gap: 0.5%;
+
+}
+
+.edificio {
+
+    background: #31313D;
+    height: 27%;
+    width: 24%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 3px;
+    transition: 0.2s;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+
+}
+
+.edificio:hover {
+
+
+
+    transform: scale(1.1);
+    transition: 0.2s ease-out;
+    outline: white solid 1px;
+    background: #3E3E4B;
+    cursor: pointer;
+    z-index: 2;
+
+}
+
+.edificioS1 {
+    background: red;
+    height: 80%;
+    width: 100%;
+    display: flex;
+    background: transparent;
+
+}
+
+.edificioS2 {
+    outline: white solid 2px;
+    background: transparent;
+    height: 20%;
+    width: 100%;
+    display: flex;
+    color: gray;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9vw;
+
+}
+
+.edificioS2 span {
+
+    color: #7EFF69;
+    font-weight: 500;
+    background: transparent;
+}
+
+.edificioS2 strong {
+
+    color: coral;
+    background: transparent;
+    font-weight: 500;
+}
+
+
+#contadorRecursosSegundo,
+#contadorAlimentoSegundo,
+#contadorEnergiaSegundo {
+    transition: 0.05s ease;
+    color: #7EFF69;
+}
+
+#contadorAlmacenamiento,
+#contadorAlmacenamiento2,
+#contadorAlmacenamiento3 {
+    transition: 0.05s ease;
+}
+
+.edificioS3 {
+
+    background: blue;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    background: transparent;
+
+
+
+
+}
+
+.edificioS3 span {
+
+    color: darkgray;
+    position: absolute;
+    margin: 4px 6px;
+    background: transparent;
+    transition: 0.5s;
+    font-size: 0.7vw;
+    z-index: 1;
+
+}
+
+.edificioS3 img {
+
+    padding: 38% 10%;
+    background: transparent;
+}
+
+.edificioS4 {
+
+    background: magenta;
+    height: 100%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+
+    padding: 2% 2% 2% 0%;
+    background: transparent;
+
+}
+
+.edificioS4 img {
+    height: 16%;
+    width: 9%;
+    transform: translateY(2px);
+    background: transparent;
+
+}
+
+.edificioS4 p {
+
+    color: white;
+    font-size: 0.7vw;
+    line-height: 0.8vw;
+    background: transparent;
+    overflow: visible;
+}
+
+
+
+.edificioS4 span {
+
+    color: orange;
+    font-size: 1vw;
+    line-height: 0.8vw;
+    font-weight: 500;
+    background: transparent;
+}
+
+.edificioS4 strong {
+
+    background: 26262F;
+
+    padding: 1% 2%;
+    font-size: 0.9vw;
+    font-weight: 800;
+    color: white;
+    border-radius: 2px;
+    transition: 0.2s;
+
+}
+
+
+
+.panelMejoras {
+
+    background: linear-gradient(205deg, rgba(55, 34, 47, 1) 0%, rgba(35, 35, 45, 0.7) 41%, rgba(39, 54, 75, 0.6) 100%);
+    height: 100%;
+    width: 26%;
+    display: flex;
+    border-radius: 4px;
+    flex-direction: column;
+    overflow-y: scroll;
+
+}
+
+.panelMejorasTitulo {
+
+    border-bottom: #ff9ed3 solid 2px;
+    height: 6%;
+    width: 110%;
+    display: flex;
+    align-items: center;
+
+
+
+}
+
+.panelMejorasTitulo span {
+
+    color: white;
+    font-size: 1.5vw;
+    background: transparent;
+    margin-left: 3%;
+
+}
+
+
+.panelMejoras button {
+    --bg: #e74c3c;
+    --text-color: #fff;
+    position: relative;
+    width: 30%;
+    height: 4%;
+    border: none;
+    background: var(--bg);
+    color: var(--text-color);
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    opacity: 0.8;
+    letter-spacing: 1px;
+    box-shadow: #c0392b 0px 7px 2px, #000 0px 8px 5px;
+    align-self: center;
+    margin: 4% 0;
+    cursor: pointer;
+
+}
+
+.panelMejoras button:hover {
+    opacity: 1;
+}
+
+.panelMejoras button:active {
+    top: 0.95%;
+    box-shadow: #000 inset 1px 1px 6px;
+
+
+
+}
+
+
+
+
+.tituloMejorasComunes {
+
+
+    background: #4E626C;
+    height: 3.5%;
+    width: 94%;
+    margin-top: 3%;
+    display: flex;
+    border-radius: 2px 2px 0 0;
+    align-self: center;
+    color: white;
+    align-items: center;
+    padding-left: 3%;
+    font-size: 1vw;
+    outline: white solid 1px;
+
+}
+
+.tituloMejorasUnicas {
+
+
+    background: linear-gradient(274deg, rgba(255, 155, 40, 1) 0%, rgba(53, 57, 80, 1) 65%);
+
+
+
+
+
+    height: 3.5%;
+    width: 94%;
+    margin-top: 3%;
+    display: flex;
+    border-radius: 2px 2px 0 0;
+    align-self: center;
+    color: white;
+    align-items: center;
+    padding-left: 3%;
+    font-size: 1vw;
+    outline: white solid 1px;
+
+}
+
+.tituloMejorasComunes img,
+.tituloMejorasUnicas img {
+    height: 50%;
+    margin-left: auto;
+    margin-right: 3%;
+    transition: 0.2s ease-out;
+    background: transparent;
+    cursor: pointer;
+
+}
+
+.tituloMejorasComunes:hover img,
+.tituloMejorasUnicas:hover img {
+    transform: rotate(180deg) scale(0.8);
+    transition: transform 0.2s cubic-bezier(0.1, 0.7, 0.1, 1);
+
+
+}
+
+.panelMejorasComunes {
+    outline: white solid 1px;
+    max-height: 1000px;
+    width: 94%;
+    display: flex;
+    align-self: center;
+    padding: 2%;
+    border-radius: 00px 00px 2px 2px;
+    background: #31313D;
+    box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.3);
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    transition: 0.1s;
+
+
+
+}
+
+.mejoraComunSlot {
+    border-radius: 2px;
+    background: #31313D);
+    box-shadow: 0px 11px 11px 1px rgba(0, 0, 0, 0.24) inset, 0px 4px 4px 0px rgba(0, 0, 0, 0.33);
+    border: white solid 1px;
+    margin: 0.46%;
+    height: 3vw;
+    width: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+
+}
+
+.mejoraComunSlot img {
+    height: 80%;
+    width: 80%;
+    background: transparent;
+}
+
+.mejoraComunSlot:hover {
+    transform: scale(1.2);
+    transition: 0.1s;
+    cursor: help;
+    z-index: 2;
+}
+
+/*------------------ANIMACIONES--------------------*/
+
+@keyframes desvanecerPanel {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+@keyframes aparecerPanel {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+
+@keyframes buyAnimation {
+
+    0% {
+        transform: scale(1);
+        transform: rotate(2deg);
+    }
+
+    20% {}
+
+    25% {
+
+        filter: brightness(1.2);
+        transform: rotate(-2deg);
+    }
+
+    100% {
+        transform: scale(1.1) rotate(0deg);
+        filter: brightness(1);
+    }
+}
+
+@keyframes noBuyAnimation {
+
+    0% {
+        transform: scale(1.1);
+
+    }
+
+    25% {
+        transform: translateX(-10px) scale(1.1);
+
+    }
+
+    45% {
+        transform: translateX(5px) scale(1.1);
+
+
+    }
+
+    100% {
+        transform: scale(1.1);
+
+    }
+}
+
+@keyframes buyUpgradeAnimation {
+
+
+    0% {
+        transform: scale(1) rotate(0deg)
+    }
+
+    100% {
+        transform: scale(0) rotate(20deg);
+    }
+}
+
+
+@keyframes gameSaved {
+    0% {
+        opacity: 0;
+        /* Inicio: invisible */
+        top: 0;
+        /* Posición inicial */
+    }
+
+    50% {
+        opacity: 0.5;
+        /* Mitad de la animación: visible */
+        top: -50px;
+        /* Desplazamiento hacia arriba */
+    }
+
+    60% {
+        opacity: 0.5;
+        /* Mantener visible por 1 segundo */
+        top: -50px;
+        /* Mantener posición */
+    }
+
+    100% {
+        opacity: 0;
+        /* Fin: invisible */
+        top: 10px;
+        /* Desplazamiento hacia abajo */
+    }
+}

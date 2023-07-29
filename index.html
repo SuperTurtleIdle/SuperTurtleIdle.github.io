@@ -1,0 +1,1088 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="/style.css">
+
+
+
+
+    <div class="limbo">
+
+        <div id="tooltipMejora" class="tooltip mejora" style="display: none">
+            <div class="tooltipMejoraSuperior">
+                <span id="mejoraNombre">Nombre Muy Largo que largo es ay may que largo aaaa</span>
+                <span id="mejoraPrecio">9.999e+99 <img src="img/icon/tCoin.png" /> </span>
+                <span id="mejoraTag">Common Upgrade</span>
+            </div>
+            <div class="separadorMejora"></div>
+            <div class="tooltipMejoraInferior">
+                <span id="mejoraDescripcion">Esta mejora acer que bla bla acer que bla bla bla un 10% de 100% eque de. </span>
+            </div>
+            <img id="tooltipArrow" src="img/sys/triangulo.png" />
+        </div>
+
+
+        <div id="opciones" class="panelOpciones" style="display:none">
+            <h1>GAME OPTIONS <a href="https://discord.gg/VnukKfSs3S" target="_blank" title="Join the Discord"><img src="img/sys/discord.png"></a> </h1>
+            <p>(click outside this window to close)</p>
+            <img src="img/sys/opciones.png">
+            <h2>General</h2>
+            <div class="separador"></div>
+            <span><button>Save</button> &nbsp; Save manually (autosaves every minute) <span style="color: orange; font-weight: 500;">[Shorcut: S]</span></span>
+            <span><button style="border: white solid 2px; color:white; background: red; font-weight: 400;">DELETE</button> &nbsp; Wipes all progress <span style="color: red; font-weight: 500;">permanently</span></span>
+            <h2>Settings</h2>
+            <div class="separador"></div>
+            <span><button id="opcionClickB" onclick="opcionClick()">ON</button> &nbsp; Disable numbers on click</span>
+        </div>
+
+        <div id="estadisticas" class="panelOpciones estadisticas" style="display:none">
+            <h1>Statistics</h1>
+            <p>(click outside this window to close)</p>
+            <img src="img/sys/estadisticas.png">
+            <h2>General</h2>
+            <div class="separador"></div>
+            <h3> Playtime: <span class="numeroEstadisticas" id="estadisticaPlaytime">2</span></h3>
+            <h3> Started on: <span class="numeroEstadisticas" id="estadisticaStartDate">2</span></h3>
+            <h3> Turtle clicks made: <span class="numeroEstadisticas" id="estadisticaClicks">2</span></h3>
+            <h2>Purchaseables</h2>
+            <div class="separador"></div>
+            <h3> Nº of buildings bought: <span class="numeroEstadisticas" id="estadisticaEdificiosTotal">2</span></h3>
+            <h3> Nº of upgrades bought: <span class="numeroEstadisticas" id="estadisticaMejorasTotal">2</span></h3>
+        </div>
+
+        <div id="changelog" class="panelOpciones" style="display:none">
+            <h1>VERSION HISTORY</h1>
+            <p>(click outside this window to close)</p>
+            <img src="img/sys/changelog.png">
+            <h2>v 0.1</h2>
+            <div class="separador"></div>
+            <span>I did something<br></span>
+            <h3>Made by "duck" [drvcx]<br></h3>
+
+        </div>
+
+
+        <div id="panelAutosave" class="panelOpciones" style="display:flex">
+            <img src="img/sys/saved.png">
+            <h1>Game Saved</h1>
+
+
+
+        </div>
+
+
+
+    </div>
+
+</head>
+
+
+<body>
+    <span id="body">
+
+        <!-- ------------------Barra lateral--------- -->
+
+        <div class=bLateral>
+            <div class=bannerLateral>
+                <h1 translate="no">Super Turtle Idle *</h1>
+            </div>
+            <h2>v 0.1 <strong id="botonChangelog">(Version History)</strong></h2>
+            <div class=listaLateral>
+
+                <div>
+
+                </div>
+                <div class=sinBoton id="botonOpciones">
+
+
+                    <p>Options</p>
+                </div>
+
+                <div class=sinBoton id="botonEstadisticas">
+
+                    <p>Statistics</p>
+                </div>
+
+                <div class=separador></div>
+
+                <div class=botonLateral>
+                    <img src="img/icon/aldea.png">
+                    <p>Turtle Town</p>
+                </div>
+
+                <div class=botonLateral>
+                    <button class=candado><img src="img/sys/candado.png"> </button>
+
+                </div>
+
+                <div class=botonLateral>
+                    <button class=candado><img src="img/sys/candado.png"> </button>
+                </div>
+
+                <div class=botonLateral>
+                    <button class=candado><img src="img/sys/candado.png"> </button>
+                </div>
+
+            </div>
+            <div class=panelRecursos>
+
+
+                <div class=recursosLateral>
+
+                    <div class=botonRecursos>
+                        <div id="iconoMoneda" class=redondaBlanca style="background-image: url(img/icon/tCoin.png); background-size: 80%;"></div>
+                        <strong id="contadorMonedas">0</strong>
+                        <p translate="no">Turtle Coins</p>
+                    </div>
+                    <h1 id="contadorMonedasSegundo">0 /s</h1>
+
+                    <div class=separador style="display: none"></div>
+                    <div class=botonRecursos style="display: none">
+                        <div class=redondaBlanca></div>
+                        <strong>0</strong>
+                        <p>Mystery Tickets</p>
+                    </div>
+                    <div class=botonRecursos style="display: none">
+                        <div class=redondaBlanca></div>
+                        <strong>0</strong>
+                        <p>Wishing Stars</p>
+                    </div>
+                    <div class=botonRecursos style="display: none">
+                        <div class=redondaBlanca></div>
+                        <strong>0</strong>
+                        <p>Penguin Assistants</p>
+                    </div>
+
+                </div>
+                <div class=panelTortuga>
+                    <div class=nombreTortuga>
+                        <p>Jeffrey</p>
+                    </div>
+                    <img id="tortugaClick" src="img/src/tortugasdefault/img1.png" />
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <!-- --------------Barra Superior ------------>
+
+        <div class=bSuperior>
+            <div class=categoria>
+                <div class=tCategoria>
+                    <img src="img/icon/aldea.png" />
+                    <h1 translate="no">Turtle Town
+                    </h1>
+                </div>
+            </div>
+            <div class="recursosSuperior" style="visibility: hidden;">
+                <div class="recursoDiv"><span>8.889E99/8.8E99</span><img src="img/sys/resources.png" /></div>
+                <div class="recursoDiv"><span>8.889E99/8.8E99</span><img src="img/sys/food.png" /></div>
+                <div class="recursoDiv"><span>8.889E99/8.8E99</span><img src="img/sys/energy.png" /></div>
+
+
+
+
+            </div>
+        </div>
+        <!-- ---------------Barra Inferior------------ -->
+
+        <div class=bInferior>
+            <div class="aldeaTortugaContenido">
+
+                <!-- ---------------ALDEA TORTUGA------------ -->
+
+                <div class="panelInferiorAldea">
+                    <div class="panelConstruccion">
+                        <div class="panelConstruccionTitulo">
+                            <span>Construction & Management</span>
+                        </div>
+
+
+                        <div class="bannerAldeaRecursos">
+                            <div class="bannerAldeaRecursosBoton"><img src="img/sys/resources.png" />&nbsp;<span id="contadorRecursos">0</span>
+                                <span id="contadorRecursosSegundo"></span>/<strong id="contadorAlmacenamiento">0</strong>
+                            </div>
+                            <div class="bannerAldeaRecursosBoton"><img src="img/sys/food.png" />&nbsp;<span id="contadorAlimento">0</span><span id="contadorAlimentoSegundo"></span>/<strong id="contadorAlmacenamiento2">0</strong></div>
+                            <div class="bannerAldeaRecursosBoton"><img src="img/sys/energy.png" />&nbsp;<span id="contadorEnergia">0</span><span id="contadorEnergiaSegundo"></span>/<strong id="contadorAlmacenamiento3">0</strong></div>
+
+                        </div>
+
+                        <!-- ---------------SELECTOR EDIFICIO------------ -->
+
+                        <div class="selectorAldeaEdificio">
+
+                            <div class="selectorAldeaEdificioBoton" style="background: #4f4054;" id="botonCategoriaBanco" translate="no">
+                                <img src="img/icon/banco.png" />
+                                &nbsp;&nbsp;Turtle Coins
+                            </div>
+                            <div class="selectorAldeaEdificioBoton" id="botonCategoriaRecursos">
+                                <img src="img/icon/fabrica.png" />
+                                &nbsp;&nbsp;Resources
+                            </div>
+                            <div class="selectorAldeaEdificioBoton" id="botonCategoriaAlimento">
+                                <img src="img/icon/alimento.png" />
+                                &nbsp;&nbsp;Supplies
+                            </div>
+                            <div class="selectorAldeaEdificioBoton" id="botonCategoriaEnergia">
+                                <img src="img/icon/plug.png" />
+                                &nbsp;&nbsp;Energy
+                            </div>
+                            <div class="selectorAldeaEdificioBoton" id="botonCategoriaAlmacenamiento">
+                                <img src="img/icon/paquete.png" />
+                                &nbsp;&nbsp;Storage
+                            </div>
+
+
+
+                        </div>
+                        <div class="selectorAldeaCantidad">
+
+                            BUY &nbsp;<button id="cantidadComprador1B" style="background: #FD5151;"> 1</button><button id="cantidadComprador10B"> 10</button><button id="cantidadComprador100B"> 100</button><button id="cantidadComprador1000B"> 1000</button> &nbsp;&#129414;
+
+
+
+
+                        </div>
+                        <!-- ---------------RECURSOS------------ -->
+                        <div class="listaEdificios" id="panelRecursos" style="display:none">
+                            <div class="edificio" id="rEdificio1B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="rEdificio1TP">00.00 %</span><img src="img/src/edificios/recursos/talar.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Wood Chopping <strong id="rEdificio1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio1PT">200</span><img src="img/icon/tCoin.png" /> <br> Sends your turtles to gather wood from trees.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio1P">1</span><img src="img/sys/resources.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="rEdificio2B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="rEdificio2TP">00.00 %</span><img src="img/src/edificios/recursos/mining.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Stone Mining <strong id="rEdificio2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio2PT">225700</span> <img src="img/icon/tCoin.png" /> <br>They are going to need extra cheering to carry that thing with their litte turtle arms.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio2P">50</span><img src="img/sys/resources.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="rEdificio3B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="rEdificio3TP">00.00 %</span><img src="img/src/edificios/recursos/deforestacion.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Tree Harvest <strong id="rEdificio3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio3PT">225700</span> <img src="img/icon/tCoin.png" /> <br>Don't worry, it's an entirely sustainable practice as long as they have bone meal.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio3P">50</span><img src="img/sys/resources.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+                            <div class="edificio" id="rEdificio4B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="rEdificio4TP">00.00 %</span><img src="img/src/edificios/recursos/automatizacion.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Automatisation <strong id="rEdificio4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio4PT">225700</span> <img src="img/icon/tCoin.png" /> <br>They obey the turtles not because of Asimov, but out of fear.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio4P">50</span><img src="img/sys/resources.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="rEdificio5B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="rEdificio5TP">00.00 %</span><img src="img/src/edificios/recursos/asteroide.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Asteroid Crusher <strong id="rEdificio5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio5PT">225700</span> <img src="img/icon/tCoin.png" /> <br>Space is known to be the only place yet not conquered by turtles. Yet.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio5P">50</span><img src="img/sys/resources.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="rEdificio6B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="rEdificio6TP">00.00 %</span><img src="img/src/edificios/recursos/worldpartition.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>World Partition <strong id="rEdificio6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio6PT">225700</span> <img src="img/icon/tCoin.png" /> <br>See? Its easier to gather materials if you split it open<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="rEdificio6P">50</span><img src="img/sys/resources.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+                        </div>
+                        <!-- ---------------BANCO------------ -->
+                        <div class="listaEdificios" id="panelBanco">
+                            <div class="edificio" id="mEdificio1B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="mEdificio1TP">00.00 %</span><img src="img/src/edificios/monedas/caramelo.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Hard Currency <strong id="mEdificio1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio1PT">10</span> <img src="img/sys/food.png" /> <br> A sweet choice for an economy, but the turtles are fond of it.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio1P">10</span><img src="img/icon/tCoin.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="edificio" id="mEdificio2B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="mEdificio2TP">00.00 %</span><img src="img/src/edificios/monedas/hut.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Communal Life <strong id="mEdificio2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio2PT">25</span> <img src="img/sys/resources.png" /> <br> Bringing together all the turtles, and their money. <br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio2P">2500</span><img src="img/icon/tCoin.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="edificio" id="mEdificio3B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="mEdificio3TP">00.00 %</span><img src="img/src/edificios/monedas/artesania.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Handicraft <strong id="mEdificio3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio3PT">50</span> <img src="img/sys/energy.png" /> <br> Everyone does a little piece of their best. <br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio3P">15600</span><img src="img/icon/tCoin.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="mEdificio4B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="mEdificio4TP">00.00 %</span><img src="img/src/edificios/monedas/religion.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Turtle Beliefs <strong id="mEdificio4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio4PT">50</span> <img src="img/sys/food.png" /> <br> Many good things are waiting for you. Only if you pay, though. <br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio4P">15600</span><img src="img/icon/tCoin.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="mEdificio5B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="mEdificio5TP">00.00 %</span><img src="img/src/edificios/monedas/statue.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Empire Zealotry <strong id="mEdificio5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio5PT">50</span> <img src="img/sys/resources.png" /> <br>Be ready to worship taxes, work and air conditioner. <br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio5P">15600</span><img src="img/icon/tCoin.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="mEdificio6B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="mEdificio6TP">00.00 %</span><img src="img/src/edificios/monedas/print.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Money Printer <strong id="mEdificio6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio6PT">50</span> <img src="img/sys/energy.png" /> <br>Why we didn't thought about this sooner? <br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio6P">15600</span><img src="img/icon/tCoin.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="mEdificio7B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="mEdificio7TP">00.00 %</span><img src="img/src/edificios/monedas/turtleworld.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>TurtleLand <strong id="mEdificio7T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio7PT">50</span> <img src="img/sys/food.png" /> <br>Who is ready to pay for overpriced food? I know you are! <br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mEdificio7P">15600</span><img src="img/icon/tCoin.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+                        <!-- ---------------ALIMENTO------------ -->
+                        <div class="listaEdificios" id="panelComida" style="display:none">
+                            <div class="edificio" id="cEdificio1B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="cEdificio1TP">00.00 %</span><img src="img/src/edificios/alimento/caza.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Bow Hunting <strong id="cEdificio1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio1PT">10</span> <img src="img/icon/tCoin.png" /> <br>Turtle never fight turtle, but they never said anything about other animals.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio1P">1</span><img src="img/sys/food.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="edificio" id="cEdificio2B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="cEdificio2TP">00.00 %</span><img src="img/src/edificios/alimento/trampa.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Croissant Trap<strong id="cEdificio2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio2PT">55000</span> <img src="img/icon/tCoin.png" /> <br>If we are trapping something, it might as well be delicious.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio2P">50</span><img src="img/sys/food.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="cEdificio3B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="cEdificio3TP">00.00 %</span><img src="img/src/edificios/alimento/agricultura.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Agriculture<strong id="cEdificio3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio3PT">55000</span> <img src="img/icon/tCoin.png" /> <br>Did you know some turtles can grow long necks to reach tall fruit? They are also yellow.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio3P">50</span><img src="img/sys/food.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="cEdificio4B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="cEdificio4TP">00.00 %</span><img src="img/src/edificios/alimento/grandma.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Turtle Grandma<strong id="cEdificio4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio4PT">55000</span> <img src="img/icon/tCoin.png" /> <br>A nice grandma to bake you some cook- er, supplies.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio4P">50</span><img src="img/sys/food.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="cEdificio5B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="cEdificio5TP">00.00 %</span><img src="img/src/edificios/alimento/ganaderia.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Husbandry<strong id="cEdificio5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio5PT">55000</span> <img src="img/icon/tCoin.png" /> <br>I dont get it, who would marry a chicken when turtles are handsomer?<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio5P">50</span><img src="img/sys/food.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="cEdificio6B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="cEdificio6TP">00.00 %</span><img src="img/src/edificios/alimento/superfruta.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Avocadium<strong id="cEdificio6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio6PT">55000</span> <img src="img/icon/tCoin.png" /> <br>Limitless potential stored within this new-found fruit. Like the creation of Guacamolium.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="cEdificio6P">50</span><img src="img/sys/food.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+
+
+                        </div>
+                        <!-- ---------------ENERGIA------------ -->
+                        <div class="listaEdificios" id="panelEnergia" style="display:none">
+                            <div class="edificio" id="eEdificio1B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="eEdificio1TP">00.00 %</span><img src="img/src/edificios/energia/banquet.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Coffee <strong id="eEdificio1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio1PT">85900</span> <img src="img/icon/tCoin.png" /> <br>A good day to take over the world starts with a cup of these.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio1P">1</span><img src="img/sys/energy.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="edificio" id="eEdificio2B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="eEdificio2TP">00.00 %</span><img src="img/src/edificios/energia/cometa.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Kite Generator <strong id="eEdificio2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio2PT">770500</span> <img src="img/icon/tCoin.png" /> <br>Never question their methods if they work.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio2P">50</span><img src="img/sys/energy.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="eEdificio3B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="eEdificio3TP">00.00 %</span><img src="img/src/edificios/energia/patata.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Potato Battery <strong id="eEdificio3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio3PT">770500</span> <img src="img/icon/tCoin.png" /> <br>Now you're thinking with tubers!<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio3P">50</span><img src="img/sys/energy.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="eEdificio4B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="eEdificio4TP">00.00 %</span><img src="img/src/edificios/energia/cannedlighting.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Canned Lightning <strong id="eEdificio4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio4PT">770500</span> <img src="img/icon/tCoin.png" /> <br>They really thought we would not do this when we invented the can.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio4P">50</span><img src="img/sys/energy.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="eEdificio5B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="eEdificio5TP">00.00 %</span><img src="img/src/edificios/energia/carbonburning.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Carbon Burning <strong id="eEdificio5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio5PT">770500</span> <img src="img/icon/tCoin.png" /> <br>Diamond is made out of coal, right? So why was PR against this idea exactly?<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio5P">50</span><img src="img/sys/energy.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="eEdificio6B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="eEdificio6TP">00.00 %</span><img src="img/src/edificios/energia/wheel.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Turtle Generator <strong id="eEdificio6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio6PT">770500</span> <img src="img/icon/tCoin.png" /> <br>It's actually unpluged, i just wanted to see the fella running. Look at him go!<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="eEdificio6P">50</span><img src="img/sys/energy.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+
+                        </div>
+                        <!-- ---------------ALMACENAMIENTO------------ -->
+                        <div class="listaEdificios" id="panelAlmacenamiento" style="display:none">
+                            <div class="edificio" id="aEdificio1B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><img src="img/src/edificios/almacen/cueva.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Big Ol' Cave <strong id="aEdificio1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio1PT">12200</span> <img src="img/icon/tCoin.png" /> <br>Just shove everything down there, it'll work out.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio1P">+1000</span><img src="img/icon/paquete.png" />
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="aEdificio2B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><img src="img/src/edificios/almacen/jarra.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Clay Pottery <strong id="aEdificio2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio2PT">375900</span> <img src="img/icon/tCoin.png" /> <br>The cave worked out just fine, honestly.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio2P">+25000</span><img src="img/icon/paquete.png" />
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="aEdificio3B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><img src="img/src/edificios/almacen/basket.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Straw Basket <strong id="aEdificio3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio3PT">375900</span> <img src="img/icon/tCoin.png" /> <br>Not only serves as storage, but also as a fashionable turtle accessory.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio3P">+25000</span><img src="img/icon/paquete.png" />
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="aEdificio4B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><img src="img/src/edificios/almacen/almacen.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Warehouse <strong id="aEdificio4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio4PT">375900</span> <img src="img/icon/tCoin.png" /> <br>It's painted red so it stores even more stuff inside.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio4P">+25000</span><img src="img/icon/paquete.png" />
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="aEdificio5B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><img src="img/src/edificios/almacen/floppy.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Floppy Disk <strong id="aEdificio5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio5PT">375900</span> <img src="img/icon/tCoin.png" /> <br>I mean, it's the saving icon, if you need to save stuff, this is your guy.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio5P">+25000</span><img src="img/icon/paquete.png" />
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="aEdificio6B">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><img src="img/src/edificios/almacen/variable.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Variable <strong id="aEdificio6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio6PT">375900</span> <img src="img/icon/tCoin.png" /> <br>We are going meta, baby.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aEdificio6P">+25000</span><img src="img/icon/paquete.png" />
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <!-- ---------------MEJORAS------------ -->
+                    <div class="panelMejoras">
+
+
+                        <div class="panelMejorasTitulo"><span>Upgrades</span></div>
+
+                        <button style="display: none;">
+                            BUY ALL
+                        </button>
+
+                        <div class="tituloMejorasUnicas">
+                            Permanent Upgrades <img id="contrerUnicas" src="img/sys/contraer.png">
+                        </div>
+                        <div id="panelMUnicas" class="panelMejorasComunes">
+
+
+
+
+
+
+
+
+
+
+                        </div>
+
+                        <div class="tituloMejorasComunes">
+                            Common Upgrades <img id="contrerComunes" src="img/sys/contraer.png">
+                        </div>
+                        <div id="panelMComunes" class="panelMejorasComunes">
+
+
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </span>
+    <script src="principal.js"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+
+</html>
