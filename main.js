@@ -16,6 +16,10 @@ window.addEventListener('keydown', function (event) { //disables alt key
     if (event.keyCode === 18) { event.preventDefault(); return false; }
 });
 
+window.addEventListener("keydown", function(event) { //reload on r key
+    if (event.key === "r") { location.reload(); }
+});
+
 //-------------------------------
 
 var player = {
@@ -479,11 +483,11 @@ function tooltipDuckBuildings() {
     const movingDiv = did('tooltipMejora');
     const referenceDiv = did('helpMultipliers');
     const referenceRect = referenceDiv.getBoundingClientRect();
-    const referenceLeft = referenceRect.left + 160;
+    const referenceLeft = referenceRect.right;
     const referenceTop = referenceRect.top - 15;
     const newLeft = referenceLeft + referenceRect.width - movingDiv.offsetWidth;
     const newTop = referenceTop - movingDiv.offsetHeight;
-    movingDiv.style.left = newLeft + 'px';
+    movingDiv.style.left = '55.2%';
     movingDiv.style.top = newTop + 'px';
   });
     
