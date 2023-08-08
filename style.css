@@ -155,7 +155,7 @@
 
 }
 
-#mejoraTag {
+.mejoraTag {
 
     background: #617D8C;
     border-radius: 2px;
@@ -163,8 +163,16 @@
     padding: 1px 6px;
     font-weight: 500;
     margin-top: 5px;
+}
 
+.mejoraTagU {
 
+    background: #DFB474;
+    border-radius: 2px;
+    justify-self: center;
+    padding: 1px 6px;
+    font-weight: 500;
+    margin-top: 5px;
 }
 
 .tooltipMejoraInferior {
@@ -179,13 +187,17 @@
 }
 
 #mejoraDescripcion {
-
     text-align: center;
     background: transparent;
+}
 
-
-
-
+#mejoraFlavor {
+    text-align: right;
+    background: transparent;
+    color: darkgray;
+    margin-top: 1%;
+    margin-left: auto;
+    margin-right: 1%;
 }
 
 .separadorMejora {
@@ -435,6 +447,8 @@
     overflow: visible;
     background: transparent;
     margin-bottom: 2%;
+        overflow: visible;
+
 }
 
 .panelOpciones h1 img {
@@ -450,7 +464,7 @@
 }
 
 #estadisticas {
-    height: 43%;
+    height: 47%;
 
 }
 
@@ -459,6 +473,7 @@
     color: gray;
     margin-left: 4%;
     margin-bottom: 1%;
+    overflow: visible;
 }
 
 .numeroEstadisticas {
@@ -506,10 +521,46 @@
     height: 90%;
     width: 11%;
     margin-bottom: 2%;
-    margin-left: 2%;
+    margin-right: 2%;
 }
 
+#cheatPanel {
+    height: 10%;
+    width: 20%;
+    right: 55%;
+    top: 70%;
+    left:10%;
+    padding: 0.2%;
+    flex-wrap: wrap;
+    overflow: visible;
+    align-items: center;
+    justify-content: center;
+}
 
+#cheatpanel h3 {
+    bottom: 100%;
+    position: absolute;
+    background: black;
+    padding: 1%;
+    right: 50%;
+}
+
+#cheatPanel button {
+    height: 50%;
+    width: 15%;
+    margin: 0%;
+
+}
+
+#bodyCover { 
+z-index: 10;
+display: none;
+position: absolute;
+background: transparent;
+height:100%;
+width: 100%;
+cursor: pointer;
+}
 /*-----------------------contenido--------------------------*/
 
 /*-----------Barra Lateral-----------*/
@@ -1096,6 +1147,17 @@
 }
 
 
+.helpingDuck{
+background: transparent;
+}
+
+.helpingDuck:hover {
+    animation: gelatine 0.3s;
+    cursor: help;
+
+}
+
+
 .listaEdificios {
     background: transparent;
     height: 69%;
@@ -1285,6 +1347,8 @@
     flex-direction: column;
     overflow-y: scroll;
 
+
+
 }
 
 .panelMejorasTitulo {
@@ -1294,6 +1358,10 @@
     width: 110%;
     display: flex;
     align-items: center;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0%;
+    z-index: 4;
 
 
 
@@ -1305,6 +1373,7 @@
     font-size: 1.5vw;
     background: transparent;
     margin-left: 3%;
+
 
 }
 
@@ -1360,6 +1429,10 @@
     padding-left: 3%;
     font-size: 1vw;
     outline: white solid 1px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 9.7%;
+    z-index: 4;
 
 }
 
@@ -1367,9 +1440,11 @@
 
 
     background: linear-gradient(274deg, rgba(255, 155, 40, 1) 0%, rgba(53, 57, 80, 1) 65%);
+    flex-shrink: 0;
 
-
-
+    position: sticky;
+    top: 6%;
+    z-index: 4;
 
 
     height: 3.5%;
@@ -1395,6 +1470,7 @@
     background: transparent;
     cursor: pointer;
 
+
 }
 
 .tituloMejorasComunes:hover img,
@@ -1418,6 +1494,8 @@
     flex-wrap: wrap;
     overflow-y: scroll;
     transition: 0.1s;
+    flex-shrink: 0;
+
 
 
 
@@ -1438,7 +1516,8 @@
 
 }
 
-.mejoraComunSlot img {
+.mejoraComunSlot img,
+.mejoraUnicaSlot img {
     height: 80%;
     width: 80%;
     background: transparent;
@@ -1450,6 +1529,56 @@
     cursor: help;
     z-index: 2;
 }
+
+.mejoraUnicaSlot {
+    border-radius: 2px;
+    background: linear-gradient(347deg, rgba(36, 95, 110, 1) 0%, rgba(49, 49, 61, 1) 45%);
+    box-shadow: 0px 11px 11px 1px rgba(0, 0, 0, 0.24) inset, 0px 4px 4px 0px rgba(0, 0, 0, 0.33);
+    border: #DFB474 solid 1px;
+    margin: 0.46%;
+    height: 3vw;
+    width: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+
+}
+
+.mejoraUnicaSlot:hover:after {
+
+    animation: shine 2s ease-in-out;
+    animation-fill-mode: forwards;
+    content: "";
+    position: absolute;
+    top: -110%;
+    left: -210%;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transform: rotate(30deg);
+
+    background: rgba(255, 255, 255, 0.13);
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0.13) 0%,
+            rgba(255, 255, 255, 0.13) 77%,
+            rgba(255, 255, 255, 0.5) 92%,
+            rgba(255, 255, 255, 0.0) 100%);
+}
+
+.mejoraUnicaSlot:hover {
+
+    transform: scale(1.2);
+    transition: 0.1s;
+    cursor: help;
+    z-index: 2;
+
+
+
+
+}
+
+#panelMComunes {}
 
 /*------------------ANIMACIONES--------------------*/
 
@@ -1563,5 +1692,23 @@
         /* Fin: invisible */
         top: 10px;
         /* Desplazamiento hacia abajo */
+    }
+}
+
+@keyframes shine {
+    20% {
+        opacity: 1;
+        top: -30%;
+        left: -30%;
+        transition-property: left, top, opacity;
+        transition-duration: 0.3s, 0.3s, 0.1s;
+        transition-timing-function: ease;
+    }
+
+    50% {
+        opacity: 0;
+        top: -30%;
+        left: -30%;
+        transition-property: left, top, opacity;
     }
 }
