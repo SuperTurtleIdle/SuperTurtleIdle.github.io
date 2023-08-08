@@ -1,4 +1,9 @@
 <html>
+    
+<meta http-equiv='cache-control' content='no-cache'> 
+<meta http-equiv='expires' content='0'> 
+<meta http-equiv='pragma' content='no-cache'>
+    
 
 <head>
     <link rel="stylesheet" href="/style.css">
@@ -24,6 +29,7 @@
 
 
         <div id="opciones" class="panelOpciones" style="display:none">
+            <div class="optionsWrapper">
             <h1>GAME OPTIONS <a href="https://discord.gg/VnukKfSs3S" target="_blank" title="Join the Discord"><img src="img/sys/discord.png"></a> </h1>
             <p>(click outside this window to close)</p>
             <img src="img/sys/opciones.png">
@@ -34,9 +40,11 @@
             <h2>Settings</h2>
             <div class="separador"></div>
             <span><button id="opcionClickB" onclick="opcionClick()">OFF</button> &nbsp; Disable numbers on click</span>
+            </div>    
         </div>
 
         <div id="estadisticas" class="panelOpciones estadisticas" style="display:none">
+            <div class="optionsWrapper">
             <h1>Statistics</h1>
             <p>(click outside this window to close)</p>
             <img src="img/sys/estadisticas.png">
@@ -49,9 +57,11 @@
             <div class="separador"></div>
             <h3> Nº of buildings bought: <span class="numeroEstadisticas" id="estadisticaEdificiosTotal">2</span></h3>
             <h3> Nº of upgrades bought: <span class="numeroEstadisticas" id="estadisticaMejorasTotal">2</span></h3>
+            </div>
         </div>
 
         <div id="changelog" class="panelOpciones" style="display:none">
+            <div class="optionsWrapper">
             <h1>VERSION HISTORY</h1>
             <p>(click outside this window to close)</p>
             <img src="img/sys/changelog.png">
@@ -59,7 +69,7 @@
             <div class="separador"></div>
             <span>I did something<br></span>
             <h3>Made by "duck" [drvcx]<br></h3>
-
+            </div>    
         </div>
 
 
@@ -74,7 +84,7 @@
             time skipped: <span id="timeskip">0</span>horas
             </div>
 
-        <div id="bodyCover"></div>
+        
 
     </div>
 
@@ -82,6 +92,7 @@
 
 
 <body>
+    <div id="bodyCover"></div>
     <span id="body">
 
         <!-- ------------------Barra lateral--------- -->
