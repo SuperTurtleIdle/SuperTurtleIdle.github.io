@@ -6,17 +6,15 @@
 
 const did = (id) => document.getElementById(id);
 
-//------------Overrides---------- //disabled for testing purposes
- 
-//disables web right click
-window.addEventListener("contextmenu", function (e) {
+//------------Overrides----------
+
+window.addEventListener("contextmenu", function (e) { //disables web right click
     e.preventDefault();
 });
 
-//disables keyboard shortcuts
- window.addEventListener("keydown", function (e) {
-    e.preventDefault();
-}); 
+window.addEventListener('keydown', function (event) { //disables alt key
+    if (event.keyCode === 18) { event.preventDefault(); return false; }
+});
 
 //-------------------------------
 
