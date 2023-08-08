@@ -304,8 +304,6 @@ function updateBuildingUI(b){ //updates various UI, such as %, production and pr
     if ('ape' in buildings[b]) did(buildings[b].id+"PT").textContent = beautify(buildings[b].ape)
       
     did(buildings[b].id+"T").textContent = buildings[b].a; // updates amount counter
-      
-      
     } 
 }
 
