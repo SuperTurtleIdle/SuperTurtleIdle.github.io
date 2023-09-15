@@ -1,0 +1,125 @@
+
+
+        <div id="tooltipMejora" class="tooltip mejora" style="display: flex">
+        <img id="tooltipArrowUp" src="img/sys/triangulo.png" />  
+            <div id="tooltipImage"><img src="img/src/upgrades/C60.png"></div>
+            <div class="tooltipMejoraSuperior">
+                
+                <span id="mejoraNombre">Turtle Granny</span>
+                <span id="mejoraPrecio">9.999e+99 <img src="img/sys/coin.png" /> </span>
+                <span id="mejoraTag" class="mejoraTag">Common Upgrade</span>
+            </div>
+            <div class="separadorMejora" id="upgradeSeparator"></div>
+            <div class="tooltipMejoraInferior">
+                <span id="mejoraDescripcion">Increases Supply production by 5%</span>
+                <span id="mejoraColor"></span>
+                <span id="mejoraFlavor">"Just a nice granny to bake you some cookies." </span>
+            </div>
+            <img id="tooltipArrow" src="img/sys/triangulo.png" />
+        </div>
+
+
+
+.tooltip { 
+    position: absolute;
+    z-index: 14;
+    max-height: 1000px;
+    max-width: 20%;
+    min-width: 20%;
+    border: white solid 1px;
+    filter: drop-shadow(0px 6px 0px #21191e);
+    border-radius: 0.1vw;
+    background: linear-gradient(335deg, #464052 0%, #333140 43.75%, #31313D 100%);
+    background-image: url(img/sys/fondotooltip.png);
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    transition: all 0.1s;
+    box-shadow: 0px 10px 14px 0px rgba(0, 0, 0, 0.2) inset;
+    overflow: visible;
+    pointer-events: none; 
+    animation: growFadeIn 0.3s;
+    flex-wrap: wrap;
+}
+
+#tooltipImage {height: 43%;  display: flex; outline: 1px black solid; position: absolute; left: 2%; top: 4%;}
+
+.tooltipMejoraSuperior { 
+    max-height: 1000px; width: 80%; display: flex; flex-wrap: wrap; margin-top: 5px; background: transparent; align-self: end;
+}
+
+#mejoraNombre { 
+    width: 70%; min-height: 36px; font-size: 1vw; background: transparent; line-height: 0.9vw; color: #1EFF0C
+}
+
+#mejoraPrecio { 
+    width: 30%; text-align: right; background: transparent; color: #7EFF69; font-size: 0.85vw; position: absolute; right: 2%;
+}
+
+#mejoraPrecio img { 
+    width: 15px; height: 15px; transform: translateY(2px); background: transparent; border-radius: 4px; 
+}
+
+.mejoraTag { 
+    background: black; border-radius: 4px; justify-self: center; padding: 0.2% 2%; font-weight: 600; margin-top: 5px; color:#1EFF0C; 
+}
+
+.mejoraTagU { 
+    background: black; border-radius: 2px; justify-self: center; padding: 1px 6px; font-weight: 700; margin-top: 5px; color: #A335EE;
+}
+
+.mejoraTagS { 
+    background: #a381c9; border-radius: 2px; justify-self: center; padding: 1px 6px; font-weight: 500; margin-top: 5px;
+}
+
+.mejoraTagB { 
+    background: gray; border-radius: 2px; justify-self: center; padding: 1px 6px; font-weight: 500; margin-top: 5px;
+}
+
+.mejoraTagL { 
+    background: #8c6950; border-radius: 2px; justify-self: center; padding: 1px 6px; font-weight: 500; margin-top: 5px;
+}
+
+.tooltipMejoraInferior { 
+    background: blue; max-height: 1000px; width: 95%; display: flex; flex-wrap: wrap; background: transparent;
+}
+
+#mejoraDescripcion { 
+     background: transparent;
+}
+
+#mejoraFlavor { 
+    text-align: right; background: transparent; color: darkgray; margin-top: 1%; margin-left: auto; margin-right: 1%; 
+}
+
+.separadorMejora { 
+    margin: 10px 0; width: 300px; height: 1px; background: linear-gradient(247deg, rgba(0, 0, 0, 0.00) 0%, rgba(255, 255, 255, 0.19) 24.59%, rgba(255, 255, 255, 0.18) 75.09%, rgba(0, 0, 0, 0.00) 100%); 
+}
+
+#tooltipArrow { 
+    margin-top: -10px;
+    height: 20px;
+    width: 30px;
+    position: flex;
+    z-index: 20;
+    background:
+    transparent;
+    transform: translateY(18px);
+    margin-left: auto;
+    margin-right: 10.5%; 
+}
+
+#tooltipArrowUp { 
+    margin-top: -20px;
+    height: 20px;
+    width: 30px;
+    position: flex;
+    z-index: 20;
+    background:transparent;
+    transform: translateY(2px) rotate(180deg);
+    margin-left: auto;
+    margin-right: 10.5%; 
+}
