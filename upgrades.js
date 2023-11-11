@@ -30,7 +30,7 @@ var upgrades = [  // n = name, p = price, d = description, f = flavor text, t = 
     
 //-----------building related upgrades
 //------supplies buildings
-    
+     
 //Bow Hunting
 { n: "Poison Tipped Arrows", p: 885000, d: 'Multiplies the production of Bow Hunting by 2.', f: '"The poison is a strong agent produced by some species of turtles. Dont believe me? You dont want to find it out."', t: "Common Upgrade", id: "bh1", o: 'buildings["Bow Hunting"].u *= 2; buyingHandler2("Bow Hunting");', u: 1, b: 0 },
     
@@ -282,76 +282,340 @@ var upgrades = [  // n = name, p = price, d = description, f = flavor text, t = 
     
 //-----------permanent upgrades
 //------building uncock    
-{ n: "Hard Currency", p: 10, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu1", o: 'buildings["Hard Currency"].v=1;', u: 1, b: 0 },
+{ n: "Hard Currency", p: 10, d: 'Permanently unlocks this activity on the Turtle Coins tab.', f: '"Sweet, sweet economics."', t: "Permanent Upgrade", id: "bu1", o: 'buildings["Hard Currency"].v=1;', u: 1, b: 0 },
     
-{ n: "Communal Life", p: 4000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu2", o: 'buildings["Communal Life"].v=1;', u: 1, b: 0 },
+{ n: "Communal Life", p: 4000, d: 'Permanently unlocks this activity on the Turtle Coins tab.', f: '"He who controls the candy controls the people."', t: "Permanent Upgrade", id: "bu2", o: 'buildings["Communal Life"].v=1;', u: 1, b: 0 },
     
-{ n: "Handicraft", p: 6000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu3", o: 'buildings["Handicraft"].v=1;', u: 1, b: 0 },
+{ n: "Handicraft", p: 6000000, d: 'Permanently unlocks this activity on the Turtle Coins tab.', f: '"Bet ya didnt knew turtles could do that."', t: "Permanent Upgrade", id: "bu3", o: 'buildings["Handicraft"].v=1;', u: 1, b: 0 },
     
-{ n: "Turtle Beliefs", p: 23000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu4", o: 'buildings["Turtle Beliefs"].v=1;', u: 1, b: 0 },
+{ n: "Turtle Beliefs", p: 23000000, d: 'Permanently unlocks this activity on the Turtle Coins tab.', f: '"Do turtles dream of scaley sheep?"', t: "Permanent Upgrade", id: "bu4", o: 'buildings["Turtle Beliefs"].v=1;', u: 1, b: 0 },
     
-{ n: "Empire Zealotry", p: 10000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu5", o: 'buildings["Empire Zealotry"].v=1;', u: 1, b: 0 },
+{ n: "Empire Zealotry", p: 10000000000, d: 'Permanently unlocks this activity on the Turtle Coins tab.', f: '"Domain expansion."', t: "Permanent Upgrade", id: "bu5", o: 'buildings["Empire Zealotry"].v=1;', u: 1, b: 0 },
     
-{ n: "Money Printer", p: 4000000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu6", o: 'buildings["Money Printer"].v=1;', u: 1, b: 0 },
+{ n: "Money Printer", p: 4000000000000, d: 'Permanently unlocks this activity on the Turtle Coins tab.', f: '"Banned in over sixty turtle kingdoms."', t: "Permanent Upgrade", id: "bu6", o: 'buildings["Money Printer"].v=1;', u: 1, b: 0 },
     
-{ n: "TurtleLand", p: 25500000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu7", o: 'buildings["TurtleLand"].v=1;', u: 1, b: 0 },
+{ n: "TurtleLand", p: 25500000000000, d: 'Permanently unlocks this activity on the Turtle Coins tab.', f: '"The turtliest place on earth."', t: "Permanent Upgrade", id: "bu7", o: 'buildings["TurtleLand"].v=1;', u: 1, b: 0 },
     
-{ n: "Wood Chopping", p: 400, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu8", o: 'buildings["Wood Chopping"].v=1;', u: 1, b: 0 },
+{ n: "Wood Chopping", p: 400, d: 'Permanently unlocks this activity on the Resources tab.', f: '"Everyone must start somewhere."', t: "Permanent Upgrade", id: "bu8", o: 'buildings["Wood Chopping"].v=1;', u: 1, b: 0 },
     
-{ n: "Stone Mining", p: 200000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu9", o: 'buildings["Stone Mining"].v=1;', u: 1, b: 0 },
+{ n: "Stone Mining", p: 200000, d: 'Permanently unlocks this activity on the Resources tab.', f: '"Both unethical AND profitable."', t: "Permanent Upgrade", id: "bu9", o: 'buildings["Stone Mining"].v=1;', u: 1, b: 0 },
     
-{ n: "Tree Harvest", p: 12000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu10", o: 'buildings["Tree Harvest"].v=1;', u: 1, b: 0 },
+{ n: "Tree Harvest", p: 12000000, d: 'Permanently unlocks this activity on the Resources tab.', f: '"Make them pay for being made up of resources."', t: "Permanent Upgrade", id: "bu10", o: 'buildings["Tree Harvest"].v=1;', u: 1, b: 0 },
     
-{ n: "Automatisation", p: 1670000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu11", o: 'buildings["Automatisation"].v=1;', u: 1, b: 0 },
+{ n: "Automatisation", p: 1670000000, d: 'Permanently unlocks this activity on the Resources tab.', f: '"We cant spend all the time chopping wood, we have an empire to lift."', t: "Permanent Upgrade", id: "bu11", o: 'buildings["Automatisation"].v=1;', u: 1, b: 0 },
     
-{ n: "Asteroid Crusher", p: 69990000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu12", o: 'buildings["Asteroid Crusher"].v=1;', u: 1, b: 0 },
+{ n: "Asteroid Crusher", p: 69990000000, d: 'Permanently unlocks this activity on the Resources tab.', f: '"Earth is a tiny marble compared to all the resources all there."', t: "Permanent Upgrade", id: "bu12", o: 'buildings["Asteroid Crusher"].v=1;', u: 1, b: 0 },
     
-{ n: "World Partition", p: 245000000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu13", o: 'buildings["World Partition"].v=1;', u: 1, b: 0 },
+{ n: "World Partition", p: 245000000000000, d: 'Permanently unlocks this activity on the Resources tab.', f: '"Surely this is not getting out of hand."', t: "Permanent Upgrade", id: "bu13", o: 'buildings["World Partition"].v=1;', u: 1, b: 0 },
     
-{ n: "Bow Hunting", p: 5, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu14", o: 'buildings["Bow Hunting"].v=1;', u: 1, b: 0 },
+{ n: "Bow Hunting", p: 5, d: 'Permanently unlocks this activity on the Supplies tab.',  f: '"The humble beginnings of your civilisation."', t: "Permanent Upgrade", id: "bu14", o: 'buildings["Bow Hunting"].v=1;', u: 1, b: 0 },
     
-{ n: "Croissant Trap", p: 124600, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu15", o: 'buildings["Croissant Trap"].v=1;', u: 1, b: 0 },
+{ n: "Croissant Trap", p: 124600, d: 'Permanently unlocks this activity on the Supplies tab.', f: '"Uses advanced psychological games to trick them."', t: "Permanent Upgrade", id: "bu15", o: 'buildings["Croissant Trap"].v=1;', u: 1, b: 0 },
     
-{ n: "Agriculture", p: 6222000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu16", o: 'buildings["Agriculture"].v=1;', u: 1, b: 0 },
+{ n: "Agriculture", p: 6222000, d: 'Permanently unlocks this activity on the Supplies tab.', f: '"Hard to not chew on them while they are growing out. At least of the turties."', t: "Permanent Upgrade", id: "bu16", o: 'buildings["Agriculture"].v=1;', u: 1, b: 0 },
     
-{ n: "Turtle Grandma", p: 746000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu17", o: 'buildings["Turtle Grandma"].v=1;', u: 1, b: 0 },
+{ n: "Turtle Grandma", p: 746000000, d: 'Permanently unlocks this activity on the Supplies tab.', f: '"Surely they wont revolt this time."', t: "Permanent Upgrade", id: "bu17", o: 'buildings["Turtle Grandma"].v=1;', u: 1, b: 0 },
     
-{ n: "Husbandry", p: 715000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu18", o: 'buildings["Husbandry"].v=1;', u: 1, b: 0 },
+{ n: "Husbandry", p: 715000000000, d: 'Permanently unlocks this activity on the Supplies tab.', f: '"Slavery is legal as long as they are not aware of this fact."', t: "Permanent Upgrade", id: "bu18", o: 'buildings["Husbandry"].v=1;', u: 1, b: 0 },
     
-{ n: "Avocadium", p: 4000000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu19", o: 'buildings["Avocadium"].v=1;', u: 1, b: 0 },
+{ n: "Avocadium", p: 4000000000000, d: 'Permanently unlocks this activity on the Supplies tab.', f: '"If avocados are expensive imagine these things."', t: "Permanent Upgrade", id: "bu19", o: 'buildings["Avocadium"].v=1;', u: 1, b: 0 },
     
-{ n: "Coffee", p: 1556000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu20", o: 'buildings["Coffee"].v=1;', u: 1, b: 0 },
+{ n: "Coffee", p: 1556000, d: 'Permanently unlocks this activity on the Energy tab.', f: '"One thousand ways to make it, one to drink it."', t: "Permanent Upgrade", id: "bu20", o: 'buildings["Coffee"].v=1;', u: 1, b: 0 },
     
-{ n: "Kite Generator", p: 271000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu21", o: 'buildings["Kite Generator"].v=1;', u: 1, b: 0 },
+{ n: "Kite Generator", p: 271000000, d: 'Permanently unlocks this activity on the Energy tab.',  f: '"Take that Franklin!"', t: "Permanent Upgrade", id: "bu21", o: 'buildings["Kite Generator"].v=1;', u: 1, b: 0 },
     
-{ n: "Potato Battery", p: 25670000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu22", o: 'buildings["Potato Battery"].v=1;', u: 1, b: 0 },
+{ n: "Potato Battery", p: 25670000000, d: 'Permanently unlocks this activity on the Energy tab.', f: '"100% free* of neurotoxins!"', t: "Permanent Upgrade", id: "bu22", o: 'buildings["Potato Battery"].v=1;', u: 1, b: 0 },
     
-{ n: "Canned Lightning", p: 1800000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu23", o: 'buildings["Canned Lightning"].v=1;', u: 1, b: 0 },
+{ n: "Canned Lightning", p: 1800000000000, d: 'Permanently unlocks this activity on the Energy tab.', f: '"Its hard to explain."', t: "Permanent Upgrade", id: "bu23", o: 'buildings["Canned Lightning"].v=1;', u: 1, b: 0 },
     
-{ n: "Carbon Burning", p: 8422000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu24", o: 'buildings["Carbon Burning"].v=1;', u: 1, b: 0 },
+{ n: "Carbon Burning", p: 8422000000000, d: 'Permanently unlocks this activity on the Energy tab.', f: '"This is the best thing that your turtle scientists could come up with, dont laugh."', t: "Permanent Upgrade", id: "bu24", o: 'buildings["Carbon Burning"].v=1;', u: 1, b: 0 },
     
-{ n: "Turtle Generator", p: 688800000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu25", o: 'buildings["Turtle Generator"].v=1;', u: 1, b: 0 },
+{ n: "Turtle Generator", p: 688800000000000, d: 'Permanently unlocks this activity on the Energy tab.', f: '"What if we use 1% of a turtles power?"', t: "Permanent Upgrade", id: "bu25", o: 'buildings["Turtle Generator"].v=1;', u: 1, b: 0 },
     
-{ n: "Big Ol Cave", p: 120000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu26", o: 'buildings["Big Ol Cave"].v=1;', u: 1, b: 0 },
+{ n: "Big Ol Cave", p: 120000, d: 'Permanently unlocks this activity on the Storage tab.', f: '"You probably want to save for this."', t: "Permanent Upgrade", id: "bu26", o: 'buildings["Big Ol Cave"].v=1;', u: 1, b: 0 },
     
-{ n: "Clay Pottery", p: 18500000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu27", o: 'buildings["Clay Pottery"].v=1;', u: 1, b: 0 },
+{ n: "Clay Pottery", p: 18500000, d: 'Permanently unlocks this activity on the Storage tab.', f: '"Deeper than it looks."', t: "Permanent Upgrade", id: "bu27", o: 'buildings["Clay Pottery"].v=1;', u: 1, b: 0 },
     
-{ n: "Straw Basket", p: 1300000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu28", o: 'buildings["Straw Basket"].v=1;', u: 1, b: 0 },
+{ n: "Straw Basket", p: 1300000000, d: 'Permanently unlocks this activity on the Storage tab.', f: '"Way deeper than it looks."', t: "Permanent Upgrade", id: "bu28", o: 'buildings["Straw Basket"].v=1;', u: 1, b: 0 },
     
-{ n: "Warehouse", p: 125200000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu29", o: 'buildings["Warehouse"].v=1;', u: 1, b: 0 },
+{ n: "Warehouse", p: 125200000000, d: 'Permanently unlocks this activity on the Storage tab.', f: '"Roomier than your average room."', t: "Permanent Upgrade", id: "bu29", o: 'buildings["Warehouse"].v=1;', u: 1, b: 0 },
     
-{ n: "Floppy Disk", p: 7700000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu30", o: 'buildings["Floppy Disk"].v=1;', u: 1, b: 0 },
+{ n: "Floppy Disk", p: 7700000000000, d: 'Permanently unlocks this activity on the Storage tab.', f: '"A blast from the past."', t: "Permanent Upgrade", id: "bu30", o: 'buildings["Floppy Disk"].v=1;', u: 1, b: 0 },
     
-{ n: "Variable", p: 666000000000000, d: 'Permanently unlocks this activity.', t: "Permanent Upgrade", id: "bu31", o: 'buildings["Variable"].v=1;', u: 1, b: 0 }
-
-     
+{ n: "Variable", p: 666000000000000, d: 'Permanently unlocks this activity on the Storage tab.', f: '"unlimitedStorage()."', t: "Permanent Upgrade", id: "bu31", o: 'buildings["Variable"].v=1;', u: 1, b: 0 },
     
+//------penguin helper upgrades
     
+{ n: "Penguin Helpers", p: 1000000, d: 'Permanently unlocks Penguin Helpers. These slippery fellows will assist on your production while you are offline.', f: '"Welcome to the team, little fellas."', t: "Permanent Upgrade", id: "pe1", o: 'unlockItem("img/sys/penguinRecap.png", "ㅤPenguin Asistantsㅤ"); unlocks.penguins = 1; did("penguinBox").style.display = "flex"; player.penguins.amount = 1;', u: 1, b: 0 }, 
     
+{ n: "Just a Penguin", p: 12000000, d: 'Adds 10 Penguin Helpers.', f: '"Theres actually more than just one."', t: "Common Upgrade", id: "pe2", o: 'player.penguins.amount += 10;', u: 1, b: 0 },
+    
+{ n: "Penwin Medalist", p: 755000000, d: 'Adds one Penguin Helper per achievement unlocked.', f: '"See what I did there?"', t: "Common Upgrade", id: "pe3", o: 'player.penguins.amount += stats.totalAchievementsGot', u: 1, b: 0 },
+    
+{ n: "Peguin Helper Helpers", p: 6955000000, d: 'Adds one Penguin Helper per every 100000 energy.', f: '"But who helps the Penguin Helper Helpers?"', t: "Common Upgrade", id: "pe4", o: 'player.penguins.amount += Math.floor(player.energy.amount / 100000)', u: 1, b: 0 },
+    
+{ n: "Penguin-In-A-Box", p: 20000000000, d: 'Adds one Penguin Helper for every hour played.', f: '"Who put you there little buddy?"', t: "Common Upgrade", id: "pe5", o: 'player.penguins.amount += Math.floor(stats.timePlayed / 3600)', u: 1, b: 0 },     
+    
+{ n: "Emperor Penguin", p: 73330000000, d: 'Adds one Penguin Helper for every 100 building owned.', f: '"Royaly fluffy"', t: "Common Upgrade", id: "pe6", o: 'player.penguins.amount += Math.floor(stats.totalBuildings / 100)', u: 1, b: 0 },
+    
+//-------treaty upgrades
+//---treaty of Resources    
+/*
+{ n: "Law of Materialism", p: 1000000, d: '30% of both your Supplies and Energy production per second gets transformed into Resources per second.', f: '"We definitely need to build additional pylons."', t: "Law Upgrade", id: "tr1", o: 'unlockItem("img/sys/penguinRecap.png", "ㅤPenguin Asistantsㅤ"); unlocks.penguins = 1; did("penguinBox").style.display = "flex"; player.penguins.amount = 1;', u: 1, b: 0 },
+    
+{ n: "Law of Natural Reserves", p: 1000000, d: 'All Resource production now contributes your Resource per second twice.', f: '"Natural reserves are in fact, no longer natural, and of the penguins."', t: "Law Upgrade", id: "tr2", o: 'unlockItem("img/sys/penguinRecap.png", "ㅤPenguin Asistantsㅤ"); unlocks.penguins = 1; did("penguinBox").style.display = "flex"; player.penguins.amount = 1;', u: 1, b: 0 }, 
+    
+{ n: "Law of Bountiful Resources", p: 1000000, d: 'Permanently unlocks the Bountiful Resources upgrade.', f: '"We order those minerals to get chunkier."', t: "Law Upgrade", id: "tr2", o: 'unlockItem("img/sys/penguinRecap.png", "ㅤPenguin Asistantsㅤ"); unlocks.penguins = 1; did("penguinBox").style.display = "flex"; player.penguins.amount = 1;', u: 1, b: 0 },
+    
+{ n: "Bountiful Resources", p: 666000000000000, d: 'Multiplies your resource production by 2.', f: '"They did got chunkier."', t: "Permanent Upgrade", id: "bu31", o: 'buildings["Variable"].v=1;', u: 0, b: 0 },    
+    
+{ n: "Law of Trophy Reconstruction", p: 1000000, d: 'Your Resources production gets increased 10% for every achievement obtained', f: '"We dont need a sensation of gratification, we need a sensation of fat resources."', t: "Law Upgrade", id: "tr2", o: 'unlockItem("img/sys/penguinRecap.png", "ㅤPenguin Asistantsㅤ"); unlocks.penguins = 1; did("penguinBox").style.display = "flex"; player.penguins.amount = 1;', u: 1, b: 0 },    
+    
+{ n: "Law of the Conversion of Matter", p: 1000000, d: 'An additional 50% of both your Supplies and Energy production per second gets transformed into Resources per second.', f: '"Conversion into more matter, of course."', t: "Law Upgrade", id: "tr2", o: 'unlockItem("img/sys/penguinRecap.png", "ㅤPenguin Asistantsㅤ"); unlocks.penguins = 1; did("penguinBox").style.display = "flex"; player.penguins.amount = 1;', u: 1, b: 0 },
+    
+{ n: "Law of Artesany", p: 1000000, d: 'Your Resources production gets increased 10% for every penguin obtained', f: '"If you dont work with materials, youre out."', t: "Law Upgrade", id: "tr2", o: 'unlockItem("img/sys/penguinRecap.png", "ㅤPenguin Asistantsㅤ"); unlocks.penguins = 1; did("penguinBox").style.display = "flex"; player.penguins.amount = 1;', u: 1, b: 0 },
+    
+ { n: "Law of Space Gathering", p: 1000000, d: 'Permanently unlocks the Asteroid Crusher upgrade.', f: '"Bigger resources require bigger rocks."', t: "Law Upgrade", id: "tr2", o: 'unlockItem("img/sys/penguinRecap.png", "ㅤPenguin Asistantsㅤ"); unlocks.penguins = 1; did("penguinBox").style.display = "flex"; player.penguins.amount = 1;', u: 1, b: 0 },   
+    
+{ n: "Law of Artesany", p: 1000000, d: 'Your Resources production gets increased 10% for every penguin obtained', f: '"If you dont work with materials, youre out."', t: "Law Upgrade", id: "tr2", o: 'unlockItem("img/sys/penguinRecap.png", "ㅤPenguin Asistantsㅤ"); unlocks.penguins = 1; did("penguinBox").style.display = "flex"; player.penguins.amount = 1;', u: 1, b: 0 },     
+*/
 ];
 
-
-
-
-
 upgrades;
+
+//----------------------==========================-----------------------
+//----------------------========ACHIEVEMENTS======-----------------------
+//----------------------==========================-----------------------
+
+var achievements = { //uc = unlock condition
+
+//------Click count
+
+'cl1': {n: "Lovetap", d: 'Produce 1 Turtle Coin from clicking a turtle.', f:'"Good job! Now do it again."', id: '1cl1', t:'Achievement', u: 0, uc: 'if(stats.totalCoinsClick >= 1)achievements["cl1"].u=1'},   
+
+'cl2': {n: "Turtle Stomper", d: 'Produce 10000 Turtle Coins from clicking a turtle.', id: '1cl2', t:'Achievement', u: 0, uc: 'if(stats.totalCoinsClick >= 10000)achievements["cl2"].u=1'},
+    
+'cl3': {n: "Shell Crusher", d: 'Produce 1000000 Turtle Coins from clicking a turtle.', f:'"In a good way. Somehow.', id: '1cl3', t:'Achievement', u: 0, uc: 'if(stats.totalCoinsClick >= 1000000)achievements["cl3"].u=1'},
+    
+'cl4': {n: "Pettapocalypse", d: 'Produce 1e+8 Turtle Coins from clicking a turtle.', id: '1cl4', t:'Achievement', u: 0, uc: 'if(stats.totalCoinsClick >= 10000000)achievements["cl4"].u=1'},
+    
+'cl5': {n: "Tactile Madness", d: 'Produce 1e+9 Turtle Coins from clicking a turtle.', id: '1cl5', t:'Achievement', u: 0, uc: 'if(stats.totalCoinsClick >= 100000000)achievements["cl5"].u=1'},
+    
+'cl6': {n: "Bring Them All", d: 'Produce 1e+10 Turtle Coins from clicking a turtle.', id: '1cl6', t:'Achievement', u: 0, uc: 'if(stats.totalCoinsClick >= 10000000000)achievements["cl6"].u=1'},
+    
+'cl7': {n: "Good Touch", d: 'Produce 1e+11 Turtle Coins from clicking a turtle.', id: '1cl7', t:'Achievement', u: 0, uc: 'if(stats.totalCoinsClick >= 100000000000)achievements["cl7"].u=1'},
+    
+'cl8': {n: "Turtlepetinator", d: 'Produce 1e+13 Turtle Coins from clicking a turtle.', f:'"Ive always wanted a pet platypus. But you’ll have to do for now."', id: '1cl8', t:'Achievement', u: 0, uc: 'if(stats.totalCoinsClick >= 10000000000000)achievements["cl8"].u=1'},
+    
+'cl9': {n: "The Turtleman Never Dies", d: 'Produce 1e+14 Turtle Coins from clicking a turtle.', id: '1cl9', t:'Achievement', u: 0, uc: 'if(stats.totalCoinsClick >= 100000000000000)achievements["cl9"].u=1'},
+    
+'cl10': {n: "The Tapped One", d: 'Produce 1e+15 Turtle Coins from clicking a turtle.', f:'"How cute how he eclipses the earth with his little shell."', id: '1cl10', t:'Achievement', u: 0, uc: 'if(stats.totalCoinsClick >= 1000000000000000)achievements["cl10"].u=1'},
+    
+//------Money in bank
+    
+'mo1': {n: "Early Stage Capitalism", d: 'Produce a total of 1000 Turtle Coins', id: '2mo1', t:'Achievement', u: 0, uc: 'if(stats.totalCoins >= 1000)achievements["mo1"].u=1'},
+    
+'mo2': {n: "Scrooge McTurt", d: 'Produce a total of 10000 Turtle Coins', id: '2mo2', t:'Achievement', u: 0, uc: 'if(stats.totalCoins >= 10000)achievements["mo2"].u=1'},
+    
+'mo3': {n: "Pyramidal Scheme", d: 'Produce a total of 1000000 Turtle Coins', id: '2mo3', t:'Achievement', u: 0, uc: 'if(stats.totalCoins >= 1000000)achievements["mo3"].u=1'},
+    
+'mo4': {n: "Money Goes in...", d: 'Produce a total of 1e+8 Turtle Coins', id: '2mo4', t:'Achievement', u: 0, uc: 'if(stats.totalCoins >= 100000000)achievements["mo4"].u=1'},
+    
+'mo5': {n: "Money Goes out...", d: 'Produce a total of 1e+10 Turtle Coins', id: '2mo5', t:'Achievement', u: 0, uc: 'if(stats.totalCoins >= 10000000000)achievements["mo5"].u=1'},
+    
+'mo6': {n: "First World Solutions", d: 'Produce a total of 1e+11 Turtle Coins', id: '2mo6', t:'Achievement', u: 0, uc: 'if(stats.totalCoins >= 100000000000)achievements["mo6"].u=1'},
+    
+'mo7': {n: "Life Is Like a Coin", d: 'Produce a total of 1e+13 Turtle Coins', f:'"...or like ten trillion in this case"', id: '2mo7', t:'Achievement', u: 0, uc: 'if(stats.totalCoins >= 10000000000000)achievements["mo7"].u=1'},
+    
+'mo8': {n: "Aaaand... Its gone", d: 'Produce a total of 1e+14 Turtle Coins', id: '2mo8', t:'Achievement', u: 0, uc: 'if(stats.totalCoins >= 100000000000000)achievements["mo8"].u=1'},
+    
+'mo9': {n: "Back in the Rank", d: 'Produce a total of 1e+15 Turtle Coins', id: '2mo9', t:'Achievement', u: 0, uc: 'if(stats.totalCoins >= 1000000000000000)achievements["mo9"].u=1'},
+    
+'mo10': {n: "AI Generated Coins", d: 'Produce a total of 1e+16 Turtle Coins', f:"'Generated infinitely without repercusion. Or at least the repercusion is not our problem.'", id: '2mo10', t:'Achievement', u: 0, uc: 'if(stats.totalCoins >= 10000000000000000)achievements["mo10"].u=1'},
+    
+//------Buildings Reached
+    
+'bu1': {n: "Auspicious Settlement", d: 'Purchase a total of 10 activities on your Turtle Camp', id: '6bu1', t:'Achievement', u: 0, uc: 'if(stats.totalBuildings >= 10)achievements["bu1"].u=1'},
+    
+'bu2': {n: "Populated Tents", d: 'Purchase a total of 50 activities on your Turtle Camp', id: '6bu2', t:'Achievement', u: 0, uc: 'if(stats.totalBuildings >= 50)achievements["bu2"].u=1'},
+    
+'bu3': {n: "Busy Township", d: 'Purchase a total of 150 activities on your Turtle Camp',  id: '6bu3', t:'Achievement', u: 0, uc: 'if(stats.totalBuildings >= 150)achievements["bu3"].u=1'},
+    
+'bu4': {n: "Urban District", d: 'Purchase a total of 300 activities on your Turtle Camp', id: '6bu4', t:'Achievement', u: 0, uc: 'if(stats.totalBuildings >= 300)achievements["bu4"].u=1'},
+    
+'bu5': {n: "Realm of ye Turts", d: 'Purchase a total of 500 activities on your Turtle Camp', id: '6bu5', t:'Achievement', f:'"A fine kingdom thou are managing."', u: 0, uc: 'if(stats.totalBuildings >= 500)achievements["bu5"].u=1'},
+    
+'bu6': {n: "Metropolis", d: 'Purchase a total of 1000 activities on your Turtle Camp', id: '6bu6', t:'Achievement', u: 0, uc: 'if(stats.totalBuildings >= 1000)achievements["bu6"].u=1'},
+    
+'bu7': {n: "Megapolis", d: 'Purchase a total of 3000 activities on your Turtle Camp', id: '6bu7', t:'Achievement', u: 0, uc: 'if(stats.totalBuildings >= 3000)achievements["bu7"].u=1'},
+    
+'bu8': {n: "Black Company", d: 'Purchase a total of 12000 activities on your Turtle Camp', id: '6bu8', t:'Achievement', u: 0, uc: 'if(stats.totalBuildings >= 12000)achievements["bu8"].u=1'},
+    
+'bu9': {n: "Profession Farming", d: 'Purchase a total of 35000 activities on your Turtle Camp', f:'"Only a few more levels to go."', id: '6bu9', t:'Achievement', u: 0, uc: 'if(stats.totalBuildings >= 35000)achievements["bu9"].u=1'},
+    
+'bu10': {n: "0% Unemployment Rate", d: 'Purchase a total of 55000 activities on your Turtle Camp', f:'"For the better or the worse, no matter how much you run, job is going to find you."', id: '6bu10', t:'Achievement', u: 0, uc: 'if(stats.totalBuildings >= 55000)achievements["bu10"].u=1'},
+    
+//------Resources Produced
+    
+'re1': {n: "Forestal Exploitation", d: 'Produce a total of 100 Resources on your Turtle Camp', id: '3re1', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 100)achievements["re1"].u=1'},
+    
+'re2': {n: "Nature Heapening", d: 'Produce a total of 100000 Resources on your Turtle Camp', f:'"Nature gives, and Nature gives again."', id: '3re2', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 100000)achievements["re2"].u=1'},
+    
+'re3': {n: "Tectonic Ravaging", d: 'Produce a total of 10000000 Resources on your Turtle Camp', id: '3re3', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 10000000)achievements["re3"].u=1'},
+    
+'re4': {n: "Mountain Collection", d: 'Produce a total of 1e+9 Resources on your Turtle Camp', id: '3re4', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 1000000000)achievements["re4"].u=1'},
+    
+'re5': {n: "World Exploitation", d: 'Produce a total of 1e+11 Resources on your Turtle Camp', id: '3re5', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 100000000000)achievements["re5"].u=1'},
+    
+'re6': {n: "Star Reaping", d: 'Produce a total of 1e+12 Resources on your Turtle Camp', f:'"This bright ball now belongs to the turties."', id: '3re6', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 1000000000000)achievements["re6"].u=1'},
+    
+'re7': {n: "Dyson Sphere", d: 'Produce a total of 1e+13 Resources on your Turtle Camp', id: '3re7', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 10000000000000)achievements["re7"].u=1'},
+    
+'re8': {n: "Quasar Farming", d: 'Produce a total of 1e+14 Resources on your Turtle Camp', id: '3re8', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 100000000000000)achievements["re8"].u=1'},
+    
+'re9': {n: "Pulsar Gathering", d: 'Produce a total of 1e+15 Resources on your Turtle Camp', id: '3re9', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 1000000000000000)achievements["re9"].u=1'},
+    
+'re10': {n: "Neutron Stockpile", d: 'Produce a total of 1e+16 Resources on your Turtle Camp', f:'"Despite the name, Its a pretty positive thing."', id: '3re10', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 10000000000000000)achievements["re10"].u=1'},
+
+//------Supplies Produced 
+    
+'su1': {n: "Turtle Feast", d: 'Produce a total of 100 Supplies on your Turtle Camp', id: '4su1', t:'Achievement', u: 0, uc: 'if(stats.totalSupplies >= 100)achievements["su1"].u=1'},
+    
+'su2': {n: "Grandma's Feeding", d: 'Produce a total of 100000 Supplies on your Turtle Camp',  id: '4su2', t:'Achievement', u: 0, uc: 'if(stats.totalResources >= 100000)achievements["su2"].u=1'},
+    
+'su3': {n: "One More Dessert", d: 'Produce a total of 10000000 Supplies on your Turtle Camp', f:'"Make it 10000001."', id: '4su3', t:'Achievement', u: 0, uc: 'if(stats.totalSupplies >= 10000000)achievements["su3"].u=1'},
+    
+'su4': {n: "Tonight We Dine in Here", d: 'Produce a total of 1e+9 Supplies on your Turtle Camp', id: '4su4', t:'Achievement', u: 0, uc: 'if(stats.totalSupplies >= 1000000000)achievements["su4"].u=1'},
+    
+'su5': {n: "Overqualified Dietitian", d: 'Produce a total of 1e+11 Supplies on your Turtle Camp', f:'"Youre overdoing it too much."', id: '4su5', t:'Achievement', u: 0, uc: 'if(stats.totalSupplies >= 100000000000)achievements["su5"].u=1'},
+    
+'su6': {n: "Turtle Protein", d: 'Produce a total of 1e+12 Supplies on your Turtle Camp', id: '4su6', t:'Achievement', u: 0, uc: 'if(stats.totalSupplies >= 1000000000000)achievements["su6"].u=1'},
+    
+'su7': {n: "Hotel Breakfast", d: 'Produce a total of 1e+13 Supplies on your Turtle Camp', id: '4su7', t:'Achievement', u: 0, uc: 'if(stats.totalSupplies >= 10000000000000)achievements["su7"].u=1'},
+    
+'su8': {n: "Food Warfare", d: 'Produce a total of 1e+14 Supplies on your Turtle Camp', id: '4su8', t:'Achievement', u: 0, uc: 'if(stats.totalSupplies >= 100000000000000)achievements["su8"].u=1'},
+    
+'su9': {n: "World Hunger no More", d: 'Produce a total of 1e+15 Supplies on your Turtle Camp', f:'"At least in one planet."', id: '4su9', t:'Achievement', u: 0, uc: 'if(stats.totalSupplies >= 1000000000000000)achievements["su9"].u=1'},
+    
+'su10': {n: "American Portion", d: 'Produce a total of 1e+16 Supplies on your Turtle Camp', id: '4su10', t:'Achievement', u: 0, uc: 'if(stats.totalSupplies >= 10000000000000000)achievements["su10"].u=1'},
+    
+//------Energy Produced 
+    
+'en1': {n: "Greased Lightning", d: 'Produce a total of 100 Energy on your Turtle Camp', id: '5en1', t:'Achievement', u: 0, uc: 'if(stats.totalEnergy >= 100)achievements["en1"].u=1'},
+    
+'en2': {n: "A Really Good Energy Plan", d: 'Produce a total of 100000 Energy on your Turtle Camp', f:'"They dont make them like they used to do, dont they."',  id: '5en2', t:'Achievement', u: 0, uc: 'if(stats.totalEnergy >= 100000)achievements["en2"].u=1'},
+    
+'en3': {n: "Power Blackout", d: 'Produce a total of 10000000 Energy on your Turtle Camp', id: '5en3', t:'Achievement', u: 0, uc: 'if(stats.totalEnergy >= 10000000)achievements["en3"].u=1'},
+    
+'en4': {n: "Isotope 0", d: 'Produce a total of 1e+9 Energy on your Turtle Camp', id: '5en4', t:'Achievement', u: 0, uc: 'if(stats.totalEnergy >= 1000000000)achievements["en4"].u=1'},
+    
+'en5': {n: "Nuclear Fusion", d: 'Produce a total of 1e+11 Energy on your Turtle Camp', f:'"CAUTION ☢ CAUTION ☢ CAUTION ☢ CAUTION ☢."', id: '5en5', t:'Achievement', u: 0, uc: 'if(stats.totalEnergy >= 100000000000)achievements["en5"].u=1'},
+    
+'en6': {n: "Particle Slicing", d: 'Produce a total of 1e+12 Energy on your Turtle Camp', id: '5en6', t:'Achievement', u: 0, uc: 'if(stats.totalEnergy >= 1000000000000)achievements["en6"].u=1'},
+    
+'en7': {n: "Perpetual Machinery", d: 'Produce a total of 1e+13 Energy on your Turtle Camp', id: '5en7', t:'Achievement', u: 0, uc: 'if(stats.totalEnergy >= 10000000000000)achievements["en7"].u=1'},
+    
+'en8': {n: "Thermodinawho", d: 'Produce a total of 1e+14 Energy on your Turtle Camp', id: '5en8', t:'Achievement', u: 0, uc: 'if(stats.totalEnergy >= 100000000000000)achievements["en8"].u=1'},
+    
+'en9': {n: "Energy Loop", d: 'Produce a total of 1e+15 Energy on your Turtle Camp', id: '5en9', t:'Achievement', u: 0, uc: 'if(stats.totalEnergy >= 1000000000000000)achievements["en9"].u=1'},
+    
+'en10': {n: "Elemental Syphoning", d: 'Produce a total of 1e+16 Energy on your Turtle Camp', f:'"Get the energy directly from the higer-ups."', id: '5en10', t:'Achievement', u: 0, uc: 'if(stats.totalEnergy >= 10000000000000000)achievements["en10"].u=1'},   
+       
+//--------Upgrade Count
+
+'up1': {n: "Enhancer", d: 'Purchase a total of 5 upgrades', f:'"How did it felt?"', id: '8up1', t:'Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 5)achievements["up1"].u=1'},
+    
+'up2': {n: "Upgradomancer", d: 'Purchase a total of 10 upgrades', id: '8up2', t:'Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 10)achievements["up2"].u=1'},
+    
+'up3': {n: "Nitro Booster", d: 'Purchase a total of 25 upgrades',  id: '8up3', t:'Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 25)achievements["up3"].u=1'},
+    
+'up4': {n: "Magnification", d: 'Purchase a total of 50 upgrades', id: '8up4', t:'Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 50)achievements["up4"].u=1'},
+    
+'up5': {n: "Life Improvement", d: 'Purchase a total of 100 upgrades', id: '8up5', t:'Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 100)achievements["up5"].u=1'},
+    
+'up6': {n: "Upgradus Maximus", d: 'Purchase a total of 250 upgrades', id: '8up6', t:'Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 250)achievements["up6"].u=1'},
+    
+'up7': {n: "When Are They Going To Run Out", d: 'Purchase a total of 200 upgrades', f:'"Sometimes I ask to myself."', id: '8up7', t:'Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 200)achievements["up7"].u=1'},
+    
+'up8': {n: "Not Anytime Soon", d: 'Purchase a total of 350 upgrades', id: '8up8', f:'"Oh well."', t:'Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 350)achievements["up8"].u=1'},
+    
+'up9': {n: "Unlimited Power", d: 'Purchase a total of 450 upgrades',  id: '8up9', t:'Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 450)achievements["up9"].u=1'},
+    
+'up10': {n: "Nothing Left Unimproved", d: 'Purchase a total of 550 upgrades', id: '8up10', t:'Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 550)achievements["up10"].u=1'},    
+    
+//--------Penguin Count //hacer  
+    
+'pe1': {n: "Alone No More", d: 'Adquire your first Penguin Helper.', f:'"Aint they the second cutest?"', id: '7pe1', t:'Achievement', u: 0, uc: 'if(player.penguins.amount >= 1)achievements["pe1"].u=1'},
+    
+'pe2': {n: "Penguin Flock", d: 'Adquire 100 Penguin Helpers.', id: '7pe2', t:'Achievement', u: 0, uc: 'if(player.penguins.amount >= 100)achievements["pe2"].u=1'},
+    
+'pe3': {n: "Penguin Band", d: 'Adquire 1000 Penguin Helpers.',  id: '7pe3', t:'Achievement', u: 0, uc: 'if(player.penguins.amount >= 1000)achievements["pe3"].u=1'},
+    
+'pe4': {n: "Penguin Army", d: 'Adquire 10000 Penguin Helpers.', id: '7pe4', t:'Achievement', u: 0, uc: 'if(player.penguins.amount >= 10000)achievements["pe4"].u=1'},
+    
+'pe5': {n: "Penguin Military Force", d: 'Adquire 100000 Penguin Helpers.', id: '7pe5', t:'Achievement', u: 0, uc: 'if(player.penguins.amount >= 100000)achievements["pe5"].u=1'},
+    
+'pe6': {n: "Penguin Syndicate", d: 'Adquire 1000000 Penguin Helpers.', id: '7pe6', t:'Achievement', u: 0, uc: 'if(player.penguins.amount >= 1000000)achievements["pe6"].u=1'},
+    
+'pe7': {n: "Penguin Revolution", d: 'Adquire 10000000 Penguin Helpers.', f:'"Surely they aint plotting anything."', id: '7pe7', t:'Achievement', u: 0, uc: 'if(player.penguins.amount >= 10000000)achievements["pe7"].u=1'},
+    
+'pe8': {n: "Club Penguin", d: 'Adquire 1e+8 Penguin Helpers.', id: '7pe8', t:'Achievement', u: 0, uc: 'if(player.penguins.amount >= 100000000)achievements["pe8"].u=1'},
+    
+'pe9': {n: "Wombo Combo", d: 'Adquire 1e+9 Penguin Helpers.',  id: '7pe9', f:'"The happiest of the feets."', t:'Achievement', u: 0, uc: 'if(player.penguins.amount >= 1000000000)achievements["pe9"].u=1'},
+    
+'pe10': {n: "Super Penguin Idle", d: 'Adquire 1e+10 Penguin Helpers.',  id: '7pe10', t:'Achievement', u: 0, uc: 'if(player.penguins.amount >= 10000000000)achievements["pe10"].u=1'},    
+    
+ //--------Secret Achievements   //st: spoiler tag (advice on how to unlock it)
+    
+'mi1': {n: "Penguin Clicker", d: 'Click the Penguin Helper 100 times', id: 'mi1', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi1"].u=1', st: '"Give your helpers some love too."', }, 
+    
+'mi2': {n: "Too much free time", d: 'Play for 10 hours.', id: 'mi2', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi2"].u=1', st: '"Just do your thing."', },
+    
+'mi3': {n: "Way too much free time", d: 'Play for 100 hours.', id: 'mi3', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi3"].u=1', st: '"Keep doing your thing."', },  
+    
+'mi4': {n: "Pekin Duck", d:"Click the secret duck" ,f: '"Thats not the animal you came here to click."', id: 'mi4', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi4"].u=1', st: '"Find that damn quacker."', },  
+    
+'mi5': {n: "Pacifist Run", d: 'Reach 1000000 Turtle Coins only having clicked on the turtle 25 times from the start of your legacy.', id: 'mi5', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi5"].u=1', st: '"No clicking allowed."', },  
+
+'mi6': {n: "And You Shall Be", d: 'Rename your turtle for the first time', id: 'mi6', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi6"].u=1', st: '"Jeffrey is no more."', },    
+    
+'mi7': {n: "Or Maybe Not", d: 'Rename your turtle a bunch of times.', f: '"You know it aint that important, right."', id: 'mi7', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi7"].u=1', st: '"Feel a bit too indecisive."', },     
+    
+'mi8': {n: "Back in Black", d: 'Rename your turtle Jeffrey.', f: '"Sometimes we all feel a bit Jeffrey."', id: 'mi8', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi8"].u=1', st: '"....Aaand hes back."', },
+    
+'mi9': {n: "Whatever Did We Do", d: 'Check the discord server out.', f: '"Feel free to say something in there!."', id: 'mi9', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi8"].u=1', st: '"....Aaand hes back."', },     
+
+'mi10': {n: "Speedrun", d: 'Reach 1000000 Turtle Coins in one hour from the start of your legacy.', id: 'mi10', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi10"].u=1', st: '"Get coins fast."', },
+    
+'mi11': {n: "Sprintrush", d: 'Reach 1000000 Turtle Coins in 30 minutes from the start of your legacy.', id: 'mi11', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi11"].u=1', st: '"Get coins real fast."', },
+    
+'mi12': {n: "Hastedash", d: 'Reach 1000000 Turtle Coins in 15 minutes from the start of your legacy.', id: 'mi12', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi12"].u=1', st: '"Get coins truly real fast."', },
+    
+'mi13': {n: "Obstinated Obstructionist", d: 'Reach 1000000 Turtle Coins without purchasing any activity.', id: 'mi13', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi13"].u=1', st: '"Refuse work."', },
+    
+'mi14': {n: "Minish Cap", d: 'Reach 10000000 Turtle Coins without purchasing any upgrades.', id: 'mi14', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi14"].u=1', st: '"Refuse power."', },    
+    
+'mi15': {n: "Humble Hustle", d: 'Buy 1 of every activity on your Turtle Camp.', id: 'mi15', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi15"].u=1', st: '"One at a time."', }, 
+
+'mi16': {n: "I Dont Wanna Rule Anymore", d: 'End your legacy a bunch of times in a row.', id: 'mi16', t:'Secret Achievement', u: 0, uc: 'if(stats.totalUpgrades >= 1)achievements["mi16"].u=1', st: '"Try to abandon your fate and your turtles."', }, 
+}
+
+achievements;
+
+//----------------------==========================-----------------------
+//----------------------=========TREATIES=========-----------------------
+//----------------------==========================-----------------------
+
+var treaties = { //u = unlocked? //r = rank //a = active?// o = outcome// d2 = second description used for swag
+    
+'tr1': {n:'Treaty Of Resources', d:'Converts 50% of the production of Supplies and Energy to Resources.', id:'tr1', u: 0, r: 'I', a: 0, o:'switchTreaty("resources")'},  
+    
+'tr2': {n:'Treaty Of Supplies', d:'Converts 50% of the production of Resources and Energy to Supplies.', id:'tr2', u: 0, r: 'I', a: 0, o:'switchTreaty("supplies")'},
+    
+'tr3': {n:'Treaty Of Energy', d:'Converts 50% of the production of Resources and Supplies to Energy.', id:'tr3', u: 0, r: 'I', a: 0, o:'switchTreaty("energy")'}, 
+    
+}
+treaties;
+
+
+

@@ -1,48 +1,83 @@
 <html>
     
-<meta http-equiv='cache-control' content='no-cache'> 
-<meta http-equiv='expires' content='0'> 
-<meta http-equiv='pragma' content='no-cache'>
-    
-
 <head>
+    
     <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" href="main.js" as="script">
+    <link rel="icon" href="img/sys/coin.png" type="image">
 
 
+<div id="tooltip" style="display: none">
+    <div id="upperTooltip">
+    <div class="upperTooltipLeft"><img id="tooltipImage" src="img/src/upgrades/C21.png"></div>
+    <div class="upperTooltipRight">
+    <div id="tooltipPrice">9.999e99<img src="img/sys/Coin.png"></div>
+    <div id="tooltipTitle"><span id="tooltipName">Talar madera o algun tipo de</span>
+    <br><div id="tooltipRarity">Common</div>  
+    </div>    
+    </div>
+    </div>
+    
+    <div class="separador"></div>
+    
+    <div class="lowerTooltip">
+    <div id="tooltipDescription">texto texto texto texto texto texto texto texto texto texto texto</div>
+    <div id="tooltipFlavor">"texto texto texto texto texto texto texto texto texto texto texto"</div>
+    </div>
+    
+    <img id=tooltipArrow src="img/sys/triangulo.png">
+    <img id=tooltipArrowUp src="img/sys/triangulo.png" style="display: none;">
+    <img id=tooltipArrowRight src="img/sys/triangulo.png" style="display: none;">
+    
+    </div>
 
-
-    <div class="limbo">
-
-        <div id="tooltipMejora" class="tooltip mejora" style="display: none">
-            <div class="tooltipMejoraSuperior">
-                <span id="mejoraNombre">Nombre Muy Largo que largo es ay may que largo aaaa</span>
-                <span id="mejoraPrecio">9.999e+99 <img src="img/icon/tCoin.png" /> </span>
-                <span id="mejoraTag" class="mejoraTag">Common Upgrade</span>
-            </div>
-            <div class="separadorMejora" id="upgradeSeparator"></div>
-            <div class="tooltipMejoraInferior">
-                <span id="mejoraDescripcion">Esta mejora acer que bla bla acer que bla bla bla un 10% de 100% eque de. </span>
-                <span id="mejoraFlavor">"un texto relativamente gnte gnte gnte gnte gnte gnte gnte gnte gnte gnte gnte gnte gnte gnte gracioso" </span>
-            </div>
-            <img id="tooltipArrow" src="img/sys/triangulo.png" />
-        </div>
-
+    
+    
+    
+    
+    
 
         <div id="opciones" class="panelOpciones" style="display:none">
             <div class="optionsWrapper">
-            <h1>GAME OPTIONS <a href="https://discord.gg/VnukKfSs3S" target="_blank" title="Join the Discord"><img src="img/sys/discord.png"></a> </h1>
+            <h1>GAME OPTIONS <a href="https://discord.gg/VnukKfSs3S" target="_blank" title="Join the Discord" onclick="logTrackClickDiscord=true"><img src="img/sys/discord.png"></a> </h1>
             <p>(click outside this window to close)</p>
             <img src="img/sys/opciones.png">
             <h2>General</h2>
             <div class="separador"></div>
-            <span><button onclick="autosave()">Save</button> &nbsp; Save manually (autosaves every 30s) <span style="color: orange; font-weight: 500;">[Shorcut: S]</span></span>
-            <span><button style="border: white solid 2px; color:white; background: red; font-weight: 400;" onclick="deleteSave()">DELETE</button> &nbsp; Wipes all progress <span style="color: red; font-weight: 500;">permanently</span></span>
+            <span><button onclick="autosave()">Save</button> &nbsp; Save manually (autosaves every 1 minute) <span style="color: orange; font-weight: 500;">[Shortcut: S]</span></span>
+            <span><button style="border: white solid 2px; color:white; background: red; font-weight: 400;" onclick="deleteSavePrompt()">DELETE</button> &nbsp; Wipes all progress <span style="color: red; font-weight: 500;">permanently</span></span>
+            <span><button onclick="exportJSON()">Export Save</button> &nbsp; Exports save in a JSON file</span>
+            <span><button onclick="importJSON()">Import Save</button> &nbsp; Imports a JSON file</span>    
+            
             <h2>Settings</h2>
             <div class="separador"></div>
-            <span><button id="opcionClickB" onclick="opcionClick()">OFF</button> &nbsp; Disable numbers on click</span>
+            <span><button id="disableAudio" onclick="toggleSettings('disableAudio')">OFF</button> &nbsp; Mute Game</span>
+            <span><button id="disableAutosave" onclick="toggleSettings('disableAutosave')">OFF</button> &nbsp; Disable autosave</span>
+            <span><button id="disableClickText" onclick="toggleSettings('disableClickText')">OFF</button> &nbsp; Disable numbers on turtle click</span>
+            <span style="display:none"><button id="disablePenguinRecap">OFF</button> &nbsp; Disable penguin recap on startup</span>
+            <span><button id="disableDamageNumbers" onclick="toggleSettings('disableDamageNumbers')">OFF</button> &nbsp; Disable floating damage numbers</span>
+
             </div>    
         </div>
 
+        <div id="boughtUpgradesPanel" class="panelOpciones" style="display:none">
+        
+            <h1>Bought Upgrades</h1>
+            <p>(click outside this window to close)</p>
+            <div class="optionsWrapper" id="boughtUpgrades">
+                
+            </div>
+            <div class="boughtUpgradesInfo">
+                <h2>Common upgrades bought: <span class="numeroEstadisticas" id="estadisticaMejorasTotal">2</span></h2>
+                <h2>Permanent upgrades bought: 0</h2>
+                <h2>Decreed upgrades bought: 2</h2>
+                <h2>Achievement upgrades bought: 0</h2>
+            </div>
+        </div>
+        
+        
         <div id="estadisticas" class="panelOpciones estadisticas" style="display:none">
             <div class="optionsWrapper">
             <h1>Statistics</h1>
@@ -50,13 +85,20 @@
             <img src="img/sys/estadisticas.png">
             <h2>General</h2>
             <div class="separador"></div>
-            <h3> Playtime: <span class="numeroEstadisticas" id="estadisticaPlaytime">2</span></h3>
-            <h3> Started on: <span class="numeroEstadisticas" id="estadisticaStartDate">2</span></h3>
-            <h3> Turtle clicks made: <span class="numeroEstadisticas" id="estadisticaClicks">2</span></h3>
-            <h2>Purchaseables</h2>
+            <h3 style="display: none"> <span id="boughtUpgradesButton">Bought Upgrades</span></h3>
+            <h3> Active Playtime: <span class="numeroEstadisticas" id="estadisticaPlaytime">2</span></h3>
+            <h3> Started On: <span class="numeroEstadisticas" id="estadisticaStartDate">2</span></h3>
+            <h3> Turtle Clicks made: <span class="numeroEstadisticas" id="estadisticaClicks">2</span></h3>
+            <h3> Coins Produced by Clicking: <span class="numeroEstadisticas" id="totalCoinClicks">2</span></h3> 
+            <h3> Total Coins Gained: <span class="numeroEstadisticas" id="totalCoins">2</span></h3> 
+            <h3> Items Crafted: <span class="numeroEstadisticas" id="statCrafted">2</span></h3> 
+            <h3> Items Sold: <span class="numeroEstadisticas" id="statSold">2</span></h3> 
+            <h3> Quests Completed: <span class="numeroEstadisticas" id="statQuestCompleted">2</span></h3>   
+            <h2>Combat Statistics</h2>
             <div class="separador"></div>
-            <h3> Nº of buildings bought: <span class="numeroEstadisticas" id="estadisticaEdificiosTotal">2</span></h3>
-            <h3> Nº of upgrades bought: <span class="numeroEstadisticas" id="estadisticaMejorasTotal">2</span></h3>
+            <h3> Total Kills: <span class="numeroEstadisticas" id="statKills">2</span></h3>
+            <h3> Total Boss Kills: <span class="numeroEstadisticas" id="statBossKills">2</span></h3>    
+            <h3> Total Defeats: <span class="numeroEstadisticas" id="statDeaths">2</span></h3>
             </div>
         </div>
 
@@ -65,43 +107,121 @@
             <h1>VERSION HISTORY</h1>
             <p>(click outside this window to close)</p>
             <img src="img/sys/changelog.png">
+            <h2>v 0.2</h2>
+            <div class="separador"></div>
+            <span>This is basically a beta test<br></span>    
+            <span>Remade everything<br></span>    
+            <span>Revamped the entire graphical aspect of the game<br></span>    
+            <span>Added the rpg maingame, including a quest and a shop system<br></span>
+            <span>Added professions<br></span>
+            <span>Added day cycles and a weather system (not very used for now)<br></span>
+            <span>Added SFX<br></span>
+            <span>Added the first two areas (acting as some sort of tutorial)<br></span>
+            <span>Added and then reworked the achievement system<br></span>
+            <span>You can now rename the turtle<br></span>
+            <span>Arrows now get contracted with categories<br></span>
+            <span>Some animations got revamped<br></span>
+            <span>Added a bunch of stats for nerds<br></span>
+            <span>New default cursor<br></span>     
+            <span>Delete save has an additional prompt<br></span>
+            <span>You can now toggle autosave off<br></span>
+            <span>Added import and export save functionality<br></span>
+            <span>Newly created saves should now work after future updates<br></span>    
+            <span>A bunch of renames and bugfixes<br></span>    
             <h2>v 0.1</h2>
             <div class="separador"></div>
-            <span>I did something<br></span>
-            <h3>Made by "duck" [drvcx]<br></h3>
+            <span>Oh god what did i do<br></span>
+            <h3 onclick="logTrackClickDuck=true; playSound('audio/quack.mp3')">Made by "duck" [drvcx] &#129414 <br></h3>
             </div>    
         </div>
 
+        <div id="deleteData" class="panelOpciones" style="display:none">
+            <h1>DELETE SAVEDATA</h1>
+            <p>(click outside this window to close)</p>
+            <img src="img/sys/deleteData.png">
+            <span>Are you sure you want to delete <strong>all</strong> saved data?<br></span>
+            <span>This action is <strong>irreversible</strong> and will <strong>forever</strong> delete all progress of the game<br></span>
+            <span><button style="border: white solid 2px; color:white; background: red; font-weight: 400;" onclick="deleteSave()">DELETE DATA</button></span>
+        </div>
+        
+        <div id="turtleRename" class="panelOpciones" style="display:none">
+            <h1>Rename your turtle!</h1>
+            <p>(click outside this window to close)</p>
+            <span><input type="text" id="namingBox" placeholder="Jeffrey" autocomplete="off" maxlength="15" onkeydown="enterName(event)"><img src="img/sys/scroll.png"></span>
+             
+            
+            
+        </div>
+        
+        
+        
 
         <div id="panelAutosave" class="panelOpciones" style="display:none">
             <img src="img/sys/saved.png">
             <h1>Game Saved</h1>
         </div>
+    
+        <div id="achievementPopup" class="panelOpciones">
+            <span><img src="img/sys/achievements.png">ACHIEVEMENT UNLOCKED</span>
+            <span><h2 id="achievementName">Alone No More</h2></span>
+        </div>
+    
+        
+        
+        <div id="penguinRecap" class="panelOpciones" style="display:none">
+            <h2 id="closeRecap">X</h2>
+            
+            <img src="img/sys/penguinRecap.png">
+            <div class="flex">
+            <p>Your hard working Penguin Helpers have been working for you while you weren't online for <strong id="idleTime">0h 0m 0s</strong></p>
+            <p>In that time, they managed to collect: <span><span id="idleCoins">0</span><img src="img/sys/coin.png">&nbsp;&nbsp;<span id="idleResources">0</span><img src="img/sys/resources.png">&nbsp;&nbsp;<span id="idleSupplies">0</span><img src="img/sys/food.png">&nbsp;&nbsp;<span id="idleEnergy">0</span><img src="img/sys/energy.png"></span></p>
+            </div>    
+            
+        </div>
 
         <div class="panelOpciones" id="cheatPanel" style="display:none">
             <h3>modo diablo &#128520;</h3>
-            <button onclick="cheat(1)">1min</button><button onclick="cheat(10)">10min</button><button onclick="cheat(60)">1h</button><button onclick="cheat(600)">10h</button><button onclick="cheat(6000)">100h</button><button onclick="cheat(60000)">1000h</button><button onclick="cheat(600000)">10000h</button><button onclick="cheat(6000000)">100000h</button><button onclick="increaseCoins(3600)">1h (i)<button onclick="increaseCoins(36000)">10h (i)</button><button onclick="cheat2(1)">coins</button><button onclick="cheat2(2)">resour</button><button onclick="cheat2(3)">food</button><button onclick="cheat2(4)">energy</button>
+            <button onclick="cheat(1)">1min</button><button onclick="cheat(10)">10min</button><button onclick="cheat(60)">1h</button><button onclick="cheat(600)">10h</button><button onclick="cheat(6000)">100h</button><button onclick="cheat(60000)">1000h</button><button onclick="cheat(600000)">10000h</button><button onclick="cheat(6000000)">100000h</button><button onclick="increaseCoins(3600)">1h (i)</button><button onclick="increaseCoins(36000)">10h (i)</button><button onclick="cheat2(1)">coins</button><button onclick="cheat2(2)">resour</button><button onclick="cheat2(3)">food</button><button onclick="cheat2(4)">energy</button>
             time skipped: <span id="timeskip">0</span>horas
-            </div>
+       
+        </div>  
+    
+        <div id="unlockPanel" style="display: none">
+    
+         <img id="unlockAnimation" src="img/sys/unlockAnimation.gif" alt="Animated GIF">
+ 
+         <img id="unlockedAura" src="img/sys/sunRays.png">
+         <img id="unlockedItem" src="img/sys/penguinRecap.png">
+        <p id="unlockedText"></p>
+        <p id="unlockedDescription"></p>
+        <span id="unlockedText2">(click anywhere to close)</span>
+    </div>     
 
         
-
-    </div>
+        <div class="dynamicSpark"></div>
+    
+    
+    <div id="debugPanel" style="display: none"><button class="itemSlot" onclick="levelUp(1)">+1 Level</button><button class="itemSlot" onclick="levelUp(10)">+10 Level</button><button class="itemSlot" onclick="revive()">Revive</button><button class="itemSlot" onclick="deleteEnemy()">Banish</button><button class="itemSlot" onclick="areas[stats.currentArea].currentTimer = 0">Boss CD</button><div id="debugContract"></div></div>
+    
 
 </head>
-
+ 
 
 <body>
+    
+    
+    
+    
     <div id="bodyCover"></div>
     <span id="body">
-
+<div id="jesterTurtle" style="display: none"><img src="img/sys/jesterturtle.png"></div>
         <!-- ------------------Barra lateral--------- -->
 
         <div class=bLateral>
             <div class=bannerLateral>
                 <h1 translate="no">Super Turtle Idle</h1>
             </div>
-            <h2>v 0.1 <strong id="botonChangelog">(Version History)</strong></h2>
+            <h2>v 0.2 <strong id="botonChangelog">(Version History)</strong></h2>
             <div class=listaLateral>
 
                 <div>
@@ -119,24 +239,35 @@
                 </div>
 
                 <div class=separador></div>
-
-                <div class=botonLateral>
-                    <img src="img/icon/aldea.png">
-                    <p>Turtle Town</p>
+                
+                <div class=botonLateral id="rpgTab">
+                    <img src="img/src/icons/expedition.png">
+                    <p>Expeditions</p>
+                </div>
+                
+                <div class=botonLateral id="achievementsTab" style="display:none">
+                    <img src="img/src/icons/achievement.png">
+                    <p>Grand Archives</p>
+                </div>
+                
+                <div class=botonLateral id="jobTab" style="display:none">
+                    <img src="img/src/icons/job.png">
+                    <p>Craftwork</p>
                 </div>
 
-                <div class=botonLateral>
-                    <button class=candado><img src="img/sys/candado.png"> </button>
-
+                <div class=botonLateral id="campTab" style="display:none">
+                    <img src="img/sys/aldea.png">
+                    <p>Turtle Camp</p>
                 </div>
 
-                <div class=botonLateral>
-                    <button class=candado><img src="img/sys/candado.png"> </button>
+                
+
+                <div class=botonLateral id="townshipTab" style="display:none">
+                    <img src="img/sys/township.png">
+                    <p>Arcanum Liber</p>
                 </div>
 
-                <div class=botonLateral>
-                    <button class=candado><img src="img/sys/candado.png"> </button>
-                </div>
+               
 
             </div>
             <div class=panelRecursos>
@@ -145,11 +276,11 @@
                 <div class=recursosLateral>
 
                     <div class=botonRecursos>
-                        <div id="iconoMoneda" class=redondaBlanca style="background-image: url(img/icon/tCoin.png); background-size: 80%;"></div>
+                        <div id="iconoMoneda" class=redondaBlanca style="background-image: url(img/sys/coin.png);"></div>
                         <strong id="contadorMonedas">0</strong>
                         <p translate="no">Turtle Coins</p>
                     </div>
-                    <h1 id="contadorMonedasSegundo">0 /s</h1>
+                    <h1 id="contadorMonedasSegundo" style="display: none">0 /s</h1>
 
                     <div class=separador style="display: none"></div>
                     <div class=botonRecursos style="display: none">
@@ -171,9 +302,17 @@
                 </div>
                 <div class=panelTortuga>
                     <div class=nombreTortuga>
-                        <p>Jeffrey</p>
+                        <p id="turtleName">Jeffrey</p>
                     </div>
                     <img id="tortugaClick" src="img/src/tortugasdefault/img1.png" />
+                    <img id="sparkleFX" src="img/sys/sparkle.gif" style="display:none">
+                    <div id="currentTreaty"></div>
+                    
+                    <div id="buffList">
+                        <div id="buffWrapper">
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -185,17 +324,38 @@
 
         <div class=bSuperior>
             <div class=categoria>
-                <div class=tCategoria>
-                    <img src="img/icon/aldea.png" />
-                    <h1 translate="no">Turtle Town
+                <div id="titleBanner"></div>
+                <div class=tCategoria id="campTitle" style="display: none">
+                    <img src="img/sys/aldea.png" />
+                    <h1 translate="no">Turtle Camp
+                    </h1>
+                </div>
+                <div class=tCategoria id="achievementsTitle" style="display: none">
+                    <img src="img/src/icons/achievement.png" />
+                    <h1 translate="no">Grand Archives
+                    </h1>
+                </div>
+                <div class=tCategoria id="townshipTitle" style="display: none">
+                    <img src="img/sys/township.png" />
+                    <h1 translate="no">Township
+                    </h1>
+                </div>
+                <div class=tCategoria id="rpgTitle" style="display: none">
+                    <img src="img/src/icons/expedition.png" />
+                    <h1 translate="no">Expeditions
+                    </h1>
+                </div>
+                <div class=tCategoria id="jobTitle" style="display: none">
+                    <img src="img/src/icons/job.png" />
+                    <h1 translate="no">Craftwork
                     </h1>
                 </div>
             </div>
-            <div class="recursosSuperior" style="visibility: hidden;">
-                <div class="recursoDiv"><span>8.889E99/8.8E99</span><img src="img/sys/resources.png" /></div>
-                <div class="recursoDiv"><span>8.889E99/8.8E99</span><img src="img/sys/food.png" /></div>
-                <div class="recursoDiv"><span>8.889E99/8.8E99</span><img src="img/sys/energy.png" /></div>
-
+            <div class="recursosSuperior">
+                <div class="topWidget"><img id="currentWeather" src="img/src/icons/day.png"/><span id="rpgTime">00:00</span></div>
+                
+                
+                
 
 
 
@@ -204,23 +364,23 @@
         <!-- ---------------Barra Inferior------------ -->
 
         <div class=bInferior>
-            <div class="aldeaTortugaContenido">
+            <div class="aldeaTortugaContenido" style='display: none' id="campContainer">
 
                 <!-- ---------------ALDEA TORTUGA------------ -->
 
-                <div class="panelInferiorAldea">
+                <div class="panelInferiorAldea" >
                     <div class="panelConstruccion">
                         <div class="panelConstruccionTitulo">
-                            <span>Construction & Management</span>
+                            <span>Camp Construction</span>
                         </div>
 
 
                         <div class="bannerAldeaRecursos">
-                            <div class="bannerAldeaRecursosBoton"><img src="img/sys/resources.png" />&nbsp;<span id="contadorRecursos">0</span>
+                            <div id="resourcesIcon" class="bannerAldeaRecursosBoton"><img src="img/sys/resources.png" />&nbsp;<span id="contadorRecursos">0</span>
                                 <span id="contadorRecursosSegundo"></span>/<strong id="contadorAlmacenamiento">0</strong>
                             </div>
-                            <div class="bannerAldeaRecursosBoton"><img src="img/sys/food.png" />&nbsp;<span id="contadorAlimento">0</span><span id="contadorAlimentoSegundo"></span>/<strong id="contadorAlmacenamiento2">0</strong></div>
-                            <div class="bannerAldeaRecursosBoton"><img src="img/sys/energy.png" />&nbsp;<span id="contadorEnergia">0</span><span id="contadorEnergiaSegundo"></span>/<strong id="contadorAlmacenamiento3">0</strong></div>
+                            <div id="suppliesIcon" class="bannerAldeaRecursosBoton"><img src="img/sys/food.png" />&nbsp;<span id="contadorAlimento">0</span><span id="contadorAlimentoSegundo"></span>/<strong id="contadorAlmacenamiento2">0</strong></div>
+                            <div id="magicIcon" class="bannerAldeaRecursosBoton"><img src="img/sys/energy.png" />&nbsp;<span id="contadorEnergia">0</span><span id="contadorEnergiaSegundo"></span>/<strong id="contadorAlmacenamiento3">0</strong></div>
 
                         </div>
 
@@ -229,23 +389,23 @@
                         <div class="selectorAldeaEdificio">
 
                             <div class="selectorAldeaEdificioBoton" style="background: #4f4054;" id="botonCategoriaBanco" translate="no">
-                                <img src="img/icon/banco.png" />
-                                &nbsp;&nbsp;Turtle Coins
+                                <img src="img/sys/coin.png" />
+                                &nbsp;&nbsp;Coins
                             </div>
                             <div class="selectorAldeaEdificioBoton" id="botonCategoriaRecursos">
-                                <img src="img/icon/fabrica.png" />
+                                <img src="img/sys/resources.png" />
                                 &nbsp;&nbsp;Resources
                             </div>
                             <div class="selectorAldeaEdificioBoton" id="botonCategoriaAlimento">
-                                <img src="img/icon/alimento.png" />
+                                <img src="img/sys/food.png" />
                                 &nbsp;&nbsp;Supplies
                             </div>
                             <div class="selectorAldeaEdificioBoton" id="botonCategoriaEnergia">
-                                <img src="img/icon/plug.png" />
-                                &nbsp;&nbsp;Energy
+                                <img src="img/sys/energy.png" />
+                                &nbsp;&nbsp;Magic
                             </div>
                             <div class="selectorAldeaEdificioBoton" id="botonCategoriaAlmacenamiento">
-                                <img src="img/icon/paquete.png" />
+                                <img src="img/sys/storage.png" />
                                 &nbsp;&nbsp;Storage
                             </div>
 
@@ -254,7 +414,7 @@
                         </div>
                         <div class="selectorAldeaCantidad">
 
-                            BUY &nbsp;<button id="cantidadComprador1B" style="background: #FD5151;"> 1</button><button id="cantidadComprador10B"> 10</button><button id="cantidadComprador100B"> 100</button><button id="cantidadComprador1000B"> 1000</button> &nbsp;<span class="helpingDuck" id="helpMultipliers">&#129414;</span>
+                            BUY &nbsp;<button id="buy1" style="background: #FD5151;"> 1</button><button id="buy10"> 10</button><button id="buy100"> 100</button><button id="buyMax"> MAX</button> &nbsp;<span class="helpingDuck" id="helpMultipliers">&#129414;</span>
 
 
 
@@ -262,12 +422,12 @@
                         </div>
                         <!-- ---------------RECURSOS------------ -->
                         <div class="listaEdificios" id="panelRecursos" style="display:none">
-                            <div class="edificio" id="rE1B">
-                                <div class="edificioS1">
-                                    <div class="edificioS3"><span id="rE1TP">00.00 %</span><img src="img/src/edificios/recursos/talar.png"></div>
+                            <div class="edificio" id="rE1B" style="display:none">
+                                <div class="edificioS1">    
+                                    <div class="edificioS3"><span id="rE1TP">00.00 %</span><img id="rE1IMG" src="img/src/upgrades/R10.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Wood Chopping <strong id="rE1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE1PT">200</span><img src="img/icon/tCoin.png" /> <br> Sends your turtles to gather wood from trees.<br>Produces
+                                        <p><span>Wood Chopping <strong id="rE1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE1PT">200</span><img src="img/sys/coin.png" /> <br>Send your turtles to gather wood from trees.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="rE1P">1</span><img src="img/sys/resources.png" />/s
                                         </p>
 
@@ -286,12 +446,12 @@
 
                             </div>
 
-                            <div class="edificio" id="rE2B">
+                            <div class="edificio" id="rE2B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="rE2TP">00.00 %</span><img src="img/src/edificios/recursos/mining.png"></div>
+                                    <div class="edificioS3"><span id="rE2TP">00.00 %</span><img id="rE2IMG" src="img/src/upgrades/R20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Stone Mining <strong id="rE2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE2PT">225700</span> <img src="img/icon/tCoin.png" /> <br>They are going to need extra cheering to carry that thing with their litte turtle arms.<br>Produces
+                                        <p><span>Ore Mines <strong id="rE2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE2PT">225700</span> <img src="img/sys/coin.png" /> <br>Build underground structures to extract ore.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="rE2P">50</span><img src="img/sys/resources.png" />/s
                                         </p>
 
@@ -310,12 +470,12 @@
 
                             </div>
 
-                            <div class="edificio" id="rE3B">
+                            <div class="edificio" id="rE3B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="rE3TP">00.00 %</span><img src="img/src/edificios/recursos/deforestacion.png"></div>
+                                    <div class="edificioS3"><span id="rE3TP">00.00 %</span><img src="img/src/upgrades/R20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Tree Harvest <strong id="rE3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE3PT">225700</span> <img src="img/icon/tCoin.png" /> <br>Don't worry, it's an entirely sustainable practice as long as they have bone meal.<br>Produces
+                                        <p><span>Tree Harvest <strong id="rE3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE3PT">225700</span> <img src="img/sys/coin.png" /> <br>Don't worry, it's an entirely sustainable practice as long as they have bone meal.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="rE3P">50</span><img src="img/sys/resources.png" />/s
                                         </p>
 
@@ -335,12 +495,12 @@
                             </div>
 
 
-                            <div class="edificio" id="rE4B">
+                            <div class="edificio" id="rE4B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="rE4TP">00.00 %</span><img src="img/src/edificios/recursos/automatizacion.png"></div>
+                                    <div class="edificioS3"><span id="rE4TP">00.00 %</span><img src="img/src/upgrades/R20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Automatisation <strong id="rE4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE4PT">225700</span> <img src="img/icon/tCoin.png" /> <br>They obey the turtles not because of Asimov, but out of fear.<br>Produces
+                                        <p><span>Automatisation <strong id="rE4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE4PT">225700</span> <img src="img/sys/coin.png" /> <br>They obey the turtles not because of Asimov, but out of fear.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="rE4P">50</span><img src="img/sys/resources.png" />/s
                                         </p>
 
@@ -359,12 +519,12 @@
 
                             </div>
 
-                            <div class="edificio" id="rE5B">
+                            <div class="edificio" id="rE5B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="rE5TP">00.00 %</span><img src="img/src/edificios/recursos/asteroide.png"></div>
+                                    <div class="edificioS3"><span id="rE5TP">00.00 %</span><img src="img/src/upgrades/R20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Asteroid Crusher <strong id="rE5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE5PT">225700</span> <img src="img/icon/tCoin.png" /> <br>Space is known to be the only place yet not conquered by turtles. Yet.<br>Produces
+                                        <p><span>Asteroid Crusher <strong id="rE5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE5PT">225700</span> <img src="img/sys/coin.png" /> <br>Space is known to be the only place yet not conquered by turtles. Yet.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="rE5P">50</span><img src="img/sys/resources.png" />/s
                                         </p>
 
@@ -383,12 +543,12 @@
 
                             </div>
 
-                            <div class="edificio" id="rE6B">
+                            <div class="edificio" id="rE6B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="rE6TP">00.00 %</span><img src="img/src/edificios/recursos/worldpartition.png"></div>
+                                    <div class="edificioS3"><span id="rE6TP">00.00 %</span><img src="img/src/upgrades/R20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>World Partition <strong id="rE6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE6PT">225700</span> <img src="img/icon/tCoin.png" /> <br>See? Its easier to gather materials if you split it open<br>Produces
+                                        <p><span>World Partition <strong id="rE6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="rE6PT">225700</span> <img src="img/sys/coin.png" /> <br>See? Its easier to gather materials if you split it open<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="rE6P">50</span><img src="img/sys/resources.png" />/s
                                         </p>
 
@@ -418,13 +578,13 @@
                         </div>
                         <!-- ---------------BANCO------------ -->
                         <div class="listaEdificios" id="panelBanco">
-                            <div class="edificio" id="mE1B">
+                            <div class="edificio" id="mE1B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="mE1TP">00.00 %</span><img src="img/src/edificios/monedas/caramelo.png"></div>
+                                    <div class="edificioS3"><span id="mE1TP">00.00 %</span><img id="mE1IMG" src="img/src/upgrades/C10.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Hard Currency <strong id="mE1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE1PT">10</span> <img src="img/sys/food.png" /> <br> A sweet choice for an economy, but the turtles are fond of it.<br>Produces
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE1P">10</span><img src="img/icon/tCoin.png" />/s
+                                        <p><span>Log Refinery <strong id="mE1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE1PT">10</span> <img src="img/sys/food.png" /> <br>Process wood into more malleable and useful materials.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE1P">10</span><img src="img/sys/coin.png" />/s
                                         </p>
 
 
@@ -441,13 +601,13 @@
 
 
                             </div>
-                            <div class="edificio" id="mE2B">
+                            <div class="edificio" id="mE2B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="mE2TP">00.00 %</span><img src="img/src/edificios/monedas/hut.png"></div>
+                                    <div class="edificioS3"><span id="mE2TP">00.00 %</span><img src="img/src/upgrades/C20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Communal Life <strong id="mE2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE2PT">25</span> <img src="img/sys/resources.png" /> <br> Bringing together all the turtles, and their money. <br>Produces
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE2P">2500</span><img src="img/icon/tCoin.png" />/s
+                                        <p><span>Build Camp <strong id="mE2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE2PT">25</span> <img src="img/sys/resources.png" /> <br>Construct a settlement for your turtles to live.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE2P">2500</span><img src="img/sys/coin.png" />/s
                                         </p>
 
 
@@ -464,37 +624,13 @@
 
 
                             </div>
-                            <div class="edificio" id="mE3B">
+                            <div class="edificio" id="mE3B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="mE3TP">00.00 %</span><img src="img/src/edificios/monedas/artesania.png"></div>
+                                    <div class="edificioS3"><span id="mE3TP">00.00 %</span><img src="img/src/upgrades/C30.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Handicraft <strong id="mE3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE3PT">50</span> <img src="img/sys/energy.png" /> <br> Everyone does a little piece of their best. <br>Produces
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE3P">15600</span><img src="img/icon/tCoin.png" />/s
-                                        </p>
-
-
-                                    </div>
-
-                                </div>
-                                <div class="edificioS2">
-                                    Left Click to&nbsp;<span>Buy</span>
-
-                                </div>
-
-
-
-
-
-                            </div>
-
-                            <div class="edificio" id="mE4B">
-                                <div class="edificioS1">
-                                    <div class="edificioS3"><span id="mE4TP">00.00 %</span><img src="img/src/edificios/monedas/religion.png"></div>
-                                    <div class="edificioS4">
-
-                                        <p><span>Turtle Beliefs <strong id="mE4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE4PT">50</span> <img src="img/sys/food.png" /> <br> Many good things are waiting for you. Only if you pay, though. <br>Produces
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE4P">15600</span><img src="img/icon/tCoin.png" />/s
+                                        <p><span>Ore Smeltery <strong id="mE3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE3PT">50</span> <img src="img/sys/energy.png" /> <br>Transform raw minerals and materials into bars<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE3P">15600</span><img src="img/sys/coin.png" />/s
                                         </p>
 
 
@@ -512,13 +648,13 @@
 
                             </div>
 
-                            <div class="edificio" id="mE5B">
+                            <div class="edificio" id="mE4B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="mE5TP">00.00 %</span><img src="img/src/edificios/monedas/statue.png"></div>
+                                    <div class="edificioS3"><span id="mE4TP">00.00 %</span><img src="img/src/upgrades/C40.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Empire Zealotry <strong id="mE5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE5PT">50</span> <img src="img/sys/resources.png" /> <br>Be ready to worship taxes, work and air conditioner. <br>Produces
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE5P">15600</span><img src="img/icon/tCoin.png" />/s
+                                        <p><span>Leatherworking Stand <strong id="mE4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE4PT">50</span> <img src="img/sys/food.png" /> <br>Produce useful pelts and leather by skin-treating. <br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE4P">15600</span><img src="img/sys/coin.png" />/s
                                         </p>
 
 
@@ -536,13 +672,13 @@
 
                             </div>
 
-                            <div class="edificio" id="mE6B">
+                            <div class="edificio" id="mE5B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="mE6TP">00.00 %</span><img src="img/src/edificios/monedas/print.png"></div>
+                                    <div class="edificioS3"><span id="mE5TP">00.00 %</span><img src="img/src/upgrades/C50.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Money Printer <strong id="mE6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE6PT">50</span> <img src="img/sys/energy.png" /> <br>Why we didn't thought about this sooner? <br>Produces
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE6P">15600</span><img src="img/icon/tCoin.png" />/s
+                                        <p><span>Gold Transmutator <strong id="mE5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE5PT">50</span> <img src="img/sys/resources.png" /> <br>Interchanges the molecules of gold directly into the shape of coins. <br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE5P">15600</span><img src="img/sys/coin.png" />/s
                                         </p>
 
 
@@ -560,13 +696,37 @@
 
                             </div>
 
-                            <div class="edificio" id="mE7B">
+                            <div class="edificio" id="mE6B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="mE7TP">00.00 %</span><img src="img/src/edificios/monedas/turtleworld.png"></div>
+                                    <div class="edificioS3"><span id="mE6TP">00.00 %</span><img src="img/src/upgrades/C60.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Tailoring Rack <strong id="mE6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE6PT">50</span> <img src="img/sys/energy.png" /> <br>Weaves cloth out of fibers and strands.<br>Produces
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE6P">15600</span><img src="img/sys/coin.png" />/s
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="mE7B" style="display:none">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><span id="mE7TP">00.00 %</span><img src="img/src/upgrades/C60.png"></div>
                                     <div class="edificioS4">
 
                                         <p><span>TurtleLand <strong id="mE7T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="mE7PT">50</span> <img src="img/sys/food.png" /> <br>Who is ready to pay for overpriced food? I know you are! <br>Produces
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE7P">15600</span><img src="img/icon/tCoin.png" />/s
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="mE7P">15600</span><img src="img/sys/coin.png" />/s
                                         </p>
 
 
@@ -594,12 +754,12 @@
                         </div>
                         <!-- ---------------ALIMENTO------------ -->
                         <div class="listaEdificios" id="panelComida" style="display:none">
-                            <div class="edificio" id="cE1B">
+                            <div class="edificio" id="cE1B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="cE1TP">00.00 %</span><img src="img/src/edificios/alimento/caza.png"></div>
+                                    <div class="edificioS3"><span id="cE1TP">00.00 %</span><img src="img/src/upgrades/S10.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Bow Hunting <strong id="cE1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE1PT">10</span> <img src="img/icon/tCoin.png" /> <br>Turtle never fight turtle, but they never said anything about other animals.<br>Produces
+                                        <p><span>Bow Hunting <strong id="cE1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE1PT">10</span> <img src="img/sys/coin.png" /> <br>Order your turtles to hunt for prey.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="cE1P">1</span><img src="img/sys/food.png" />/s
                                         </p>
 
@@ -617,12 +777,12 @@
 
 
                             </div>
-                            <div class="edificio" id="cE2B">
+                            <div class="edificio" id="cE2B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="cE2TP">00.00 %</span><img src="img/src/edificios/alimento/trampa.png"></div>
+                                    <div class="edificioS3"><span id="cE2TP">00.00 %</span><img src="img/src/upgrades/S20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Croissant Trap<strong id="cE2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE2PT">55000</span> <img src="img/icon/tCoin.png" /> <br>If we are trapping something, it might as well be delicious.<br>Produces
+                                        <p><span>Fishing Dock<strong id="cE2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE2PT">55000</span> <img src="img/sys/coin.png" /> <br>Build a pier to gather fish.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="cE2P">50</span><img src="img/sys/food.png" />/s
                                         </p>
 
@@ -641,12 +801,12 @@
 
                             </div>
 
-                            <div class="edificio" id="cE3B">
+                            <div class="edificio" id="cE3B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="cE3TP">00.00 %</span><img src="img/src/edificios/alimento/agricultura.png"></div>
+                                    <div class="edificioS3"><span id="cE3TP">00.00 %</span><img src="img/src/upgrades/S30.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Agriculture<strong id="cE3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE3PT">55000</span> <img src="img/icon/tCoin.png" /> <br>Did you know some turtles can grow long necks to reach tall fruit? They are also yellow.<br>Produces
+                                        <p><span>Garden Plot<strong id="cE3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE3PT">55000</span> <img src="img/sys/coin.png" /> <br>Sow a perimeter to plant all kinds of greenery and verdures.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="cE3P">50</span><img src="img/sys/food.png" />/s
                                         </p>
 
@@ -665,12 +825,12 @@
 
                             </div>
 
-                            <div class="edificio" id="cE4B">
+                            <div class="edificio" id="cE4B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="cE4TP">00.00 %</span><img src="img/src/edificios/alimento/grandma.png"></div>
+                                    <div class="edificioS3"><span id="cE4TP">00.00 %</span><img src="img/src/upgrades/S40.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Turtle Grandma<strong id="cE4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE4PT">55000</span> <img src="img/icon/tCoin.png" /> <br>A nice grandma to bake you some cook- er, supplies.<br>Produces
+                                        <p><span>Hatchery<strong id="cE4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE4PT">55000</span> <img src="img/sys/coin.png" /> <br>A facility to breed and hatch different kinds of animals.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="cE4P">50</span><img src="img/sys/food.png" />/s
                                         </p>
 
@@ -689,12 +849,12 @@
 
                             </div>
 
-                            <div class="edificio" id="cE5B">
+                            <div class="edificio" id="cE5B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="cE5TP">00.00 %</span><img src="img/src/edificios/alimento/ganaderia.png"></div>
+                                    <div class="edificioS3"><span id="cE5TP">00.00 %</span><img src="img/src/upgrades/S40.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Husbandry<strong id="cE5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE5PT">55000</span> <img src="img/icon/tCoin.png" /> <br>I dont get it, who would marry a chicken when turtles are handsomer?<br>Produces
+                                        <p><span>Husbandry<strong id="cE5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE5PT">55000</span> <img src="img/sys/coin.png" /> <br>I dont get it, who would marry a chicken when turtles are handsomer?<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="cE5P">50</span><img src="img/sys/food.png" />/s
                                         </p>
 
@@ -713,12 +873,12 @@
 
                             </div>
 
-                            <div class="edificio" id="cE6B">
+                            <div class="edificio" id="cE6B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="cE6TP">00.00 %</span><img src="img/src/edificios/alimento/superfruta.png"></div>
+                                    <div class="edificioS3"><span id="cE6TP">00.00 %</span><img src="img/src/upgrades/S40.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Avocadium<strong id="cE6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE6PT">55000</span> <img src="img/icon/tCoin.png" /> <br>Limitless potential stored within this new-found fruit. Like the creation of Guacamolium.<br>Produces
+                                        <p><span>Avocadium<strong id="cE6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="cE6PT">55000</span> <img src="img/sys/coin.png" /> <br>Limitless potential stored within this new-found fruit. Like the creation of Guacamolium.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="cE6P">50</span><img src="img/sys/food.png" />/s
                                         </p>
 
@@ -743,12 +903,12 @@
                         </div>
                         <!-- ---------------ENERGIA------------ -->
                         <div class="listaEdificios" id="panelEnergia" style="display:none">
-                            <div class="edificio" id="eE1B">
+                            <div class="edificio" id="eE1B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="eE1TP">00.00 %</span><img src="img/src/edificios/energia/banquet.png"></div>
+                                    <div class="edificioS3"><span id="eE1TP">00.00 %</span><img src="img/src/upgrades/M10.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Coffee <strong id="eE1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE1PT">85900</span> <img src="img/icon/tCoin.png" /> <br>A good day to take over the world starts with a cup of these.<br>Produces
+                                        <p><span>Apprentice Books <strong id="eE1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE1PT">85900</span> <img src="img/sys/coin.png" /> <br>Basic instruction of entry-level sorcery for your turtles.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="eE1P">1</span><img src="img/sys/energy.png" />/s
                                         </p>
 
@@ -766,12 +926,12 @@
 
 
                             </div>
-                            <div class="edificio" id="eE2B">
+                            <div class="edificio" id="eE2B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="eE2TP">00.00 %</span><img src="img/src/edificios/energia/cometa.png"></div>
+                                    <div class="edificioS3"><span id="eE2TP">00.00 %</span><img src="img/src/upgrades/M20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Kite Generator <strong id="eE2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE2PT">770500</span> <img src="img/icon/tCoin.png" /> <br>Never question their methods if they work.<br>Produces
+                                        <p><span>Potion Cauldrons <strong id="eE2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE2PT">770500</span> <img src="img/sys/coin.png" /> <br>Brew different kinds of ability-enhancing liquids.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="eE2P">50</span><img src="img/sys/energy.png" />/s
                                         </p>
 
@@ -790,12 +950,12 @@
 
                             </div>
 
-                            <div class="edificio" id="eE3B">
+                            <div class="edificio" id="eE3B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="eE3TP">00.00 %</span><img src="img/src/edificios/energia/patata.png"></div>
+                                    <div class="edificioS3"><span id="eE3TP">00.00 %</span><img src="img/src/upgrades/M20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Potato Battery <strong id="eE3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE3PT">770500</span> <img src="img/icon/tCoin.png" /> <br>Now you're thinking with tubers!<br>Produces
+                                        <p><span>Potato Battery <strong id="eE3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE3PT">770500</span> <img src="img/sys/coin.png" /> <br>Now you're thinking with tubers!<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="eE3P">50</span><img src="img/sys/energy.png" />/s
                                         </p>
 
@@ -814,12 +974,12 @@
 
                             </div>
 
-                            <div class="edificio" id="eE4B">
+                            <div class="edificio" id="eE4B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="eE4TP">00.00 %</span><img src="img/src/edificios/energia/cannedlighting.png"></div>
+                                    <div class="edificioS3"><span id="eE4TP">00.00 %</span><img src="img/src/upgrades/M20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Canned Lightning <strong id="eE4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE4PT">770500</span> <img src="img/icon/tCoin.png" /> <br>They really thought we would not do this when we invented the can.<br>Produces
+                                        <p><span>Canned Lightning <strong id="eE4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE4PT">770500</span> <img src="img/sys/coin.png" /> <br>They really thought we would not do this when we invented the can.<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="eE4P">50</span><img src="img/sys/energy.png" />/s
                                         </p>
 
@@ -838,12 +998,12 @@
 
                             </div>
 
-                            <div class="edificio" id="eE5B">
+                            <div class="edificio" id="eE5B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="eE5TP">00.00 %</span><img src="img/src/edificios/energia/carbonburning.png"></div>
+                                    <div class="edificioS3"><span id="eE5TP">00.00 %</span><img src="img/src/upgrades/M20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Carbon Burning <strong id="eE5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE5PT">770500</span> <img src="img/icon/tCoin.png" /> <br>Diamond is made out of coal, right? So why was PR against this idea exactly?<br>Produces
+                                        <p><span>Carbon Burning <strong id="eE5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE5PT">770500</span> <img src="img/sys/coin.png" /> <br>Diamond is made out of coal, right? So why was PR against this idea exactly?<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="eE5P">50</span><img src="img/sys/energy.png" />/s
                                         </p>
 
@@ -862,12 +1022,12 @@
 
                             </div>
 
-                            <div class="edificio" id="eE6B">
+                            <div class="edificio" id="eE6B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><span id="eE6TP">00.00 %</span><img src="img/src/edificios/energia/wheel.png"></div>
+                                    <div class="edificioS3"><span id="eE6TP">00.00 %</span><img src="img/src/upgrades/M20.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Turtle Generator <strong id="eE6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE6PT">770500</span> <img src="img/icon/tCoin.png" /> <br>It's actually unpluged, i just wanted to see the fella running. Look at him go!<br>Produces
+                                        <p><span>Turtle Generator <strong id="eE6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="eE6PT">770500</span> <img src="img/sys/coin.png" /> <br>It's actually unpluged, i just wanted to see the fella running. Look at him go!<br>Produces
                                             <span style="color: 7EFF69; font-size: 0.80vw;" id="eE6P">50</span><img src="img/sys/energy.png" />/s
                                         </p>
 
@@ -891,13 +1051,38 @@
                         </div>
                         <!-- ---------------ALMACENAMIENTO------------ -->
                         <div class="listaEdificios" id="panelAlmacenamiento" style="display:none">
-                            <div class="edificio" id="aE1B">
+                            <div class="edificio" id="aE1B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><img src="img/src/edificios/almacen/cueva.png"></div>
+                                    <div class="edificioS3"><img src="img/src/upgrades/ST10.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Big Ol' Cave <strong id="aE1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE1PT">12200</span> <img src="img/icon/tCoin.png" /> <br>Just shove everything down there, it'll work out.<br>
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE1P">+1000</span><img src="img/icon/paquete.png" />
+                                        <p><span>Small Pouch <strong id="aE1T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE1PT">12200</span> <img src="img/sys/coin.png" /> <br>A simple but effective storage solution.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE1P">+1000</span><img src="img/src/upgrades/ST10.png" />
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                                
+                                <div class="edificioS2">
+                                    Left Click to&nbsp;<span>Buy</span>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <div class="edificio" id="aE2B" style="display:none">
+                                <div class="edificioS1">
+                                    <div class="edificioS3"><img src="img/src/upgrades/ST10.png"></div>
+                                    <div class="edificioS4">
+
+                                        <p><span>Clay Pottery <strong id="aE2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE2PT">375900</span> <img src="img/sys/coin.png" /> <br>The cave worked out just fine, honestly.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE2P">+25000</span><img src="img/src/upgrades/ST10.png" />
                                         </p>
 
 
@@ -915,13 +1100,13 @@
 
                             </div>
 
-                            <div class="edificio" id="aE2B">
+                            <div class="edificio" id="aE3B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><img src="img/src/edificios/almacen/jarra.png"></div>
+                                    <div class="edificioS3"><img src="img/src/upgrades/ST10.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Clay Pottery <strong id="aE2T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE2PT">375900</span> <img src="img/icon/tCoin.png" /> <br>The cave worked out just fine, honestly.<br>
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE2P">+25000</span><img src="img/icon/paquete.png" />
+                                        <p><span>Straw Basket <strong id="aE3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE3PT">375900</span> <img src="img/sys/coin.png" /> <br>Not only serves as storage, but also as a fashionable turtle accessory.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE3P">+25000</span><img src="img/src/upgrades/ST10.png" />
                                         </p>
 
 
@@ -939,13 +1124,13 @@
 
                             </div>
 
-                            <div class="edificio" id="aE3B">
+                            <div class="edificio" id="aE4B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><img src="img/src/edificios/almacen/basket.png"></div>
+                                    <div class="edificioS3"><img src="img/src/upgrades/ST10.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Straw Basket <strong id="aE3T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE3PT">375900</span> <img src="img/icon/tCoin.png" /> <br>Not only serves as storage, but also as a fashionable turtle accessory.<br>
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE3P">+25000</span><img src="img/icon/paquete.png" />
+                                        <p><span>Warehouse <strong id="aE4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE4PT">375900</span> <img src="img/sys/coin.png" /> <br>It's painted red so it stores even more stuff inside.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE4P">+25000</span><img src="img/src/upgrades/ST10.png" />
                                         </p>
 
 
@@ -963,13 +1148,13 @@
 
                             </div>
 
-                            <div class="edificio" id="aE4B">
+                            <div class="edificio" id="aE5B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><img src="img/src/edificios/almacen/almacen.png"></div>
+                                    <div class="edificioS3"><img src="img/src/upgrades/ST10.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Warehouse <strong id="aE4T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE4PT">375900</span> <img src="img/icon/tCoin.png" /> <br>It's painted red so it stores even more stuff inside.<br>
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE4P">+25000</span><img src="img/icon/paquete.png" />
+                                        <p><span>Floppy Disk <strong id="aE5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE5PT">375900</span> <img src="img/sys/coin.png" /> <br>I mean, it's the saving icon, if you need to save stuff, this is your guy.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE5P">+25000</span><img src="img/src/upgrades/ST10.png" />
                                         </p>
 
 
@@ -987,37 +1172,13 @@
 
                             </div>
 
-                            <div class="edificio" id="aE5B">
+                            <div class="edificio" id="aE6B" style="display:none">
                                 <div class="edificioS1">
-                                    <div class="edificioS3"><img src="img/src/edificios/almacen/floppy.png"></div>
+                                    <div class="edificioS3"><img src="img/src/upgrades/ST10.png"></div>
                                     <div class="edificioS4">
 
-                                        <p><span>Floppy Disk <strong id="aE5T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE5PT">375900</span> <img src="img/icon/tCoin.png" /> <br>I mean, it's the saving icon, if you need to save stuff, this is your guy.<br>
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE5P">+25000</span><img src="img/icon/paquete.png" />
-                                        </p>
-
-
-                                    </div>
-
-                                </div>
-                                <div class="edificioS2">
-                                    Left Click to&nbsp;<span>Buy</span>
-
-                                </div>
-
-
-
-
-
-                            </div>
-
-                            <div class="edificio" id="aE6B">
-                                <div class="edificioS1">
-                                    <div class="edificioS3"><img src="img/src/edificios/almacen/variable.png"></div>
-                                    <div class="edificioS4">
-
-                                        <p><span>Variable <strong id="aE6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE6PT">375900</span> <img src="img/icon/tCoin.png" /> <br>We are going meta, baby.<br>
-                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE6P">+25000</span><img src="img/icon/paquete.png" />
+                                        <p><span>Variable <strong id="aE6T">0</strong></span><br><span style="color: 7EFF69; font-size: 0.80vw;" id="aE6PT">375900</span> <img src="img/sys/coin.png" /> <br>We are going meta, baby.<br>
+                                            <span style="color: 7EFF69; font-size: 0.80vw;" id="aE6P">+25000</span><img src="img/src/upgrades/ST10.png" />
                                         </p>
 
 
@@ -1044,14 +1205,14 @@
                     <div class="panelMejoras">
 
 
-                        <div class="panelMejorasTitulo"><span>Upgrades</span></div>
+                        <div class="panelMejorasTitulo"><span>Management</span></div>
 
                         <button style="display: none;">
                             BUY ALL
                         </button>
 
                         <div class="tituloMejorasUnicas">
-                            Permanent Upgrades <img id="contrerUnicas" src="img/sys/contraer.png">
+                            Research Building <img id="contrerUnicas" src="img/sys/contraer.png">
                         </div>
                         <div id="panelMUnicas" class="panelMejorasComunes">
 
@@ -1065,7 +1226,7 @@
                         </div>
 
                         <div class="tituloMejorasComunes">
-                            Common Upgrades <img id="contrerComunes" src="img/sys/contraer.png">
+                            Upgrade Center <img id="contrerComunes" src="img/sys/contraer.png">
                         </div>
                         <div id="panelMComunes" class="panelMejorasComunes">
 
@@ -1088,15 +1249,450 @@
 
 
             </div>
+            
+            <div class="aldeaTortugaContenido" id="achievementContainer" style='display: none' >
+            
+            <div class="panelInferiorAldea">
+                    <div class="panelConstruccion" id="achievementPanel">
+                       
+                        
+                        <div class="bannerAldeaRecursos" id="achievementBanner">
+                            
+                        <img id="achievementBannerImg" src="img/sys/achievementbanner.png">
+                        <h1>Pages Completed: <span id="logCount">0/0</span> <strong id="logCompletion">[0%]</strong></h1>
+                        <div class="separador" id="achievementSeparator"></div>
+                        </div>
+                        <div class="bannerAldeaRecursos" id="achievementBanner2">
+
+                        <div class="achievementBook" id="book1">
+                        <h1>Journeyman Diary:</h1>
+                        <img src ="img/src/icons/book1.png" class="bookImage"><div class="separador"></div>
+                        <div class="achievementWrapper" id="book1List"></div>
+                        </div>
+
+                        <div class="achievementBook" id="book2" style="display: none;">
+                        <h1>Big Book of Big Damage:</h1>
+                        <img src ="img/src/icons/book2.png" class="bookImage"><div class="separador"></div>
+                        <div class="achievementWrapper" id="book2List"></div>
+                        </div>
+                    
+
+                        
+                        
+            </div>
+            </div>
+            
+            
+            
+            </div>
+
+
+        </div>
+            <!-- ---------------ARCANUM TAB------------ -->
+            <div class="aldeaTortugaContenido" id="townshipContainer" style='display: none' >
+            
+            <div class="panelInferiorAldea" id=townshipWrapper>
+                
+             <div class="panelConstruccion" id="legislationPanel">
+             <div class="panelConstruccionTitulo" id="legislationLine"><span>Blue Magic</span>
+             </div> 
+                 
+                 
+             
+             <div class="bannerAldeaRecursos" id="legislationBanner">
+              <p>Treaties allow the potential of your turtle empire to reach new heights by focusing on specific elements of your kingdom.<br><br>
+              When you sign a treaty, a set of <strong style="color:#edd585">boons and banes will apply</strong>. Furthermore, treaties can be ranked up to further boost their effects. <br><br><strong style="color:FD5151">You can only switch treaty after an hour.</strong></p>
+            </div>
+                 
+                 
+             <div class=separador></div><div class="achievementWrapper" id="treatiesList"></div> 
+             
+                 
+                <button id="signButton">SIGN</button>
+                 
+                 
+                 
+                 
+             </div>
+                
+            <div class="panelConstruccion" id="syndicatePanel">
+             <div class="panelConstruccionTitulo" id="syndicateLine"><span>Blood Magic</span></div>
+               
+             
+                
+             </div>
+            <div class="panelConstruccion" id="legacyPanel">
+             <div class="panelConstruccionTitulo" id="legacyLine"><span>Time Magic</span></div>
+                <span style="display: none">
+              <div class="bannerAldeaRecursos" id="legacyBanner">
+                  
+              <p>
+              Your <strong style="color:FFC061">Turtle Coins</strong> are slowly filling up the <strong style="color:D989FF">Astral gauge</strong>.<br> When the Astral gauge completes, you can get access to the <strong style="color:D989FF">Planetarium</strong>, and <strong style="color:FD5151">leave behind all activities, upgrades, coins, resources and exploration levels</strong>.<br><br> You will step down from your position as leader of the turtles, and three <strong style="color:5176D4"> Constellations </strong> will be born in honor of your dynasty, alongside increased <strong style="color:D989FF">Astral level</strong>.  <br><br> On the <strong style="color:D989FF">Planetarium</strong>, you can spend the <strong style="color:5176D4">Constellations</strong> in perks to carry over your next legacy.  <br><br>     
+
+              You are currently missing 7.123e99 <strong style="color:FFC061">Turtle Coins</strong> for the next <strong style="color:D989FF">Astral level</strong></p>
+                      
+            </div>  
+              
+                
+              <div id="constellationMeter">
+                  <div id="constellationBall"></div>
+                <div id="constellationProgress"></div>
+                  
+                  
+                </div>  
+                
+             <button id="endLegacyButton">NEXT ASTRAL LEVEL:</button>
+                    
+                    
+                    
+                    
+                </span>  
+               
+             
+                
+             </div>
+ 
+                
+                
+                
+                
+                
+                    
+             </div>
+            
+            </div>
+             <!-- ---------------JOB TAB------------ -->
+            <div class="aldeaTortugaContenido" id="jobContainer" style='display: none' >
+            
+            <div class="panelInferiorAldea" id=townshipWrapper>
+                
+             <div class="panelConstruccion" id="gardenPanel">
+              
+                 
+                 
+             
+            
+               
+                 
+                 
+             </div>
+                
+            <div class="panelConstruccion" id="jobPanel">
+            
+               
+             
+               <div class="jobBook">
+                <div class="bookPage1">
+                 <div class="bookPage1Head">
+                    
+                    <div id="professionTitleBox">
+                     <div id="professionTitleIcon"></div>
+                     <p id="professionTitle">Novice Blacksmith <span>[Level 5]</span></p>
+                        <div id="professionSkillBar"></div>
+                        <p id="professionSkillExp">3003/7200 exp</p>
+                     
+                     </div>
+                    </div>  
+                   <div class="recipeWrapper" id="blacksmithRecipes">
+                  
+                       
+                   </div>
+                    
+                     <div class="recipeWrapper" id="cookingRecipes" style="display: none">
+                   
+                   </div>
+                    
+                     <div class="recipeWrapper" id="alchemyRecipes" style="display: none">
+                  
+                   </div>
+                    
+                     <div class="recipeWrapper" id="engineeringRecipes" style="display: none">
+                  
+                   </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                   
+                </div>
+                <div class="bookPage2">
+                 <div class="bookPageSelector">
+                     
+                     
+                    
+                  <div class="bookmarkCurrent" id="blacksmithBookmark">
+                      <div class="bookmarkIcon"></div>
+                     <div class="bookmarkEnd"></div>
+                     </div>  
+                    
+             <div class="bookmark" id="cookingBookmark">
+                      <div class="bookmarkIcon"></div>
+                     <div class="bookmarkEnd"></div>
+                     </div>         
+                    
+             <div class="bookmark" id="alchemyBookmark">
+                      <div class="bookmarkIcon"></div>
+                     <div class="bookmarkEnd"></div>
+                     </div>   
+                     
+         <div class="bookmark" id="engineeringBookmark">
+                      <div class="bookmarkIcon"></div>
+                     <div class="bookmarkEnd"></div>
+                     </div>                
+                    </div>    
+                   
+                   
+             <div class="recipePanel" id="recipePanel" style="display:none">
+                    <div class="recipeTop"><img id="recipeImage" src="img/src/items/I31.png"><p id="recipeTitle">Copper Bar [0]</p><div id="recipeTimer">99m 99s</div></div>
+                    
+                    <p id="recipeDescription"><span style="color: lawngreen">Requires Novice Blacksmith [0]</span><br>Smelt ore into an ingot of copper.</p>
+                    <div class="recipeSeparator">Requires:</div>
+                    <div class="recipeBox" id="recipeReagents"><div class="itemSlot"></div><div class="itemSlot"></div></div>
+                    <div class="recipeSeparator">Creates:</div>
+                    <div class="recipeBox" id="recipeOutcome"><div class="itemSlot"></div><div class="itemSlot"></div></div>
+                    <div class="recipeButtonWrap"><div class="craftButton" id="craftButtonOne"><img src="img/src/icons/anvil.png">Craft</div><div id="craftButtonAll" class="craftButton" >All</div></div>
+                 
+                    <div id="craftBarWrap"><div class="craftBarBg"><div id="craftBar"></div></div><div class="craftBar1"><div class="craftBarDiamond"></div></div><div class="craftBar2"><div class="craftBarDiamond"></div></div></div>
+                 
+                 
+                    
+                    </div>       
+                    
+                    
+                    
+                    
+                    
+                   
+                   </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                </div> 
+                
+                
+                
+                
+                
+                
+                
+             </div>
+                
+                
+                
+                
+            <div class="panelConstruccion" id="miningPanel">
+             
+         
+             </div>
+ 
+                
+                
+                
+                
+                
+                    
+             </div>
+            
+            </div>
+            
+           
+            <!-- ---------------RPG TAB------------ -->
+            
+            <div class="aldeaTortugaContenido" id="rpgContainer" style='display: none' >
+            
+            <div class="panelInferiorAldea" id=rpgWrapper>
+                
+             <div class="panelConstruccion" id="explorationPanel">
+             
+                 
+              <div class="bannerAldeaRecursos" id="rpgBannerTitle"><span id="areaName">Lush Passageway</span><span id="areaLevel">lvl 5</span><span id="areaEffect" style="display:none">[Murky Waters]</span><img src="img/sys/alert.png" id="areaAlert" style="display:none"></div> 
+              <div id="rpgCanvas">
+
+              <div id="weatherOverlay"></div> <div id="weatherEffectOverlay"></div>
+                  
+              <div class="npcSlot" id="playerPanel"><img src="img/src/icons/might.png" id="turtleAlign"><div class="npcPanel" id="playerNpcPanel"><p><span id="turtleName2">NombreTortuga</span> <span id=turtleLevel>[lvl 8]</span></p><div class="npcHpBar" id="playerHpBar"></div></div><div id="playerBuffWrapper"></div><div class="throwParticle"></div><div class="npcImg" id="playerAnimation"><img id="rpgPlayerImg" src="img/src/armor/A0.png"><img id="playerWeapon" src="img/src/weaponModels/W0.png"></div></div>
+              
+              <div class="npcSlot" id="enemyPanel"><div class="npcPanel" id="npcPanel"><p><span id="enemyName">Stern Cricket</span> <span id=enemyLevel>[lvl 8]</span></p><div class="npcHpBar" id="enemyHpBar"></div></div><div id="enemyBuffWrapper"></div><div></div><div class="npcImg" id="enemyAnimation"></div></div>     
+              </div>   
+            <div id="rpgCanvasUnder">
+             <div id="rpgCanvasSkills"> <div id="encounterWrapper"><div class= "encounterButton" id="miningNode"></div><div class= "encounterButton" id="herbNode"></div> <div class= "encounterButton" id="encounterEasy"></div> <div class= "encounterButton" id="encounterMedium"></div> <div class= "encounterButton" id="encounterHard"></div><div id="bossButton"> </div>  </div>
+              
+            </div>    
+             <div id="energyBar"></div>    
+             <div id="magicBar"></div>    
+            </div>
+           <div class="rpgTitle">Inventory <div id="sellModeText"> <span> Sell Mode</span> [Left Click Sell One] [Right Click Sell All]</div><span class="helpingDuck" id="inventoryHelpingDuck">&#129414</span></div>       
+           <div class="rpgPanel" id="inventory"></div>      
+           <div class="rpgTitle" id="combatLogTitle">Combat Log<img id="combatLogArrow" src="img/sys/contraer.png"></div>       
+           <div class="rpgPanel" id="combatLog"></div>       
+                 
+             </div>
+                
+                
+            <div class="panelConstruccion" id="yourTurtlePanel">
+            <div class="panelConstruccionTitulo" id="yourTurtleLine" style="display:none"><span>Nameoftheturtle</span></div>
+            
+            <div id="gearWrapper">    
+            <div id="equipmentButton" class="gearButtonActive">Equipment</div>    
+            <div id="skillsButton" class="gearButtonLocked">?????</div>    
+            </div> 
+                
+            <div id="equipmentTab" class="gearTab">
+                
+            <div id="expPanel">
+            <img id="classIcon" src="img/src/icons/noClass.png"><div id="expPanelNumbers">LEVEL <span id="turtleLevel2">1</span><br><span id="expPanelClass">&lt;No Class&gt;</span></div> 
+                
+            <div id="expPanelNumbers2"><span id="currentExp">9999/9999</span></div> 
+                
+            <div id="expBar"></div>   
+            </div>
+                
+            <div id="equipmentFlex">
+                
+            <div id="gearFlex">
+             <div class="gearRow" id="gearRow1">
+             <div id="rpgHeadSlot"> <div class="mejoraComunSlot"><img src="img/sys/headSlot.png"></div> </div>
+             </div>
+                
+             <div class="gearRow" id="gearRow2">
+             <div id="rpgHandsSlot"> <div class="mejoraComunSlot"><img src="img/sys/handsSlot.png"></div> </div>
+                 
+             <div id="rpgChestSlot"> <div class="mejoraComunSlot"><img src="img/sys/chestSlot.png"></div> </div>
+                 
+             <div id="rpgWeaponSlot"> <div class="mejoraComunSlot"><img src="img/sys/weaponSlot.png"></div> </div>
+             </div>
+                
+            <div class="gearRow" id="gearRow3"> 
+            <div id="rpgRingSlot"> <div class="mejoraComunSlot"><img src="img/sys/ringSlot.png"></div> </div>
+                 
+            <div id="rpgLegsSlot"> <div class="mejoraComunSlot"><img src="img/sys/legsSlot.png"></div> </div>
+                 
+            <div id="rpgTrinketSlot"> <div class="mejoraComunSlot"><img src="img/sys/trinketSlot.png"></div> </div>
+            </div>   
+                
+             <div class="gearRow" id="gearRow4"> 
+            <div id="rpgFeetSlot"> <div class="mejoraComunSlot"><img src="img/sys/feetSlot.png"></div> </div>
+            </div>
+                
+            </div>
+            <div id="statsFlex">
+                
+             <div id="statsTitle">Statistics<span class="helpingDuck" id="statsHelpingDuck">&#129414</span></div>   
+             <div id="statsPanel">
+            <p id="statsHealth"></p>
+            <p id="statsRegen"></p>     
+            <p id="statsStrength"></p>
+            <p id="statsHaste"></p>     
+            <p id="statsNatureDamage"></p>
+            <p id="statsMightDamage"></p>
+            <p id="statsElementalDamage"></p>
+            <p id="statsOccultDamage"></p>
+            <p id="statsDeificDamage"></p>
+            <p id="statsMiningDamage"></p>
+            <p id="statsHerbloreDamage"></p>
+            <p id="statsDropChance"></p>
+            
+                 
+                     
+            
+                 
+                 
+            </div>   
+                
+                
+            </div>
+                
+            
+                
+                
+            </div>
+                
+            </div>    
+                
+                
+                
+            
+               
+             
+            </div>     
+             
+            <div class="panelConstruccion" id="travelPanel">
+             <div class="panelConstruccionTitulo" id="travelLine" style="display:none"><span>Travel</span></div>
+                
+               <div id="travelWrapper">
+            <div id="questButton" class="gearButtonActive" >Quest</div>
+            <div id="shopButton" class="gearButtonLocked" >?????</div>       
+            <div id="areaButton" class="gearButtonLocked" >?????</div>    
+            <div id="dungeonButton" class="gearButtonLocked">?????</div> 
+                   
+            </div>  
+            <div id="questTab" class="travelTab">
+            
+                
+                
+                
+                
+            </div>
+            <div id="areaTab" class="travelTab" style="display: none"></div>
+            <div id="shopTab" class="travelTab" style="display: none">
+                
+              <div id="shopListing">
+                
+                
+                </div>  
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                </div>    
+                
+                
+                
+                
+                    
+             </div>
+            
+            </div>
 
 
         </div>
 
     </span>
-    <script src="upgrades.js"></script>
+    <script src="gameObjects.js"></script>
+    
+    <script src="scripts/HackTimer.js"></script>
+    <script type="text/javascript" src="scripts/vanilla-tilt.js"></script>
     <script src="main.js"></script>
-
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="rpg.js"></script>
+    <script src="job.js"></script>
+    <script src="logs.js"></script>
+    
 
 </body>
 
