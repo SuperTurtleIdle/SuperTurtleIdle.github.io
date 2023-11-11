@@ -757,7 +757,7 @@ items.I47.flavor = '"An enhancive accessory for weapons, designed to increase th
 items.I47.quality = 'Common';
 items.I47.sell = 10;
 items.I47.max = playerMaxStack;
-
+*/
 items.I48 = {};
 items.I48.name = 'Actinic Flask';
 items.I48.description = 'Material';
@@ -765,7 +765,7 @@ items.I48.flavor = '"A specialized flask crafted from materials designed to inte
 items.I48.quality = 'Common';
 items.I48.sell = 3100;
 items.I48.max = playerMaxStack;
-*/
+
 items.I49 = {};
 items.I49.name = 'Lesser Nature Flask';
 items.I49.description = 'Consumable - Potion<br><FONT COLOR="#1EFF0C">Use: Grants +100 Nature Damage for 12 seconds.<FONT COLOR="gray"> (3 minute Cooldown)<br>(Only one potion buff can be active at a time.)'
