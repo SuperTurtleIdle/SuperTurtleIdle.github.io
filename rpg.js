@@ -62,7 +62,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
         if (gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)) {
           var totalEXP = Math.round(enemies[stats.currentEnemy].exp * multiplicativeEXPGain);
            rpgClass[stats.currentClass].currentExp += totalEXP;
-           logPrint( "<FONT COLOR='white'>You obtain <FONT COLOR='#ae77f7'> " + totalEXP + " EXP"); 
+           logPrint("<FONT COLOR='#ae77f7'>You gain " + totalEXP + " EXP!" );
         }
         else {
           var totalEXP = Math.round(enemies[stats.currentEnemy].exp * multiplicativeEXPGain);
@@ -292,7 +292,7 @@ function expBar() { //updates exp bar and checks level up
   if (rpgClass[stats.currentClass].currentExp >= rpgClass[stats.currentClass].nextExp) { //on level up
     playSound("audio/levelup.mp3")
     rpgClass[stats.currentClass].currentExp -= rpgClass[stats.currentClass].nextExp;
-    rpgClass[stats.currentClass].nextExp = Math.floor(1000 * Math.pow(1.4, rpgClass[stats.currentClass].level));
+    rpgClass[stats.currentClass].nextExp = Math.floor(1000 * Math.pow(1.5, rpgClass[stats.currentClass].level)); //esto era 1.4
     rpgClass[stats.currentClass].level += 1;
    
     did("expPanel").style.animation = "";
@@ -1395,16 +1395,13 @@ function setBonus() {
   if (h === "I3" && c === "I5" && l === "I6" && f === "I2" && d === "I4") { //cloth
     tierMaxHp = 250;
     did("rpgPlayerImg").src = "img/src/armor/A1.png";
-    logTrackTier = true;
   } 
   else if ( h === "I14" && c === "I17" && l === "I18" && f === "I13" && d === "I16" ) { //pirate
     tierMaxHp = 1000;
     did("rpgPlayerImg").src = "img/src/armor/A2.png";
-    logTrackTier = true;
   } 
   else if ( h === "I74" && c === "I76" && l === "I77" && f === "I73" && d === "I75" ) { //explorer
     did("rpgPlayerImg").src = "img/src/armor/A3.png";
-    logTrackTier = true;
     rpgPlayer.align = "nature"
     updateAlignUi();
   } 
@@ -1412,7 +1409,7 @@ function setBonus() {
     tierMaxHp = 0;
     did("rpgPlayerImg").src = "img/src/armor/A0.png";
     rpgPlayer.align = "none"
-    updateAlignUi();
+    updateAlignUi(); //lo que hay que ahcer aqui es una var llamada tierbonus y luego segun el valor de tierbonus hacer una cosa u otra
   }
 
   if ( h !== "none" && c !== "none" && l !== "none" && f !== "none" && d !== "none" && w !== "none" && t !== "none" && r !== "none" ) logTrackFullSlots = true;

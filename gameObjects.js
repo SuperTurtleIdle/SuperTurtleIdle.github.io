@@ -110,7 +110,7 @@ var additivePoisonTimer = 0;
 
 function statsUpdate(){
 
-multiplicativeDropChance = 1 + logs.B1P22.statUp + logs.B1P3.statUp + logs.B1P6.statUp + logs.B1P16.statUp + logs.B2P1.statUp + logs.B2P2.statUp + items.I11.statUp 
+multiplicativeDropChance = 1 + logs.B1P22.statUp + logs.B1P3.statUp + logs.B1P6.statUp + logs.B2P1.statUp + logs.B2P2.statUp + items.I11.statUp 
 multiplicativeEXPGain = 1 + logs.B1P11.statUp + logs.B1P15.statUp + logs.B1P27.statUp + bluemoonExpUp
 multiplicativeCoinRewards = 1 + logs.B1P8.statUp
 
@@ -152,7 +152,7 @@ playerCoinsPerClick = (10 + additiveCoinsPerClick) * multiplicativeCoinsPerClick
 playerPoison = buffs.B3.statUp; 
 enemyPoison = buffs.B2.statUp;
 
-multiplicativeMaxStack = 1 + logs.B1P5.statUp + logs.B1P12.statUp + logs.B1P14.statUp + logs.B1P20.statUp + logs.B1P25.statUp + logs.B1P17.statUp + logs.B1P1.statUp
+multiplicativeMaxStack = 1 + logs.B1P5.statUp + logs.B1P12.statUp + logs.B1P14.statUp + logs.B1P20.statUp + logs.B1P25.statUp + logs.B1P17.statUp + logs.B1P1.statUp + logs.B1P16.statUp
 additiveMaxStack = items.I94.statUp + items.I90.statUp;
 playerMaxStack = 100 + additiveMaxStack * multiplicativeMaxStack;
 
@@ -204,7 +204,7 @@ enemies.E3.attack = 80;
 enemies.E3.difficulty = 'medium';
 enemies.E3.exp = 43;
 enemies.E3.drop =  "dropItem('I51'); rollTable(area1Common, 1)";
-enemies.E3.dropDesc = '<FONT COLOR="white">[Frog Eye]'
+enemies.E3.dropDesc = '<FONT COLOR="white">[Frog Leg]'
 enemies.E3.align = 'nature';
 
 
@@ -359,7 +359,7 @@ items.I1.max = playerMaxStack;
 
 items.I2 = {};
 items.I2.name = 'Cloth Slippers';
-items.I2.description = 'Equipable - Feet<br><FONT COLOR="#1EFF0C">+56 Max HP<br><FONT COLOR="#b983f7">Cloth Set:<br><FONT COLOR="gray">❖ Worn Bandana<br>❖ Cloth Shirt<br>❖ Cloth Bracelet<br>❖ Cloth Pants<br><FONT COLOR="#1EFF0C">❖ Cloth Slippers<br><FONT COLOR="#b983f7">★ Set bonus [5]: +50 Physical Defense';
+items.I2.description = 'Equipable - Feet<br><FONT COLOR="#1EFF0C">+56 Max HP<br><FONT COLOR="#b983f7">Cloth Set:<br><FONT COLOR="gray">❖ Worn Bandana<br>❖ Cloth Shirt<br>❖ Cloth Bracelet<br>❖ Cloth Pants<br><FONT COLOR="#1EFF0C">❖ Cloth Slippers<br><FONT COLOR="#b983f7">★ Set bonus [5]: +250 Max Hp';
 items.I2.flavor = '"Probably the kind your turtle grandmother would wear."';
 items.I2.quality = 'Common';
 items.I2.sell = 200;
@@ -370,7 +370,7 @@ items.I2.remove = 'armorMaxHp -=56'
 
 items.I3 = {};
 items.I3.name = 'Worn Bandana';
-items.I3.description = 'Equipable - Head<br><FONT COLOR="#1EFF0C">+63 Max HP<br><FONT COLOR="#b983f7">Cloth Set:<br><FONT COLOR="gray"><FONT COLOR="#1EFF0C">❖ Worn Bandana<br><FONT COLOR="gray">❖ Cloth Shirt<br>❖ Cloth Bracelet<br>❖ Cloth Pants<br>❖ Cloth Slippers<br><FONT COLOR="#b983f7">★ Set bonus [5]: +50 Physical Defense';
+items.I3.description = 'Equipable - Head<br><FONT COLOR="#1EFF0C">+63 Max HP<br><FONT COLOR="#b983f7">Cloth Set:<br><FONT COLOR="gray"><FONT COLOR="#1EFF0C">❖ Worn Bandana<br><FONT COLOR="gray">❖ Cloth Shirt<br>❖ Cloth Bracelet<br>❖ Cloth Pants<br>❖ Cloth Slippers<br><FONT COLOR="#b983f7">★ Set bonus [5]: +250 Max Hp';
 items.I3.flavor = '"A foul-smelling rag for the forehead. Unfortunately, it goes in the head slot."';
 items.I3.quality = 'Common';
 items.I3.sell = 200;
@@ -381,7 +381,7 @@ items.I3.remove = 'armorMaxHp -= 63'
 
 items.I4 = {};
 items.I4.name = 'Cloth Bracelet';
-items.I4.description = 'Equipable - Hands<br><FONT COLOR="#1EFF0C">+49 Max HP<br><FONT COLOR="#b983f7">Cloth Set:<br><FONT COLOR="gray">❖ Worn Bandana<br>❖ Cloth Shirt<br><FONT COLOR="#1EFF0C">❖ Cloth Bracelet<br><FONT COLOR="gray">❖ Cloth Pants<br>❖ Cloth Slippers<br><FONT COLOR="#b983f7">★ Set bonus [5]: +50 Physical Defense';
+items.I4.description = 'Equipable - Hands<br><FONT COLOR="#1EFF0C">+49 Max HP<br><FONT COLOR="#b983f7">Cloth Set:<br><FONT COLOR="gray">❖ Worn Bandana<br>❖ Cloth Shirt<br><FONT COLOR="#1EFF0C">❖ Cloth Bracelet<br><FONT COLOR="gray">❖ Cloth Pants<br>❖ Cloth Slippers<br><FONT COLOR="#b983f7">★ Set bonus [5]: +250 Max Hp';
 items.I4.flavor = '"Highly effective against nuns rulers."';
 items.I4.quality = 'Common';
 items.I4.sell = 200;
@@ -392,7 +392,7 @@ items.I4.remove = 'armorMaxHp -= 49'
 
 items.I5 = {};
 items.I5.name = 'Cloth Shirt';
-items.I5.description = 'Equipable - Chest<br><FONT COLOR="#1EFF0C">+74 Max HP<br><FONT COLOR="#b983f7">Cloth Set:<br><FONT COLOR="gray">❖ Worn Bandana<br><FONT COLOR="#1EFF0C">❖ Cloth Shirt<br><FONT COLOR="gray">❖ Cloth Bracelet<br>❖ Cloth Pants<br>❖ Cloth Slippers<br><FONT COLOR="#b983f7">★ Set bonus [5]: +50 Physical Defense';
+items.I5.description = 'Equipable - Chest<br><FONT COLOR="#1EFF0C">+74 Max HP<br><FONT COLOR="#b983f7">Cloth Set:<br><FONT COLOR="gray">❖ Worn Bandana<br><FONT COLOR="#1EFF0C">❖ Cloth Shirt<br><FONT COLOR="gray">❖ Cloth Bracelet<br>❖ Cloth Pants<br>❖ Cloth Slippers<br><FONT COLOR="#b983f7">★ Set bonus [5]: +250 Max Hp';
 items.I5.flavor = '"A garment of attire with the chest completely exposed, more effective than nothing whatsoever. Not much more, though."';
 items.I5.quality = 'Common';
 items.I5.sell = 200;
@@ -403,7 +403,7 @@ items.I5.remove = 'armorMaxHp -= 74'
 
 items.I6 = {};
 items.I6.name = 'Cloth Pants';
-items.I6.description = 'Equipable - Legs<br><FONT COLOR="#1EFF0C">+70 Max HP<br><FONT COLOR="#b983f7">Cloth Set:<br><FONT COLOR="gray">❖ Worn Bandana<br>❖ Cloth Shirt<br>❖ Cloth Bracelet<br><FONT COLOR="#1EFF0C">❖ Cloth Pants<br><FONT COLOR="gray">❖ Cloth Slippers<br><FONT COLOR="#b983f7">★ Set bonus [5]: +50 Physical Defense';
+items.I6.description = 'Equipable - Legs<br><FONT COLOR="#1EFF0C">+70 Max HP<br><FONT COLOR="#b983f7">Cloth Set:<br><FONT COLOR="gray">❖ Worn Bandana<br>❖ Cloth Shirt<br>❖ Cloth Bracelet<br><FONT COLOR="#1EFF0C">❖ Cloth Pants<br><FONT COLOR="gray">❖ Cloth Slippers<br><FONT COLOR="#b983f7">★ Set bonus [5]: +250 Max Hp';
 items.I6.flavor = '"A pair of thinly layered trousers. They must at least be resistant if they were able to survive were they were found."';
 items.I6.quality = 'Common';
 items.I6.sell = 200;
@@ -437,7 +437,7 @@ items.I8.align = 'nature';
 
 items.I9 = {};
 items.I9.name = 'Wooden Bow';
-items.I9.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+41 Ranged Damage<br>On Attack: Low chance to fire a wooden arrow dealing 100-200 Nature damage.';
+items.I9.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+41 Nature Damage<br>On Attack: Low chance to fire a wooden arrow dealing 100-200 Nature damage.';
 items.I9.flavor = '"A crooked, splinter-filled bow. It should hold together for a few shots before falling apart entirely."';
 items.I9.quality = 'Common';
 items.I9.sell = 200;
@@ -1783,7 +1783,7 @@ var quests = {}
 quests.A1Q1 = {};
 quests.A1Q1.name = 'Important Notice';
 quests.A1Q1.level = 1;
-quests.A1Q1.description = '“Thank you for enrolling into the Super Turtle Adventure program. People from all arround the world will pay handsomly for brave turtles to complete their tasks.<br><br>To complete the registation, please terrorise the local wildlife.”<br><br><span style="color:#FFD100">[Tip: You can switch browser tabs while the game is running]</span><br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Defeat a bunch of slugs</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ A stick with the shape of a sword</span><br><span style="color:#ffbd54">★ 1100 Turtle Coins</span><br><span style="color:#ae77f7">★ 1000 Experience</span><br><span style="color:#94e1f2">★ A morally ambiguous job</span>';
+quests.A1Q1.description = '“Thank you for enrolling into the Super Turtle Adventure program. People from all arround the world will pay handsomly for brave turtles to complete their tasks.<br><br>To complete the registation, please terrorise the local wildlife.”<br><br><span style="color:#FFD100">[Tip: You can switch browser tabs while the game is running]</span><br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Defeat a bunch of slugs</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ A stick with the shape of a sword</span><br><span style="color:#ffbd54">★ 500 Turtle Coins</span><br><span style="color:#ae77f7">★ 1000 Experience</span><br><span style="color:#94e1f2">★ A morally ambiguous job</span>';
 quests.A1Q1.objective = 'if (enemies.E1.killCount>5) {quests.A1Q1.state = "complete"} else {quests.A1Q1.state = "pending"}';
 quests.A1Q1.state = 'locked';
 quests.A1Q1.effect = 'questReward(500*multiplicativeCoinRewards, 1000); items.I8.count++;';
@@ -1793,7 +1793,7 @@ unlocks.shop = false
 quests.A1Q2 = {};
 quests.A1Q2.name = 'To My Beloved Friend';
 quests.A1Q2.level = 2;
-quests.A1Q2.description = '“Dear adventurers, I am a prince from Nigeria. A giant idiot spider destroyed my settlement and I need financial help.<br><br>In return, I will give an early access to my shop wares while I rebuild back my empire."<br><br><span style="color:#FFD100">[Tip: You can sell items by pressing Shift]</span><br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Give 5000 doubloons to the prince</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ Access to the Shop</span><br><span style="color:#ffbd54">★ -5000 Turtle Coins</span><br><span style="color:#ae77f7">★ 200 Experience</span><br><span style="color:#94e1f2">★ Severe trust issues</span>';
+quests.A1Q2.description = '“Dear adventurers, I am a prince from Nigeria. A giant idiot spider destroyed my settlement and I need financial help.<br><br>In return, I will give an early access to my shop wares while I rebuild back my empire."<br><br><span style="color:#FFD100">[Tip: You can sell items by pressing Shift]</span><br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Give 5000 Turtle Coins to the prince</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ Access to the Shop</span><br><span style="color:#ffbd54">★ -5000 Turtle Coins</span><br><span style="color:#ae77f7">★ 200 Experience</span><br><span style="color:#94e1f2">★ Severe trust issues</span>';
 quests.A1Q2.objective = 'if (rpgPlayer.coins>=5000) {quests.A1Q2.state = "complete"} else {quests.A1Q2.state = "pending"}';
 quests.A1Q2.effect = 'questReward(0, 200); rpgPlayer.coins-=5000; unlocks.shop = true;  unlocksReveal()';
 quests.A1Q2.state = 'locked';
@@ -1802,7 +1802,7 @@ quests.A1Q2.state = 'locked';
 quests.A1Q3 = {};
 quests.A1Q3.name = 'Clearing The Mineshaft';
 quests.A1Q3.level = 5;
-quests.A1Q3.description = '“ The folks over here of the Miners Guild are pretty darn troubled. These darn scorpions keep blocking the path to the mineshaft and we cant even do our job!<br><br>Clear the darn path for us and well have no trouble showing you the way to get some sweet rocks, will ya? ”<br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Clear the path of scorpids</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ Access to the mines</span><br><span style="color:#ffbd54">★ 1560 Turtle Coins</span><br><span style="color:#ae77f7">★ 2500 Experience</span><br><span style="color:#94e1f2">★ -1830 reputation with the Scorpion clan </span>';
+quests.A1Q3.description = '“ The folks over here of the Miners Guild are pretty darn troubled. These darn scorpions keep blocking the path to the mineshaft and we cant even do our job!<br><br>Clear the darn path for us and well have no trouble showing you the way to get some sweet rocks, will ya? ”<br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Clear the path of scorpids</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ Access to the mines</span><br><span style="color:#ffbd54">★ 8500 Turtle Coins</span><br><span style="color:#ae77f7">★ 800 Experience</span><br><span style="color:#94e1f2">★ -1830 reputation with the Scorpion clan </span>';
 quests.A1Q3.objective = 'if (enemies.E2.killCount>10) {quests.A1Q3.state = "complete"} else {quests.A1Q3.state = "pending"}';
 quests.A1Q3.effect = 'questReward(8500*multiplicativeCoinRewards, 800); areas.A1.unlockedOre = 1; specialButtonUi();';
 quests.A1Q3.state = 'locked';
@@ -1812,7 +1812,7 @@ unlocks.boss1found = false;
 quests.A1Q4 = {};
 quests.A1Q4.name = 'Have You Seen My Pet';
 quests.A1Q4.level = 8;
-quests.A1Q4.description = '“ My pet Hopperoona has gone missing for a while. You will recognise her for her eight legs, fuzzy hair, and the ability to melt steel beams with her saliva.<br><br>She is the unruly type, so its okay to get a bit rough. She will come home once she stops playing. ”<br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Find Hopperoona</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ Get to play with her as many times as you want</span><br><span style="color:#ffbd54">★ 1560 Turtle Coins</span><br><span style="color:#ae77f7">★ 2500 Experience</span><br><span style="color:#94e1f2">★ A lifelong Friendship </span>';
+quests.A1Q4.description = '“ My pet Hopperoona has gone missing for a while. You will recognise her for her eight legs, fuzzy hair, and the ability to melt steel beams with her saliva.<br><br>She is the unruly type, so its okay to get a bit rough. She will come home once she stops playing. ”<br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Find Hopperoona</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ Get to play with her as many times as you want</span><br><span style="color:#ffbd54">★ 15000 Turtle Coins</span><br><span style="color:#ae77f7">★ 1500 Experience</span><br><span style="color:#94e1f2">★ A lifelong Friendship </span>';
 quests.A1Q4.objective = 'if (unlocks.boss1found) {quests.A1Q4.state = "complete"}';
 quests.A1Q4.effect = 'questReward(15000*multiplicativeCoinRewards, 1500); areas.A1.unlockedBoss = 1;  specialButtonUi();';
 quests.A1Q4.state = 'locked';
@@ -1822,7 +1822,7 @@ unlocks.areas = false;
 quests.A1Q5 = {};
 quests.A1Q5.name = 'Helping Hand on Woods';
 quests.A1Q5.level = 10;
-quests.A1Q5.description = '“ This is an official request from the Super Turtle Adventure program. Your deeds have been heard loud and clear across the place.<br><br>Weve made the decision to put you in charge of resolving the conflicts relating the Tribals that are taking place in the forest. Thank you for sticking with the Super Turtle Adventure program. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Click on this button</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ Access to the next area</span><br><span style="color:#ffbd54">★ 1560 Turtle Coins</span><br><span style="color:#ae77f7">★ 2500 Experience</span><br><span style="color:#94e1f2">★ The unfold of an incredible adventure </span>';
+quests.A1Q5.description = '“ This is an official request from the Super Turtle Adventure program. Your deeds have been heard loud and clear across the place.<br><br>Weve made the decision to put you in charge of resolving the conflicts relating the Tribals that are taking place in the forest. You can progress with your adventures as soon as you finished all the business here. Thank you for sticking with the Super Turtle Adventure program. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Say goodbye to Hopperoona</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ Access to the next area</span><br><span style="color:#ffbd54">★ 25000 Turtle Coins</span><br><span style="color:#ae77f7">★ 5500 Experience</span><br><span style="color:#94e1f2">★ The unfold of an incredible adventure </span>';
 quests.A1Q5.objective = 'if (enemies.E4.killCount>0)  {quests.A1Q5.state = "complete"}';
 quests.A1Q5.effect = 'questReward(25000*multiplicativeCoinRewards, 5500); areas.A2.unlocked = 1; unlocks.areas = true; unlocksReveal()';
 quests.A1Q5.state = 'locked';
@@ -1830,7 +1830,7 @@ quests.A1Q5.state = 'locked';
 quests.A1Q6 = {};
 quests.A1Q6.name = 'Chai Chai Real Smooth';
 quests.A1Q6.level = 15;
-quests.A1Q6.description = '“ This is a direct request of Muggey, the head president of the Chai Association.<br><br>I will personally offer a lifetime membership alongside my distinguished recipe for tea to however that can show me their most unusual blend. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Show an unusual tea blend to Muggey</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Recipe: Masala Chai</span></span><br><span style="color:#ffbd54">★ 1560 Turtle Coins</span><br><span style="color:#ae77f7">★ 2500 Experience</span><br><span style="color:#94e1f2">★ Forbidden chai knowledge </span>';
+quests.A1Q6.description = '“ This is a direct request of Muggey, the head president of the Chai Association.<br><br>I will personally offer a lifetime membership alongside my distinguished recipe for tea to however that can show me their most unusual blend. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Show an unusual tea blend to Muggey</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Recipe: Masala Chai</span></span><br><span style="color:#ffbd54">★ 33500 Turtle Coins</span><br><span style="color:#ae77f7">★ 30000 Experience</span><br><span style="color:#94e1f2">★ Forbidden chai knowledge </span>';
 quests.A1Q6.objective = 'if (items.I111.count>0) {quests.A1Q6.state = "complete"}';
 quests.A1Q6.effect = 'questReward(33500*multiplicativeCoinRewards, 30000); items.I103D.count++; items.I111.count = 0; recipes.CN7.unlocked = false;';
 quests.A1Q6.state = 'locked';
@@ -1839,7 +1839,7 @@ quests.A1Q6.state = 'locked';
 quests.A2Q1 = {};
 quests.A2Q1.name = 'Undergoing Renovations';
 quests.A2Q1.level = 10;
-quests.A2Q1.description = '“ My workshop has been ransacked by the Tribals.<br><br>I will let anyone willing to help me with the reparations to use it, free of charge ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Hand over 100 copper ore and 100 rabbit hide</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Access to Craftwork</span></span><br><span style="color:#ffbd54">★ 1560 Turtle Coins</span><br><span style="color:#ae77f7">★ 2500 Experience</span><br><span style="color:#94e1f2">★ The satisfaction of honest work </span>';
+quests.A2Q1.description = '“ My workshop has been ransacked by the Tribals.<br><br>I will let anyone willing to help me with the reparations to use it, free of charge ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Hand over 100 copper ore and 100 rabbit hide</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Access to Craftwork</span></span><br><span style="color:#ffbd54">★ 35000 Turtle Coins</span><br><span style="color:#ae77f7">★ 9000 Experience</span><br><span style="color:#94e1f2">★ The satisfaction of honest work </span>';
 quests.A2Q1.objective = 'if (items.I32.count>99 && items.I114.count>49) {quests.A2Q1.state = "complete"} else {quests.A2Q1.state = "pending"}';
 quests.A2Q1.effect = 'questReward(35000*multiplicativeCoinRewards, 9000); items.I32.count-=100; items.I114.count-=50; unlocks.jobs = true;  unlocksReveal()'; 
 quests.A2Q1.state = 'locked';
@@ -1847,7 +1847,7 @@ quests.A2Q1.state = 'locked';
 quests.A2Q7 = {};
 quests.A2Q7.name = 'Help! Missing Feline';
 quests.A2Q7.level = 10;
-quests.A2Q7.description = '“  THE TRIBALS ATE MY CAT.<br><br>Now that I got your attention, my cat Whiskers is missing. He likes dark closed spaces. I have nothing to offer but Whiskers grattitude. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Find Whiskers</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Whiskers Gratitude</span></span><br><span style="color:#ffbd54">★ 1560 Turtle Coins</span><br><span style="color:#ae77f7">★ 2500 Experience</span><br><span style="color:#94e1f2">★ 3 days of bad luck </span>';
+quests.A2Q7.description = '“  THE TRIBALS ATE MY CAT.<br><br>Now that I got your attention, my cat Whiskers is missing. He likes dark closed spaces. I have nothing to offer but Whiskers grattitude. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Find Whiskers</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Whiskers Gratitude</span></span><br><span style="color:#ffbd54">★ 21000 Turtle Coins</span><br><span style="color:#ae77f7">★ 10000 Experience</span><br><span style="color:#94e1f2">★ 3 days of bad luck </span>';
 quests.A2Q7.objective = 'if (items.I123.count>0) {quests.A2Q7.state = "complete"}';
 quests.A2Q7.effect = 'questReward(21000*multiplicativeCoinRewards, 10000); items.I123.count--; items.I120.count++;'; 
 quests.A2Q7.state = 'locked';
@@ -1855,7 +1855,7 @@ quests.A2Q7.state = 'locked';
 quests.A2Q5 = {};
 quests.A2Q5.name = 'Invasive Species';
 quests.A2Q5.level = 12;
-quests.A2Q5.description = '“  The agriculture guild is in shambles. The forest has always been a valuable agronomic asset, however, the Tribals are growing invasive species on the inside.<br><br>Supply the guild with proper equipment to deal with this situation. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Hand over 10 Light Dynamites for the agriculture guild</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Unlock Herb Node</span></span><br><span style="color:#ffbd54">★ 1560 Turtle Coins</span><br><span style="color:#ae77f7">★ 2500 Experience</span><br><span style="color:#94e1f2">★ A powerful ally </span>';
+quests.A2Q5.description = '“  The agriculture guild is in shambles. The forest has always been a valuable agronomic asset, however, the Tribals are growing invasive species on the inside.<br><br>Supply the guild with proper equipment to deal with this situation. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Hand over 10 Light Dynamites for the agriculture guild</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Unlock Herb Node</span></span><br><span style="color:#ffbd54">★ 32000 Turtle Coins</span><br><span style="color:#ae77f7">★ 16000 Experience</span><br><span style="color:#94e1f2">★ A powerful ally </span>';
 quests.A2Q5.objective = 'if (items.I30.count>9) {quests.A2Q5.state = "complete"} else {quests.A2Q5.state = "pending"}';
 quests.A2Q5.effect = 'questReward(32000*multiplicativeCoinRewards, 16000); items.I30.count-=10; items.I114.count-=50; areas.A2.unlockedHerb = 1; specialButtonUi();'; 
 quests.A2Q5.state = 'locked';
@@ -1863,7 +1863,7 @@ quests.A2Q5.state = 'locked';
 quests.A2Q3 = {};
 quests.A2Q3.name = 'Tribal Admiration';
 quests.A2Q3.level = 15;
-quests.A2Q3.description = '“ I need love advice to court the lady of my dreams. The issue is that the lady is the head of the tribal settlement, and im sure im not enough of a man to compete with the rest.<br><br>Help me gather a hundred acorns for the headess in order to claim her heart. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Hand over 100 acorns</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Unlock Tribal offerings</span></span><br><span style="color:#ffbd54">★ 1560 Turtle Coins</span><br><span style="color:#ae77f7">★ 2500 Experience</span><br><span style="color:#94e1f2">★ Cupids Blessing (Not an actual reward)</span>';
+quests.A2Q3.description = '“ I need love advice to court the lady of my dreams. The issue is that the lady is the head of the tribal settlement, and im sure im not enough of a man to compete with the rest.<br><br>Help me gather 200 acorns for the headess in order to claim her heart. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Hand over 200 acorns</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Unlock Tribal offerings</span></span><br><span style="color:#ffbd54">★ 42000 Turtle Coins</span><br><span style="color:#ae77f7">★ 30000 Experience</span><br><span style="color:#94e1f2">★ Cupids Blessing (Not an actual reward)</span>';
 quests.A2Q3.objective = 'if (items.I115.count>199) {quests.A2Q3.state = "complete"} else {quests.A2Q3.state = "pending"}';
 quests.A2Q3.effect = 'questReward(42000*multiplicativeCoinRewards, 30000); items.I115.count-=200; areas.A2.unlockedBoss = 1;  specialButtonUi();'; 
 quests.A2Q3.state = 'locked';
@@ -1871,7 +1871,7 @@ quests.A2Q3.state = 'locked';
 quests.A2Q2 = {};
 quests.A2Q2.name = 'Husbandry Issues';
 quests.A2Q2.level = 17;
-quests.A2Q2.description = '“ The Tribals forced my husband to release the chickens he was using to conduct research. I need someone to gather them back at any cost before the casualties spread.<br><br>As a reward, Ill hand some scribbles of the research of my husband for free. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Capture 10 hens</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Recipe: Clockwork Hen</span></span><br><span style="color:#ffbd54">★ 1560 Turtle Coins</span><br><span style="color:#ae77f7">★ 2500 Experience</span><br><span style="color:#94e1f2">★ The satisfaction of honest work </span>';
+quests.A2Q2.description = '“ The Tribals forced my husband to release the chickens he was using to conduct research. I need someone to gather them back at any cost before the casualties spread.<br><br>As a reward, Ill hand some scribbles of the research of my husband for free. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Capture 10 hens</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Recipe: Clockwork Hen</span></span><br><span style="color:#ffbd54">★ 37000 Turtle Coins</span><br><span style="color:#ae77f7">★ 35000 Experience</span><br><span style="color:#94e1f2">★ The satisfaction of honest work </span>';
 quests.A2Q2.objective = 'if (items.I122.count>9) {quests.A2Q2.state = "complete"} ';
 quests.A2Q2.effect = 'questReward(37000*multiplicativeCoinRewards, 35000); items.I122.count=0; items.I103C.count++;'; 
 quests.A2Q2.state = 'locked';
@@ -1879,7 +1879,7 @@ quests.A2Q2.state = 'locked';
 quests.A2Q4 = {};
 quests.A2Q4.name = 'Tribal Admiration [II]';
 quests.A2Q4.level = 18;
-quests.A2Q4.description = '“ Due to cultural differences, and the fact that giving an acorn is a declaration of death in the Tribal culture, the Tribals want to feed me to their local deity. Scare off their numen and save my life, pretty please. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Defeat the idol of the Tribals</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Finish the game for now</span></span><br><span style="color:#ffbd54">★ 1560 Turtle Coins</span><br><span style="color:#ae77f7">★ 2500 Experience</span><br><span style="color:#94e1f2">★ Removal of Cupids Blessing </span>';
+quests.A2Q4.description = '“ Due to cultural differences, and the fact that giving an acorn is a declaration of death in the Tribal culture, the Tribals want to feed me to their local deity. Scare off their numen and save my life, pretty please. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Defeat the idol of the Tribals</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Finish the game for now</span></span><br><span style="color:#ffbd54">★ 42000 Turtle Coins</span><br><span style="color:#ae77f7">★ 40000 Experience</span><br><span style="color:#94e1f2">★ Removal of Cupids Blessing </span>';
 quests.A2Q4.objective = 'if (enemies.E8.killCount>0)  {quests.A2Q4.state = "complete"}';
 quests.A2Q4.effect = 'questReward(42000*multiplicativeCoinRewards, 40000);'; 
 
@@ -1917,8 +1917,7 @@ recipes.SN3.exp = 250;
 recipes.SN3.timer = 10;
 recipes.SN3.item = 'I41';
 recipes.SN3.reagent1 = 'I66';
-recipes.SN3.amount1 = 5;
-
+recipes.SN3.amount1 = 2;
 
 recipes.SN4 = {};
 recipes.SN4.category = 'SNpanel';
@@ -2287,7 +2286,7 @@ recipes.EN4.unlocked = false;
 recipes.EN6 = {};
 recipes.EN6.category = 'ENpanel';
 recipes.EN6.description = '<span style="color: lawngreen">Requires Novice Engineering [15]</span><br>Creates a Clockwork Hen.</p>';
-recipes.EN6.level = 10;
+recipes.EN6.level = 15;
 recipes.EN6.exp = 10;
 recipes.EN6.timer = 1;
 recipes.EN6.item = 'I67';
@@ -2505,7 +2504,7 @@ Object.keys(shopItems).forEach(function(key) {
 //----------------------========DROP TABLES=======-----------------------
 //----------------------==========================-----------------------
 //#region Droptables
-var area1Common = { I2:{D:300,C:1}, I3:{D:300,C:1}, I4:{D:300,C:1}, I5:{D:300,C:1}, I6:{D:300,C:1}, /*set*/ I131:{D:450,C:1}, /*thorn ring*/ I10:{D:200,C:1}, /*chest*/ I22:{D:50,C:1}, /*gem*/ I112:{D:30,C:1}, /*boomerang*/}
+var area1Common = { I2:{D:300,C:1}, I3:{D:300,C:1}, I4:{D:300,C:1}, I5:{D:300,C:1}, I6:{D:300,C:1}, /*set*/ I131:{D:700,C:1}, /*thorn ring*/ I10:{D:200,C:1}, /*chest*/ I22:{D:50,C:1}, /*gem*/ I112:{D:30,C:1}, /*boomerang*/}
 var smallCache = { I22:{D:1,C:"rng(1,6)"}, I12:{D:1,C:"rng(1,3)"}, I94:{D:8,C:1}, I42:{D:3,C:1}, I103B:{D:6,C:1}, I103A:{D:6,C:1}, I81:{D:10,C:1},}
 var spiderEggsack = { I97:{D:1,C:"rng(1,6)"}, I57:{D:1,C:"rng(9,19)"}, I83:{D:15,C:1}, I109:{D:60,C:1},}
 var whiskersPresent = { I118:{D:1, C:1}, I117:{D:100, C:1},}
@@ -2522,17 +2521,17 @@ var logs = {}
 logs.B1P1 = {}
 logs.B1P1.name = "Cultivated Mind";
 logs.B1P1.description = "Fill out 10 journal pages.<br><span class='logStat'>+8% Item Stack Capacity</span>";
-logs.B1P1.hint = "fnuuy";
+logs.B1P1.hint = "But you know what I like more than materialistic things? Knowledge.";
 
 logs.B1P2 = {}
-logs.B1P2.name = "Vive la révolution";
+logs.B1P2.name = "Vive la Révolution";
 logs.B1P2.description = "Craft 1000 Items.<br><span class='logStat'>-3 Seconds to Craft Any Item</span>";
-logs.B1P2.hint = "fnuuy";
+logs.B1P2.hint = "Really putting the 'Craft' in 'TurtleCraft'.";
 
 logs.B1P3 = {}
 logs.B1P3.name = "Experienced Adventurer";
 logs.B1P3.description = "Complete 10 Quests.<br><span class='logStat'>+8% Item Drop Chance</span>";
-logs.B1P3.hint = "fnuuy";
+logs.B1P3.hint = "Im Ready! Im Ready! Im Ready! Im Ready! Im Ready! Im Ready!";
 
 logs.B1P4 = {}
 logs.B1P4.name = "Nice.";
@@ -2575,9 +2574,9 @@ logs.B1P11.description = "Click the hidden duck.<br><span class='logStat'>+1% EX
 logs.B1P11.hint = '"Thats not the animal you want to click."';
 
 logs.B1P12 = {}
-logs.B1P12.name = "fnuuy";
+logs.B1P12.name = "So I Just Need To Let It Run?";
 logs.B1P12.description = "Play for 10 hours.<br><span class='logStat'>+10% Item Stack Capacity</span>";
-logs.B1P12.hint = '"fnuuy"';
+logs.B1P12.hint = '"Gameplay."';
 
 logs.B1P13 = {}
 logs.B1P13.name = "Turtle Rabbithole";
@@ -2585,7 +2584,7 @@ logs.B1P13.description = "Play for 50 hours.<br><span class='logStat'>-50 Hours 
 logs.B1P13.hint = '"Where will it take me?"';
 
 logs.B1P14 = {}
-logs.B1P14.name = "I can stop whenever I want";
+logs.B1P14.name = "I Can Stop Whenever I want";
 logs.B1P14.description = "Play for 100 hours.<br><span class='logStat'>+20% Item Stack Capacity</span>";
 logs.B1P14.hint = '"I just dont want to."';
 
@@ -2595,19 +2594,19 @@ logs.B1P15.description = "Equip a full Set of armor.<br><span class='logStat'>+5
 logs.B1P15.hint = '"... all five pieces of the puzzle!"';
 
 logs.B1P16 = {}
-logs.B1P16.name = "fnuuy";
-logs.B1P16.description = "Fill out all the slots of gear.<br><span class='logStat'>+5% Turtle Coin Gains</span>";
-logs.B1P16.hint = '"fnuuy"';
+logs.B1P16.name = "This One Officer";
+logs.B1P16.description = "Click this page.<br><span class='logStat'>+4% Item Stack Capacity</span>"; //esto es item slot capacity
+logs.B1P16.hint = '"Caught red handed."';
 
 logs.B1P17 = {}
 logs.B1P17.name = "Pawn Star";
 logs.B1P17.description = "Sell 10 000 items.<br><span class='logStat'>+8% Item Stack Capacity</span>";
-logs.B1P17.hint = '"fnuuy"';
+logs.B1P17.hint = '"Best I can do is 200 Coins."';
 
 logs.B1P18 = {}
 logs.B1P18.name = "Power Surge";
 logs.B1P18.description = "Reach level 10.<br><span class='logStat'>+7% Respect</span>";
-logs.B1P18.hint = '"fnuuy"';
+logs.B1P18.hint = '"First of many."';
 
 logs.B1P19 = {}
 logs.B1P19.name = "Path of the Hero";
@@ -2637,22 +2636,22 @@ logs.B1P23.hint = "'Its not much...'";
 logs.B1P24 = {}
 logs.B1P24.name = "Fight Poison With Poison";
 logs.B1P24.description = "Poison the Great Wolf Spider.<br><span class='logStat'>+3 Seconds of Player-Inflicted Poisons</span>";
-logs.B1P24.hint = '"fnuuy"';
+logs.B1P24.hint = '"Feels good man."';
 
 logs.B1P25 = {}
 logs.B1P25.name = "Ill Take Your Entire Stock";
 logs.B1P25.description = "Buy 100 items.<br><span class='logStat'>+9% Item Stack Capacity</span>";
-logs.B1P25.hint = '"fnuuy"';
+logs.B1P25.hint = '"Do you have the client card?"';
 
 logs.B1P26 = {}
-logs.B1P26.name = "fnuuy";
+logs.B1P26.name = "One way trip";
 logs.B1P26.description = "Deal 1k Damage in one hit.<br><span class='logStat'>+1 Life Claimed</span>";
-logs.B1P26.hint = '"fnuuy"';
+logs.B1P26.hint = '"...To the shadow realm."';
 
 logs.B1P27 = {}
 logs.B1P27.name = "Once in a Blue Moon";
 logs.B1P27.description = "Obseve a Blue Moon.<br><span class='logStat'>+9% EXP Gains</span>";
-logs.B1P27.hint = '"Figuratively speaking that is."';
+logs.B1P27.hint = '"Literally speaking, that is."';
 
 logs.B1P28 = {}
 logs.B1P28.name = "Nothing Like The Present";

@@ -108,8 +108,6 @@ setTimeout(function () {clickCooldown = false;}, 120);
 //#region Second
 setInterval(oneSecond, 1000);
 function oneSecond() {
-    
-    document.title = beautify(rpgPlayer.coins) + " Coins"; 
     updateCounters();
     };
 
@@ -779,6 +777,23 @@ function unlocksReveal(){
 
 }
 
+function randomTabName(){ //displays a random browser tab name
+    let random = rng(1,11);
+    if (random===1) document.title = "Your Turtle Is Working Hard"; 
+    if (random===2) document.title = "Where Is My Day Off?";
+    if (random===3) document.title = "They Shall Rise Again";
+    if (random===4) document.title = "Slaying Beasts";
+    if (random===5) document.title = "Exploring Uncharted Lands";
+    if (random===6) document.title = "Adventuring In Progress";
+    if (random===7) document.title = "Pat Pat Pat Pat Pat Pat Pat Pat";
+    if (random===8) document.title = "Grinding Materials";
+    if (random===9) document.title = "Super Turtle Idle";
+    if (random===10) document.title = "You Can Leave It To Me";
+    if (random===11) document.title = "Have You Seen Whiskers?";
+
+
+}
+
 
 document.addEventListener('DOMContentLoaded', initialization);
 
@@ -791,6 +806,7 @@ function initialization() {
     oneSecond();
     rememberCategory(); //remembers tab on the left
     unlocksReveal();
-    weatherCheck()
+    weatherCheck();
+    randomTabName();
 }
 //#endregion

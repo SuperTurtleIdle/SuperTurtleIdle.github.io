@@ -3,8 +3,10 @@
 var logTrackClickDuck = false;
 var logTrackClickDiscord = false;
 var logTrackTier = false;
-var logTrackFullSlots = false;
+var logTrackClickThis = false;
 //#endregion
+
+document.addEventListener("click", function(event) { if (event.target && event.target.closest("#B1P16log img")) { logTrackClickThis = true; logCheck() } });
 
 setInterval(function() { if (stats.currentCategory === "achievementContainer") { createLog(); } }, 1000);
 function createLog() {
@@ -102,7 +104,7 @@ function logCheck() {
       if (!logs.B1P13.unlocked){ if (stats.totalSeconds>180000){ logs.B1P13.unlocked=true}};  
       if (!logs.B1P14.unlocked){ if (stats.totalSeconds>36000){ logs.B1P14.unlocked=true;}}; 
       if (!logs.B1P15.unlocked){ if (logTrackTier){ logs.B1P15.unlocked=true; }};  
-      if (!logs.B1P16.unlocked){ if (logTrackFullSlots){ logs.B1P16.uB1P16nlocked=true;}};  
+      if (!logs.B1P16.unlocked){ if (logTrackClickThis){ logs.B1P16.unlocked=true;}};  
       if (!logs.B1P17.unlocked){ if (stats.soldItems>9999){ logs.B1P17.unlocked=true;}};  
       if (!logs.B1P18.unlocked){ if (rpgPlayer.level>9){ logs.B1P18.unlocked=true; }};  
       if (!logs.B1P19.unlocked){ if (rpgPlayer.level>19){ logs.B1P19.unlocked=true;}};  
@@ -148,7 +150,7 @@ function logStatUp(){
   if (logs.B1P12.unlocked) logs.B1P12.statUp=0.1;  
   if (logs.B1P14.unlocked) logs.B1P14.statUp=0.2; 
   if (logs.B1P15.unlocked) logs.B1P15.statUp=0.05;  
-  if (logs.B1P16.unlocked) logs.B1P16.statUp=0.05;  
+  if (logs.B1P16.unlocked) logs.B1P16.statUp=0.04;  
   if (logs.B1P17.unlocked) logs.B1P17.statUp=0.08;  
   if (logs.B1P20.unlocked) logs.B1P20.statUp=0.09;  
   if (logs.B1P21.unlocked) logs.B1P21.statUp=0.15;  
