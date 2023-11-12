@@ -100,8 +100,6 @@ function playerAttack() {
         if (gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)) { //if its a gathering node
           playSound("audio/playerAttack.mp3")
           var damageDealt = 10; //this will be mining power o whatever
-          if (rpgPlayer.weaponSlot !== 'none'){
-          currentHP -= damageDealt;}
           if (baseMiningDamage>0 && enemies[stats.currentEnemy].difficulty==="ore") damageDealt = playerMiningDamage
           if (baseHerbloreDamage>0 && enemies[stats.currentEnemy].difficulty==="herb") damageDealt = playerHerbloreDamage
 

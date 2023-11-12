@@ -330,9 +330,9 @@ enemies.E14.level = '';
 enemies.E14.difficulty = 'herb';
 enemies.E14.area = 'A2';
 enemies.E14.hp = 100;
-enemies.E14.description = 'A common insect found in swamps and jungles. It possess no redeeming qualities as a predator.'
+enemies.E14.description = 'A lush and rare herb with many applications.'
 enemies.E14.exp = 60;
-enemies.E14.drop = "dropItem('I34'); dropItem('I38'); rollTable(area1Common, 1)";
+enemies.E14.drop = "dropItem('I34'); dropItem('I38'); rollTable(area1Common, 2)";
 enemies.E14.dropDesc = '<FONT COLOR="white">[Spicethorn]<br>[Dayleaf]'
 
 
@@ -1565,12 +1565,12 @@ items.I126.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Us
 items.I126.flavor = '"They make rattling noises inside your pocket."';
 items.I126.quality = 'Uncommon';
 items.I126.sell = 100;
-items.I126.max = playerMaxStack;
+items.I126.max = 10;
 items.I126.use = 'if (items.I126.count>9){items.I1.count-=100; items.I126.count-=10; items.I127.count++; addItem();}';
 
 items.I127 = {}; 
 items.I127.name = 'Wild Necklace Offering';
-items.I127.description = 'Miscellaneous<br><FONT COLOR="#1EFF0C">Can be used to summon the Great Wolf Spider.'
+items.I127.description = 'Miscellaneous<br><FONT COLOR="#1EFF0C">Can be used to summon the Basalt Tiger.'
 items.I127.flavor = '"Not the best craftmanship, but intention is what counts."';
 items.I127.quality = 'Uncommon';
 items.I127.sell = 1000;
@@ -1865,7 +1865,7 @@ quests.A2Q3.name = 'Tribal Admiration';
 quests.A2Q3.level = 15;
 quests.A2Q3.description = '“ I need love advice to court the lady of my dreams. The issue is that the lady is the head of the tribal settlement, and im sure im not enough of a man to compete with the rest.<br><br>Help me gather 200 acorns for the headess in order to claim her heart. ”<br><br> <span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Hand over 200 acorns</span><br><br><span style="color:#FFD100; font-size:1vw">Rewards:</span></span><br><span style="color:#79ed8b">★ Unlock Tribal offerings</span></span><br><span style="color:#ffbd54">★ 42000 Turtle Coins</span><br><span style="color:#ae77f7">★ 30000 Experience</span><br><span style="color:#94e1f2">★ Cupids Blessing (Not an actual reward)</span>';
 quests.A2Q3.objective = 'if (items.I115.count>199) {quests.A2Q3.state = "complete"} else {quests.A2Q3.state = "pending"}';
-quests.A2Q3.effect = 'questReward(42000*multiplicativeCoinRewards, 30000); items.I115.count-=200; areas.A2.unlockedBoss = 1;  specialButtonUi();'; 
+quests.A2Q3.effect = 'questReward(42000*multiplicativeCoinRewards, 30000); items.I115.count-=200; areas.A2.unlockedBoss = 1;  specialButtonUi(); unlocksReveal();'; 
 quests.A2Q3.state = 'locked';
 
 quests.A2Q2 = {};

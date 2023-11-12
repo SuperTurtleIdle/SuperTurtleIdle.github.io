@@ -772,7 +772,7 @@ function unlocksReveal(){
     if (unlocks.book2) did('book2').style.display = "inline";
     if (unlocks.shop) {did('shopButton').innerHTML = "Shop"; did('shopButton').className = "gearButtonInactive"}
     if (unlocks.areas) {did('areaButton').innerHTML = "Area"; did('areaButton').className = "gearButtonInactive"}
-    if (quests.A2Q3.state==="completed") {area1Common.I126 = {}; area1Common.I126.D=15; area1Common.I126.C=1; }
+    if (quests.A2Q3.state==="completed") {area1Common.I126 = {}; area1Common.I126.D=30; area1Common.I126.C=1; }
 
 
 }
