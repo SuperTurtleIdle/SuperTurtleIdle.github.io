@@ -455,7 +455,7 @@ items.I10.flavor = '"Life is like a Small Wooden Lockbox."';
 items.I10.quality = 'Uncommon';
 items.I10.sell = 5000;
 items.I10.max = playerMaxStack; 
-items.I10.use = 'if (items.I41.count>0){ items.I41.count--; rollTable(smallCache, 1); if(quests.A2Q7.state === "pending"){ if(rng(1,6)===1) items.I123.count++ }; items.I10.count--;  addItem() }';
+items.I10.use = 'if (items.I41.count>0){ items.I41.count--; rollTable(smallCache, 1); if(quests.A2Q7.state === "pending"){ if(rng(1,6)===1) items.I123.count++ }; items.I10.count--;  addItem() ; removeTableItem() }';
     
 items.I11 = {};
 items.I11.name = 'Runic Die';
@@ -1382,7 +1382,7 @@ items.I107.flavor = '"Strangely, spiders are the only thing not found in here, a
 items.I107.quality = 'Uncommon';
 items.I107.sell = 15500;
 items.I107.max = playerMaxStack; 
-items.I107.use = 'rollTable(spiderEggsack, 1); items.I107.count--; addItem()';
+items.I107.use = 'rollTable(spiderEggsack, 1); items.I107.count--; addItem() ; removeTableItem()';
 
 items.I108 = {}; 
 items.I108.name = 'Thorny Anise';

@@ -706,7 +706,7 @@ function itemCooldownTick(ID, time) { //removes one second from the cd of every 
 setInterval(function () { if (stats.currentCategory === "rpgContainer") { addItem(); } }, 1000);
 function addItem() { //updates inventory items
   for (let i in items) {
-    if ((items[i].count >= 1 && !items[i].unique) || (items[i].count >= 1 && items[i].unique && !items[i].gotOnce)) {
+    if (items[i].count >= 1) {
       if (!did(items[i].id + "item")) {  //if it doesnt exist yet create it
         const itemdiv = document.createElement("div");
         itemdiv.id = items[i].id + "item";
@@ -757,6 +757,18 @@ function addItem() { //updates inventory items
       did(items[i].id + "item").remove();
     }
   }
+}
+
+function removeTableItem() {
+
+  if (items.I103B.gotOnce) smallCache.I103B.C = 0;
+  if (items.I103A.gotOnce) smallCache.I103A.C = 0;
+  if (items.I94.gotOnce) smallCache.I94.C = 0;
+  if (items.I109.gotOnce) spiderEggsack.I109.C = 0;
+
+
+
+
 }
 
 function itemUse(id, effect) { //right click functionality of items
@@ -2169,5 +2181,6 @@ function rpgInitialization() {
   statsUpdate();
   spawnEnemy();
   updateClass();
+  removeTableItem();
 }
 //#endregion
