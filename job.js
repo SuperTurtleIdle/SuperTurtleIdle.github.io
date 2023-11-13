@@ -146,8 +146,7 @@ function recipeButton(recipe) {
            
            did('recipeImage').src = "img/src/items/"+recipe.item+".png";
            //display quantity if its not an unique item
-           if (items[recipe.item].max === 1) did('recipeTitle').innerHTML = items[recipe.item].name;
-           else did('recipeTitle').innerHTML = items[recipe.item].name+" [x"+items[recipe.item].count+"]";
+           did('recipeTitle').innerHTML = items[recipe.item].name;
 
            var minutes = Math.floor(recipe.timer / 60); 
            var seconds = recipe.timer % 60;
@@ -350,8 +349,9 @@ function tooltipReagent(reagent) {
     did(reagent + 'reagent').addEventListener('mouseenter', function () { 
     did('tooltip').style.display = "flex";
     did("tooltipName").textContent = items[reagent].name;
-    if (items[reagent].max === 1) did("tooltipPrice").innerHTML = "(Unique)";
-    else did("tooltipPrice").innerHTML = "(Max "+ items[reagent].max +")";
+
+    did("tooltipPrice").innerHTML = "You Have: "+ items[reagent].count;
+
     did("tooltipRarity").textContent = items[reagent].quality;
         
     if (items[reagent].quality === "Common") {did("tooltipRarity").style.color = "white";did("tooltipName").style.color = "white"; }
@@ -387,8 +387,9 @@ function tooltipOutcome(outcome) {
     did(outcome + 'outcome').addEventListener('mouseenter', function () { 
     did('tooltip').style.display = "flex";
     did("tooltipName").textContent = items[outcome].name;
-    if (items[outcome].max === 1) did("tooltipPrice").innerHTML = "(Unique)";
-    else did("tooltipPrice").innerHTML = "(Max "+ items[outcome].max +")";
+
+    did("tooltipPrice").innerHTML = "You Have: "+ items[outcome].count;
+
     did("tooltipRarity").textContent = items[outcome].quality;
         
     if (items[outcome].quality === "Common") {did("tooltipRarity").style.color = "white";did("tooltipName").style.color = "white"; }

@@ -1106,7 +1106,7 @@ items.I83.align ="nature"
 
 items.I84 = {};
 items.I84.name = 'Stone Pickaxe';
-items.I84.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+15 Mining Power';
+items.I84.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+25 Mining Power';
 items.I84.flavor = '"Three thousand years ago, this baby would be considered top-notch engineering, but right now its better than punching rocks."';
 items.I84.quality = 'Common';
 items.I84.sell = 1000;
@@ -1147,7 +1147,7 @@ items.I87.max = playerMaxStack;
 */
 items.I88 = {};
 items.I88.name = 'Stone Mattock';
-items.I88.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+15 Herblore Power';
+items.I88.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+25 Herblore Power';
 items.I88.flavor = '"For when you had enough with your hoe."';
 items.I88.quality = 'Common';
 items.I88.sell = 1000;
@@ -1359,7 +1359,7 @@ items.I104.use = 'animParticleBurst(7 , "particleLight", "playerPanel", 0); anim
 items.I104.unique = true;
 
 items.I105 = {};
-items.I105.name = 'Trap Cage';
+items.I105.name = 'Hopperoona\'s Trap Cage';
 items.I105.description = 'Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Combine with 100 Slug Meat to prepare a Trapped Cage.';
 items.I105.flavor = '"You have a bad feeling about this."';
 items.I105.quality = 'Uncommon';
@@ -1783,7 +1783,7 @@ var quests = {}
 quests.A1Q1 = {};
 quests.A1Q1.name = 'Important Notice';
 quests.A1Q1.level = 1;
-quests.A1Q1.description = '“Thank you for enrolling into the Super Turtle Adventure program. People from all arround the world will pay handsomly for brave turtles to complete their tasks.<br><br>To complete the registation, please terrorise the local wildlife.”<br><br><span style="color:#FFD100">[Tip: You can switch browser tabs while the game is running]</span><br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Defeat a bunch of slugs</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ A stick with the shape of a sword</span><br><span style="color:#ffbd54">★ 500 Turtle Coins</span><br><span style="color:#ae77f7">★ 1000 Experience</span><br><span style="color:#94e1f2">★ A morally ambiguous job</span>';
+quests.A1Q1.description = '“Thank you for enrolling into the Super Turtle Adventure program. People from all arround the world will pay handsomly for brave turtles to complete their tasks.<br><br>To complete the registation, please terrorise the local wildlife.”<br><br><span style="color:#FFD100">[Tip: You can equip gear by right-clicking it]</span><br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Defeat a bunch of slugs</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ A stick with the shape of a sword</span><br><span style="color:#ffbd54">★ 500 Turtle Coins</span><br><span style="color:#ae77f7">★ 1000 Experience</span><br><span style="color:#94e1f2">★ A morally ambiguous job</span>';
 quests.A1Q1.objective = 'if (enemies.E1.killCount>5) {quests.A1Q1.state = "complete"} else {quests.A1Q1.state = "pending"}';
 quests.A1Q1.state = 'locked';
 quests.A1Q1.effect = 'questReward(500*multiplicativeCoinRewards, 1000); items.I8.count++;';
@@ -1802,7 +1802,7 @@ quests.A1Q2.state = 'locked';
 quests.A1Q3 = {};
 quests.A1Q3.name = 'Clearing The Mineshaft';
 quests.A1Q3.level = 5;
-quests.A1Q3.description = '“ The folks over here of the Miners Guild are pretty darn troubled. These darn scorpions keep blocking the path to the mineshaft and we cant even do our job!<br><br>Clear the darn path for us and well have no trouble showing you the way to get some sweet rocks, will ya? ”<br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Clear the path of scorpids</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ Access to the mines</span><br><span style="color:#ffbd54">★ 8500 Turtle Coins</span><br><span style="color:#ae77f7">★ 800 Experience</span><br><span style="color:#94e1f2">★ -1830 reputation with the Scorpion clan </span>';
+quests.A1Q3.description = '“ The folks over here of the Miners Guild are pretty darn troubled. These darn scorpions keep blocking the path to the mineshaft and we cant even do our job!<br><br>Clear the darn path for us and well have no trouble showing you the way to get some sweet rocks, will ya? ”<br><br><span style="color:#FFD100">[Tip: You can switch browser tabs while the game is running]</span><br><br><span style="color:#FFD100; font-size:1vw"> Objectives:</span><br><span style="color:#deaf6a">❖ Clear the path of scorpids</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ Access to the mines</span><br><span style="color:#ffbd54">★ 8500 Turtle Coins</span><br><span style="color:#ae77f7">★ 800 Experience</span><br><span style="color:#94e1f2">★ -1830 reputation with the Scorpion clan </span>';
 quests.A1Q3.objective = 'if (enemies.E2.killCount>10) {quests.A1Q3.state = "complete"} else {quests.A1Q3.state = "pending"}';
 quests.A1Q3.effect = 'questReward(8500*multiplicativeCoinRewards, 800); areas.A1.unlockedOre = 1; specialButtonUi();';
 quests.A1Q3.state = 'locked';
