@@ -314,23 +314,23 @@ enemies.E12.attack = 10;
 enemies.E12.exp = 10;
 
 enemies.E13 = {};
-enemies.E13.name = 'Copper Vein';
+enemies.E13.name = 'Chalcopyrite Vein';
 enemies.E13.level = '';
 enemies.E13.difficulty = 'ore';
 enemies.E13.area = 'A1';
 enemies.E13.hp = 100;
-enemies.E13.description = 'A rich ore deposit containing soft metals.'
+enemies.E13.description = 'A rich mineral deposit containing soft metals.'
 enemies.E13.exp = 60;
 enemies.E13.drop = "dropItem('I32'); dropItem('I40'); rollTable(area1Common, 1)";
 enemies.E13.dropDesc = '<FONT COLOR="white">[Copper Ore]<br>[Sulfur Ore]'
 
 enemies.E14 = {};
-enemies.E14.name = 'Spicethorn Briar';
+enemies.E14.name = 'Thorny Briar';
 enemies.E14.level = '';
 enemies.E14.difficulty = 'herb';
 enemies.E14.area = 'A2';
 enemies.E14.hp = 100;
-enemies.E14.description = 'A lush and rare herb with many applications.'
+enemies.E14.description = 'A lush and bountiful briar containing many kinds of rare herbs with many applications.'
 enemies.E14.exp = 60;
 enemies.E14.drop = "dropItem('I34'); dropItem('I38'); rollTable(area1Common, 2)";
 enemies.E14.dropDesc = '<FONT COLOR="white">[Spicethorn]<br>[Dayleaf]'
@@ -1511,12 +1511,12 @@ items.I120.unique = true;
 
 items.I121 = {}; 
 items.I121.name = 'Chicken Cage';
-items.I121.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Cage a chicken. <FONT COLOR="gray"> (15 minute Cooldown)';
-items.I121.flavor = '"A standard crate with a standard chicken-shaped hole inside."';
+items.I121.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Cage a chicken. <FONT COLOR="gray"> (10 minute Cooldown)';
+items.I121.flavor = '"A standard cage with a standard chicken-shaped hole inside."';
 items.I121.quality = 'Quest';
 items.I121.sell = 0;
 items.I121.max = 10;
-items.I121.use = 'if (stats.currentEnemy === "E7") {playSound("audio/throw.mp3"); items.I121.cd=120; items.I121.count--; items.I122.count++; animImageSplash("net", "enemyPanel", "downwards", 0); addItem(); deleteEnemy()};'
+items.I121.use = 'if (stats.currentEnemy === "E7") {playSound("audio/throw.mp3"); items.I121.cd=600; items.I121.count--; items.I122.count++; animImageSplash("net", "enemyPanel", "downwards", 0); addItem(); deleteEnemy()};'
 items.I121.cd = 0;
 
 items.I122 = {}; 

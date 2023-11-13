@@ -37,6 +37,9 @@ function spawnEnemy() { //spawns enemy based on current difficulty and area
   div.className = "enemy";
   did("enemyAnimation").appendChild(div);
   div.innerHTML = '<img src="img/src/enemies/' + currentEnemy + '.png">';
+
+  if (!gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)) div.style.animation= "enemySpawn 0.5s 1";
+
   did("enemyName").innerHTML = enemies[currentEnemy].name;
   did("enemyLevel").textContent = enemies[currentEnemy].level;
   currentHP = enemies[currentEnemy].hp;
@@ -50,11 +53,6 @@ stats.totalBossKills = 0
 function enemyUpdate() { //updates enemy HP and checks if enemy is dead
   if (currentHP <= 0) { //on enemy kill
 
-        for (let i in enemies){ if (did(i+"enemy")){
-        did(i + "enemy").style.animation = "enemyDefeat 0.2s 1 ease";
-        setTimeout(function () { did(i + "enemy").remove(); }, 180);
-        }}
-
         enemies[stats.currentEnemy].killCount++;
         stats.totalKills++;
         if (bossTime) {stats.totalBossKills++;};
@@ -63,11 +61,23 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
           var totalEXP = Math.round(enemies[stats.currentEnemy].exp * multiplicativeEXPGain);
            rpgClass[stats.currentClass].currentExp += totalEXP;
            logPrint("<FONT COLOR='#ae77f7'>You gain " + totalEXP + " EXP!" );
+
+           for (let i in enemies){ if (did(i+"enemy")){ did(i + "enemy").remove(); }}
+            
+            
+
         }
         else {
           var totalEXP = Math.round(enemies[stats.currentEnemy].exp * multiplicativeEXPGain);
           rpgClass[stats.currentClass].currentExp += totalEXP;
           logPrint("<FONT COLOR='#ae77f7'>" + enemies[stats.currentEnemy].name + " gets defeated! You gain " + totalEXP + " EXP!" );
+
+
+          for (let i in enemies){ if (did(i+"enemy")){
+            did(i + "enemy").style.animation = "enemyDefeat 0.2s 1 ease";
+            setTimeout(function () { did(i + "enemy").remove(); }, 180);
+            }}
+
         }
 
         trinketEnemyKill(); //trinket effect
@@ -187,7 +197,7 @@ function hpRegen() { //additionally manages death
     
   } else {
     //if player dead
-    if (rpgPlayer.hp < playerMaxHp && logs.B1P7.statUp===true) rpgPlayer.hp += playerHpRegen / 5;
+    if (rpgPlayer.hp < playerMaxHp && logs.B1P7.statUp===true) rpgPlayer.hp += playerHpRegen / 8;
     else if (rpgPlayer.hp < playerMaxHp) rpgPlayer.hp += playerHpRegen / 10;
     playerUpdate()
     playSound("audio/throw.mp3");
@@ -266,9 +276,12 @@ function damageTicks() {
 function deleteEnemy() {  //deletes without loot, used in dungeons, bosses and switching area
   for (let i in enemies) {
     if (did(i + "enemy")) {
+      
   did(i + "enemy").remove();
   currentHP = 0;
+  
   spawnEnemy();
+  did(stats.currentEnemy + "enemy").style.animation= "enemySpawn 0.5s 1";
     }}
 }
 
@@ -950,6 +963,7 @@ function difficultyButton(div, difficulty){
     deleteEnemy();
     enemyUpdate();
     encounterButtonPress();
+    
   });
 }
 
