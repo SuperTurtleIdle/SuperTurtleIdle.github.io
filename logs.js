@@ -102,7 +102,7 @@ function logCheck() {
       if (!logs.B1P11.unlocked){ if (logTrackClickDuck){ logs.B1P11.unlocked=true;}};   
       if (!logs.B1P12.unlocked){ if (stats.totalSeconds>36000){ logs.B1P12.unlocked=true;}};  
       if (!logs.B1P13.unlocked){ if (stats.totalSeconds>180000){ logs.B1P13.unlocked=true}};  
-      if (!logs.B1P14.unlocked){ if (stats.totalSeconds>36000){ logs.B1P14.unlocked=true;}}; 
+      if (!logs.B1P14.unlocked){ if (stats.totalSeconds>360000){ logs.B1P14.unlocked=true;}}; 
       if (!logs.B1P15.unlocked){ if (logTrackTier){ logs.B1P15.unlocked=true; }};  
       if (!logs.B1P16.unlocked){ if (logTrackClickThis){ logs.B1P16.unlocked=true;}};  
       if (!logs.B1P17.unlocked){ if (stats.soldItems>9999){ logs.B1P17.unlocked=true;}};  
