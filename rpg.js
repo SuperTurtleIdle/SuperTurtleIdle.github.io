@@ -512,7 +512,6 @@ function expBar() { //updates exp bar and checks level up
 
   if (rpgClass[stats.currentClass].currentExp >= rpgClass[stats.currentClass].nextExp) { //on level up
     playSound("audio/levelup.mp3")
-    createAreaPanel();
     rpgClass[stats.currentClass].currentExp -= rpgClass[stats.currentClass].nextExp;
     rpgClass[stats.currentClass].nextExp = Math.floor(1000 * Math.pow(1.5, rpgClass[stats.currentClass].level)); //esto era 1.4
     rpgClass[stats.currentClass].level += 1;
@@ -535,6 +534,7 @@ function expBar() { //updates exp bar and checks level up
     updateTalentUI();
     statsUpdate();
     updateStatsUI();
+    createAreaPanel();
   }
 
   let percentageEXP = (rpgClass[stats.currentClass].currentExp / rpgClass[stats.currentClass].nextExp) * 100;
