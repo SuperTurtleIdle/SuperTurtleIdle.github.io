@@ -1195,7 +1195,7 @@ function unlocksReveal(){
 
 
     if (stats.questsCompleted>=3 && !mail.M2.recieved) sendMail("M2");
-    if (stats.questsCompleted>=4 && !mail.M5.recieved) sendMail("M5");
+    if (stats.questsCompleted>=5 && !mail.M5.recieved) sendMail("M5");
     if (stats.questsCompleted>=8 && !mail.M3.recieved) sendMail("M3");
     if (stats.questsCompleted>=16 && !mail.M6.recieved) sendMail("M6");
     if (stats.questsCompleted>=20 && !mail.M7.recieved) sendMail("M7");
