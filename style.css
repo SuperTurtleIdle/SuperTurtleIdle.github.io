@@ -10,7 +10,11 @@
     -webkit-user-select:none;
     -ms-user-select: none;
     user-select: none;
-    cursor: url('img/sys/cursorHand.png'),auto;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    
 }
 
 
@@ -22,20 +26,48 @@
 
 @font-face { font-family: belwe; src: url(font/belwe.ttf); }
 @font-face { font-family: lilita; src: url(font/lilita.ttf); }
+@font-face { font-family: fredoka; src: url(font/fredoka.ttf); }
 
 
 /*Barras principales*/
 
 .bLateral { 
-    height: 100%; width: 14%; background: #23232D; float: left; position: relative; z-index: 2; display: flex; flex-direction: column;
+    height: 100%;
+    width: 13%;
+    background: #23232D;
+    float: left;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
 }
 
 .bSuperior { 
-    height: 6%; width: 86%; background: #31313D; box-shadow: 0px -5px 38px 2px rgba(0, 0, 0, 0.48); position: relative; float: up; z-index: 1; margin-left: 14%; display: flex; overflow: visible;
+    height: 6%;
+    width: 87%;
+    background: #31313D;
+    box-shadow: 0px -5px 38px 2px rgba(0, 0, 0, 0.48);
+    position: relative;
+    float: up;
+    z-index: 1;
+    margin-left: 12%;
+    display: flex;
+    overflow: visible;
 }
 
 .bInferior { 
-    height: 94%; width: 86%; background: linear-gradient(226deg, #262637 53.65%, #442F39 100%); position: relative; margin-left: 14%; overflow: scroll; display: flex; align-content: center; justify-content: center; background-image: url(img/sys/fondo.png); background-size: 100% 100%; background-position: center; 
+    height: 94%;
+    width: 87%;
+    background: linear-gradient(226deg, #262637 53.65%, #442F39 100%);
+    position: relative;
+    margin-left: 13%;
+    overflow: scroll;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background-image: url(img/sys/fondo.png);
+    background-size: 100% 100%;
+    background-position: center; 
 }
 
 /*-------------------limbo-------------------*/
@@ -46,17 +78,20 @@
     position: absolute;
     background: red;
     height: auto;
-    width: auto;
-    max-width: 24%;
+    width: 23%;
     z-index: 99;
-    bottom: 4%;
-    right: 4%;
+    top: 1%;
+    left: 40%;
     background-image: url(img/sys/fondonegro.png);
     border: solid lime 1px;
     display: flex;
     overflow: visible;
-    flex-wrap: wrap;
     transition: all 0.5s;
+    overflow-y: scroll;
+}
+
+#debugPanel .itemslot{
+    flex-shrink: 0;
 }
 
 #debugContract{
@@ -75,9 +110,33 @@
    color: white;
 }
 
-#tooltip { 
+.itemLevel{
+    background: black;
+    border-radius: 0.3vh;
+    padding: 0 3%;
+    transition: 0.4s;
+}
+
+@keyframes colorRainbow {
+    0% { color: red; }
+    14% { color: orange; }
+    28% { color: yellow; }
+    42% { color: green; }
+    56% { color: blue; }
+    70% { color: indigo; }
+    84% { color: violet; }
+    100% { color: red; }
+}
+
+@keyframes itemLevel2 {
+    0%,100% { color: red; }
+    50% { color: rgb(255, 120, 57); }
+    
+}
+
+#tooltip, .tooltip { 
     position: absolute;
-    z-index: 14;
+    z-index: 15;
     width: 20%;
     height: auto;
     border: white solid 1px;
@@ -114,7 +173,12 @@
     display: flex;
 }
 
-#tooltipImage{height: auto; margin: 5%; background: transparent; border: solid 1px black;}
+#tooltipImage, #stampMenuImg{height: auto; margin: 5%; background: transparent; border: solid 1px black;}
+
+#stampMenu{
+    background-image: url(img/src/icons/stampMenu.jpg);
+    transition: all 0;
+}
 
 .upperTooltipRight{
     background: transparent;
@@ -133,13 +197,16 @@
 
 
 
-#tooltipTitle{width: 47%; height: auto; padding-top: 1%; font-size: 1vw; position: absolute; background: transparent; color:#1EFF0C; overflow: visible;}
+#tooltipTitle{width: 60%; height: auto; padding-top: 1%; font-size: 1vw; position: absolute; background: transparent; color:#1EFF0C; overflow: visible;}
 
-#tooltipName{background: transparent;}
+#tooltipName, #stampMenuName{background: transparent;}
 
-#tooltipRarity { 
+#tooltipRarity, #stampMenuRarity { 
     background: black; border-radius: 4px; padding: 0% 2%; font-weight: 600; color:#1EFF0C; display: inline-block; font-size: 0.89vw; margin-top: 2%; margin-left: -1%
 }
+
+#stampMenuRarity { color:#42a7f5; }
+#stampMenuName { color:#42a7f5; }
 
 .lowerTooltip{
     background: transparent;
@@ -147,21 +214,32 @@
     width: 100%;
 }
 
-#tooltipDescription{ 
+#tooltipDescription, #stampMenuDescription{ 
      background: transparent; padding: 0 4%;
 }
 
-#tooltipDescription span{ 
+#tooltipDescription span, #stampMenuDescription span{ 
      background: transparent;
 }
 
-#tooltipDescription img{ height: 2vh; width: 2vh; background: transparent; transform: translateY(5px)}
+#tooltipDescription img, #stampMenuDescription img{
+    height: 2vh;
+    width: 2vh;
+    background: transparent;
+    transform: translateY(5px);
+    border: black solid 0.15vh;
+    border-radius: 0.4vh;
+    margin-top: -5px;
+    margin-right: 0.2vw;
+
+}
 
 #chartImage{
     height: 19vh !important;
     width: 20vw !important;
     margin-left: -2vh !important;
     margin-bottom: 1vh;
+    border: none !important;
 }
 
 #tooltipFlavor { 
@@ -186,6 +264,7 @@
     top:0;
     transform: translateY(-1.7vh) translateX(0vw) rotate(180deg);
     right: 1%;
+    
 }
 
 #tooltipArrowRight { 
@@ -197,12 +276,6 @@
     transform: translateY(-2vh) translateX(1.2vw) rotate(-90deg);
     right: 0%;
 }
-
-
-
-
-
-
 
 .dynamicSpark{
     display: flex;
@@ -223,7 +296,7 @@
     display: flex;
     background-color: transparent;
     height: 2vw;
-    width: 9vw;
+    width: auto;
     align-items: center;
     position: absolute;
     z-index: 10;
@@ -234,7 +307,7 @@
 }
 
 .textoClick img { 
-    background-color: transparent; display: flex; height: 80%; width: 20%; margin-left: 3%; border-radius: 200vw; transform: translateY(-4px)
+    background-color: transparent; display: flex; height: 80%; width: 3.5vh; margin-left: 3%; border-radius: 200vw; transform: translateY(-4px)
 }
 
 .textoClick p { 
@@ -281,6 +354,8 @@
 .candado:active {
     animation: noBuyAnimation 0.15s;
 }
+
+
 
 /*opciones*/
 
@@ -381,16 +456,18 @@
     animation: none;
 }
 
-.boughtUpgradesInfo{
-        background: transparent;
-display: flex;
-    flex-direction: column;
-    height: 20%;
-    justify-content: center;
-    gap:20%;
-        overflow: visible;
-
+#boughtUpgrades img{
+    height: 2.9vw;
+    width: auto;
+    border: solid 1px #00FFCA;
+    transition: 0.1s;
+    margin: 0.5% 0.5%;
 }
+
+#boughtUpgrades img:hover{
+    scale: 1.1;
+}
+
 
 
 .panelOpciones h1 {
@@ -562,6 +639,8 @@ display: flex;
     margin-right: 2%;
 }
 
+
+
 #achievementPopup {
     height: 7%;
     width: 20%;
@@ -613,62 +692,55 @@ display: flex;
 
 @keyframes logStatText{0%, 100%{color:#558fb5}50%{color:#a7dafc}}
 
-.popUp{
-    position: fixed;
+#popUpList{
+    position: absolute;
+    height: 30vh;
+    width: 30vw;
     margin: auto;
-    z-index: 10;
+    right: 0;
+    left: 0;
+    bottom: 1%;
+    background: transparent;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    overflow-y: scroll;
+    pointer-events: none;
+}
+
+.popUp, .popUpPage{
+    z-index: 4;
     border: white solid 2px;
     filter: drop-shadow(0px 6px 0px #21191e);
     border-radius: 0.1vw;
     display: flex;
-    justify-items: center;
-    flex-direction: column;
     color: white;
-    transition: all 0.2s;
-    height: 4%;
-    width: 20%;
+    height: 3.5vh;
+    width: 95%;
     flex-direction: row;
     border: 0px white solid;
-    animation: popUp 3s ease;
-    font-size: 1vw;
+    animation: popUpNew 5s ease;
+    animation-fill-mode: forwards;
+    font-size: 1.1vw;
+    font-family: fredoka;
     opacity: 1;
-    top: 0;
-    right: 0;
-    bottom: -110%;
-    left: 0;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2%;
+    flex-shrink: 0;
 }
 
-.logPopUp{
-    position: fixed;
-    margin: auto;
-    z-index: 10;
-    border: white solid 2px;
-    filter: drop-shadow(0px 6px 0px #21191e);
-    border-radius: 0.1vw;
-    display: flex;
-    justify-items: center;
-    flex-direction: column;
-    color: white;
-    transition: all 0.2s;
-    height: 4%;
-    width: 30%;
-    flex-direction: row;
-    border: 0px white solid;
-    animation: popUp 5s ease;
-    font-size: 1vw;
-    opacity: 1;
-    top: 0;
-    right: 0;
-    bottom: -110%;
-    left: 0;
-    justify-content: center;
-    align-items: center;
-    background-color: #966a30;
+.popUp img{
+    height: 2.5vh;
+    width: auto;
+    margin: 0 1%;
+    border-radius: 0.5vh;
 }
 
-.logPopUp:after {
+
+.popUpPage:after {
 
     animation: shine 6s ease-in-out;
     animation-fill-mode: forwards;
@@ -725,8 +797,170 @@ position: absolute;
 background: transparent;
 height:100%;
 width: 100%;
+}
+
+#blackScreen { 
+    z-index: 29;
+    display: none;
+    position: absolute;
+    background: black;
+    opacity: 0;
+    transition: all 1s;
+    height:100%;
+    width: 100%;
+    }
+
+#presentMinigame {
+
+position: fixed;
+z-index: 30;
+border: white solid 1px;
+height: 50vh;
+width: 60vw;
+display: none;
+margin: auto;
+top: 0;
+bottom: 0;
+right: 0;
+left: 0;
+animation: growFadeIn 1s 1;
+}
+
+#presentMinigame::after{
+
+    content: "";
+    background-image: url(img/src/icons/treasureBg.gif);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0.1;
+    filter: hue-rotate(100deg);
+}
+
+#mysteryRewardPanel{
+position: fixed;
+z-index: 30;
+height: 50vh;
+width: 15vw;
+background: transparent;
+top: 25%;
+right: 3%;
+display: none;
+flex-direction: column;
+gap: 2%;
+overflow: visible;
+flex-shrink: 0;
+}
+
+.clickBlocker{
+    display: none;
+    z-index: 99;
+    background: transparent;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.mysteryRewardItem{
+flex-shrink: 0;
+height: 4vh;
+width: 100%;
+background: #9e7f36;
+border-radius: 0.2vh;
+border: white solid 1px;
+display: flex;
+align-items: center;
+color: white;
+font-size: 1.6vh;
+padding-left: 5%;
+animation: growFadeIn 0.5s 1;
+}
+
+.mysteryRewardItem img{
+    height: 60%;
+    background-color: transparent;
+    margin-right: 3%;
+}
+
+#mysteryCloth{
+
+display: none;
+position: absolute;
+z-index: 11;
+height: 100%;
+width: 100%;
+background-image:  url(img/src/icons/mysteryCloth.png);
+background-size: 110%;
+background-position: 10% 100%;
+animation: mysteryCloth 4s forwards;
+background-repeat: no-repeat;
+background-color: transparent;
 
 }
+
+#mysteryList{
+
+position: absolute;
+display: flex;
+z-index: 10;
+margin: auto;
+top: 10%;
+bottom: 0;
+left: 0;
+right: 0;
+background: transparent;
+height: 80%;
+width: 88%;
+padding: 2%;
+gap: 2%;
+flex-wrap: wrap;
+justify-content: center
+
+}
+
+.mysteryPresent {
+    display: flex;
+    height: 9vh;
+    width: 5vw;
+    flex-shrink: 0;
+    background-color: transparent;
+    background-image:  url(img/src/icons/present.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: all 500ms;
+    scale: 1;
+}
+
+.mysteryPresent:hover {
+    transition: all 300ms;
+scale: 1.1;
+animation: shakeAndGrow 1s infinite;
+
+}
+
+@keyframes shakeAndGrow {
+    0%, 100% {
+        transform:  rotate(0deg);
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform:  rotate(-5deg);
+    }
+    20%, 40%, 60%, 80% {
+      transform:  rotate(5deg);
+    }
+  }
+  
+
+
+@keyframes mysteryCloth {
+
+0% {translate: 0 0%}
+
+100% {translate: 0 -85%}
+
+
+}
+
 
 #penguinRecap {
     height: 7%;
@@ -742,17 +976,18 @@ width: 100%;
     left: 0; 
     align-items: center;  
     animation: gelatine 0.3s;
+    
 }
 
 
 
-#penguinRecap p{ text-align: left; margin-left: 2%;}
+#penguinRecap p{ text-align: left; margin-left: 2%; }
 #penguinRecap .flex {width: 87%; background: transparent;}
 #penguinRecap span{color: #7EFF69; font-weight: 400; }
-#penguinRecap h2{position: absolute; right: 1.5%; top: 2%; }
+#penguinRecap h2{position: absolute; right: 1.5%; top: 2%; font-family: fredoka;}
 #penguinRecap strong{color: white;}
 #penguinRecap img{height: 80%;width: 7%; justify-self: center; margin: 0 0 0 2%}
-#penguinRecap span img{height: 20%; width: 2.6%; margin: 0; transform: translateY(1px)}
+#penguinRecap span img{height: 25%; width: auto; margin: -0.5% 0%; margin-left: 0.5%;}
 
 #unlockPanel {
     
@@ -795,50 +1030,55 @@ width: 100%;
     }
 }
 
+#jesterWrapper{
+    left: -18%;
+    position: absolute;
+    height: 100%;
+    width: 30%;
+    background: transparent;
+    z-index: 4;
+    pointer-events: none;
+}
+
 #jesterTurtle {
+    pointer-events: auto; 
     position: absolute;
     z-index: 1;
     background: transparent;
     height: 20%;
-    left: 5%;
+    left: 0%;
     top:30%;
-    animation: jester 7s ease-out infinite;
+    animation: jester 7s ease-out 1;
     transform: rotate(-70deg);
-    
     transition: 0.3s;
 }
 #jesterTurtle img{background: transparent; height: 100%; transition: 0.2s;}
+
 #jesterTurtle img:hover{ transform: scale(1.1); filter: brightness(1.2)}
 
 @keyframes jester { 
     
-    20% {transform: scale(1.05) rotate(10deg); left:12%}
-    40% {transform: scale(1.0) rotate(10deg); left:12%}
-    60% {transform: scale(1.05) rotate(10deg); left:12%}
-    80% {transform: scale(1.0) rotate(10deg); left:12%}
-    100% {transform: rotate(-65deg); left:05%}
+    20% {transform: scale(1.05) rotate(10deg); left:50%}
+    40% {transform: scale(1.0) rotate(10deg);}
+    60% {transform: scale(1.05) rotate(10deg);}
+    80% {transform: scale(1.0) rotate(10deg);  left:50%}
+    100% {transform: rotate(-65deg); left:0%}
     
     
 }
 
-#buffList{
-    position: absolute;
-    height: 17%;
-    width: 20%;
-    bottom: 7%;
-    left:5%;
-    background: transparent;
-}
-
-#buffWrapper{
-    position: relative;
-    height: 100%;
-    width: 100%;
-    background: transparent;
-    display: flex;
-    flex-direction: column-reverse;
-    overflow-y: scroll;
-    
+#turtleBuffWrapper{
+position: absolute;
+height: 20%;
+width: 15%;
+display: flex;
+background: transparent;
+left: 3%;
+bottom: 1%;
+padding: 0%;
+flex-direction: column-reverse;
+gap: 1%;
+overflow: visible;
 }
 
 .buffSlot {
@@ -1059,9 +1299,38 @@ width: 100%;
     flex-direction: column
 }
 
+.switchPanel{
+    background: transparent;
+    width: 90%;
+    margin-bottom: 0.5vh;
+    height: auto;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    overflow: visible;
+}
+
+.switchPanel img{
+    height: 3.5vh;
+    width: auto;
+    border-radius: 0.4vh;
+    border: solid 0.1vh coral;
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.6);
+    transition: all 0.2s;
+    background: #2c2c38;
+}
+
+.switchPanel img:hover{
+    scale: 1.1;
+    background: #2e4b2e;
+    border-radius: 0vh;
+}
+
+
 .recursosLateral {
     height: auto;
     width: 100%;
+    padding: 1.5vh 0;
     background: #31313D;
     display: flex;
     align-items: center;
@@ -1069,7 +1338,8 @@ width: 100%;
     justify-content: center;
     gap: 10%;
     margin-top: auto;
-    box-shadow: 0px -3px 6px rgba(0,0,0,0.3)
+    box-shadow: 0px -3px 6px rgba(0,0,0,0.3);
+    flex-shrink: 0;
 }
 
 .recursosLateral h1 {
@@ -1085,15 +1355,17 @@ width: 100%;
 
     height: 3vh;
     width: 94%;
-    margin: 2vh;
     background-color: #23232D;
     display: flex;
     align-items: center;
     border-bottom: #19191C 5px solid;
     border-radius: 3px;
-    box-shadow: 0px 3px 2px rgba(0,0,0,0.2)
+    box-shadow: 0px 3px 2px rgba(0,0,0,0.2);
+    flex-shrink: 0;
 
 } 
+
+
 
 .botonRecursos p {
 
@@ -1185,11 +1457,7 @@ width: 100%;
 
 #sparkleFX {position: absolute; background: transparent; height: 30%; bottom: -2%; pointer-events: none;}
 
-#tortugaClick:hover {
-    padding: 5%;
-    animation: gelatine 0.3s;
-     
-}
+
 
 .flash-animation {
   animation: flash 0.5s;
@@ -1200,24 +1468,40 @@ width: 100%;
 #currentTreaty:hover {animation: gelatine 0.3s;}
 
 @keyframes gelatine {
-
     from,
     to {
         transform: scale(1, 1);
     }
-
     25% {
         transform: scale(0.9, 1.1);
     }
-
     50% {
         transform: scale(1.1, 0.9);
     }
-
     75% {
         transform: scale(0.95, 1.05);
     }
 }
+
+@keyframes skillWave {
+    0% {
+        transform: scale(1, 1);
+        scale: 0.3;opacity: 1;
+    }
+    25% {
+        transform: scale(0.9, 1.1);
+    }
+    50% {
+        transform: scale(1.1, 0.9);
+    }
+    75% {
+        transform: scale(1, 1);
+    }
+
+    100% {scale: 2.5; opacity: 0;}
+}
+
+
 
 @keyframes gelatineDownwards {
 
@@ -1262,22 +1546,50 @@ width: 100%;
 @keyframes gelatineImpact {
 
     0% {
-        transform: scale(1, 1);
-    }
-
-    10% {
-        transform: scale(0.6, 1.4);
-    }
-
-    20% {
-        transform: scale(1.5, 0.8);
+        scale: 2.2;
+        transform: scale(1.3);
+        filter: brightness(4);
         opacity: 1;
     }
 
-    30% {
-        transform: scale(0.95, 1.3);
+    10% {
+        transform: scale(0.9);
     }
-    100% { opacity: 0;}
+
+    20% {
+        transform: scale(1);
+        
+        
+    }
+
+    50% {filter: brightness(1);
+    }
+    100% { opacity: 0; scale: 2.2;}
+}
+
+@keyframes skillSway {
+
+    0% {
+        transform: scale(1.3);
+        filter: brightness(4);
+        opacity: 1;
+        rotate: -30deg;
+    }
+
+    10% {
+        transform: scale(0.9);
+    }
+
+    20% {
+        transform: scale(1);
+        rotate: 30deg;
+        
+        
+    }
+
+    50% {filter: brightness(1);
+    }
+    100% { opacity: 0; rotate: -30deg; translate: 10% -10%;}
 }
 
 @keyframes poisonHit {
@@ -1307,6 +1619,13 @@ width: 100%;
     0%{transform: scale(1.2); filter: brightness(10)}
     100%{transform: scale(1); filter: brightness(1)}
 }
+
+@keyframes flashNoScale {
+    0%{filter: brightness(3)}
+    100%{filter: brightness(1)}
+}
+
+
 
 /*------------Barra Superior------------*/
 
@@ -1366,7 +1685,6 @@ width: 100%;
     justify-content: flex-end;
     padding-right: 1%;
     align-items: center;
-    gap: 1.1%;
     overflow: visible;
     
 
@@ -1378,9 +1696,12 @@ width: 100%;
     width: 18%;
     display: flex;
     align-items: center;
+    justify-content: center;
     border-radius: 2px;
     overflow: visible;
     transition: all 0.2s;
+    margin-left: -12%;
+    position: relative;
 }
 
 .topWidget span {
@@ -1389,10 +1710,11 @@ width: 100%;
     font-size: 1.05vw;
     font-weight: 500;
     border-radius: 2px;
-    margin-left: -1%;
+    z-index: 2;
     padding: 0 3%;
-    
-
+    position: absolute;
+    width: 3vw;
+    right: 13%;
 }
 
 .topWidget img {
@@ -1411,10 +1733,20 @@ width: 100%;
     transform: scale(1.2);
     border: white 1px solid;
     box-shadow: 5px 3px 6px rgba(0,0,0,0.6);
-     
+}
 
-
-    
+.widgetBg{
+    height: 6.2vh;
+    width: 3vw;
+    background: red;
+    position: absolute;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    background-image: url(img/src/icons/widgetBg.jpg);
+    background-size: contain;
+    border-radius: 0.2vh;
+    z-index: 1;
 }
 
 #achievementBanner{
@@ -1431,12 +1763,36 @@ width: 100%;
 }
 
 #achievementBanner span { background: transparent;}
-#achievementPanel{ width: 99.3%; }
+#achievementPanel{ width: 99.3%; background-image: url(img/src/icons/libraryBg.jpg);    background-size: cover;    position: relative; }
+
+
 #achievementLine{ border-bottom: 1px orange solid;}
 #achievementBannerImg {height: 50%; margin: 1% 0; background: transparent;}
 #achievementBanner h1{ color: white; font-weight: 400; font-size: 1.1vw; margin-bottom: 1%; background: transparent;}
 #achievementBanner h1 strong{ color: gold; background: transparent;}
 #achievementSeparator {margin: 0;}
+
+#achievementListing {
+    background: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    padding: 1% 1%;
+    gap: 0.4%;
+}
+
+#achievementListing img{
+    height: 6vh;
+    width: auto;
+    flex-shrink: 0;
+    transition: 0.1s;
+    margin-top: 0.4%;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.6);
+}
+
+#achievementListing img:hover{
+    scale: 1.2;
+}
 
 #achievementBanner2{
     width: 98%;
@@ -1522,10 +1878,10 @@ width: 100%;
 
 .aldeaTortugaContenido {
     background: transparent;
-    height: 96.1%;
-    width: 97.3%;
+    height: 98.5%;
+    width: 98.8%;
     display: flex;
-    margin-top: 1.2%;
+    margin-top: 0.4%;
     align-items: center;
     flex-direction: column;
 }
@@ -1538,18 +1894,58 @@ width: 100%;
     display: flex;
     gap: 0.3%;
     justify-content: center;
+    position: relative;
+    
 }
 
 .panelConstruccion {
 
     background: linear-gradient(205deg, rgba(55, 34, 47, 1) 0%, rgba(35, 35, 45, 0.7) 41%, rgba(39, 54, 75, 0.6) 100%);
     height: 100%;
-    width: 73%;
+    width: 64%;
+    display: flex;
+flex-shrink: 0;
+    border-radius: 2px;
+    flex-direction: column;
+}
+
+.lockedPanel {
+
+    background: linear-gradient(205deg, rgba(55, 34, 47, 1) 0%, rgba(35, 35, 45, 0.9) 41%, rgba(39, 54, 75, 0.8) 100%);
+    height: 100%;
+    width: 64%;
     display: flex;
 flex-shrink: 0;
     border-radius: 5px;
     flex-direction: column;
+    filter: brightness(0.1);
+}
 
+.lock{
+    display: flex;
+    margin: auto;
+    font-size: 6vh;
+    background: transparent;
+}
+
+.lock:active{
+    animation: gelatine 0.2s 1;
+}
+
+#buildingPanel{
+    background-image: url(img/src/icons/garrisonBg.jpg);
+    background-size: cover;
+    position: relative;
+}
+
+#buildingPanel::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url(img/src/icons/garrisonBg2.jpg);
+    background-size: cover;
+    animation: skillTurtle 3s ease-in infinite ;
 }
 
 .panelConstruccionTitulo {
@@ -1585,7 +1981,7 @@ flex-shrink: 0;
     align-items: center;
     justify-content: center;
     justify-items: center;
-    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);
 }
 
 .bannerAldeaRecursosBoton {
@@ -1681,7 +2077,7 @@ flex-shrink: 0;
     font-size: 1vw;
     font-weight: 400;
     justify-content: center;
-    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);
 }
 
 .selectorAldeaCantidad button {
@@ -1726,199 +2122,228 @@ background: transparent;
     flex-wrap: wrap;
     align-content: flex-start;
     justify-content: center;
-    padding-top: 1%;
+    padding-top: 0.5%;
     overflow-y: scroll;
     scroll-behavior: smooth;
-    gap: 0.2%;
+    gap: 0.5%;
     row-gap: 0.5%;
 
 }
 
-.edificio {
-
-    background: blac;
-    height: 27%;
-    width: 24%;
+.building{
+    height: 19vh;
+    width: 13vw;
+    background: #31313D;
+    border-radius: 0.6vh;
     display: flex;
+    position: relative;
     flex-direction: column;
-    border-radius: 3px;
     transition: 0.2s;
-    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
-
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.2);
+    margin-top: 0.5%;
+    animation: growFadeIn 0.3s 1;
 }
 
-.edificio:hover {
+.building:hover{
+    transform: scale(1.03);
+    filter: brightness(1.1);
+    border: solid 1px white;
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.7);
+}
 
-
-
-    transform: scale(1.1);
-    transition: 0.2s ease-out;
-    outline: white solid 1px;
-    background: #3E3E4B;
+.building1{
+    height: 85%;
+    width: 100%;
+    display: flex;
     
-    z-index: 2;
-
 }
 
-.edificioS1 {
-    background: red;
-    height: 80%;
-    width: 100%;
-    display: flex;
-    background: transparent;
-
+.building1 p{
+    width: 80%;
+    padding-top: 2%;
+    font-size: 1.5vh;
+    
 }
 
-.edificioS2 {
-    outline: white solid 1px;
-    background: transparent;
-    height: 20%;
+.building1 p strong{
+    font-size: 1.7vh;
+}
+
+.building2{
+    height: 15%;
     width: 100%;
     display: flex;
-    color: gray;
-    align-items: center;
     justify-content: center;
-    font-size: 0.9vw;
-
+    align-items: center;
+    border-top: 1px solid white;
+    color: gray;
+    font-size: 1vw;
 }
 
-.edificioS2 span {
-
-    color: #7EFF69;
-    font-weight: 500;
-    background: transparent;
-}
-
-.edificioS2 strong {
-
-    color: coral;
-    background: transparent;
-    font-weight: 500;
-}
-
-
-#contadorRecursosSegundo,
-#contadorAlimentoSegundo,
-#contadorEnergiaSegundo {
-    transition: 0.05s ease;
-    color: #7EFF69;
-}
-
-#contadorAlmacenamiento,
-#contadorAlmacenamiento2,
-#contadorAlmacenamiento3 {
-    transition: 0.05s ease;
-}
-
-.edificioS3 {
-
-    background: blue;
+.buildingLeft{
+    background-image: url(img/sys/banner.png);
     height: 100%;
     width: 30%;
-    display: flex;
-    background: transparent;
-     background-image: url(img/sys/banner.png);
-    margin-right: 3%;
     background-size: contain;
-
-
-
-
-
-}
-
-.edificioS3 span {
-
-    color: darkgray;
-    position: absolute;
-    margin: 4px 6px;
-    background: transparent;
-    transition: 0.5s;
-    font-size: 0.7vw;
-    z-index: 1;
-
-}
-
-.edificioS3 img {
-
-    margin: 42% 11%;
-    background: darkred;
-    border-radius: 5px;
-
-    
-    
-}
-
-.edificioS4 {
-
-    background: magenta;
-    height: 100%;
-    width: 80%;
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 2% 2% 2% 0%;
-    background: transparent;
-
+    margin-right: 3%;
 }
 
-.edificioS4 img {
-    height: 16%;
-    width: 9%;
-    transform: translateY(2px);
-    background: transparent;
-    border-radius: 3px;
-    margin: 0 1%;
-
+.building1 span{
+    background: rgb(97, 67, 109);
+    font-size: 1.40vh;
+    padding: 0 1%;
+    border-radius: 0.4vh;
+    
 }
 
-.edificioS4 p {
-
-    color: white;
-    font-size: 0.7vw;
-    line-height: 0.8vw;
-    background: transparent;
-    overflow: visible;
-}
-
-
-
-.edificioS4 span {
-
+.building1 strong{
+    font-size: 2vh;
     color: orange;
-    font-size: 1vw;
-    line-height: 0.8vw;
-    background: transparent;
 }
 
-.edificioS4 strong {
+.buildingLeft span{
 
-    background: 26262F;
-    padding: 1% 2%;
-    font-size: 0.9vw;
-    font-weight: 800;
+    background: #31313D;
+    border: solid 2px rgb(44, 23, 77);
+    position: absolute;
+    font-size: 1.7vh;
+    padding: 0 1%;
+    border-radius: 0.4vh;
+    font-weight: 900;
+    top: 10%;
     color: white;
-    border-radius: 2px;
-    transition: 0.2s;
 
 }
 
 
+.building1 {
+    font-size: 2vw;
+    color: white;
+    
+} 
+
+.buildingLeft img{
+    height: 5.5vh;
+    width: auto;
+    border-radius: 0.6vh;
+    margin-top: 30%;
+}
 
 .panelMejoras {
 
     background: linear-gradient(205deg, rgba(55, 34, 47, 1) 0%, rgba(35, 35, 45, 0.7) 41%, rgba(39, 54, 75, 0.6) 100%);
-    height: 100%;
-    width: 26%;
+    height: 40%;
+    width: 38%;
     display: flex;
     border-radius: 4px;
     flex-direction: column;
     overflow-y: scroll;
+    background-image: url(img/src/icons/researchBg.jpg);
+    background-size: cover;
+    position: relative;
+}
+
+.panelMejoras::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url(img/src/icons/researchBg2.jpg);
+    background-size: cover;
+    animation: skillTurtle 5s ease-in infinite;
+}
+
+#expeditionPanel {
+
+    height: 59.5%;
+    width: 35.7%;
+    display: flex;
+    border-radius: 4px;
+    flex-direction: column;
+    overflow-y: scroll;
+    position: absolute;
+    translate: 90% 68%;
+}
+
+#researchList{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    background: transparent;
+    overflow-y: scroll;
+    padding-top: 2%;
+    align-items: center;
+    gap: 2%;
+    overflow: scroll;
+}
+
+.researchItem{
+    width: 96%;
+    height: 6.5vh;
+    border-radius: 0.2vh;
+    border : #44bd6c solid 1px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+.researchItem:hover{
+    scale: 1.02;
+    border : white solid 1px;
+    filter: brightness(1.15);
+}
+
+.researchItem img{
+    height: 85%;
+    border: black solid 1px;
+    border-radius: 0.8vh;
+    margin-left: 1%;
+}
+
+.researchItem span{
+    font-size: 2vh;
+    background-color: rgb(82, 85, 105);
+    border-radius: 0.3vh;
+    padding: 0 2%;
+    color: white;
+    margin-left: 2%;
+}
+
+.researchItem p {
+    width: 90%;
+    margin-top: -2%;
+    background: transparent;
+}
+
+.researchItem span img{
+    height: 3vh;
+    width: auto;
+    translate: 0 25%;
+    outline: rgb(82, 85, 105) solid 2px;
+    background: transparent;
+}
+
+.researchBar{
+    width: 84.5%;
+    height: 8%;
+    background: black;
+    position: absolute;
+    left: 13%;
+    bottom: 20%;
+    border-radius: 100px;
 }
 
 .panelMejorasTitulo {
 
-    border-bottom: #ff9ed3 solid 1px;
-    height: 4%;
+    border-bottom: #44bd6c solid 1px;
+    height: 10%;
     width: 110%;
     display: flex;
     align-items: center;
@@ -1926,9 +2351,6 @@ background: transparent;
     position: sticky;
     top: 0%;
     z-index: 4;
-
-
-
 }
 
 .panelMejorasTitulo span {
@@ -1974,6 +2396,7 @@ background: transparent;
 
 
 }
+
 
 
 
@@ -2075,15 +2498,13 @@ background: transparent;
 }
 
 .mejoraComunSlot:hover, .itemSlot:hover, .summonAreaBoss:hover{
-    transform: scale(1.2);
+    scale:1.2;
     transition: 0.1s;
     z-index: 2;
 }
 
 .itemSlot{
-    border-radius: 2px;
     background: #31313D;
-    box-shadow: 0px 11px 11px 1px rgba(0, 0, 0, 0.24) inset, 0px 4px 4px 0px rgba(0, 0, 0, 0.33);
     margin: 0.3%;
     height: 2.81vw;
     width: 2.81vw;
@@ -2093,10 +2514,13 @@ background: transparent;
     transition: 0.05s;
     overflow: hidden;
     position: relative;
-    z-index: 10;
+    min-height: 40px;
+    min-width: 40px;
 }
 
 .shopItemCasing .itemSlot{ transition: all 0.5s;}
+
+.shopItemCasingNoHover .itemSlot{ transition: all 0.2s;}
 
 .soldOut{
     color: red;
@@ -2123,9 +2547,10 @@ background: transparent;
     background-repeat: no-repeat;
     box-shadow: inset 0px 0px 60px 15px rgba(0,0,0,1);
 }
-.shopItemCasing{
-    height: 4.39vw;
-    width: 4.39vw;
+
+.shopItemCasing, .shopItemCasingNoHover{
+    height: 3.5vw;
+    width: 3.5vw;
     display: flex;
     background: transparent;
     justify-content: center;
@@ -2135,21 +2560,191 @@ background: transparent;
     overflow: visible;
 }
 
+
 .shopItemCasing:hover{
-    height: 3.5vw;
-    width: 3.5vw;
+    height: 3vw;
+    width: 3vw;
     transition: all 0.5s;
 }
 
 #shopListing{
     background: transparent;
     display: flex;
-    height: 90%;
+    height: auto;
     width: 90%;
     flex-wrap: wrap;
     align-content: flex-start;
     justify-content: center;
+    overflow: visible;
+}
+
+#shopListing .itemSlot{
+    overflow: visible;
+}
+
+.shopHeader{
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: transparent;
+    position: relative;
+    overflow: visible;
+    margin-bottom: 7%;
+    margin-top: 3%;
+    gap: 2%;
+}
+
+.shopHeader .shopTitle{
+    width: 100%;
+    bottom: -75%;
+}
+
+#itemOfTheDay{
+    height: 6vh;
+    width: 25vh;
+    background: #23232D;
+    border-radius: 0.3vh;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: visible;
+    border: solid white 0.1vh;
+    flex-direction: column;
+    padding-left: 12%;
+    gap: 4%;
+    transition: all 0.3s;
+}
+
+#itemOfTheDay:hover{
+    scale:1.05;
     
+}
+
+#itemOfTheDayFlair{
+
+    z-index: 0;
+    background: transparent;
+    transition: 1s;
+    animation:  rotate 10s linear infinite;
+    border: none !important;
+    scale: 2;
+    opacity: 0.6;
+    left: 1% !important;
+}
+
+#nameOfTheDay, #priceOfTheDay{
+    margin-top: 6%;
+    font-size: 1.6vh;
+    font-weight: 600;
+    background: lawngreen;
+    color: black;
+    border-radius: 0.3vh;
+    padding: 0 2%;
+}
+
+#priceOfTheDay{
+    font-size: 1.5vh;
+    color: rgb(255, 191, 96);
+    background: transparent;
+    margin-top: 0%;
+}
+
+#itemOfTheDayTag{
+    left: -3%;
+}
+
+
+#itemOfTheDay img{
+    position: absolute;
+    height: 90%;
+    border: solid rgb(255, 191, 96) 0.1vh;
+    border-radius: 0.3vh;
+    left: 1%;
+}
+
+#titleOfTheDay{
+    position: absolute;
+    height: 35%;
+    width: 65%;
+    top: -20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(204, 144, 54);
+    border-radius: 0.3vh;
+    font-family: fredoka;
+    font-weight: 500;
+    font-size: 1vw;
+    border: solid white 0.1vh;
+    color: white;
+    right: 5%;
+}
+
+.restockIcon{
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    font-size: 2vh;
+    background: transparent;
+}
+
+#titleOfTheDay::after{
+    animation: shine 6s ease-in-out infinite;
+    animation-fill-mode: forwards;
+    content: "";
+    position: absolute;
+    top: -110%;
+    left: -210%;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transform: rotate(30deg);
+
+    background: rgba(255, 255, 255, 0.5);
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(255, 255, 255, 0.43) 77%,
+            rgba(255, 255, 255, 0.5) 92%,
+            rgba(255, 255, 255, 0.0) 100%);
+}
+
+#itemRestock{
+    height: 6vh;
+    width: 22vh;
+    background: #23232D;
+    border-radius: 0.3vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    border: solid white 0.1vh;
+    flex-direction: column;
+    font-family: fredoka;
+    font-weight: 500;
+    color: white;
+    padding-left: 9%;
+    font-size: 0.9vw;
+}
+
+#itemRestock img{
+    position: absolute;
+    height: 90%;
+    border: solid white 0.1vh;
+    border-radius: 0.3vh;
+    left: 1%;
+}
+
+#shopRestockTimer{
+    margin-top: 2%;
+    font-size: 0.9vw;
+    font-weight: 600;
+    background: rgb(61, 87, 141);
+    border-radius: 0.3vh;
+    padding: 0 2%;
 }
 
 .mejoraUnicaSlot {
@@ -2199,6 +2794,204 @@ background: transparent;
 
 
 }
+
+#honorCounter{
+position: absolute;
+height: 3vh;
+width: 10vw;
+right: 2%;
+top: 2%;
+color: white;
+display: flex;
+font-size: 2.3vh;
+font-family: fredoka;
+justify-content: center;
+align-items: center;
+border-radius: 0.5vh;
+border: white solid 1px;
+background-color: black;
+z-index: 20
+
+
+}
+
+#honorCounter img{
+    height: 2.2vh;
+    width: auto;
+    border-radius: 0.5vh;
+    margin-left: 2%;
+    
+}
+
+
+#honorSign{
+    position: absolute;
+    height: 17vh;
+    width: auto;
+    bottom: 15%;
+    right: 5%;
+    background: transparent;
+    z-index: 2;
+    transition: 0.05s;
+}
+
+#honorSign:hover{
+    filter: drop-shadow(2px 2px 0 white) drop-shadow(-2px -2px 0 white) brightness(1.2)
+}
+
+#honorPilar{
+    position: absolute;
+    height: 15vh;
+    width: 15vh;
+    bottom: 15%;
+    left: 13%;
+    background: transparent;
+    z-index: 2;
+    transition: 0.05s;
+    background-image: url(img/src/icons/honorRank.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    overflow: visible;
+}
+
+#honorRank{
+    position: absolute;
+    height: 6.5vh;
+    top: -10%;
+    width: auto;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    animation: gelatineHoldFloat2 4s infinite;
+    border: solid white 1px;
+    z-index: 3;
+    transition: all 0.2s;
+}
+
+#honorRank:hover{
+    scale: 1.1;
+}
+
+
+#rankCounter{
+    position: absolute;    
+    height: 3vh;
+    width: 10vh;
+    top: -35%;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    border-radius: 590vh;
+    color: white;
+    font-family: fredoka;
+    font-weight: 500; 
+    font-size: 2vh;
+    border: solid white 2px;
+    overflow: visible;
+}
+
+#rankCounter img{
+    position: absolute;    
+    height: 2vh;
+    width: 4vh;
+    background: transparent;
+    bottom: -70%;
+}
+
+
+.logHeader{
+    height: 3vh;
+    background: #181818;
+    width: 100%;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    gap: 20%;
+}
+
+.logHeader span, .logHeader span strong{
+    background: transparent;
+    color: white;
+    font-size: 2vh;
+    overflow: visible;
+}
+
+.logHeader span strong{
+    color: orange;
+}
+
+.logHeader span img{
+    height: 2.2vh;
+    width: auto;
+    translate: 30% 15%;
+    border-radius: 0.2vh;
+}
+
+
+.bookPanel{
+    margin-top: 1vh;
+    height: 10vh;
+    width: 99.3%;
+    display: flex;
+    align-self: center;
+    background: black;
+    border-radius: 0.6vh;
+    border: darkgray solid 2px;
+    align-items: center;
+}
+
+.bookIcon{
+    height: 7.4vh;
+    width: 7.4vh;
+    background: #4F4F58;
+    border-radius: 0.3vh;
+    margin-left: 1.2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+.bookIcon img{
+    height: 80%;
+    width: auto;
+    border-radius: 0.3vh;
+    border: white solid 1px;
+    transition: 0.2s;
+}
+
+.bookIcon img:hover{
+    scale:1.32
+}
+
+.bookListing{
+    background: black;
+    height: 90%;
+    width: 92%;
+    margin-left: 1%;
+    display: flex;
+    align-items: center;
+    gap: 0.3%;
+}
+
+.bookListing img{
+    height: 65%;
+    width: auto;
+    transition: 0.2s;
+}
+
+.bookListing img:hover{
+    scale:1.2
+}
+
 
 
 #townshipWrapper { flex-direction: row; flex-wrap:wrap; overflow: visible;}
@@ -2302,20 +3095,48 @@ background: transparent;
 #rpgWrapper{flex-wrap:wrap; flex-direction: column }
 
 #explorationPanel{ height: 100%; width: 65%; flex-shrink: 0; }   
-#yourTurtlePanel{ height: 59.9%; width: 35%; flex-shrink: 0;}
+#yourTurtlePanel{
+    height: 60%;
+    width: 35%;
+    flex-shrink: 0;
+    translate: 0 -0.3%;
+}
 #travelPanel{ height: 39%; width: 35%; flex-shrink: 0; margin-top: 0.2%; }
 
 #explorationLine{border-bottom: coral 1px solid}
 #yourTurtleLine{border-bottom: cyan 1px solid; height: 6.4%}
 #travelLine{border-bottom: violet 1px solid; height: 9%}
 
-#rpgBannerTitle{display: flex; height: 3%; width: 99%; margin-bottom: 0.5%; background: #19191C;flex-shrink: 0;}
+#rpgBannerTitle{display: flex; height: 3%; width: 99%; margin-bottom: 0.5%; background: #19191C;flex-shrink: 0; overflow: visible;}
 #areaName{color: white;font-size: 1.12vw; padding: 0 1%; background: transparent; margin-top: 0.4%}
 #areaLevel{color: white; font-size: 0.8vw; background: #D85858; padding: 0 1%; border-radius: 2px; display:flex; margin-top: 0.4% }
 #areaMastery{color: #93cdd9; font-size: 0.9vw; background:#262629 ; padding: 0 1%; border-radius: 2px; margin-left: auto; margin-right: 0.6%; margin-top: 0.4%;}
 #areaAlert{height: 2vh; width: 1.vw; padding-left: 0.6%;transition: 0.1s all; background: transparent}
 #areaAlert:hover{transform: scale(1.2)}
 #areaEffect{color: #D85858; padding-left: 1%; background: transparent}
+
+
+#penguinIndicatorButton{
+    height: 3vh;
+    width: auto;
+    background: transparent;
+    position: absolute;
+    left: 1%;
+}
+
+#penguinIndicatorButton:hover{
+    animation: gelatine 0.35s 1;
+}
+
+#penguinIndicator{
+    background: transparent;
+    color: lawngreen;
+    font-family: fredoka;
+    position: absolute;
+    left: 3.2%;
+    font-weight: 500; 
+
+}
 
 #areaTab{
     background: url(img/sys/areaBG.jpg);
@@ -2326,6 +3147,126 @@ background: transparent;
 
 #questTab{
     background: url(img/sys/questBG.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: inset 0px 0px 60px 15px rgba(0,0,0,1);
+}
+
+#showdownTab{
+    background: url(img/sys/showdownBG.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#skirmishTab{
+    background: url(img/sys/skirmishBG.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.showdownPanel{
+    width: 95%;
+    height: 7vh;
+    border-radius: 0.2vh;
+    border: white solid 1px;
+    margin-top: 1%;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    border-radius: 0 10vh 10vh 0;
+    transition: 0.3s;
+    background: linear-gradient(90deg, #23232D 0%, #23232D 55%, rgb(255, 255, 255) 100%);
+    background-size: 200% 100%;
+    
+}
+
+.showdownPanel:hover{
+    scale: 1.01;
+    filter: brightness(1.1);
+    background-position: 100% 0;
+}
+
+.showdownPanel img{
+    height: 85%;
+    border-radius: 0.4vh;
+    border: white solid 1px;
+    margin-left: 1%;
+}
+
+.showdownText {
+    background: transparent;
+    height: 100%;
+    width: 70%;
+    margin-left: 2%;
+    padding-top: 0.65%;
+}
+
+.showdownMedal {
+    height: 100%;
+    width: 3.5vw;
+    border-radius: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1C1C26;
+    border: white solid 1px;
+    margin-left: auto;
+}
+
+.showdownMedal img{
+    border: none;
+    background: transparent;
+
+}
+
+.showdownText span{
+    color:white;
+    font-size: 1.7vh;
+    padding: 0 2%;
+    border-radius: 0.3vh;
+    line-height: 2.15vh;
+    font-weight: 600;
+    
+}
+
+.showdownText span:nth-child(1){
+    background: white;
+    color: black;
+    margin-left: 2%;
+    
+
+}
+
+.showdownText span:nth-child(6),.showdownText span:nth-child(7),.showdownText span:nth-child(8){
+    margin-left: 2%;
+}
+
+.showdownText span:nth-child(3){
+    background: transparent !important;
+    padding: 0 2%;
+}
+
+.showdownText span:nth-child(6){
+    background: rgb(180, 160, 46);
+}
+
+.showdownText span:nth-child(7){
+    background: rgb(114, 113, 111);
+}
+
+.showdownText span:nth-child(8){
+    background: rgb(122, 87, 42);
+}
+
+.showdownDifficulty span{
+    
+    margin: 0 !important;
+    padding: 0 !important;
+
+}
+
+#dungeonTab{
+    background: url(img/sys/dungeonBG.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     box-shadow: inset 0px 0px 60px 15px rgba(0,0,0,1);
@@ -2374,9 +3315,31 @@ background: transparent;
     100% {filter: brightness(1)}
 }
 
-.npcSlot{background: transparent; height: 80%; width: 20%;display: flex; flex-direction: column;overflow: visible; position: relative;}
+.npcSlot{
+    background: transparent;
+    height: 80%;
+    width: 20%;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    position: relative;}
 
-.npcPanel{background: #23232D; height: 20%; width: 100%; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; gap:10%;border-radius: 0.4vh;margin-top: 5%; font-size: 1.7vh; line-height: 1vw;}
+.npcPanel{
+    background: #23232D;
+    height: 20%;
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:10%;
+    border-radius: 0.4vh;
+    margin-top: 5%;
+    font-size: 1.7vh;
+    line-height: 1vw;
+}
 
 .npcHpBar{height: 10%; width: 90%; background: linear-gradient(90deg, rgba(144,238,111,1) 100%, rgba(255,119,119,1) 100%); border-radius: 2px;}
 
@@ -2384,17 +3347,53 @@ background: transparent;
 .npcPanel p, .npcPanel span{background: transparent;}
 #turtleLevel, #enemyLevel, #turtleLevel2{color: #D0943A;}
 
-.npcImg{height: 70%; width: 100%; margin-top: auto;overflow: visible; display: flex; justify-content: center; background: transparent;position: relative;}
 
-.npcImg img{height: 120%; background: transparent;z-index: 1}
-#playerWeapon {position: absolute; height: 140%; width: 180%; z-index: 1; left: -30%; top: -16%; object-fit:contain;}
 
-.enemy{overflow:visible;background: transparent;position: absolute; height: 140%; left: 1%; top: -42%; animation: enemySpawn 0.5s 1}
+.npcImg{
+    height: 70%;
+    width: 100%;
+    margin-top: auto;
+    overflow: visible !important;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    position: relative;
+}
 
-#playerAnimation{animation: playerRevivee 1s infinite ease-out}
+.npcImg img{
+    height: 120%;
+    background: transparent;
+    z-index: 1
+}
+
+#playerWeapon {
+    position: absolute;
+    height: 145%;
+    width: 180%;
+    z-index: 1;
+    left: -27%;
+    top: -21%;
+    object-fit:contain;
+}
+
+.enemy{overflow:visible;background: transparent;position: absolute; height: 140%; left: 1%; top: -42%;}
+
+#playerAnimation{
+    animation: playerRevivee 1s infinite ease-out;
+    overflow: visible !important;
+
+}
+
+#playerNpcPanel {
+    overflow: visible !important;
+}
+
 #enemyAnimation{animation: enemyAttacke 0.5s infinite ease-out}
 
-#rpgPlayerImg {scale:1.4}
+#rpgPlayerImg {
+    scale:1.4;
+    object-fit: cover;
+}
 
 @keyframes enemyHurt{
     0%{transform: translateX(20px)}
@@ -2407,7 +3406,7 @@ background: transparent;
 
 
 #rpgCanvasUnder{
-    background: #19191C;
+    background: transparent;
     height: auto;
     width: 96%;
     align-self: center;
@@ -2418,30 +3417,67 @@ background: transparent;
     align-items: center;
     position: relative;
     overflow: visible;
-    visibility: hidden;
 }
 
 #rpgCanvasSkills{
     height: 5vh;
     width: 100%;
     background: transparent;
-    margin-top: -9%;
+    margin-top: -8%;
     position: absolute;
     display: flex;
     overflow: visible;
-    visibility: visible;
 }
 
 #magicBar{
     height: 1vh;
-    width: 98%;
-    background: orange;
+    width: 96%;
+    background: #6FB1EE;
     border-radius: 10vw;
-    background: linear-gradient(90deg, #6FB1EE 50%, #3F3939 50%);
     margin-bottom: 1%;
-    margin-top: 1%;
-    display: flex;
+    margin-top: 2%;
     visibility: hidden;
+    margin-right: auto;
+    margin-left: 2%;
+    transition: 1s all linear;
+}
+
+#skillButton1,#skillButton2,#skillButton3,#skillButton4,#skillButton0{
+    background: transparent;
+    margin-top: 1.5%;
+    position: relative;
+    height: 5vh;
+    width: auto;
+    border-radius: 0.6vh;
+    translate: -15% -18%;
+    margin-right: 0.3%;
+    transition: 0.2s;
+    z-index: 3;
+}
+
+#skillButton0{
+    height: 6vh;
+    margin-top: 0.5%;
+}
+
+#skillButton1:hover,#skillButton2:hover,#skillButton3:hover,#skillButton4:hover,#skillButton0:hover{
+    scale:1.1
+}
+
+#skillSlot1, #skillSlot2, #skillSlot3, #skillSlot4, #skillSlot0 {
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+
+#skillSlot1CD,#skillSlot2CD,#skillSlot3CD,#skillSlot4CD,#skillSlot0CD{
+    background: rgba(30,10,30,0.8);
+    height: 0%;
+    width: 100%;
+    position: absolute;
+    transition: 1s all linear;
+    transform-origin: bottom;
+    z-index: 99;
 }
 
 .itemThrow{
@@ -2481,6 +3517,7 @@ background: transparent;
   }
 }
 
+
 @keyframes sexyY {
   0% {
     top:0;
@@ -2495,8 +3532,21 @@ background: transparent;
   }
 }
 
+@keyframes itemRain {
+    0% {
+      left:0%;
+      top:-100%
+    }
+  80%{filter: brightness(1); scale: 1;opacity: 1;}
+    100% {
+      left:200%;top:0%; filter: brightness(10); scale: 3; opacity: 0;
+    }
+  }
+
 .throwParticle{
     position: absolute;
+    z-index: 3;
+    pointer-events: none;
 }
 
 .damageText{
@@ -2505,11 +3555,9 @@ background: transparent;
     color: #61b600;
     font-size: 3.5vh;
     background: transparent;
-     white-space: nowrap;
+    white-space: nowrap;
     overflow: visible;
-    -webkit-text-stroke: 0.05vw white; 
-    letter-spacing: -0.2vw;
-    text-shadow: 0 0 0.15vw black,0 0 0.15vw black,0 0 0.15vw black,0 0 0.15vw black,0 0 0.15vw black,0 0 0.15vw black,0 0 0.15vw black,0 0 0.15vw black,0 0 0.15vw black,0 0 0.15vw black;
+    -webkit-text-stroke: 0.06vw white; 
     animation: damageBounce 1.5s 1;
     pointer-events: none;
     z-index: 12;
@@ -2524,7 +3572,7 @@ background: transparent;
     rotate: -50deg;
 }
 
-.damageTextweak, .damageTextstrong, .damageTextheal{
+.damageTextweak, .damageTextstrong, .damageTextheal, .damageTextshield{
     position: absolute;
     height: 120%;
     right:0%;
@@ -2540,7 +3588,6 @@ background: transparent;
     border: black solid 0.15vh;
     border-radius: 0.4vh;
     position: absolute;
-    margin-top: 2%;
 }
 
 .damageTextPoison{
@@ -2567,12 +3614,13 @@ background: transparent;
     bottom: 0;
     margin-left: 2vw;
     z-index: 13;
+    pointer-events: none;
 }
 
 @keyframes damageBounce {
     
     5%{scale:1.2; }
-    10%{transform: translateY(-1vh); scale:1.1;transform: scaleX(1.2); letter-spacing: 2px}
+    10%{transform: translateY(-1vh); scale:1.1; transform: scaleX(1.2);}
     30%{ scale:1;opacity: 1;}
     50%{transform: translateY(-1vh); scale:1; }
     100%{scale:0; opacity: 0;}
@@ -2587,11 +3635,36 @@ background: transparent;
     30% { scale: 0 ; opacity: 0}
 }
 
+@keyframes particleConfetti {
+    0% { height: 1vw; width: 1vw; background: #3e6bff; scale:0; translate: 0%; transform: perspective(400px) rotateX(0) rotateY(0); filter: hue-rotate(0);}
+    5% {scale: 1.1;background: #3135ff;}
+    10% {scale: 1;}
+    15% { background: #3e6bff; scale: 1.1; opacity: 1}
+    30% { scale: 0 ; opacity: 0; translate: 0 200%; transform: perspective(400px) rotateX(300deg) rotateY(300deg); filter: hue-rotate(200deg);}
+}
+
+@keyframes particleFire {
+    0% { height: 2vw; width: 2vw; border-radius: 10vw; background: rgb(241, 102, 10); scale:0;}
+    5% {scale: 1.1;background: rgb(241, 161, 10);}
+    10% {scale: 1;}
+    15% { background: rgb(241, 102, 10); scale: 1.1; opacity: 1}
+    20%{background: #797979;}
+    30% { scale: 0 ; opacity: 0; transform: translateY(-60%); }
+}
+
 @keyframes particleGlow {
     0% { height: 1vw; width: 1vw; border-radius: 10vw; background: #227d37; scale:0; opacity: 0.8; box-shadow: 0 0 10px 10px #80ff9e;}
     5% {scale: 1.1;background: #227d37;}
     10% {scale: 1;}
-    15% { background: #2e4734; scale: 1.1; opacity: 0.8}
+    15% { background: #2e4734; scale: 1.1; opacity: 0.8} 
+    30% { scale: 0 ; opacity: 0}
+}
+
+@keyframes particleGlow2 {
+    0% {  height: 2vw; width: 2vw; border-radius: 10vw; background: transparent; background-image: url(img/src/projectiles/glow2.png); background-size: contain; scale:0;}
+    5% {scale: 1.1;}
+    10% {scale: 1;}
+    15% { scale: 1.1; opacity: 1}
     30% { scale: 0 ; opacity: 0}
 }
 
@@ -2611,12 +3684,36 @@ background: transparent;
     30% { scale: 0 ; opacity: 0}
 }
 
+@keyframes particleNote {
+    0% {  height: 2vw; width: 2vw; border-radius: 10vw; background: transparent; background-image: url(img/src/projectiles/note.png); background-size: contain; scale:0; rotate: 20deg;}
+    5% {scale: 1.1;}
+    10% {scale: 1; rotate: -20deg;}
+    15% { scale: 1.1; opacity: 1}
+    30% { scale: 0 ; opacity: 0; rotate: 20deg;}
+}
+
 @keyframes particleLight {
     0% {  height: 2vw; width: 2vw; border-radius: 10vw; background: transparent; background-image: url(img/src/projectiles/light.png); background-size: contain; scale:0;}
     5% {scale: 1.1;}
     10% {scale: 1;}
     15% { scale: 1.1; opacity: 1}
     30% { scale: 0 ; opacity: 0; top:-2%}
+}
+
+@keyframes particleGear {
+    0% {  height: 2vw; width: 2vw; border-radius: 10vw; background: transparent; background-image: url(img/src/projectiles/gear.png); background-size: contain; scale:0; rotate: 0deg;}
+    5% {scale: 1.1;}
+    10% {scale: 1;}
+    15% { scale: 1.1; opacity: 1}
+    30% { scale: 0 ; opacity: 0; rotate: 200deg; transform: translateY(40%);}
+}
+
+@keyframes particleSpark {
+    0% {  height: 2vw; width: 2vw; border-radius: 10vw; background: transparent; background-image: url(img/src/projectiles/spark.png); background-size: contain; scale:0;}
+    5% {scale: 1.1;}
+    10% {scale: 1;}
+    15% { scale: 1.1; opacity: 1}
+    30% { scale: 0 ; opacity: 0; rotate: 150deg; translate: 0 -50px;}
 }
  
 @keyframes particleHealth {
@@ -2674,7 +3771,7 @@ background: transparent;
 
 #bossButton{
    margin-top: -1.3%;
-    display: none;
+    display: flex;
 }
 
 .encounterButton {
@@ -2725,6 +3822,14 @@ background: transparent;
    background-image: url(img/src/icons/herb.png); 
    display: flex;
 }
+
+#pondNode{
+    background-color: #987DB2;
+    border-color: #5B4F67;
+    border-bottom-color: #5B4F67;
+    background-image: url(img/src/icons/pond.png); 
+    display: flex;
+ }
 
 #encounterWrapper {
     margin-left: auto;
@@ -2779,26 +3884,150 @@ background: rgba(47, 34, 22, 0.77);
     flex-shrink: 0;
 }
 
+#mailButton{
+    height: 6vh;
+    position: absolute;
+    left: 0.5vw;
+    top: 3%;
+    background: transparent;
+    transition: 0.15s;
+    z-index: 1;
+}
+
+@keyframes mailShake {
+    0%, 10%, 100% {
+      transform: scale(1) rotate(0deg);
+    }
+    1%, 3%, 5%, 7%, 9% {
+      transform: scale(1.1) rotate(-5deg);
+    }
+    2%, 4%, 6%, 8% {
+      transform: scale(1.1) rotate(5deg);
+    }
+  }
+
+
+#mailButton:hover{
+    scale: 1.2;
+}
+
+#mailMenu{
+    background-image: url(img/src/icons/mailBg.png);
+    height: 45vh;
+    width: 30vw;
+    background-size: cover;
+    z-index: 12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mailLetter{
+
+    background-image: url(img/src/icons/mailLetterBg.png);
+    height: 65vh;
+    width: 30vw;
+    background-size: cover;
+    z-index: 13;
+    color: #241d1a;
+    padding: 2% 4%;
+    display: flex;
+
+}
+
+#closeMail{
+    font-size: 4vh;
+    position: absolute;
+    top: 0%;
+    left: 2%;
+    transition: 0.1s;
+    opacity: 0.7;
+}
+
+#closeMail:hover{
+    scale:1.1
+}
+
+#mailBody{
+    font-size: 2vh;
+    font-family: fredoka;
+    font-weight: 500;
+    
+}
+
+#mailTitle{
+    font-size: 3vh;
+    margin-bottom: 7%;
+    font-family: fredoka;
+    font-weight: 500;
+}
+
+#mailItem{
+    font-size: 3vh;
+    margin-top: 7%;
+    font-family: fredoka;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+}
+
+#mailList{
+    display: flex;
+    background: transparent;
+    height: 80%;
+    width: 90%;
+    gap:3%;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+#mailList img{ 
+    height: 6vh;
+    background: transparent;
+    align-self: flex-start;
+    transition: 0.2s;
+}
+
+#mailList img:hover{ 
+    scale:1.1
+}
+
+
+
+.blackLine {
+    margin: 3% 0 3% 0;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(247deg, rgba(0, 0, 0, 0.00) 0%, gray 24.59%, gray 75.09%, rgba(0, 0, 0, 0.00) 100%);
+    position: absolute;
+    display: flex;
+    align-self: center;
+}
+
 #sellModeText{
     
-    font-size: 1.5vh;
+    font-size: 2vh;
     margin-left: 2%;
     width: 37%;
-    font-weight: 600;
+    font-family: fredoka;
+    font-weight: 500;
     padding-left: 0 3%;
     border-radius: 0.4vh;
     white-space: nowrap;
     display: none;
     animation: growFadeIn 0.2s 1;
     justify-self: center;
+    overflow: visible;
+    background: transparent;
 }
 
 #sellModeText span{
         font-size: 2vh;
-     background: orange;
-    color: black;
+     background: transparent;
+     border: rgb(255, 69, 69) solid 2px;
+     font-family: fredoka;
+    color: rgb(255, 69, 69);
     font-weight: 600;
-    border-radius: 0.4vh;
     padding: 0% 2%;
     margin-right: 1%;
     
@@ -2815,9 +4044,48 @@ background: rgba(34, 32, 38, 0.77);
     box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);
 }
 
-#inventory{overflow-x: visible; overflow-y: scroll; padding: 0.5%; flex-wrap: wrap; align-content: flex-start; transition: all 0.5s; min-height: 31.3%}
+#inventory{
+    overflow-y: scroll;
+    padding: 0.5%;
+    flex-wrap: wrap;
+    align-content:
+    flex-start;
+    transition: all 0.5s;
+    min-height: 31.3%
+}
 
-.itemCount{ height: 38%; width: auto; background: #191a29; color: white; position: absolute; bottom:0; right: 0; font-weight: 700; border-radius: 3px 0 0 3px; padding: 0 7%; font-size: 0.84vw
+#inventorySorters {
+    display: flex;
+    gap: 0.2vw;
+    margin-left: 0.5vw;
+    margin-top: auto;
+}
+
+#inventorySorters button{
+    height: 2.7vh;
+    width: 1.5vw;
+    padding: 0;
+    margin: 0;
+}
+
+#inventorySorters img{
+    height: 2vh;
+    padding: 0;
+    margin: 0;
+}
+
+.itemCount{
+    height: 38%;
+    width: auto;
+    background: #191a29;
+    color: white;
+    position: absolute;
+    bottom:0;
+    right: 0;
+    font-weight: 700;
+    padding: 0 7%;
+    font-size: 0.84vw;
+    transition: all 0.5s;
     
 }
 
@@ -2844,12 +4112,21 @@ background: rgba(34, 32, 38, 0.77);
 .gearButtonInactive{ background: #121216; height: 100%; width: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 1vw;transition: 0.2s;}
 .gearButtonLocked{ background: #121216; height: 100%; width: 50%; display: flex; justify-content: center; align-items: center; color: dimgrey; font-size: 1vw}
 
-#equipmentButton{background: #23232D}
-#skillsButton{background: #121216; color: gray}
 
 .gearTab{background: #23232D; height: 100%; width: 100%; align-self: center; display: flex; box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4); align-items: center; flex-direction: column; margin-right: 1%}
 
-#expPanel{display: flex; background: #19191D; height: 14%; width: 95%; margin-top: 2%; flex-direction: column; position: relative; border: 5px;box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4); background-image: url(img/sys/expBg.png)}
+#expPanel{
+    display: flex;
+    background: #19191D;
+    height: 14%;
+    width: 95%;
+    margin-top: 2%;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);
+    background-image: url(img/sys/expBg.png);
+    transition: 0.4s;
+}
 
 #expPanel img{height: 6vh; width: 3.2vw; position: absolute; margin: 1.4%; border: solid 1px black;}
 
@@ -2861,7 +4138,28 @@ background: rgba(34, 32, 38, 0.77);
 
 #expPanelNumbers2 span{ background: #0c0e0f; font-size:0.9vw; padding: 2% 3%; border-radius: 0.3vw}
 
-#expPanelClass{font-size: 0.8vw; color: gray; background: transparent}
+#expPanelClass{font-size: 0.8vw; color: gray; background: transparent;}
+
+#unspentTalent {
+    margin-left: 2% !important;
+    background: 
+    #91ff9a
+    !important;
+    color: black;
+}
+
+.expPanelUnlocked:hover {
+
+scale: 1.02;
+box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.8);
+border: white solid 0.05vh;
+border-radius: 0.5vh;
+filter: brightness(1.6);
+
+
+
+
+}
 
 #expBar{ height: 10%; width: 82%; align-self: center; margin-top: auto; margin-bottom: 1%; background: linear-gradient(90deg, #6FB1EE 50%, #3F3939 50%); border-radius: 10vw; margin-left: auto; margin-right: 3%}
 
@@ -2886,15 +4184,18 @@ background: rgba(34, 32, 38, 0.77);
     height: 3vh;
     border-radius: 0.3vh;
     box-shadow: black 0 0 0px 0.15vh;
-    right:0;
+    left:0;
     top: 0;
-    margin-right: -4vh;
+    margin-left: -4vh;
     margin-top: 1.5vh;
     animation: alignGlow infinite 6s ease;
     pointer-events:all;
 }
 
-#playerPanel{pointer-events: none;}
+#playerPanel{
+    pointer-events: none;
+    overflow: visible !important;
+}
 
 @keyframes alignGlow {
 
@@ -2906,16 +4207,28 @@ background: rgba(34, 32, 38, 0.77);
 
 #statsPanel p:nth-child(1){background: linear-gradient(93deg, rgba(172,74,74,0.6) 0%, rgba(198,107,107,0) 100%)}
 #statsPanel p:nth-child(2){background: linear-gradient(93deg, rgba(83,162,82,0.6) 0%, rgba(198,107,107,0) 100%)}
-#statsPanel p:nth-child(4){background: linear-gradient(93deg, rgba(172,131,74,0.6) 0%, rgba(198,107,107,0) 100%);}
-#statsPanel p:nth-child(5){background: linear-gradient(93deg, rgba(83,162,82,0.6) 0%, rgba(198,107,107,0) 100%)}
-#statsPanel p:nth-child(6){background: linear-gradient(93deg, rgba(74,170,172,0.6) 0%, rgba(198,107,107,0) 100%)}
-#statsPanel p:nth-child(7){background: linear-gradient(93deg, rgba(212, 117, 61, 0.6) 0%, rgba(198,107,107,0) 100%);}
-#statsPanel p:nth-child(8){background: linear-gradient(93deg, rgba(117,74,172,0.6) 0%, rgba(198,107,107,0) 100%)}
-#statsPanel p:nth-child(9){background: linear-gradient(93deg, rgba(235, 189, 38, 0.6) 0%, rgba(198,107,107,0) 100%)}
-#statsPanel p:nth-child(10){background: linear-gradient(93deg, rgba(168,172,74,0.6) 0%, rgba(198,107,107,0) 100%)}
-#statsPanel p:nth-child(3){background: linear-gradient(93deg, rgba(172,74,132,0.6) 0%, rgba(198,107,107,0) 100%)}
-#statsPanel p:nth-child(11){background: linear-gradient(93deg, rgba(168,172,74,0.6) 0%, rgba(198,107,107,0) 100%)}
-#statsPanel p:nth-child(12){background: linear-gradient(93deg, rgba(172, 130, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(3){background: linear-gradient(93deg, rgba(172,131,74,0.6) 0%, rgba(198,107,107,0) 100%);}
+#statsPanel p:nth-child(4){background: linear-gradient(93deg, rgba(145, 162, 82, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(5){background: linear-gradient(93deg, rgba(74, 172, 95, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(6){background: linear-gradient(93deg, rgba(86, 212, 61, 0.6) 0%, rgba(198,107,107,0) 100%);}
+#statsPanel p:nth-child(7){background: linear-gradient(93deg, rgba(74, 172, 148, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(8){background: linear-gradient(93deg, rgba(38, 222, 235, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(9){background: linear-gradient(93deg, rgba(172, 146, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(10){background: linear-gradient(93deg, rgba(172, 118, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(11){background: linear-gradient(93deg, rgba(136, 74, 172, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(12){background: linear-gradient(93deg, rgba(172, 74, 164, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(13){background: linear-gradient(93deg, rgba(172, 166, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(14){background: linear-gradient(93deg, rgba(172, 166, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(15){background: linear-gradient(93deg, rgba(172, 133, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(16){background: linear-gradient(93deg, rgba(172, 113, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(17){background: linear-gradient(93deg, rgba(126, 172, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(18){background: linear-gradient(93deg, rgba(118, 172, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(19){background: linear-gradient(93deg, rgba(172, 102, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(20){background: linear-gradient(93deg, rgba(172, 74, 128, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(21){background: linear-gradient(93deg, rgba(172, 74, 74, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(22){background: linear-gradient(93deg, rgba(74, 108, 172, 0.6) 0%, rgba(198,107,107,0) 100%)}
+#statsPanel p:nth-child(23){background: linear-gradient(93deg, rgba(90, 159, 224, 0.6) 0%, rgba(198,107,107,0) 100%)}
+
 
 .gearRow{width: 90%; background: transparent; height: 18%; display: flex; justify-content: center; align-items: center; gap:7%}
 /*--if more slots needed, just make a display hidden one--*/
@@ -2981,18 +4294,34 @@ background: rgba(34, 32, 38, 0.77);
 
 .travelTab{background: #23232D; height: 92%; width: 100%; align-self: center; display: flex; box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4); flex-direction: row; flex-wrap: wrap; align-content: flex-start; justify-content: center; gap: 1%; padding-top: 2%; overflow-y: scroll;margin-right: 1%}
 
-.areaPanel{ background: #36363F; height: 22%; width: 31%; margin-bottom: 0.6%; border-top: white 1px solid; flex-shrink: 0; transition: 0.1s; display: flex;   background: linear-gradient(to right, #36363F, #5c6f7a); background-size: 300% 100%; transition: all .2s ease-in-out;box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);
+.areaPanel{ background: #36363F; height: 11%; width: 31%; margin-bottom: 0.6%; border-top: white 1px solid; flex-shrink: 0; transition: 0.1s; display: flex;   background: linear-gradient(to right, #36363F, #5c6f7a); background-size: 300% 100%; transition: all .2s ease-in-out;box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+.dungeonPanel{
+    background: #36363F;
+    height: 11%;
+    width: 47%;
+    margin-bottom: 0.6%;
+    border-top: white 1px solid;
+    flex-shrink: 0;
+    transition: 0.1s;
+    display: flex;
+    background: linear-gradient(to right, #36363F, #775d55);
+    background-size: 300% 100%;
+    transition: all .2s ease-in-out;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);
 }
 
 .questPanel{ background: #36363F; height: 22%; width: 31%; margin-bottom: 0.6%; border-top: white 1px solid; flex-shrink: 0; transition: 0.1s; display: flex; background: linear-gradient(to right, #36363F, #a17938); background-size: 300% 100%; transition: all .2s ease-in-out;box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);
 }
 
-.areaPanel:hover, .questPanel:hover{scale:1.06; border-top: #88bffc 1px solid; filter: brightness(1.1); box-shadow: 4px 7px 10px 0px rgba(0, 0, 0, 0.3); background-position: 100% 0; }
-
+.areaPanel:hover, .questPanel:hover, .dungeonPanel:hover{scale:1.06; border-top: #88bffc 1px solid; filter: brightness(1.1); box-shadow: 4px 7px 10px 0px rgba(0, 0, 0, 0.3); background-position: 100% 0; }
 .areaPanel1{height: 100%; background: transparent; width: 40%; display: flex; align-items: center; justify-content: center;}
-.areaPanel2{height: 100%; background: transparent; width: 60%; display: flex; flex-direction: row; flex-wrap: wrap;}
+.areaPanel2{height: 100%; background: transparent; width: 60%; display: flex; flex-direction: row; flex-wrap: wrap; }
 
-.areaPanelSelect{ background: #525275; height: 23%; width: 31%; margin-bottom: 0.6%; border-top: white 1px solid; flex-shrink: 0; transition: 0.1s; display: flex; scale:1.04; animation: growFadeIn 0.2s 1; box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);}
+#areaTab .areaPanel2, #dungeonTab .areaPanel2{ margin-left: 5%; width: 90%;}
+
+.areaPanelSelect{ background: #525275; height: 11%; width: 31%; margin-bottom: 0.6%; border-top: white 1px solid; flex-shrink: 0; transition: 0.1s; display: flex; scale:1.05; animation: growFadeIn 0.2s 1; box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.4);}
 
 .areaImage {
     border-radius: 2px;
@@ -3009,29 +4338,279 @@ background: rgba(34, 32, 38, 0.77);
     z-index: 10;
 }
 
+.extraBattleUI{
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    height: 4.5vh;
+    width: 9vw;
+    display: flex;
+    margin-top: 1.5%;
+    border-radius: 0.5vh;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    z-index: 10;
+    box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.4);
+
+}
+
+#showdownUI{
+    font-family: fredoka;
+font-weight: 400;
+    margin-top: 1%;
+    width: 6vw;
+    color: white;
+    font-size: 3vh;
+    border: white solid 1px;
+}
+
+.dungeonBar{
+    background: gray;
+    width: 60%;
+    height: 20%;
+    overflow: visible;
+    margin-right: 25%;
+    display: flex;
+    
+}
+
+#skirmishUI .dungeonBar{
+    background: gray;
+    width: 80%;
+    height: 20%;
+    overflow: visible;
+    margin-right: 5%;
+    display: flex;
+}
+
+#skirmishUI{
+    height: 7vh;
+    margin-top: 1%;
+    flex-direction: column;
+}
+
+#skirmishTimer{
+    font-family: fredoka;
+    font-weight: 400;
+    color: white;
+    font-size: 2vh;
+    background: transparent;
+    margin-top: 5%;
+}
+
+#skirmishUI .dungeonBar{
+   margin-top: auto;
+   margin-bottom: 10%;
+   height: 15%;
+}
+
+.dungeonBox{
+    background: darkgray;
+    height: 2vh;
+    width: 2vh;
+    rotate: 45deg;
+    position: absolute;
+    margin-top: -2%;
+    margin-left: -2%;
+}
+
+.dungeonBox2{
+    background: darkgray;
+    height: 2vh;
+    width: 2vh;
+    rotate: 45deg;
+    position: absolute;
+    right: 7%;
+    margin-top: -2%;
+}
+
+
+#dungeonUI img{
+    background: darkslategray;
+    height: 5vh;
+    width: 5vh;
+    right: 0;
+    rotate: 45deg;
+    position: absolute;
+    margin-right: 2%;
+    border: solid red 0.2vh;
+}
+
+#dungeonMeter{
+background: red;
+height: 70%;
+width: 0%;
+display: flex;
+align-self: center;
+justify-content: center;
+border-radius: 200px;
+transition: 0.5s;
+}
+
+#skirmishMeter{
+    background: red;
+    height: 70%;
+    width: 0%;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    border-radius: 200px;
+    transition: 0.5s;
+    }
+
+@keyframes dungeonBoss{
+    0%, 100% { scale: 1; background: darkslategray; }
+    50%{scale: 1.15; background: #D85858;}
+}
+
 .areaImage img{
     height: 100%;
     width: 100%;
     background: transparent;
 }
-.areaPanelName{ font-size: 0.8vw; margin-top: 6%; color: white; font-weight: 600; background: transparent; line-height: 0.8vw; margin-bottom: -2%
+.areaPanelName{ font-size: 0.8vw; color: white; font-weight: 600; background: transparent; line-height: 0.8vw; display: flex; justify-self: center; align-self: center;
 }
-.questPanelName{ font-size: 0.8vw; margin-top: 6%; color: #FFD100; background: transparent; line-height: 0.8vw; margin-bottom: -2%
-}
-
-.areaPanelLevel{ font-size: 0.8vw; color: white; font-weight: 600; background: #D85858; height: 27%;  width: 50%; margin-right: 4%; display: flex; justify-content: center; align-items: center; border-radius: 0.1vw
+.questPanelName{ font-size: 0.8vw; margin-top: 6%; color: #FFD100; background: transparent; line-height: 0.8vw; margin-bottom: -2%; padding-right: 3%;
 }
 
-.questPanelLevel{ font-size: 0.8vw; color: white; font-weight: 600; background: #D85858; height: 27%;  width: 90%; margin-right: 4%; display: flex; justify-content: center; align-items: center; border-radius: 0.1vw
+.areaPanelLevel{ font-size: 0.8vw; color: white; font-weight: 600; background: #D85858; border-radius: 0.1vw; height: 70%; align-self: center; margin-left: auto; padding: 0 4%; display: flex; align-items: center;
 }
 
-.areaPanelMastery{ font-size: 0.8vw; color: #93cdd9; font-weight: 600; background: #262629; height: 30%;  width: 43%; display: flex; justify-content: center; align-items: center; border-radius: 0.1vw; margin-top: -1%
+.questPanelLevel{
+    font-size: 1vw;
+    color: white;
+    font-weight: 400;
+    background: #D85858;
+    height: 27%;
+    width: 90%;
+    margin-right: 4%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    border-radius: 0.1vw;
+    font-family: fredoka;
+
 }
+
+.showdownDifficulty{
+    background: transparent;
+
+}
+
+
+#classWrapper, #skillWrapper {
+    display: flex;
+    background: #19191D;
+    position: relative;
+    
+    transition: 0.4s;
+}
+
+#classWrapper{
+    height: 16%;
+    padding: 9% 5%;
+    width: 95%;
+    gap: 2%;
+    align-content: flex-start;
+    background: transparent;
+    margin: 0;
+    flex-direction: row;
+    overflow-x: scroll;
+    display: flex;
+    margin-top: 2%;
+}
+
+.classSlot{
+    height: 6vh;
+    width: 3vw;
+    margin-top: -6%;
+    transition: 0.3s;
+    flex-shrink: 0;
+    border-radius: 0.6vh;
+}
+
+.classSlot img{
+    height: 100%;
+    width: 100%;
+}
+
+#skillWrapper{
+    height: 75.5%;
+    width: 95%;
+    gap: 6.3%;
+    padding: 4%;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding-top: 10%;
+    background: transparent;
+    flex-shrink: 0;
+    overflow-y: scroll;
+    margin-left: 4%;
+    
+}
+
+
+.skillSlot{
+    height: 5.5vh;
+    width: 2.8vw;
+    rotate: 45deg;
+    margin-top: -6%;
+    transition: 0.3s;
+    flex-shrink: 0;
+}
+
+
+
+
+#skillsTab{
+    position: relative;
+}
+
+#skillsTab .separador{
+    margin:0
+}
+
+
+.skillBG{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 95%;
+    width: 95%;
+    background-image: url(img/src/icons/skillMenuBG.png);
+    background-size: cover;
+    opacity: 0.6;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 1);
+    border-radius: 0.2vh;
+}
+
+.skillSlot:hover, .classSlot:hover{
+    scale:1.3;
+    box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 1);
+    z-index: 99;
+    
+}
+
+#skillWrapper :nth-child(7), #skillWrapper :nth-child(18), #skillWrapper :nth-child(29), #skillWrapper :nth-child(40), #skillWrapper :nth-child(51), #skillWrapper :nth-child(62){
+    margin-left: 8.75%;
+}
+
+
+.skillSlot img{
+    height: 7.7vh;
+    width: 3.9vw;
+    translate: -15% -15%;
+    rotate: -45deg;
+}
+
 
 
 #gardenLine{ border-bottom: solid 1px #9c6744; height: 8%; }
-#gardenPanel {height: 50%; width: 40%; filter: brightness(0.3)}
-#miningPanel {height: 49.6%; width: 40%; transform: translateY(-100.4%) translatex(-75%); overflow: visible; filter: brightness(0.3)}
+#gardenPanel {height: 50%; width: 40%;}
+#miningPanel {height: 49.6%; width: 40%; transform: translateY(-100.4%) translatex(-75%); overflow: visible;}
 #miningLine{ border-bottom: solid 1px #dab0eb; height: 8%; width: 100%; border-radius: 4px;}
 
 #jobPanel {height: 100%; width: 59.5%; display: flex; background: transparent}
@@ -3156,11 +4735,15 @@ background: linear-gradient(90deg, #411F1D 91.69%, #290C0C 99.89%);
 }
 
 #professionTitleIcon{
+    display: flex;
+    justify-self: center;
+    align-self: center;
     background: transparent;
     height: 100%;
-    width: 23%;
+    width: 10vh;
     background-image: url(img/src/icons/blacksmithFrame.png);
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     margin-left: -12%;
     position: absolute;
 }
@@ -3212,12 +4795,18 @@ box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25) inset;
     align-self: center;
     align-items: center;
     background: transparent;
-    margin-top: 4%;
     flex-direction: column;
     padding-top: 1%;
 }
 
+.playerBuffIcon .itemCount{
+    height: 60%;
+    font-size: 1.8vh;
+    padding: 0 10%;
+}
+
 .recipePanelTitle{
+    margin-top: 3%;
     background: blue; 
     height: 4.2%;
     width: 90%;
@@ -3365,7 +4954,7 @@ box-shadow: 6px 4px 15px 0px rgba(0, 0, 0, 0.4) inset, -2px -3px 7px 0px rgba(25
 
 .recipeButtonWrap{
     height: 10%;
-    width: 50%;
+    width: 60%;
     background: #433B3B;
     margin-left: auto;
     margin-top: 3%;
@@ -3398,7 +4987,16 @@ box-shadow: 6px 4px 15px 0px rgba(0, 0, 0, 0.4) inset, -2px -3px 7px 0px rgba(25
     background: transparent;
 }
 
-#craftButtonAll{width: 30%}
+#craftButtonAll, #craftButtonCancel{width: 30%}
+
+#craftButtonCancel{
+
+color: white;
+font-family: fredoka;
+font-weight: 800;
+
+
+}
 
 .craftButton:hover{filter:brightness(1.1)
 }
@@ -3460,9 +5058,629 @@ box-shadow: 6px 4px 15px 0px rgba(0, 0, 0, 0.4) inset, -2px -3px 7px 0px rgba(25
 
 .craftBar2{left: 96%}
 
+#skillMenu{
+    height: 80vh;
+    width: 83vw;
+    background-color: #0C080F;
+    background-image: none;
+    position: absolute;
+    z-index: 13;
+}
+
+#skillMenu::before{
+
+    content: "";
+    background-image: url(img/sys/talentBG.png);
+    animation: skillMenu 8s infinite;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.skillTurtle{
+
+    height: 40vh;
+    width: 30vw;
+    background: transparent;
+    animation: skillTurtle 8s infinite;
+    top: 0;
+    right: 0;
+    background-image: url(img/sys/talentBG2.png);
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+@keyframes skillMenu{
+
+    0%,100% { opacity: 0.8; }
+    
+    50% {opacity: 0.3; }
+    }
+
+@keyframes skillTurtle{
+
+0%,100% { opacity: 0; }
+        
+50% {opacity: 0.45; }
+80% {opacity: 0; }
+        }
+
+        
+@keyframes bgFlicker{
+
+    0%,100% { opacity: 0; }
+            
+    10% {opacity: 0.4; }
+    15% {opacity: 0; }
+    20% {opacity: 0.6; }
+    60% {opacity: 0.4; }
+    65% {opacity: 0; }
+    75% {opacity: 0; }
+            }
+        
+.skillCounter,.skillCounter2{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 13%;
+    width: 22%;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    background-image: url(img/sys/fondonegro.png);
+    border: #edd585 solid 0.1vh;
+    border-top: none;
+    z-index: 20;
+    gap: 6%;
+    color: #edd585;
+    font-family: fredoka;
+}
+
+.skillCounter2{
+    border: white solid 0.1vh;
+    bottom: 0;
+    height: 6%;
+}
+
+#talentPointBar{
+    height: 1vh;
+    width: 17vw;
+    background: linear-gradient(90deg, cyan 50%, #23232D 50%);
+    border-radius: 2px;
+}
+
+.skillCounter button, #resetTalentMenu button{
+    height: 5vh;
+    width: 10vw;
+    justify-self: center;
+    align-self: center;
+    background: #a81714;
+    font-size: 2vh;
+    font-family: fredoka;
+}
+
+#resetTalentMenu{
+    height: 40vh;
+    width: 20vw;
+    padding: 1% 5%;
+    font-size: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#resetTalentMenu span{
+    position: absolute;
+    font-size: 3vh;
+    top: 2%;
+    left: 4%;
+    font-family: "fredoka";
+    transition: 0.2s;
+}
+
+#resetTalentMenu span:hover{
+scale:1.2
+}
+
+#resetTalentMenu h1{
+    font-size: 2vh;
+}
+#resetTalentMenu button {
+    margin-top: 10%;
+}
+
+
+#talentCounter{
+    font-family: fredoka;
+}
+
+#skillContainer{
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+
+.talentStar{
+    animation: talentStarAnim 2s infinite;
+    transition: 0.2s;
+    position: absolute;
+    opacity: 0.5;
+    
+    
+}
+
+.talentStar:hover{
+    scale:1.5;
+}
 
 
 
+.starCanvas{
+    background: transparent;
+    position: absolute;
+    translate: 0 15px;
+    pointer-events: none;
+    
+}
+
+
+
+
+#catalogue{
+    height: 90vh;
+    width: 45vw;
+    overflow: hidden;
+    display: flex;
+    padding-top: 15vh;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    background-image: url(img/src/icons/catalogueBg.png);
+    background-size: cover;
+    z-index: 14;
+}
+
+#catalogue .shopTitle, #armory .shopTitle{
+   margin-top: 11%;
+}
+
+#catalogue .bannerTitle, #armory .bannerTitle{
+    margin-top: 1%;
+}
+
+.bannerTitle{
+    height: 7vh;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    background-image: url(img/sys/titleBanner2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-size: 300%;
+    background-position: center;
+    background-position-y: 30%;
+    background-size: 90%;
+    flex-shrink: 0;
+}
+
+
+.catalogueWrapper{
+margin-top: 3%;
+height: 85%;
+width: 100%;
+display: flex;
+flex-shrink: 0;
+flex-direction: column;
+overflow-y: scroll;
+background: transparent;
+}
+
+.catalogueListing{
+    margin-top: 0%;
+    background: transparent;
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: visible;
+    padding-left: 2%;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.catalogueCasing{
+    height: auto;
+    width: auto;
+    position: relative;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    margin: 0 -1%;
+
+}
+
+
+.catalogueCasing1, .catalogueCasing2 , .catalogueCasing3{
+    height: 9vh !important;
+    width: auto;
+    background: transparent;
+}
+
+.catalogueCasing2 , .catalogueCasing3{
+    z-index: 2;
+    position: absolute;
+    top: 0;
+}
+
+.catalogueCasing2::after{
+    animation: shine 6s ease-in-out infinite;
+    animation-fill-mode: forwards;
+    content: "";
+    position: absolute;
+    top: -110%;
+    left: -210%;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transform: rotate(30deg);
+
+    background: rgba(255, 255, 255, 0.5);
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(255, 255, 255, 0.43) 77%,
+            rgba(255, 255, 255, 0.5) 92%,
+            rgba(255, 255, 255, 0.0) 100%);
+}
+
+
+.catalogueCasing3{
+    height: 20vh !important;
+    top: -100%;
+    mix-blend-mode: lighten;
+    animation:  skillMenu 2s infinite;
+    display: none;
+    pointer-events: none;
+}
+
+
+.casingItem{
+    height: 5vh !important;
+    top: 12%;
+    width: auto;
+    position: absolute;
+    border-radius: 0.4vh;
+    box-shadow: 2px 4px 3px 0px rgba(0,0,0,0.6)
+}
+
+
+.bannerTitle2{
+    align-self: flex-start;
+    height: 5.1vh;
+    width: 80%;
+    padding-left: 3%;
+    font-family: fredoka;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    background-image: url(img/sys/titleBanner.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-size: 160%;
+    background-position: -35% 40%;
+    background-size: 70%;
+    flex-shrink: 0;
+    margin: 1.5% 0;
+}
+
+#armory{
+    height: 90vh;
+    width: 45vw;
+    overflow: hidden;
+    display: flex;
+    padding-top: 15vh;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    background-image: url(img/src/icons/catalogueBg.png);
+    background-size: cover;
+    z-index: 14;
+}
+
+#armory .catalogueListing{
+    margin-top: 0;
+    align-self: center;
+    min-height: 10vh;
+    max-height: 10vh;
+    width: 88%;
+    display: flex;
+    align-content: flex-start;
+    justify-content: center;
+    gap: 1%;
+    padding-top: 5.5%;
+    position: relative;
+    margin-top: 2%;
+}
+
+#armory .catalogueListing img{
+    height: 5vh;
+    width: auto;
+    transform: 0.3s;
+}
+
+#armory .catalogueListing img:hover{
+   scale: 1.1;
+}
+
+.bannerTitle3{
+    top: -15%;
+    position: absolute;
+    align-self: center;
+    height: 5.1vh;
+    width: 90%;
+    font-family: fredoka;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    background-image: url(img/sys/titleBanner3.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-size: 160%;
+    background-position: center;
+    background-size: 70%;
+    flex-shrink: 0;
+    margin-top: 3%;
+    margin-bottom: -10%;
+    z-index: 12;
+}
+
+.bannerTitle2 span, .bannerTitle3 span{
+    font-size: 60%;
+    font-family: fredoka;
+    color: orange;
+    padding-left: 1%;
+    font-weight: 400;
+    translate: 0 25%;
+
+}
+
+#closeCatalogue, #closeArmory{
+    font-size: 4.5vh;
+    position: absolute;
+    top: 1%;
+    right: 3%;
+    transition: 0.1s;
+    opacity: 0.7;
+    font-family: fredoka;
+    background: transparent;
+    font-weight: 1000;
+}
+
+#closeCatalogue:hover , #closeArmory:hover{
+    scale:1.1
+}
+
+#honorShop{
+    height: 90vh;
+    width: 45vw;
+    overflow: hidden;
+    display: flex;
+    padding-top: 15vh;
+}
+
+.shopTitle .separador{
+    height: 10%;
+    width: 90%;
+    position: absolute;
+    background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 40%, rgba(250,247,244,0) 40%, rgba(255,254,254,0) 60%, rgba(255,255,255,1) 60%, rgba(255,255,255,0) 100%);
+    font-size: 2vh;
+    color: white;
+}
+
+.shopTitle{
+    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: white;
+}
+
+#honorShop .shopTitle{
+    top: 13.5%;
+}
+
+#closeHonor{
+    font-size: 4.5vh;
+    position: absolute;
+    top: 3%;
+    right: 5%;
+    transition: 0.1s;
+    opacity: 0.7;
+    font-family: fredoka;
+    background: transparent;
+    font-weight: 1000;
+}
+
+#closeHonor:hover{
+    scale:1.1
+}
+
+.honorShopHeader{
+    position: absolute;
+height: 5vh;
+width: 90%;
+left: 1%;
+top: 3.5%;
+color: white;
+display: flex;
+font-size: 4vh;
+align-items: center;
+padding-left: 4%;
+background: transparent;
+overflow: visible;
+}
+
+.honorShopHeader img{
+    left: -10%;
+    bottom: -55%;
+    position: absolute;
+    z-index: -1;
+}
+
+.honorShopHeader span{
+    display: flex;
+    width: 20%;
+    padding-left: 4%;
+    font-size: 3vh;
+font-family: fredoka;
+align-items: center;
+justify-content: center;
+background: white;
+color: black;
+margin-top: 1%;
+margin-left: auto;
+margin-right: 3%;
+border-radius: 1vh;
+position: relative;
+font-weight: 400;
+
+}
+    
+
+.honorShopHeader span img{
+    height: 4.5vh;
+    width: auto;
+    border-radius: 0.5vh;
+    position: absolute;
+    border: white solid 0.1vh;
+    left: -10%;
+    top: -20%;
+    z-index: 1;
+}
+
+.HSWood1,.HSWood2,.HSWood3,.HSWood4{
+    position: absolute;
+    top: 0;
+    height: 2vh;
+    width: 100%;
+    background-repeat: repeat ;
+    background-image:url(img/src/icons/wood.jpg);
+    border: solid 2px #2E1A11;
+}
+
+.HSWood2{
+    right: 0;
+    height: 100%;
+    width: 2.5vh;
+}
+
+.HSWood3{
+    left: 0;
+    height: 100%;
+    width: 2.5vh;
+}
+
+.HSWood4{
+    top: 97.5%;
+    height: 2.5vh;
+    width: 100%;
+}
+
+#honorShopListing{
+    background: transparent;
+    position: absolute;
+    height: 85%;
+    width: 88%;
+    margin: 19% 6%;
+    overflow-x: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.shopLockedListing{
+    height: auto;
+    width: 90%;
+    background: transparent;
+    display: flex;
+    align-self: center;
+    margin-top: 1%;
+    border-radius: 0.6vh;
+    position: relative;
+    box-shadow: inset black 0px 0px 10px 10px;
+    border: white 1px dashed;
+    justify-content: center;
+    
+}
+
+.shopLockedListingCover{
+    position: absolute;
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-family: fredoka;
+    font-size: 1.8vh;
+    padding-left: 12%;
+}
+
+.shopLockedListingCover strong{
+    color: black;
+    font-weight: 700;
+    font-family: fredoka;
+    font-size: 1.8vh;
+    background: gold;
+    border-radius: 0.5vh;
+    padding: 0 1%;
+    margin: 0 1%;
+}
+
+.shopLockedListingCover img{
+    position: absolute;
+    left: 0.5%;
+    height: 90%;
+    border-radius: 0.5vh;
+    border: white solid 1px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+  }
+
+@keyframes talentStarAnim{
+
+0%,100% { transform: scale(0.5); }
+
+50% {transform: scale(0.3); }
+}
+
+@keyframes talentFlash {
+    0%{transform: scale(0.7)}
+    100%{transform: scale(0.5)}
+}
 /*------------------ANIMACIONES--------------------*/
 
 @keyframes desvanecerPanel {
@@ -3522,6 +5740,162 @@ box-shadow: 6px 4px 15px 0px rgba(0, 0, 0, 0.4) inset, -2px -3px 7px 0px rgba(25
         filter: brightness(1);
     }
 }
+
+@keyframes useSkill {
+
+    0% {
+        filter: brightness(3);
+        transform: scale(0.8);
+    }
+
+    50% {
+
+        filter: brightness(1);
+        transform: scale(1);
+    }
+
+    100% {
+        filter: brightness(1);
+    }
+}
+
+@keyframes gelatineHold {
+    from,
+    to {
+        transform: scale(1, 1);
+        filter: brightness(3);
+    }
+    25% {
+        transform: scale(0.98, 1.02);
+    }
+    50% {
+        transform: scale(1.02, 0.98);
+        filter: brightness(1);
+    }
+    75% {
+        transform: scale(0.98, 1.02);
+    }
+}
+
+@keyframes gelatineRotate {
+    0% {
+        scale: 2;
+        transform: scale(1, 1);
+        filter: brightness(3);
+        opacity: 0.5;
+    }
+    10% {
+        transform: scale(0.98, 1.02);
+        opacity:1;
+    }
+    50% {
+        transform: scale(1.02, 0.98);
+        filter: brightness(1);opacity: 1
+    }
+    70% {
+        transform: scale(0.98, 1.02);
+        scale: 2;
+    }
+
+    100%{ rotate: 200deg; transform: scale(1.2, 1.2); opacity: 0;scale: 2; }
+}
+
+
+@keyframes gelatineHoldFloat {
+    from,
+    to {
+        transform: scale(1, 1);
+        filter: brightness(3);
+        translate: 0 10%;
+    }
+    25% {
+        transform: scale(0.98, 1.02);
+    }
+    50% {
+        transform: scale(1.02, 0.98);
+        filter: brightness(1);
+        translate: 0 0%;
+    }
+    75% {
+        transform: scale(0.98, 1.02);
+    }
+}
+
+@keyframes gelatineHoldFloat2 {
+    from,
+    to {
+        transform: scale(1, 1);
+        translate: 0 10%;
+    }
+    25% {
+        transform: scale(0.98, 1.02);
+    }
+    50% {
+        transform: scale(1.02, 0.98);
+        translate: 0 0%;
+    }
+    75% {
+        transform: scale(0.98, 1.02);
+    }
+}
+
+@keyframes skillFloat {
+    0% {
+        transform: scale(2, 1);
+        filter: brightness(6);
+    }
+    20% { filter: brightness(1); translate: 0 -10%; transform: scale(1, 1)}
+    25% {
+        transform: scale(0.98, 1.02);
+    }
+    50% {
+        transform: scale(1.02, 0.98);
+        filter: brightness(1);
+    }
+    85% {
+        transform: scale(0.98, 1.02); opacity: 1;;
+    }
+    100% {translate: 0 -15%; transform: scale(2, 2); opacity: 0;}
+}
+
+@keyframes skillSpin {
+    0% {
+      transform: perspective(400px) rotateY(0); opacity: 0;
+    }
+    20% {
+      transform: perspective(400px) rotateY(180deg); opacity: 1;
+    }
+    40% {
+      transform: perspective(400px) rotateY(360deg) translateY(-15%);
+      filter: brightness(1); scale: 1;
+    }
+
+    41%{ filter: brightness(5); scale: 1.2; opacity: 1;}
+
+    80% { }
+
+    100% {
+        transform: perspective(400px) rotateY(360deg) translateY(-10%); filter: brightness(1); scale: 1; opacity: 0;
+    }
+  }
+
+@keyframes spin {
+    0% {
+      transform: perspective(400px) rotateY(0);
+    }
+    20% {
+      transform: perspective(400px) rotateY(180deg);
+    }
+    40% {
+      transform: perspective(400px) rotateY(360deg);
+    }
+
+    80% { }
+
+    100% {
+        transform: perspective(400px) rotateY(360deg);
+    }
+  }
 
 @keyframes noBuyAnimation {
 
@@ -3663,6 +6037,19 @@ box-shadow: 6px 4px 15px 0px rgba(0, 0, 0, 0.4) inset, -2px -3px 7px 0px rgba(25
   50% { transform: scale(1.05); opacity: 0.7;  }
   100% { transform: scale(1); opacity: 1; } }
 
+@keyframes popUpNew {
+  0% { transform: scale(0.9); opacity: 0; }
+  2% { transform: scale(1.0);  }
+  4% { transform: scale(1.02); opacity: 0.7;  }
+  6% { transform: scale(1); opacity: 1; } 
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+
+
+
+
+}  
+
 @keyframes achievementUnlock {
   0% { transform: scale(0.9); opacity: 0; }
   3% { transform: scale(1.0);  }
@@ -3706,6 +6093,21 @@ box-shadow: 6px 4px 15px 0px rgba(0, 0, 0, 0.4) inset, -2px -3px 7px 0px rgba(25
     transform: translateX(5px);
   }
 }
+
+@keyframes shakeFlash {
+    0%, 100% {
+      transform: translateX(0);
+    }
+
+    0% { filter: brightness(10);}
+    60% { filter: brightness(1);}
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(5px);
+    }
+  }
 
 @keyframes playerDeath{
     0% {transform: translateY(0px)}
