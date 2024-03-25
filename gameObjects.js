@@ -692,7 +692,7 @@ enemies.E20.area = 'A4';
 enemies.E20.hp = 25;
 enemies.E20.description = 'A shadow-laden pond cloaked in an eerie mist. Grab a fishing rod and dont get your hopes too high.'
 enemies.E20.exp = 508571;
-enemies.E20.drop = "rollFishingTables();  rollTable(fishingCollectibles, 2); removeTableItem()";
+enemies.E20.drop = "rollTable(area4Loot, 1); rollFishingTables(); rollTable(fishingCollectibles, 2); removeTableItem()";
 enemies.E20.dropDesc = '<FONT COLOR="orange">Try your luck';
 
 //e21 is reserved for the sheep of polymorph
