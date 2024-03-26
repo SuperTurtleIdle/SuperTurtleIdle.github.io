@@ -33,14 +33,14 @@ function setCursor() {
     var estilo = document.createElement('style');
 
     if (!settings.disableCustomCursor) {
-        document.body.style.cursor = "url('img/sys/cursorHand.png'), auto";
-        estilo.innerHTML = ` button:hover { cursor: url('img/sys/cursorHand.png'), auto; } `;
-        document.head.appendChild(estilo);
+        //document.body.style.cursor = "url('img/sys/cursorHand.png'), auto";
+        //estilo.innerHTML = ` button:hover { cursor: url('img/sys/cursorHand.png'), auto; } `;
+        //document.head.appendChild(estilo);
         
     } else {
-        document.body.style.cursor = "default";
-        estilo.innerHTML = ` button:hover { cursor: default; } `;
-        document.head.appendChild(estilo);
+        //document.body.style.cursor = "default";
+        //estilo.innerHTML = ` button:hover { cursor: default; } `;
+        //document.head.appendChild(estilo);
     }
 
 }
@@ -597,9 +597,9 @@ did(x).addEventListener("click", function (event) {
     playSound("audio/button3.mp3");
     did(y).style.display = "flex";
     did("bodyCover").style.display = "flex";
-    did("body").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-    did("body").style.filter = "blur(5px) brightness(0.5)";
-    event.stopPropagation();
+    //did("body").style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+    did("body").style.filter = "brightness(0.2)";
+    //event.stopPropagation();
 
 
 
@@ -633,7 +633,7 @@ function closePanels(){
     did("bodyCover").style.display = "none";
     did("honorShop").style.display = "none";
     did("body").style.backgroundColor = "transparent";
-    did("body").style.filter = "blur(0) brightness(1)";
+    did("body").style.filter = "none";
 }
 
  

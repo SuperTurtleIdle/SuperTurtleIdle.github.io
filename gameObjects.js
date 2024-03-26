@@ -4604,7 +4604,7 @@ areas.A7.description = '"Welcoming all brave turtles, this thunderdome is a plac
 
 var area4Loot = { I43:{P:200,A:1}, /*chest*/ I164:{P:400,A:1}, /*boss*/ I263:{P:veryRareCollectibleChance,A:1, R:"medium"}, I264:{P:veryRareCollectibleChance,A:1, R:"medium"}, /*relics*/}
 areas.A4 = {};
-areas.A4.name = 'Hallowed Forest';
+areas.A4.name = 'Hallow Forest';
 areas.A4.level = 31;
 areas.A4.description = '"A land devoid of life. Death always finds its way, and the ghostly remains of the undead torment the living in mortuary anger. I also heard there is a cute cat in here."';
 areas.A4.boss = 'E27';
@@ -4657,7 +4657,7 @@ unlocks.shop = false
 quests.A1Q2 = {};
 quests.A1Q2.name = 'To My Beloved Friend';
 quests.A1Q2.difficulty = 1;
-quests.A1Q2.description = 'I am a prince from Nigeria and a giant idiot spider destroyed shop, give me your money please. <br><br> <span style="color:#FFD100"> [Tip: You can sell items by pressing Shift]';
+quests.A1Q2.description = 'I am a prince from Nigeria and a giant idiot spider destroyed shop, give me your money please. <br><br> <span style="color:#FFD100"> [Tip: You can sell items by pressing Control]';
 quests.A1Q2.objective = 'Hand over 2500 Turtle Coins';
 quests.A1Q2.logic = 'rpgPlayer.coins>=2500';
 quests.A1Q2.effect = 'rpgPlayer.coins-=2500; unlocks.shop = true;';
@@ -6461,7 +6461,7 @@ logs.P54.logic = '';
 
 logs.P55 = {}
 logs.P55.name = "God of Hell Fire";
-logs.P55.description = "Defeat the Boss of the Hallowed Forest";
+logs.P55.description = "Defeat the Boss of the Hallow Forest";
 logs.P55.hint = '"Ill take you to burn."';
 logs.P55.insight = 10;
 logs.P55.logic = 'enemies.E27.killCount>0';

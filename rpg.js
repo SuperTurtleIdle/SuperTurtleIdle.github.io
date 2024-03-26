@@ -2035,14 +2035,14 @@ addItem()
 //#region UI
 var sellMode = false;
 document.addEventListener("keydown", function (event) { //enable sell mode
-  if (event.shiftKey) {
+  if (event.key === "Control") {
     sellMode = true;
     did("sellModeText").style.display = "inline";
   }
 });
 
 document.addEventListener("keyup", function (event) { //disable sell mode
-  if (event.key === "Shift") {
+  if (event.key === "Control") {
     sellMode = false;
     did("sellModeText").style.display = "none";
   }
@@ -3443,12 +3443,12 @@ function tooltipStatsHelpingDuck() {
 inventoryTips = [
 
   '<FONT COLOR="#edd585">There is no limit of how many items you can have on the inventory (at least i didnt code one...!)<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
-  '<FONT COLOR="#edd585">Hold Shift to sell your items.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
+  '<FONT COLOR="#edd585">Hold Control to sell your items.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Gear marked as "Unique" will level up with multiple copies of itself, but only if they have a roman numeral at the side of their name.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Drops marked with a ★ are rare and wont be increased by the Drop Chance stat.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Is the enemy too hard? Be sure to check its description and skills to fight accordingly.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Complete missions to recieve useful rewards in the mail.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
-  '<FONT COLOR="#edd585">You can buy multiple items at once in the shop by pressing Shift.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
+  '<FONT COLOR="#edd585">You can buy multiple items at once in the shop by pressing Control.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Defeating low-level enemies can yield more materials and money at the expense of experience.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Area bosses are a great source of experience.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Attributes marked with '+scalingIcon+'have unusually high upgrade scaling.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
@@ -3516,7 +3516,7 @@ function tooltipShopItem(outcome, shop) {
       tooltipHover = "shopItem"
 
       document.addEventListener("keydown", function (event) { 
-        if (event.shiftKey && tooltipHover === "shopItem") {
+        if (event.key === "Control" && tooltipHover === "shopItem") {
           did("tooltipName").textContent = items[outcome.item].name+" x10";
 
           did("tooltipDescription").innerHTML = '<div style=" text-align: center;background:transparent"><FONT COLOR="white"> Price: <FONT COLOR="#ffbd54">' + beautify(eval(shopItems[shop].price)*10) + ' '+coinIcon+'Turtle Coins<br></div><div class="separador"></div><FONT COLOR="white">' +  items[outcome.item].description + '<br><div class="separador"></div>';
@@ -3528,7 +3528,7 @@ function tooltipShopItem(outcome, shop) {
       });
 
       document.addEventListener("keyup", function (event) { 
-        if (event.key === "Shift" && tooltipHover === "shopItem") {
+        if (event.key === "Control" && tooltipHover === "shopItem") {
           did("tooltipName").textContent = items[outcome.item].name;
           
           did("tooltipDescription").innerHTML = '<div style=" text-align: center;background:transparent"><FONT COLOR="white"> Price: <FONT COLOR="#ffbd54">' + beautify(eval(shopItems[shop].price)) + ' '+coinIcon+'Turtle Coins<br></div><div class="separador"></div><FONT COLOR="white">' +  items[outcome.item].description + '<br><div class="separador"></div>';
