@@ -145,7 +145,7 @@ function logCheck() {
         if (logs[i].unlocked && !logs[i].once) { //plays only once ever
           stats.logsGot++;
           logs[i].once = true;
-          createPopup('&#128196 Log Adquired: '+logs[i].name, 'page')
+          createPopup('&#128196 Log Acquired: '+logs[i].name, 'page')
           playSound("audio/achievement.mp3");
           createLog();
         }
