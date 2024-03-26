@@ -157,7 +157,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
     }
 
     if (enemies[stats.currentEnemy].tag==="showdownBoss"){
-      console.log(showdownTimer)
+      console.log(showdownTimer);
       showdown[enemies[stats.currentEnemy].showdown].bestTime = showdownTimer;
       playSound("audio/startup.mp3");
       did(enemies[stats.currentEnemy].showdown+"showdown").style.animation = "levelUp 1s 1";
@@ -298,7 +298,7 @@ function playerUpdate(){ //updates player HP and checks if its dead
       bossTime = false;
       enemyDamageMultiplier = 1;
       enemyDefenseMultiplier = 1;
-    enemyPhase = 1;
+      enemyPhase = 1;
       deleteEnemy();
       did("rpgCanvas").style.animation = "";
       void did("rpgCanvas").offsetWidth;
@@ -320,6 +320,8 @@ function playerUpdate(){ //updates player HP and checks if its dead
     if (showdownTime || skirmishTime){
       endShowdown();
       deleteEnemy();
+      buffs.B57.time=0; //dai goran poison
+      playerBuffs();
       revive();
     }
 
@@ -1697,6 +1699,7 @@ function specialButtonUi() { //shows or hides special buttons depending on zone
         did('shopButton').innerHTML = "Shop";
         did('questButton').innerHTML = "Quest";
         did("showdownUI").style.display = "none";
+        did("skirmishUI").style.display = "none";
       }
 }
 

@@ -6594,12 +6594,6 @@ mail.M3.body = 'The Adventure Guild is pleased with your accomplishments and has
 mail.M3.item = 'I79'
 mail.M3.effect = "items.I79.count++"
 
-mail.M4 = {};
-mail.M4.title = 'The stars are calling...'
-mail.M4.body = 'Salutations, shining star, Robertus Shellington is my name. As I pondered my magic orb, I observed your voyage, and I was more than thrilled to see the extent of your willingness to assist others.<br><br>Without a doubt, you are unique. I noticed the desire and spark in your eyes, which far surpasses that of a typical turtle. <br><br>I chose to write you this letter to let you know that you can now learn skills if you click the level panel. Dont ask me what any of those words mean, for I am merely informing you what my orb told me.'
-mail.M4.item = 'I26'
-mail.M4.effect = "items.I26.count++; unlocks.magic=true; unlocks.skills=true; unlocksReveal()"
-
 mail.M5 = {};
 mail.M5.title = 'Your journey awaits!'
 mail.M5.body = 'This is a Super Turtle Adventure Program official statement.<br><br>We are glad to learn that you have been fulfilling requests from individuals in need.<br><br>We have determined that youre prepared to set out on an exciting adventure by yourself and make your own decisions moving forward<br><br>We acknowledge that you will face numerous obstacles, but we believe you can overcome every obstacle if you remain true to your principles.'
@@ -6622,6 +6616,12 @@ mail.M8.title = 'Honk honk honk.'
 mail.M8.body = 'honk honk honk honk honk<br><br>honk honk honk honk honk honk honk honk honk honk honk honk honk honk honk honk honk honk honk honk honk honk<br><br>honk honk honk honk honk honk honk honk honk<br><br><br><br><br><br>honk.'
 mail.M8.item = 'I109'
 mail.M8.effect = "items.I109.count++";
+
+mail.M4 = {};
+mail.M4.title = 'The stars are calling...'
+mail.M4.body = 'Salutations, shining star, Robertus Shellington is my name. As I pondered my magic orb, I observed your voyage, and I was more than thrilled to see the extent of your willingness to assist others.<br><br>Without a doubt, you are unique. I noticed the desire and spark in your eyes, which far surpasses that of a typical turtle. <br><br>I chose to write you this letter to let you know that you can now learn skills if you click the level panel. Dont ask me what any of those words mean, for I am merely informing you what my orb told me.'
+mail.M4.item = 'I26'
+mail.M4.effect = "items.I26.count++; unlocks.magic=true; unlocks.skills=true; unlocksReveal()"
 
 mail.M9 = {};
 mail.M9.title = 'Adventure rank up.'
