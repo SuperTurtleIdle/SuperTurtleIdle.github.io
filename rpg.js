@@ -157,7 +157,8 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
     }
 
     if (enemies[stats.currentEnemy].tag==="showdownBoss"){
-      showdown[enemies[stats.currentEnemy].showdown].bestTime = Math.min(showdownTimer, showdown[enemies[stats.currentEnemy].showdown].bestTime)
+      console.log(showdownTimer)
+      showdown[enemies[stats.currentEnemy].showdown].bestTime = showdownTimer;
       playSound("audio/startup.mp3");
       did(enemies[stats.currentEnemy].showdown+"showdown").style.animation = "levelUp 1s 1";
       endShowdown()
@@ -319,6 +320,7 @@ function playerUpdate(){ //updates player HP and checks if its dead
     if (showdownTime || skirmishTime){
       endShowdown();
       deleteEnemy();
+      revive();
     }
 
     rpgPlayer.alive = false;
@@ -2290,7 +2292,7 @@ function createShowdown() {
       const div = document.createElement("div");
       div.id = i + "showdown";
       div.className = "showdownPanel";
-      div.innerHTML = '<img src="img/src/enemies/'+showdown[i].enemy+'M.png"><div class="showdownText"><span>'+enemies[showdown[i].enemy].name+'</span><br><span class="showdownDifficulty" id="'+i+'showdownDifficulty" >Easy</span><br><span id="'+i+'showdownBestTime">Best time: Undefeated</span><span>0:40</span><span>0:50</span><span>1:00</span></div><div class="showdownMedal"><img id="'+i+'showdownMedal" src="img/src/projectiles/none.png"></div>';
+      div.innerHTML = '<img src="img/src/enemies/'+showdown[i].enemy+'M.png"><div class="showdownText"><span>'+enemies[showdown[i].enemy].name+'</span><br><span class="showdownDifficulty" id="'+i+'showdownDifficulty" >Easy</span><br><span id="'+i+'showdownBestTime">Last Time: Undefeated</span><span>0:40</span><span>0:50</span><span>1:00</span></div><div class="showdownMedal"><img id="'+i+'showdownMedal" src="img/src/projectiles/none.png"></div>';
       did("showdownTab").appendChild(div);
 
       did(i + "showdown").addEventListener("click", function () {
@@ -2317,7 +2319,7 @@ function createShowdown() {
 
   if (showdown[i].bestTime<=40 && !showdown[i].once) { showdown[i].once = true; goldenMedalsGot++}
 
-  if (showdown[i].bestTime!=="Undefeated") did(i + "showdownBestTime").innerHTML = 'Best time: '+returnMinutes(showdown[i].bestTime)
+  if (showdown[i].bestTime!=="Undefeated") did(i + "showdownBestTime").innerHTML = 'Last Time: '+returnMinutes(showdown[i].bestTime)
 
 if (goldenMedalsGot>0){
   for (let i = 1; i <= goldenMedalsGot; i++) {
@@ -2354,7 +2356,6 @@ function endShowdown(){
   if (showdownTime){
 
     did(enemies[stats.currentEnemy].showdown+"showdown").style.animation = "";
-
     showdownTimer=0;
     showdownTime=false;
   }
@@ -2378,7 +2379,7 @@ function createSkirmish() {
       const div = document.createElement("div");
       div.id = i + "skirmish";
       div.className = "showdownPanel";
-      div.innerHTML = '<img src="img/src/enemies/'+i+'.png"><div class="showdownText"><span>'+skirmish[i].name+'</span><br><span class="showdownDifficulty" id="'+i+'skirmishDifficulty" >Easy</span><br><span id="'+i+'skirmishbestScore">Best wave: Unattempted</span><span>7</span><span>5</span><span>3</span></div><div class="showdownMedal"><img id="'+i+'skirmishMedal" src="img/src/projectiles/none.png"></div>';
+      div.innerHTML = '<img src="img/src/enemies/'+i+'.png"><div class="showdownText"><span>'+skirmish[i].name+'</span><br><span class="showdownDifficulty" id="'+i+'skirmishDifficulty" >Easy</span><br><span id="'+i+'skirmishbestScore">Last Wave: Unattempted</span><span>7</span><span>5</span><span>3</span></div><div class="showdownMedal"><img id="'+i+'skirmishMedal" src="img/src/projectiles/none.png"></div>';
       did("skirmishTab").appendChild(div);
 
       did(i + "skirmish").addEventListener("click", function () {
@@ -2404,13 +2405,14 @@ function createSkirmish() {
 
   if (skirmish[i].bestScore===7) did(i + "skirmishMedal").src = "img/src/icons/goldmedal.png"
   if (skirmish[i].bestScore<7) did(i + "skirmishMedal").src = "img/src/icons/silvermedal.png"
-  if (skirmish[i].bestScore<=4) did(i + "skirmishMedal").src = "img/src/icons/bronzemedal.png" //aqui meter un none por si el jugador no llega a oleada 4
+  if (skirmish[i].bestScore<=4) did(i + "skirmishMedal").src = "img/src/icons/bronzemedal.png"
+  if (skirmish[i].bestScore<3) did(i + "skirmishMedal").src = "img/src/projectiles/none.png" //aqui meter un none por si el jugador no llega a oleada 4
 
   if (skirmish[i].bestScore===7 && !skirmish[i].once) { skirmish[i].once = true; goldenMedalsGot++}
 
 
 
-  if (skirmish[i].bestScore!=="Undefeated") did(i + "skirmishbestScore").innerHTML = 'Best score: '+skirmish[i].bestScore
+  if (skirmish[i].bestScore!=="Undefeated") did(i + "skirmishbestScore").innerHTML = 'Last Wave: '+skirmish[i].bestScore
 
 
 }
