@@ -1080,6 +1080,7 @@ padding: 0%;
 flex-direction: column-reverse;
 gap: 1%;
 overflow: visible;
+pointer-events: none;
 }
 
 .buffSlot {
@@ -1464,7 +1465,7 @@ overflow: visible;
   animation: flash 0.5s;
 }
 
-#currentTreaty{height:4.5%; width: 16%; position: absolute; background: transparent; bottom:1%; left: 3%;  }
+#currentTreaty{height:4.5%; width: 16%; position: absolute; background: transparent; bottom:1%; left: 3%; pointer-events: none; }
 #currentTreaty img {height: 100%;}
 #currentTreaty:hover {animation: gelatine 0.3s;}
 
