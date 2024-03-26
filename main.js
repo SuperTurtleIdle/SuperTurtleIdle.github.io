@@ -763,9 +763,9 @@ function calculateInactiveTime() { //calculates idle time
             for (let i in cd) if (cd[i]>0) {cd[i]-=secondsInactive};
             did('idleTime').innerHTML = convertSecondsToHMS(secondsInactive);
             if (farmable) offlineRewards((secondsInactive/60)*(playerPenguinPower/100));
-            if (!settings.disablePenguinRecap && unlocks.penguins && farmable && secondsInactive>=60) { did("penguinRecap").style.display = "flex"; }
+            if (!settings.disablePenguinRecap && unlocks.penguins && farmable) { did("penguinRecap").style.display = "flex"; }
             
-            for (let i in research) { if (research[i].status === "researching" && research[i].timer>1) research[i].timer -= secondsInactive}
+            for (let i in research) { if (research[i].status === "researching" && research[i].timer>1 && secondsInactive>60) research[i].timer -= secondsInactive}
             
 
         }
@@ -903,6 +903,8 @@ document.addEventListener("keydown", function (event) {
 //----save and load----
 
 function save() {
+
+localStorage.setItem('lastVisitTime', new Date().getTime());
     
   const saveData = {}
   saveData.savedItemCount = {}; for (const i in items) { saveData.savedItemCount[i] = items[i].count;}

@@ -4706,7 +4706,7 @@ unlocks.areas = false;
 
 quests.A1Q6 = {};
 quests.A1Q6.name = 'Chai Chai Real Smooth';
-quests.A1Q6.difficulty = 4;
+quests.A1Q6.difficulty = 1;
 quests.A1Q6.description = 'Muggey, the president of the Chai Association, requests to see the most unusual chai blend of the lands. <br><br> <span style="color:#FFD100"> [Tip: You might want to come later to do certain quests]';
 quests.A1Q6.objective = 'Show an unusual tea blend to Muggey';
 quests.A1Q6.logic = 'items.I111.count>0';
