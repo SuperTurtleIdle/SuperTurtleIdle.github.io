@@ -1344,7 +1344,7 @@ items.I54.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increas
 items.I54.flavor = '"The meat grinder does not discriminate, and neither should you."';
 items.I54.quality = 'Uncommon';
 items.I54.sell = 500;
-items.I54.use = 'removeBuffs("food"); buffs.B12.time=3600; playerBuffs();playSound("audio/monch.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.4s 1");  items.I54.count--; ; rpgPlayer.hp+=playerMaxHp*0.2';
+items.I54.use = 'removeBuffs("food"); buffs.B12.time=1800; playerBuffs();playSound("audio/monch.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.4s 1");  items.I54.count--; ; rpgPlayer.hp+=playerMaxHp*0.2';
 
 items.I52 = {};
 items.I52.name = 'Frog Pho';
@@ -2063,7 +2063,7 @@ items.I137.series = "beastfallen";
 
 items.I83 = {};
 items.I83.name = 'Chrysalis Recurver';
-items.I83.description = `'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+ returnItemUpgradeScaling(469, "I83")+' Occult Damage<br>On Attack: Shoot a cristal shard'`;
+items.I83.description = `'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+ returnItemUpgradeScaling(469, "I83")+' Occult Damage<br>On Attack: Shoot a crystal shard'`;
 items.I83.flavor = '"A short, ominous bow splintered with red crystals."';
 items.I83.quality = 'Rare';
 items.I83.sell = 1000;
@@ -6094,7 +6094,7 @@ logs.L1P13.name = "Potential Overflow";
 logs.L1P13.description = "Reach level 30";
 logs.L1P13.hint = '"And this... Is to go further beyond."';
 logs.L1P13.insight = 5;
-logs.L1P13.logic = 'rpgClass[stats.currentClass].level>19';
+logs.L1P13.logic = 'rpgClass[stats.currentClass].level>29';
 
 logs.L1P14 = {}
 logs.L1P14.name = "You Shall be Known as...";
