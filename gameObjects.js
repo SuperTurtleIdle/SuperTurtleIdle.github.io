@@ -5046,7 +5046,7 @@ recipes.SN1.exp = 7;
 recipes.SN1.timer = 5;
 recipes.SN1.item = 'I31';
 recipes.SN1.reagent1 = 'I32';
-recipes.SN1.amount1 = 5;
+recipes.SN1.amount1 = 4;
 
 recipes.SN2 = {};
 recipes.SN2.description = 'Creates a piece of gear of the Plated Explorer Set';

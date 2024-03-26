@@ -4089,9 +4089,26 @@ background: rgba(34, 32, 38, 0.77);
     
 }
 
-#combatLogTitle{border-bottom: 0.7px solid #564890; background: rgba(26, 22, 47, 0.77);}
-#combatLog{min-height: 21%; flex-direction: column; overflow-y: scroll; transition: all 0.5s}
-.logMessage{height: 1.6vh; font-size: 1.6vh; width: 98%; background: transparent; color: white; flex-shrink: 0; margin: 0vh 0 0.7vh 0.4vw; overflow: visible;}
+#combatLogTitle{
+    border-bottom: 0.7px solid #564890;
+    background: rgba(26, 22, 47, 0.77);
+    position: sticky;
+    bottom: 0%;
+}
+    
+#combatLog{min-height: 21%; 
+    flex-direction: column; 
+    overflow-y: scroll; 
+    transition: all 0.5s}
+
+.logMessage{height: 1.6vh; 
+    font-size: 1.6vh; 
+    width: 98%; 
+    background: transparent; 
+    color: white; 
+    flex-shrink: 0; 
+    margin: 0vh 0 0.7vh 0.4vw; 
+    overflow: visible;}
 
 #combatLogArrow{
     height: 2vh;

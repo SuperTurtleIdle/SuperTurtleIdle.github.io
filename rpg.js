@@ -1384,7 +1384,7 @@ function sellItem(id) {
       if (id==="I119") logs.P26.unlocked=true
       items[id].count--;
       rpgPlayer.coins += items[id].sell*multiplicativeSellValue;
-      stats.totalCoins += items[id].sell*multiplicativeSellValue;
+      if (!("collectible" in items[id])) stats.totalCoins += items[id].sell*multiplicativeSellValue;
       stats.soldItems++;
       removeStamps(id);
       updateCounters();
@@ -1395,7 +1395,7 @@ function sellItem(id) {
       if (rpgPlayer.headSlot!==id && rpgPlayer.chestSlot!==id && rpgPlayer.handsSlot!==id && rpgPlayer.weaponSlot!==id && rpgPlayer.ringSlot!==id && rpgPlayer.legsSlot!==id && rpgPlayer.trinketSlot!==id && rpgPlayer.feetSlot!==id) { //if the item is not equiped
         playSound("audio/heal.mp3"); 
       rpgPlayer.coins += (items[id].sell*multiplicativeSellValue) * items[id].count ;
-      stats.totalCoins += (items[id].sell*multiplicativeSellValue) * items[id].count ;
+      if (!("collectible" in items[id])) stats.totalCoins += (items[id].sell*multiplicativeSellValue) * items[id].count ;
       stats.soldItems += items[id].count;
       items[id].count = 0;
       removeStamps(id)
@@ -1414,7 +1414,7 @@ function sellItem(id) {
       playSound("audio/heal.mp3"); 
       if (id==="I119") logs.P26.unlocked=true
       rpgPlayer.coins += (items[id].sell*multiplicativeSellValue) * items[id].count ;
-      stats.totalCoins += (items[id].sell*multiplicativeSellValue) * items[id].count ;
+      if (!("collectible" in items[id])) stats.totalCoins += (items[id].sell*multiplicativeSellValue) * items[id].count ;
       stats.soldItems += items[id].count;
       items[id].count = 0;
       removeStamps(id)
@@ -1975,7 +1975,7 @@ function shopItemButton(area) {
   if (did(area.id + "shopItem")) {
     did(area.id + "shopItem").addEventListener("click", function () {
 
-      if ( sellMode && rpgPlayer.coins >= eval(area.price)*10 && (area.stock > 9 || area.stock==="∞") && area.unlocked !== false ) {
+      if ( sellMode && rpgPlayer.coins >= eval(area.price)*10 && (area.stock > 9 || area.stock==="∞") && area.unlocked !== false && items[area.item].count!==items[area.item].max ) {
 
         playSound("audio/button3.mp3"); 
         rpgPlayer.coins -= eval(area.price)*10;
@@ -1989,7 +1989,7 @@ function shopItemButton(area) {
         createShopItem();
         did("tooltipPrice").innerHTML = "Stock: " + shopItems[area.id].stock;
 
-      } else if ( rpgPlayer.coins >= eval(area.price) && (area.stock > 0 || area.stock==="∞") && area.unlocked !== false ) {
+      } else if ( rpgPlayer.coins >= eval(area.price) && (area.stock > 0 || area.stock==="∞") && area.unlocked !== false && items[area.item].count!==items[area.item].max) {
         
         playSound("audio/button3.mp3"); 
         rpgPlayer.coins -= eval(area.price);
