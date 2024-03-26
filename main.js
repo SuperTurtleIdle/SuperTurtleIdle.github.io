@@ -103,7 +103,7 @@ function turtleClick(){
                 else playSound("audio/lily.mp3");
     
                 if (unlocks.present && cd.presentCooldown<=0){
-                    cd.presentCooldown = 28800;
+                    cd.presentCooldown = 43200;
                     items.I119.count += 1;
                     stats.recievedPresents++;
                     addItem();
@@ -164,7 +164,7 @@ did("tortugaClick").addEventListener('mousemove', function () { if (autoclicker)
 //----------------------==========================-----------------------
 //#region Second
 
-cd.jesterCooldown = 700;
+cd.jesterCooldown = 1200;
 
 cd.itemOfTheDay = 28800
 
@@ -277,12 +277,12 @@ function spawnJesterTurtle(){
     div.style.top= rng(10,80)+'%'
     did("jesterWrapper").appendChild(div);
     setTimeout(() => {div.remove();}, 7000);
-    cd.jesterCooldown = 50;
+    cd.jesterCooldown = 60;
 
     div.addEventListener("click", function clickHandler() {
         playSound("audio/button9.mp3"); 
         stats.jesterTurtleClicks++;
-        cd.jesterCooldown = 700;
+        cd.jesterCooldown = 1200;
         setTimeout(() => {did("jesterImage").style.opacity = 0;}, 100);
         setTimeout(() => {div.remove()}, 1000);
         div.removeEventListener('click', clickHandler);
