@@ -4918,7 +4918,7 @@ quests.A3Q6B.exp = 22482312;
 
 quests.A3Q7 = {};
 quests.A3Q7.name = 'Lost In The Blue';
-quests.A3Q7.difficulty = 0;
+quests.A3Q7.difficulty = 1;
 quests.A3Q7.description = 'Ive never left the caves, I want to see jellyfish.';
 quests.A3Q7.objective = 'Hand over 10 Ghost Jellyfish';
 quests.A3Q7.reward = 'Recipe: Shiny Fishing Lure';
