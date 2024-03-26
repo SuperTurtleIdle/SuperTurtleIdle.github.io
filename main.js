@@ -758,19 +758,20 @@ function calculateInactiveTime() { //calculates idle time
         const currentTime = new Date().getTime();
         const inactiveTime = currentTime - parseInt(lastVisitTime);
         const secondsInactive = Math.floor(inactiveTime / 1000);
-        if (secondsInactive > 0) {
+        if (secondsInactive > 60) {
             stats.totalSeconds += secondsInactive; 
             for (let i in cd) if (cd[i]>0) {cd[i]-=secondsInactive};
             did('idleTime').innerHTML = convertSecondsToHMS(secondsInactive);
             if (farmable) offlineRewards((secondsInactive/60)*(playerPenguinPower/100));
             if (!settings.disablePenguinRecap && unlocks.penguins && farmable) { did("penguinRecap").style.display = "flex"; }
             
-            for (let i in research) { if (research[i].status === "researching" && research[i].timer>1 && secondsInactive>60) research[i].timer -= secondsInactive}
+            for (let i in research) { if (research[i].status === "researching" && research[i].timer>1) research[i].timer -= secondsInactive}
             
 
         }
+
+        localStorage.setItem('lastVisitTime', new Date().getTime());
     }
-    localStorage.setItem('lastVisitTime', new Date().getTime());
 }
 
 //-----penguin recap----
@@ -867,6 +868,7 @@ did("idleItemImg").src = "img/src/items/"+currentDrop+".jpg";
 did("idleExp").innerHTML = beautify(enemies[stats.currentEnemy].exp * Math.round(amount));
 
 expBar();
+addItem();
 
 }
 
@@ -1288,5 +1290,6 @@ function initialization() {
     addItem();
     setCursor();
     upgradesReveal();
+
 }
 //#endregion
