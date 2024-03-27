@@ -674,6 +674,7 @@ function castWizhardShield(){
         animState("rpgPlayerImg", "gelatineHigh 0.4s 1");
         animImageSplash("circle", "playerPanel", "explosion", 0);
         playerShield -= shield
+        if (playerShield<0) playerShield = 0
     }, 15000);
     damageText("+"+beautify(shield), 'damageText', '#45a5a8', 'shield', "playerPanel");
     
