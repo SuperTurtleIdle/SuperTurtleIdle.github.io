@@ -262,7 +262,7 @@ if (currentSet === "explorer") {exlorerTier = 200} else {exlorerTier = 0}
 multiplicativeHealingItems = 1 + items.I282.statUp;
 
 let collectionRelicsStatUp = relicsCollectiblesGot * 0.05; //crit chance
-let collectionFishingStatUp = fishingCollectiblesGot * 0.05; //strenght
+let collectionFishingStatUp = fishingCollectiblesGot * 0.05; //strength
 let collectionMiningStatUp = miningCollectiblesGot * 0.05; //max hp
 let collectionForagingStatUp = foragingCollectiblesGot * 0.05; //drop chance
 
@@ -2472,7 +2472,7 @@ items.I143.tierDesc2 = "I146";
 items.I143.tierDesc3 = "I145";
 items.I143.tierDesc4 = "I147";
 items.I143.tierDesc5 = "I143";
-items.I143.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
+items.I143.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
 items.I143.sell = 35000;
 items.I143.max = 10;
 items.I143.use = 'gearSwap(items.I143.id, rpgPlayer.feetSlot, "rpgFeetSlot", "feet")'
@@ -2490,7 +2490,7 @@ items.I144.tierDesc2 = "I146";
 items.I144.tierDesc3 = "I145";
 items.I144.tierDesc4 = "I147";
 items.I144.tierDesc5 = "I143";
-items.I144.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
+items.I144.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
 items.I144.sell = 35000;
 items.I144.max = 10; 
 items.I144.use = 'gearSwap(items.I144.id, rpgPlayer.headSlot, "rpgHeadSlot", "head")'
@@ -2508,7 +2508,7 @@ items.I145.tierDesc2 = "I146";
 items.I145.tierDesc3 = "I145";
 items.I145.tierDesc4 = "I147";
 items.I145.tierDesc5 = "I143";
-items.I145.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
+items.I145.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
 items.I145.sell = 35000;
 items.I145.max = 10;
 items.I145.use = 'gearSwap(items.I145.id, rpgPlayer.handsSlot, "rpgHandsSlot", "hands")'
@@ -2526,7 +2526,7 @@ items.I146.tierDesc2 = "I146";
 items.I146.tierDesc3 = "I145";
 items.I146.tierDesc4 = "I147";
 items.I146.tierDesc5 = "I143";
-items.I146.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
+items.I146.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
 items.I146.sell = 35000;
 items.I146.max = 10;
 items.I146.use = 'gearSwap(items.I146.id, rpgPlayer.chestSlot, "rpgChestSlot", "chest")'
@@ -2544,7 +2544,7 @@ items.I147.tierDesc2 = "I146";
 items.I147.tierDesc3 = "I145";
 items.I147.tierDesc4 = "I147";
 items.I147.tierDesc5 = "I143";
-items.I147.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
+items.I147.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
 items.I147.sell = 35000;
 items.I147.max = 10;
 items.I147.use = 'gearSwap(items.I147.id, rpgPlayer.legsSlot, "rpgLegsSlot", "legs")'
@@ -3766,7 +3766,7 @@ items.I279.collectible = "B";
 
 items.I281 = {};
 items.I281.name = 'The Cube';
-items.I281.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">Can be upgraded infinitely<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Strenght<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Max HP<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Regen<br>'`;
+items.I281.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">Can be upgraded infinitely<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Strength<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Max HP<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Regen<br>'`;
 items.I281.flavor = '"Infinity."';
 items.I281.quality = 'Legendary';
 items.I281.sell = 1000;
@@ -4430,8 +4430,8 @@ buffs.B44.effect = '';
 buffs.B44.img = 'img/src/buffs/B11.jpg';
 
 buffs.B45 = {};
-buffs.B45.name = 'Strenght Roll';
-buffs.B45.description = '<FONT COLOR="#8fbaff">Strenght increased by 40%';
+buffs.B45.name = 'Strength Roll';
+buffs.B45.description = '<FONT COLOR="#8fbaff">Strength increased by 40%';
 buffs.B45.effect = 'buffEffect(0.4, "B45")';
 buffs.B45.img = 'img/src/buffs/B12.jpg';
 buffs.B45.player = true;
@@ -4553,7 +4553,7 @@ buffs.B60.img = 'img/src/buffs/B17.jpg';
 
 buffs.B61 = {};
 buffs.B61.name = 'Sea Chanty';
-buffs.B61.description = '<FONT COLOR="#8fbaff">Strenght increased by 20%';
+buffs.B61.description = '<FONT COLOR="#8fbaff">Strength increased by 20%';
 buffs.B61.effect = 'buffEffect(0.2, "B61")';
 buffs.B61.img = 'img/src/buffs/B18.jpg';
 buffs.B61.player = true;
@@ -6702,7 +6702,7 @@ talent.TA0.position = '0px -60px'
 talent.TA0.parent = "T0"
 talent.TA0.name = "Apprentice";
 talent.TA0.category = "Class";
-talent.TA0.description = 'Bunnies out of your hat, conjuring doves... What do you mean thats just street magic? Its still magic after all, isnt it?<br><br><span class="logStat">[Innate Skill: Incendiary Bunny]</span><br>Casts a flaming rabbit out of your hat, <span style="color:orange"> dealing '+beautify(skillDmg5*100)+'% of your strenght as Elemental Damage and '+beautify(skillDmg3*100)+'% of your strenght as Elemental Damage over 15 seconds</span>';
+talent.TA0.description = 'Bunnies out of your hat, conjuring doves... What do you mean thats just street magic? Its still magic after all, isnt it?<br><br><span class="logStat">[Innate Skill: Incendiary Bunny]</span><br>Casts a flaming rabbit out of your hat, <span style="color:orange"> dealing '+beautify(skillDmg5*100)+'% of your strength as Elemental Damage and '+beautify(skillDmg3*100)+'% of your strength as Elemental Damage over 15 seconds</span>';
 
 talent.TA0B = {};
 talent.TA0B.position = '50px -100px'
@@ -6716,7 +6716,7 @@ talent.TA0BASE = {};
 talent.TA0BASE.position = '9999px 9999px'
 talent.TA0BASE.name = "Incendiary Bunny";
 talent.TA0BASE.category = "Skill";
-talent.TA0BASE.description = "Casts a flaming rabbit out of your hat, <span style='color:orange'> dealing "+beautify(skillDmg5*100)+"% of your strenght as Elemental Damage and "+beautify(skillDmg3*100)+"% of your strenght as Elemental Damage over 15 seconds</span>"; 
+talent.TA0BASE.description = "Casts a flaming rabbit out of your hat, <span style='color:orange'> dealing "+beautify(skillDmg5*100)+"% of your strength as Elemental Damage and "+beautify(skillDmg3*100)+"% of your strength as Elemental Damage over 15 seconds</span>"; 
 talent.TA0BASE.cast = "castIncendiaryBunny()";
 talent.TA0BASE.cost = 6;
 talent.TA0BASE.cd = 20;
@@ -6760,7 +6760,7 @@ talent.TA1D.position = '40px -230px'
 talent.TA1D.parent = "TA1B"
 talent.TA1D.name = "Wizhard Shell";
 talent.TA1D.category = "Skill";
-talent.TA1D.description = "Creates a magic barrier, <span style='color:orange'> absorbing damage worth "+beautify(skillDmg8*100)+"% of your strenght</span>"; 
+talent.TA1D.description = "Creates a magic barrier, <span style='color:orange'> absorbing damage worth "+beautify(skillDmg8*100)+"% of your strength</span>"; 
 talent.TA1D.cast = "castWizhardShield()";
 talent.TA1D.cost = 10;
 talent.TA1D.cd = 30;
@@ -6778,7 +6778,7 @@ talent.TA1F.position = '-100px -150px'
 talent.TA1F.parent = "TA1C"
 talent.TA1F.name = "Dove Flock";
 talent.TA1F.category = "Skill";
-talent.TA1F.description = "Sends 4 doves, <span style='color:orange'> dealing "+beautify(skillDmg2*100)+"% of your strenght as "+natureIcon+"Nature Damage 4 times</span>"; 
+talent.TA1F.description = "Sends 4 doves, <span style='color:orange'> dealing "+beautify(skillDmg2*100)+"% of your strength as "+natureIcon+"Nature Damage 4 times</span>"; 
 talent.TA1F.cast = "castDoveFlock()";
 talent.TA1F.cost = 3;
 talent.TA1F.cd = 5;
@@ -6788,7 +6788,7 @@ talent.TA1G.position = '-40px -240px'
 talent.TA1G.parent = "TA1E"
 talent.TA1G.name = "Prestidigitation";
 talent.TA1G.category = "Passive";
-talent.TA1G.description = "Increases Max SP by 7% of your Strenght <FONT COLOR='gray'> (Max 60%)";
+talent.TA1G.description = "Increases Max SP by 7% of your Strength <FONT COLOR='gray'> (Max 60%)";
 talent.TA1G.logic = 'Math.min(playerStrength * 0.0007, 0.6)';
 
 talent.TA1H = {};
@@ -6796,7 +6796,7 @@ talent.TA1H.position = '-100px -220px'
 talent.TA1H.parent = "TA1E"
 talent.TA1H.name = "Cleanse";
 talent.TA1H.category = "Skill";
-talent.TA1H.description = "Purifies the body, <span style='color:orange'> removing one negative debuff from yourself, and dealing "+beautify(skillDmg7*100)+"% of your strenght as "+deificIcon+"Deific Damage.</span> Only deals damage if the purification succeeds"; 
+talent.TA1H.description = "Purifies the body, <span style='color:orange'> removing one negative debuff from yourself, and dealing "+beautify(skillDmg7*100)+"% of your strength as "+deificIcon+"Deific Damage.</span> Only deals damage if the purification succeeds"; 
 talent.TA1H.cast = "castCleanse()";
 talent.TA1H.cost = 10;
 talent.TA1H.cd = 5;
@@ -6822,7 +6822,7 @@ talent.TG0.position = '60px 60px'
 talent.TG0.parent = "T0"
 talent.TG0.name = "Gambler";
 talent.TG0.category = "Class";
-talent.TG0.description = 'Have you ever considered using your crippling addiction as a weapon? Myriad of cards and dice shall trump over your foes.<br><br><span class="logStat">[Innate Skill: Card Fan]</span><br>Throws 3 sharp cards, <span style="color:orange"> dealing '+beautify(skillDmg1*100)+'% of your strenght as '+mightIcon+'Might Damage 3 times</span>';
+talent.TG0.description = 'Have you ever considered using your crippling addiction as a weapon? Myriad of cards and dice shall trump over your foes.<br><br><span class="logStat">[Innate Skill: Card Fan]</span><br>Throws 3 sharp cards, <span style="color:orange"> dealing '+beautify(skillDmg1*100)+'% of your strength as '+mightIcon+'Might Damage 3 times</span>';
 
 talent.TG0B = {};
 talent.TG0B.position = '50px 120px'
@@ -6844,7 +6844,7 @@ talent.TG0BASE = {};
 talent.TG0BASE.position = '9999px 9999px'
 talent.TG0BASE.name = "Card Fan";
 talent.TG0BASE.category = "Skill";
-talent.TG0BASE.description = "Throws 3 sharp cards, <span style='color:orange'> dealing x% of your strenght as "+mightIcon+"Might Damage 3 times</span>"; 
+talent.TG0BASE.description = "Throws 3 sharp cards, <span style='color:orange'> dealing x% of your strength as "+mightIcon+"Might Damage 3 times</span>"; 
 talent.TG0BASE.cast = "castCardFan();";
 talent.TG0BASE.cost = 1;
 talent.TG0BASE.cd = 1;
@@ -6864,7 +6864,7 @@ talent.TG1C.position = '110px 110px'
 talent.TG1C.parent = "TG1"
 talent.TG1C.name = "Roll the Dice!";
 talent.TG1C.category = "Skill";
-talent.TG1C.description = "Rolls magical dice with 3 possible outcomes; <span style='color:orange'> Increase Haste, Critical Chance or Strenght for 20 seconds</span>"; 
+talent.TG1C.description = "Rolls magical dice with 3 possible outcomes; <span style='color:orange'> Increase Haste, Critical Chance or Strength for 20 seconds</span>"; 
 talent.TG1C.cast = "castRollTheDice()";
 talent.TG1C.cost = 10;
 talent.TG1C.cd = 30;
@@ -6890,7 +6890,7 @@ talent.TG2.position = '160px 90px'
 talent.TG2.parent = "TG1"
 talent.TG2.name = "Summon Jackpot";
 talent.TG2.category = "Skill";
-talent.TG2.description = "Pulls the lever on a magic jackpot, with 3 possible outcomes; <span style='color:orange'> Hurls a fireball dealing "+beautify(skillDmg7*100)+"% of your strenght as "+elementalIcon+"Elemental Damage, Heals 10% of your Max HP, or have a chance of backfiring</span>"; 
+talent.TG2.description = "Pulls the lever on a magic jackpot, with 3 possible outcomes; <span style='color:orange'> Hurls a fireball dealing "+beautify(skillDmg7*100)+"% of your strength as "+elementalIcon+"Elemental Damage, Heals 10% of your Max HP, or have a chance of backfiring</span>"; 
 talent.TG2.cast = "castSummonJackpot()"
 talent.TG2.cost = 3;
 talent.TG2.cd = 10;
@@ -6936,7 +6936,7 @@ talent.TG3.position = '140px 150px'
 talent.TG3.parent = "TG2"
 talent.TG3.name = "Nat D20";
 talent.TG3.category = "Passive";
-talent.TG3.description = "Increases Drop Chance by 6% of your Strenght <FONT COLOR='gray'>(Max 30%)"
+talent.TG3.description = "Increases Drop Chance by 6% of your Strength <FONT COLOR='gray'>(Max 30%)"
 talent.TG3.logic = 'Math.min(playerStrength * 0.0006, 0.3)';
 
 talent.TI0 = {};
@@ -6944,7 +6944,7 @@ talent.TI0.position = '-60px 60px'
 talent.TI0.parent = "T0"
 talent.TI0.name = "Instrumentalist";
 talent.TI0.category = "Class";
-talent.TI0.description = 'Charm your enemies and play requiems for their demise.<br><br><span class="logStat">[Innate Skill: Riff Tempo]</span><br>Plays a rhythm-guided riff, <span style="color:orange"> dealing '+beautify(skillDmg3*100)+'% of your strenght as '+natureIcon+'Nature Damage 10 times</span>';
+talent.TI0.description = 'Charm your enemies and play requiems for their demise.<br><br><span class="logStat">[Innate Skill: Riff Tempo]</span><br>Plays a rhythm-guided riff, <span style="color:orange"> dealing '+beautify(skillDmg3*100)+'% of your strength as '+natureIcon+'Nature Damage 10 times</span>';
 
 talent.TI0B = {};
 talent.TI0B.position = '-50px 110px'
@@ -6957,7 +6957,7 @@ talent.TI0BASE = {};
 talent.TI0BASE.position = '9999px 9999px'
 talent.TI0BASE.name = "Riff Tempo";
 talent.TI0BASE.category = "Skill";
-talent.TI0BASE.description = "Plays a rhythm-guided riff, <span style='color:orange'> dealing "+beautify(skillDmg2*100)+"% of your strenght as "+natureIcon+"Nature Damage 10 times</span>"; 
+talent.TI0BASE.description = "Plays a rhythm-guided riff, <span style='color:orange'> dealing "+beautify(skillDmg2*100)+"% of your strength as "+natureIcon+"Nature Damage 10 times</span>"; 
 talent.TI0BASE.cast = "castRiffTempo()"
 talent.TI0BASE.cost = 3;
 talent.TI0BASE.cd = 20;
@@ -6993,7 +6993,7 @@ talent.TI1.position = '-120px 70px'
 talent.TI1.parent = "TI0"
 talent.TI1.name = "Conjure Violin";
 talent.TI1.category = "Skill";
-talent.TI1.description = "Summons a magic violin to fight alongside you, <span style='color:orange'> dealing "+beautify(skillDmg3*100)+"% of your strenght as "+natureIcon+"Nature Damage every time you attack</span>"; 
+talent.TI1.description = "Summons a magic violin to fight alongside you, <span style='color:orange'> dealing "+beautify(skillDmg3*100)+"% of your strength as "+natureIcon+"Nature Damage every time you attack</span>"; 
 talent.TI1.cast = 'castConjureViolin()';
 talent.TI1.cost = 15;
 talent.TI1.cd = 35;
@@ -7029,7 +7029,7 @@ talent.TI2B.position = '-210px 140px'
 talent.TI2B.parent = "TI2"
 talent.TI2B.name = "Perish Song";
 talent.TI2B.category = "Skill";
-talent.TI2B.description = "Plays a requiem of death, inflicting a debuff lasting 20 seconds that deals<span style='color:orange'> "+beautify(skillDmg7*100)+"% of your strenght as "+occultIcon+"Occult Damage once it expires</span>"; 
+talent.TI2B.description = "Plays a requiem of death, inflicting a debuff lasting 20 seconds that deals<span style='color:orange'> "+beautify(skillDmg7*100)+"% of your strength as "+occultIcon+"Occult Damage once it expires</span>"; 
 talent.TI2B.cast = "castPerishSong()";
 talent.TI2B.cost = 10;
 talent.TI2B.cd = 30;
@@ -7055,7 +7055,7 @@ talent.TI3B.position = '-190px 190px'
 talent.TI3B.parent = "TI3"
 talent.TI3B.name = "Song of Healing";
 talent.TI3B.category = "Skill";
-talent.TI3B.description = "Plays a requiem of life, <span style='color:orange'> healing "+beautify(skillDmg4*100)+"% of your strenght every second for 20 seconds</span>"; 
+talent.TI3B.description = "Plays a requiem of life, <span style='color:orange'> healing "+beautify(skillDmg4*100)+"% of your strength every second for 20 seconds</span>"; 
 talent.TI3B.cast = "castSongOfHealing()";
 talent.TI3B.cost = 10;
 talent.TI3B.cd = 30;
@@ -7102,7 +7102,7 @@ buildings.B2.img = "C10";
 
 buildings.B3 = {};
 buildings.B3.name = 'Metal Workshop';
-buildings.B3.description = 'Increases Strenght by 6% per level<br><br>';
+buildings.B3.description = 'Increases Strength by 6% per level<br><br>';
 buildings.B3.price = 300;
 buildings.B3.item1 = 'I196';
 buildings.B3.item1Amount = 5;
