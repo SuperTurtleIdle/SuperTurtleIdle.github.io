@@ -96,7 +96,7 @@ function tooltipLog(i) {
   
 
 
-    if (i.startsWith("L1")) { 
+    if (i.startsWith("L1") || logs[i].tag === "upper") { 
 
       did("tooltipArrowUp").style.display = 'flex'
       did("tooltipArrow").style.display = 'none'

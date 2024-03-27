@@ -285,7 +285,7 @@ if (disableArmory){
 
 multiplicativeSellValue = 1 + armorymillionaireStatUp;
 
-multiplicativeDropChance = 1 + items.I11.statUp + buffs.B11.statUp + sakuraDropUp + buffs.B24.statUp + talent.TA1E.statUp + talent.TG3.statUp + buffs.B36.statUp + items.I184.statUp + buffs.B55.statUp + collectionForagingStatUp + armoryforgottenStatUp + talent.TG2E.statUp
+multiplicativeDropChance = 1 + items.I11.statUp + buffs.B11.statUp + sakuraDropUp + buffs.B24.statUp + talent.TA1E.statUp + talent.TG3.statUp + buffs.B36.statUp + items.I184.statUp + buffs.B55.statUp + collectionForagingStatUp + armoryforgottenStatUp + talent.TG2E.statUp + buffs.B29.statUp
 
 multiplicativeEXPGain = 1 + bluemoonExpUp + buffs.B9.statUp + buffs.B10.statUp + buffs.B23.statUp + talent.TG1D.statUp + items.I172.statUp + buffs.B35.statUp + items.I193.statUp + armorybeastfallenStatUp + talent.TI2C.statUp
 
@@ -311,7 +311,7 @@ armorMightDamage = headAdditiveMightDamage + chestAdditiveMightDamage + legsAddi
 additiveMightDamage = weaponMightDamage + armorMightDamage
 playerTotalMightDamage = (playerStrength/10 + additiveMightDamage) * multiplicativeMightDamage;
 
-multiplicativeElementalDamage = (( 1 + buffs.B18.statUp) + talent.TA3.statUp + buffs.B29.statUp + buffs.B30.statUp + items.I173.statUp + buffs.B40.statUp)* elementalStampStatUp;
+multiplicativeElementalDamage = (( 1 + buffs.B18.statUp) + talent.TA3.statUp + buffs.B30.statUp + items.I173.statUp + buffs.B40.statUp)* elementalStampStatUp;
 additiveElementalDamage = weaponElementalDamage
 playerTotalElementalDamage = (playerStrength/10 + additiveElementalDamage) * multiplicativeElementalDamage
 
@@ -1364,7 +1364,7 @@ items.I110.use = 'removeBuffs("food"); buffs.B15.time=1800; playerBuffs();playSo
 
 items.I129 = {};
 items.I129.name = 'Pumpkin Spice Latte';
-items.I129.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increases '+elementalIcon+'Elemental Damage by 50% for 30 minutes <FONT COLOR="gray">(Only one food buff can be active at a time)'
+items.I129.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increases Drop Rate by 20% for 30 minutes <FONT COLOR="gray">(Only one food buff can be active at a time)'
 items.I129.flavor = '"That will be 12.99$."';
 items.I129.quality = 'Uncommon';
 items.I129.sell = 800;
@@ -1670,7 +1670,7 @@ items.I219.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Us
 items.I219.flavor = '"...b-ar...s-ek...se-k...le-t..."';
 items.I219.quality = 'Epic';
 items.I219.sell = 3000;
-items.I219.use = 'if (rpgPlayer.weaponSlot!=="none"){ playSound("audio/craft.mp3"); items[rpgPlayer.weaponSlot].count++; ; animParticleBurst(7 , "particleLight", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); items.I219.count--; ;}';
+items.I219.use = 'if (rpgPlayer.weaponSlot!=="none" && items[rpgPlayer.weaponSlot].count!==items[rpgPlayer.weaponSlot].max){ playSound("audio/craft.mp3"); items[rpgPlayer.weaponSlot].count++; ; animParticleBurst(7 , "particleLight", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); items.I219.count--; ;}';
 
 items.I174 = {}; 
 items.I174.name = 'Dungeon Voucher';
@@ -4299,8 +4299,8 @@ buffs.B28A.stacks = 0;
 
 buffs.B29 = {};
 buffs.B29.name = 'Pumpkin Spice Latte';
-buffs.B29.description = '<FONT COLOR="#8fbaff">Elemental Damage increased by 50%';
-buffs.B29.effect = 'buffEffect(0.5, "B29")';
+buffs.B29.description = '<FONT COLOR="#8fbaff">Drop Rate increased by 20%';
+buffs.B29.effect = 'buffEffect(0.2, "B29")';
 buffs.B29.player = true;
 buffs.B29.buff = true;
 buffs.B29.tag = 'food';
@@ -5519,7 +5519,7 @@ recipes.EN10.amount3 = 10;
 recipes.EN10.unlocked = false;
 
 recipes.GS1 = {};
-recipes.GS1.level = 24;
+recipes.GS1.level = 20;
 recipes.GS1.exp = 100;
 recipes.GS1.timer = 1;
 recipes.GS1.item = 'I194';
@@ -5533,7 +5533,7 @@ recipes.GS1.reagent4 = 'I57';
 recipes.GS1.amount4 = 30;
 
 recipes.GS2 = {};
-recipes.GS2.level = 24;
+recipes.GS2.level = 20;
 recipes.GS2.exp = 100;
 recipes.GS2.timer = 1;
 recipes.GS2.item = 'I195';
@@ -5547,7 +5547,7 @@ recipes.GS2.reagent4 = 'I165';
 recipes.GS2.amount4 = 30;
 
 recipes.GS3 = {};
-recipes.GS3.level = 24;
+recipes.GS3.level = 20;
 recipes.GS3.exp = 100;
 recipes.GS3.timer = 1;
 recipes.GS3.item = 'I196';
@@ -5561,7 +5561,7 @@ recipes.GS3.reagent4 = 'I71';
 recipes.GS3.amount4 = 30;
 
 recipes.GS4 = {};
-recipes.GS4.level = 24;
+recipes.GS4.level = 20;
 recipes.GS4.exp = 100;
 recipes.GS4.timer = 1;
 recipes.GS4.item = 'I197';
@@ -5575,7 +5575,7 @@ recipes.GS4.reagent4 = 'I100';
 recipes.GS4.amount4 = 30;
 
 recipes.GS5 = {};
-recipes.GS5.level = 24;
+recipes.GS5.level = 20;
 recipes.GS5.exp = 100;
 recipes.GS5.timer = 1;
 recipes.GS5.item = 'I197A';
@@ -6172,12 +6172,14 @@ logs.P22B.description = "Touch slimy meat a bunch of times";
 logs.P22B.hint = '"Squish Splosh Splooch."';
 logs.P22B.insight = 5;
 logs.P22B.logic = 'meatBeat>20';
+logs.P22B.tag = 'upper';
 
 logs.P23 = {}
 logs.P23.name = "Pay 2 Win";
 logs.P23.description = "Buy this book out of a store";
 logs.P23.hint = '"It just doesnt feel morally right, right?"';
 logs.P23.insight = 5;
+logs.P23.tag = 'upper';
 
 logs.P24 = {}
 logs.P24.name = "Nothing Like The Present";
@@ -6185,6 +6187,7 @@ logs.P24.description = "Recieve a present from your turtle";
 logs.P24.hint = '"Repaying just a bit of all your kindness."';
 logs.P24.insight = 5;
 logs.P24.logic = 'stats.recievedPresents>0';
+logs.P24.tag = 'upper';
 
 logs.P25 = {}
 logs.P25.name = "Grateful Representation";
@@ -6192,6 +6195,7 @@ logs.P25.description = "Recieve 15 presents from your turtle";
 logs.P25.hint = '"It seems she took a liking to you."';
 logs.P25.insight = 15;
 logs.P25.logic = 'stats.recievedPresents>15';
+logs.P25.tag = 'upper';
 
 logs.P26 = {}
 logs.P26.name = "Unpresented Betrayal";
@@ -6199,6 +6203,7 @@ logs.P26.description = "Sell a present from your turtle";
 logs.P26.hint = '"Totally uncool, dude."';
 logs.P26.insight = 5;
 logs.P26.logic = '';
+logs.P26.tag = 'upper';
 
 logs.P27 = {}
 logs.P27.name = "Apprentice Workman";
@@ -6206,6 +6211,7 @@ logs.P27.description = "Reach Level 10 In Any Job";
 logs.P27.hint = '"Break a leg."';
 logs.P27.insight = 5;
 logs.P27.logic = 'jobs.blacksmith.level>9 || jobs.cooking.level>9 || jobs.alchemy.level>9 || jobs.engineering.level>9';
+logs.P27.tag = 'upper';
 
 logs.P28 = {}
 logs.P28.name = "Master Of My Craftship";
@@ -6213,6 +6219,7 @@ logs.P28.description = "Reach Level 20 In Any Job";
 logs.P28.hint = '"Thats a very disciplined tortuga."';
 logs.P28.insight = 10;
 logs.P28.logic = 'jobs.blacksmith.level>19 || jobs.cooking.level>19 || jobs.alchemy.level>19 || jobs.engineering.level>19';
+logs.P28.tag = 'upper';
 
 logs.P29 = {}
 logs.P29.name = "Vive la Révolution";
@@ -6220,6 +6227,7 @@ logs.P29.description = "Craft 1000 Items";
 logs.P29.hint = '"Really putting the \'Craft\' in TurtleCraft."';
 logs.P29.insight = 10;
 logs.P29.logic = 'stats.craftedItems>999';
+logs.P29.tag = 'upper';
 
 logs.P29A = {}
 logs.P29A.name = "Turtle Labor";

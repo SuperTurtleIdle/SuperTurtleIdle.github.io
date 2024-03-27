@@ -988,7 +988,7 @@ animation: shakeAndGrow 1s infinite;
 #penguinRecap h2{position: absolute; right: 1.5%; top: 2%; font-family: fredoka;}
 #penguinRecap strong{color: white;}
 #penguinRecap img{height: 80%;width: 7%; justify-self: center; margin: 0 0 0 2%}
-#penguinRecap span img{height: 25%; width: auto; margin: -0.5% 0%; margin-left: 0.5%;}
+#penguinRecap span img{height: 20px; width: auto; margin: -0.5% 0%; margin-left: 0.5%;}
 
 #unlockPanel {
     
@@ -1777,6 +1777,7 @@ pointer-events: none;
 #achievementListing {
     background: transparent;
     display: flex;
+    align-content: flex-start;
     flex-wrap: wrap;
     overflow-y: scroll;
     padding: 1% 1%;
@@ -2520,7 +2521,7 @@ background: transparent;
     min-width: 40px;
 }
 
-.shopItemCasing .itemSlot{ transition: all 0.5s;}
+.shopItemCasing .itemSlot{ transition: all 0.2s;}
 
 .shopItemCasingNoHover .itemSlot{ transition: all 0.2s;}
 
@@ -2563,11 +2564,6 @@ background: transparent;
 }
 
 
-.shopItemCasing:hover{
-    height: 3vw;
-    width: 3vw;
-    transition: all 0.5s;
-}
 
 #shopListing{
     background: transparent;

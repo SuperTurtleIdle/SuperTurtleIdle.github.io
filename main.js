@@ -1174,7 +1174,7 @@ function unlocksReveal(){
     if (unlocks.itemOfTheDay) did('itemOfTheDay').style.display = "flex";
     if (unlocks.journal) did('achievementsTab').style.display = "flex";
     if (unlocks.penguins) {did('disablePenguinRecapButton').style.display = "inline"; did('penguinIndicatorButton').style.display = "flex"; did('penguinIndicator').style.display = "flex"; }
-    if (unlocks.inventorySorting) did('inventorySorters').style.display = "flex";
+    if (unlocks.inventorySorting) did('inventorySorters2').style.display = "flex";
     if (unlocks.shop) {did('shopButton').className = "gearButtonInactive"; if (stats.currentArea !== "A7") did('shopButton').innerHTML = "Shop"; }
     if (unlocks.dungeons) {did('dungeonButton').innerHTML = "Dungeon"; did('dungeonButton').className = "gearButtonInactive"}
     if (unlocks.areas) {did('areaButton').innerHTML = "Area"; did('areaButton').className = "gearButtonInactive"}

@@ -354,6 +354,7 @@ function hpRegen() { //additionally manages death
     
   } else {
     //if player dead
+    if (rpgPlayer.hp < 0) rpgPlayer.hp=0;
     if (rpgPlayer.hp < playerMaxHp) rpgPlayer.hp += playerHpRegen / 10;
     playerUpdate()
     playSound("audio/throw.mp3");
@@ -2299,7 +2300,7 @@ function createShowdown() {
       did("showdownTab").appendChild(div);
 
       did(i + "showdown").addEventListener("click", function () {
-        if (!showdownTime) {
+        if (!showdownTime && skirmishTime===false) {
           stats.currentEnemy = showdown[i].enemy; //failsafe
           playSound("audio/arena.mp3")
           deleteEnemy(showdown[i].enemy);
@@ -2386,7 +2387,7 @@ function createSkirmish() {
       did("skirmishTab").appendChild(div);
 
       did(i + "skirmish").addEventListener("click", function () {
-        if (!skirmishTime) {
+        if (!showdownTime && skirmishTime===false) {
           playSound("audio/arena.mp3")
           skirmishTimer=90
           stats.currentEnemy = skirmish[i].wave1;
