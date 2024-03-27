@@ -287,6 +287,7 @@ for (i in buffs) if (buffs[i].time>0) eval(buffs[i].attackChance)
 
 if (currentSet==="tiger") if (rng(1,3)===1) castJungleKingSet()
 if (currentSet==="pringu") castPringuSet()
+if (currentSet==="captain") if (rng(1,30)===1) castGhastlyPirateSet()
 
 }
 

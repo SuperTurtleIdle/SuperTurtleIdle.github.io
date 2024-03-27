@@ -294,11 +294,11 @@ additiveMaxHp = armorAdditiveMaxHp + buffs.B1.statUp + clothTier
 multiplicativeMaxHp = 1 + (buildings.B1.statUp + talent.TA2.statUp + buffs.B12.statUp + collectionMiningStatUp + armorymasterworkStatUp)
 playerMaxHp = (rpgPlayer.baseMaxHp + additiveMaxHp) * (multiplicativeMaxHp);
 
-multiplicativeStrength = 1 + talent.TI1C.statUp + buildings.B3.statUp + buffs.B45.statUp + collectionFishingStatUp
+multiplicativeStrength = 1 + talent.TI1C.statUp + buildings.B3.statUp + buffs.B45.statUp + collectionFishingStatUp + buffs.B61.statUp
 playerStrength = rpgPlayer.baseStrength * multiplicativeStrength;
 playerMultihit = 1 * multihitStampStatUp;
 
-multiplicativeCritChance = 1 + talent.TA1C.statUp + talent.TI0E.statUp + buffs.B46.statUp + collectionRelicsStatUp
+multiplicativeCritChance = 1 + talent.TA1C.statUp + talent.TI0E.statUp + buffs.B46.statUp + collectionRelicsStatUp + buffs.B62.statUp
 playerCritChance = (1 + items.I15.statUp ) * multiplicativeCritChance * critStampStatUp;
 
 multiplicativeNatureDamage = (1 + buffs.B4.statUp + buffs.B15.statUp + items.I44.statUp + buffs.B18.statUp + buffs.B19.statUp + talent.TI1B.statUp + talent.TI3.statUp) * natureStampStatUp;
@@ -329,7 +329,7 @@ armorAdditiveRegen = headAdditiveRegen + chestAdditiveRegen + legsAdditiveRegen 
 multiplicativeRegen = 1 + buffs.B14.statUp + buildings.B2.statUp
 playerHpRegen = (rpgPlayer.baseHpRegen + additiveRegen + armorAdditiveRegen) * multiplicativeRegen;
 
-multiplicativeHaste = 1 - buffs.B7.statUp - buffs.B47.statUp
+multiplicativeHaste = 1 - buffs.B7.statUp - buffs.B47.statUp - buffs.B63.statUp
 additiveHaste = weaponHaste;
 playerHaste = Math.max((rpgPlayer.baseHaste - additiveHaste) * multiplicativeHaste, 500)  
 
@@ -2472,7 +2472,7 @@ items.I143.tierDesc2 = "I146";
 items.I143.tierDesc3 = "I145";
 items.I143.tierDesc4 = "I147";
 items.I143.tierDesc5 = "I143";
-items.I143.tierArmorBonus = "★ Set bonus [5]: Your Might attacks have a high chance to lacerate the enemy for 1800-2000 "+mightIcon+"Might Damage";
+items.I143.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
 items.I143.sell = 35000;
 items.I143.max = 10;
 items.I143.use = 'gearSwap(items.I143.id, rpgPlayer.feetSlot, "rpgFeetSlot", "feet")'
@@ -2490,7 +2490,7 @@ items.I144.tierDesc2 = "I146";
 items.I144.tierDesc3 = "I145";
 items.I144.tierDesc4 = "I147";
 items.I144.tierDesc5 = "I143";
-items.I144.tierArmorBonus = "★ Set bonus [5]: Your Might attacks have a high chance to lacerate the enemy for 1800-2000 "+mightIcon+"Might Damage";
+items.I144.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
 items.I144.sell = 35000;
 items.I144.max = 10; 
 items.I144.use = 'gearSwap(items.I144.id, rpgPlayer.headSlot, "rpgHeadSlot", "head")'
@@ -2508,7 +2508,7 @@ items.I145.tierDesc2 = "I146";
 items.I145.tierDesc3 = "I145";
 items.I145.tierDesc4 = "I147";
 items.I145.tierDesc5 = "I143";
-items.I145.tierArmorBonus = "★ Set bonus [5]: Your Might attacks have a high chance to lacerate the enemy for 1800-2000 "+mightIcon+"Might Damage";
+items.I145.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
 items.I145.sell = 35000;
 items.I145.max = 10;
 items.I145.use = 'gearSwap(items.I145.id, rpgPlayer.handsSlot, "rpgHandsSlot", "hands")'
@@ -2526,7 +2526,7 @@ items.I146.tierDesc2 = "I146";
 items.I146.tierDesc3 = "I145";
 items.I146.tierDesc4 = "I147";
 items.I146.tierDesc5 = "I143";
-items.I146.tierArmorBonus = "★ Set bonus [5]: Your Might attacks have a high chance to lacerate the enemy for 1800-2000 "+mightIcon+"Might Damage";
+items.I146.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
 items.I146.sell = 35000;
 items.I146.max = 10;
 items.I146.use = 'gearSwap(items.I146.id, rpgPlayer.chestSlot, "rpgChestSlot", "chest")'
@@ -2544,7 +2544,7 @@ items.I147.tierDesc2 = "I146";
 items.I147.tierDesc3 = "I145";
 items.I147.tierDesc4 = "I147";
 items.I147.tierDesc5 = "I143";
-items.I147.tierArmorBonus = "★ Set bonus [5]: Your Might attacks have a high chance to lacerate the enemy for 1800-2000 "+mightIcon+"Might Damage";
+items.I147.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
 items.I147.sell = 35000;
 items.I147.max = 10;
 items.I147.use = 'gearSwap(items.I147.id, rpgPlayer.legsSlot, "rpgLegsSlot", "legs")'
@@ -4550,6 +4550,31 @@ buffs.B60.description = '<FONT COLOR="#8fbaff">Unable to use Skills';
 buffs.B60.player = true;
 buffs.B60.effect = '';
 buffs.B60.img = 'img/src/buffs/B17.jpg';
+
+buffs.B61 = {};
+buffs.B61.name = 'Sea Chanty';
+buffs.B61.description = '<FONT COLOR="#8fbaff">Strenght increased by 20%';
+buffs.B61.effect = 'buffEffect(0.2, "B61")';
+buffs.B61.img = 'img/src/buffs/B18.jpg';
+buffs.B61.player = true;
+buffs.B61.buff = true;
+
+buffs.B62 = {};
+buffs.B62.name = 'Sea Chanty';
+buffs.B62.description = '<FONT COLOR="#8fbaff">Critical Chance increased by 20%';
+buffs.B62.effect = 'buffEffect(0.2, "B62")';
+buffs.B62.img = 'img/src/buffs/B18.jpg';
+buffs.B62.player = true;
+buffs.B62.buff = true;
+
+buffs.B63 = {};
+buffs.B63.name = 'Sea Chanty';
+buffs.B63.description = '<FONT COLOR="#8fbaff">Haste increased by 20%';
+buffs.B63.player = true;
+buffs.B63.effect = 'buffEffect(0.2, "B63")';
+buffs.B63.buff = true;
+buffs.B63.haste = true;
+buffs.B63.img = 'img/src/buffs/B18.jpg';
 
 Object.keys(buffs).forEach(function(key) {
   buffs[key].percentage = 1;      
