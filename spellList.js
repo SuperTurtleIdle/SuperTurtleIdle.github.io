@@ -875,6 +875,26 @@ function castSongOfHealing(){
         }, 1200);
     } 
 
+
+
+function castGhastlyPirateSet(){
+    animState("rpgPlayerImg", "gelatineHigh 0.4s 1");
+    animParticleBurst(8 , "particleNote", "playerPanel", 100);
+
+
+    
+        animState("rpgPlayerImg", "flash 0.5s 1");
+        animParticleBurst(5 , "particleLight", "playerPanel", 200);
+        
+        let rollRng = rng(1,3)
+        if (rollRng===1){ buffs.B61.time=20 }
+        if (rollRng===2){ buffs.B62.time=20 }    
+        if (rollRng===3){ buffs.B63.time=20 }
+        playerBuffs()
+
+        
+    } 
+
 function castPerishSong(){
     animState("rpgPlayerImg", "gelatineHigh 0.4s 1");
     animImageSplash("partiture", "enemyPanel", "downwards", -30);
