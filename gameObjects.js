@@ -287,7 +287,7 @@ multiplicativeSellValue = 1 + armorymillionaireStatUp;
 
 multiplicativeDropChance = 1 + items.I11.statUp + buffs.B11.statUp + sakuraDropUp + buffs.B24.statUp + talent.TA1E.statUp + talent.TG3.statUp + buffs.B36.statUp + items.I184.statUp + buffs.B55.statUp + collectionForagingStatUp + armoryforgottenStatUp + talent.TG2E.statUp + buffs.B29.statUp
 
-multiplicativeEXPGain = 1 + bluemoonExpUp + buffs.B9.statUp + buffs.B10.statUp + buffs.B23.statUp + talent.TG1D.statUp + items.I172.statUp + buffs.B35.statUp + items.I193.statUp + armorybeastfallenStatUp + talent.TI2C.statUp
+multiplicativeEXPGain = 1 + bluemoonExpUp + buffs.B9.statUp + buffs.B10.statUp + buffs.B23.statUp + talent.TG1D.statUp + items.I172.statUp + buffs.B35.statUp + items.I193.statUp + armorybeastfallenStatUp + talent.TI2C.statUp + talent.TI0D.statUp
 
 armorAdditiveMaxHp = headAdditiveMaxHp + chestAdditiveMaxHp + legsAdditiveMaxHp + feetAdditiveMaxHp + handsAdditiveMaxHp + ringAdditiveMaxHp
 additiveMaxHp = armorAdditiveMaxHp + buffs.B1.statUp + clothTier
