@@ -2521,6 +2521,23 @@ background: transparent;
     min-width: 40px;
 }
 
+.itemLock{
+    background: transparent;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: useSkill 1 0.2s;
+}
+
+
+@keyframes newItemGot{
+
+0%{ box-shadow: cyan 0px 0px 10px, cyan 0px 0px 10px, cyan 0px 0px 10px;  }
+    
+100%{ box-shadow: "none"; }
+
+}
+
 .shopItemCasing .itemSlot{ transition: all 0.2s;}
 
 .shopItemCasingNoHover .itemSlot{ transition: all 0.2s;}
@@ -2902,7 +2919,6 @@ z-index: 20
     background: transparent;
     bottom: -70%;
 }
-
 
 .logHeader{
     height: 3vh;
@@ -3880,6 +3896,7 @@ background: rgba(47, 34, 22, 0.77);
     font-size: 1.3vw;
     border-bottom: 0.7px solid #906F48;
     flex-shrink: 0;
+    position: relative;
 }
 
 #mailButton{
@@ -4002,7 +4019,7 @@ background: rgba(47, 34, 22, 0.77);
     align-self: center;
 }
 
-#sellModeText{
+#sellModeText, #lockModeText{
     
     font-size: 2vh;
     margin-left: 2%;
@@ -4019,7 +4036,7 @@ background: rgba(47, 34, 22, 0.77);
     background: transparent;
 }
 
-#sellModeText span{
+#sellModeText span, #lockModeText span{
         font-size: 2vh;
      background: transparent;
      border: rgb(255, 69, 69) solid 2px;
@@ -4031,7 +4048,10 @@ background: rgba(47, 34, 22, 0.77);
     
 }
 
-
+#lockModeText span{
+    border: rgb(111, 112, 155) solid 2px;
+    color: rgb(111, 112, 155);
+}
 
 .rpgPanel{
 background: rgba(34, 32, 38, 0.77);
@@ -4052,24 +4072,29 @@ background: rgba(34, 32, 38, 0.77);
     min-height: 31.3%
 }
 
-#inventorySorters {
+#inventorySorters, #inventorySorters3 {
     display: flex;
     gap: 0.2vw;
     margin-left: 0.5vw;
     margin-top: auto;
 }
 
-#inventorySorters button{
+#inventorySorters button, #inventorySorters3 button{
     height: 2.7vh;
     width: 1.5vw;
     padding: 0;
     margin: 0;
 }
 
-#inventorySorters img{
+#inventorySorters img,#inventorySorters3 img{
     height: 2vh;
     padding: 0;
     margin: 0;
+}
+
+#inventorySorters3 {
+    position: absolute;
+    right: 4%;
 }
 
 .itemCount{

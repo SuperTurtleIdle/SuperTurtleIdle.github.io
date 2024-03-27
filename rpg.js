@@ -1167,7 +1167,7 @@ if (enemies.E27.killCount>0) { materialTable2.I40.P = 15; materialTable2.I58.P =
        if (did(dt + "item")){
         did(dt + "item").style.animation = "";
         void did(dt + "item").offsetWidth;
-        did(dt + "item").style.animation = "newItemGot 1s 1, levelUp 0.5s 1";
+        did(dt + "item").style.animation = "newItemGot 20s 1, levelUp 0.5s 1";
       }
 
       
@@ -1236,9 +1236,9 @@ function addItem() { //updates inventory items
         const itemdiv = document.createElement("div");
         itemdiv.id = items[i].id + "item";
         if (items[i].max === 1)
-          itemdiv.innerHTML = '<img id="'+i+'ItemImage"  src = "img/src/items/' + items[i].img + '.jpg">';
+          itemdiv.innerHTML = '<img id="'+i+'ItemImage"  src = "img/src/items/' + items[i].img + '.jpg"><span id="'+i+'ItemLock" style="display:none" class="itemLock">🔒</span>';
         else //if its not singular, add counter
-          itemdiv.innerHTML = '<img id="'+i+'ItemImage" src = "img/src/items/' + items[i].img + '.jpg"> <div class="itemCount" id="' + items[i].id + "itemCount" + '">' + items[i].count + "</div>";
+          itemdiv.innerHTML = '<img id="'+i+'ItemImage" src = "img/src/items/' + items[i].img + '.jpg"> <div class="itemCount" id="' + items[i].id + "itemCount" + '">' + items[i].count + '</div><span id="'+i+'ItemLock" style="display:none" class="itemLock">🔒</span>';
           
         itemdiv.className = "itemSlot";
 
@@ -1297,11 +1297,21 @@ function addItem() { //updates inventory items
         });
         }
 
+        itemdiv.addEventListener('click', function(event) { 
+          if (lockMode) {
+            playSound("audio/button4.mp3");
+            items[i].locked=true;
+            addItem();
+          }
+      });
+
         if (!items[i].gotOnce) items[i].gotOnce = true;
 
         sellItem(i);
       }
     }
+
+    if (items[i].locked) did(items[i].id + "ItemLock").style.display = "inline";
 
     if (did(items[i].id + "item")) {  //if it exists limit and update ammount
       if (items[i].max < items[i].count) items[i].count = items[i].max;
@@ -1390,11 +1400,57 @@ function itemUse(id, effect) { //right click functionality of items
   });
 }
 
+lockMode = false;
+
+function toggleSell(){
+
+
+  playSound("audio/button2.mp3")
+
+    if (!sellMode){
+      did("sellModeText").style.display = "inline";
+      sellMode = true;
+
+      lockMode = false;
+      did("lockModeText").style.display = "none";
+
+    }
+    else{
+      sellMode = false;
+      did("sellModeText").style.display = "none";
+    } 
+
+}
+
+function toggleLock(){
+
+
+  playSound("audio/button2.mp3")
+
+    if (!lockMode){
+      did("lockModeText").style.display = "inline";
+      lockMode = true;
+
+      sellMode = false;
+      did("sellModeText").style.display = "none";
+
+    }
+    else{
+      lockMode = false;
+      did("lockModeText").style.display = "none";
+    } 
+
+}
+
+
+
+
+
 stats.soldItems = 0;
 function sellItem(id) {
   did(id + "item").addEventListener("click", function () { //sell once
 
-    if (sellMode && items[id].sell !== 0 && !items[id].upgradeable) {
+    if (sellMode && items[id].sell !== 0 && !items[id].upgradeable && !items[id].locked) {
     if (rpgPlayer.headSlot!==id && rpgPlayer.chestSlot!==id && rpgPlayer.handsSlot!==id && rpgPlayer.weaponSlot!==id && rpgPlayer.ringSlot!==id && rpgPlayer.legsSlot!==id && rpgPlayer.trinketSlot!==id && rpgPlayer.feetSlot!==id) { //if the item is not equiped
       playSound("audio/heal.mp3");
       if (id==="I119") logs.P26.unlocked=true
@@ -1407,7 +1463,7 @@ function sellItem(id) {
       addItem();
       if (items[id].count<1) resetTooltip();
     }
-    } else if (sellMode && items[id].sell !== 0 && items[id].upgradeable) { //if its an upgradeable item
+    } else if (sellMode && items[id].sell !== 0 && items[id].upgradeable && !items[id].locked) { //if its an upgradeable item
       if (rpgPlayer.headSlot!==id && rpgPlayer.chestSlot!==id && rpgPlayer.handsSlot!==id && rpgPlayer.weaponSlot!==id && rpgPlayer.ringSlot!==id && rpgPlayer.legsSlot!==id && rpgPlayer.trinketSlot!==id && rpgPlayer.feetSlot!==id) { //if the item is not equiped
         playSound("audio/heal.mp3"); 
       rpgPlayer.coins += (items[id].sell*multiplicativeSellValue) * items[id].count ;
@@ -1426,7 +1482,7 @@ function sellItem(id) {
   });
 
   did(id + "item").addEventListener("contextmenu", function () { //sell all
-    if (sellMode && items[id].sell !== 0) {
+    if (sellMode && items[id].sell !== 0 && !items[id].locked) {
       playSound("audio/heal.mp3"); 
       if (id==="I119") logs.P26.unlocked=true
       rpgPlayer.coins += (items[id].sell*multiplicativeSellValue) * items[id].count ;
@@ -3244,6 +3300,9 @@ function tooltipItems(item) {
   if (did(item.id + "item")) {
     did(item.id + "item").addEventListener("mouseenter", function () {
       //on mouseenter
+
+      did(item.id + "item").style.animation = "none"
+
       did("tooltip").style.display = "flex";
       did("tooltipArrow").style.right = "23%";
 

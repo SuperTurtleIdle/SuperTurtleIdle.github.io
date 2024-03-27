@@ -349,7 +349,7 @@ playerCoinsPerClick = (10 + additiveCoinsPerClick) * multiplicativeCoinsPerClick
 playerClickRate = 100 / ( 1 + ( buffs.B27.statUp + buffs.B28.statUp ))
 
 additiveMaxMana = 100 + talent.TA0C.statUp + talent.TG2E.statUp;
-multiplicativeMaxMana = 1 + talent.TA1G.statUp + talent.TG1E.statUp + armoryreveredGot
+multiplicativeMaxMana = 1 + talent.TA1G.statUp + talent.TG1E.statUp + armoryreveredStatUp
 playerMaxMana = additiveMaxMana * multiplicativeMaxMana
 
 playerPresentsMinigame = 6 + talent.TA0B.statUp + talent.TG1D.statUp + talent.TI0B.statUp + items.I217.statUp
@@ -778,7 +778,7 @@ enemies.E27.attackChance = ' castInfernalus1(); if (currentHP < enemies.E27.hp*0
 
 enemies.E28 = {};
 enemies.E28.name = 'Dai-Goran';
-enemies.E28.level = '[lvl 17]';
+enemies.E28.level = '[lvl 37]';
 enemies.E28.hp = 4500000;
 enemies.E28.description = 'A legendary creature revered as a god of an ancient tribe.<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ Talon Quill: Applies Poison'
 enemies.E28.attack = 100000;
@@ -4025,6 +4025,7 @@ items.BR8.use = 'animParticleBurst(7 , "particleLight", "playerPanel", 0); animS
 
 Object.keys(items).forEach(function(key) {
   items[key].id = key;
+  items[key].locked = false;
   items[key].count = 0;
   if (key.startsWith("R")) {items[key].img = 'I103';} 
   else if (key.startsWith("B")) {items[key].img = 'I180';}

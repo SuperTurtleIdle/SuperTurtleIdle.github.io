@@ -997,6 +997,9 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
 
   saveData.savedItemArmory = {}; for (const i in items) { saveData.savedItemArmory[i] = items[i].armoryState;}
 
+  saveData.savedItemLocked = {}; for (const i in items) { saveData.savedItemLocked[i] = items[i].locked;}
+
+
     
   const JSONData = JSON.stringify(saveData);
   localStorage.setItem('saveData', JSONData);
@@ -1006,6 +1009,8 @@ function load() {
   const datosGuardados = localStorage.getItem('saveData');
   if (datosGuardados) { //checks if savedata available
     const parsedData = JSON.parse(datosGuardados);
+
+    for (const i in parsedData.savedItemLocked) { items[i].locked = parsedData.savedItemLocked[i];}
 
     for (const i in parsedData.savedItemArmory) { items[i].armoryState = parsedData.savedItemArmory[i];}
 
