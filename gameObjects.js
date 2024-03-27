@@ -1320,7 +1320,7 @@ items.I12.max = 5;
 
 items.I19 = {};
 items.I19.name = 'Lesser Healing Flask';
-items.I19.description = `'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Restores '+beautify(30000*multiplicativeHealingItems)+' Health'`;
+items.I19.description = `'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Restores '+beautify(30000*multiplicativeHealingItems)+' Health<br><FONT COLOR="gray">[You can only carry 5 of each healing items at a time]'`;
 items.I19.flavor = '"This potion operates by abruptly shattering your entire internal structure, causing your body to make an immediate effort to rebuild them in order to avert a sudden death. It also has a mild strawberry flavor."';
 items.I19.quality = 'Common';
 items.I19.sell = 500;
@@ -1570,7 +1570,7 @@ stats.stampsUsed = 0;
 
 items.I91 = {}; 
 items.I91.name = 'Wooden Stamper';
-items.I91.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Apply or reroll a random stamp to the currently equiped weapon, with low chance of adding multiple stamp.';
+items.I91.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Apply or reroll a random stamp to the currently equiped weapon, with low chance of adding multiple stamp<br><FONT COLOR="gray">[Stamps give specific damage bonuses to your weapon or, in rare cases, general ones such as Critical Chance]';
 items.I91.flavor = '"Pluck."';
 items.I91.quality = 'Uncommon';
 items.I91.sell = 100;
@@ -2888,7 +2888,7 @@ items.I157.use = ' playSound("audio/retro2.mp3"); animParticleBurst(5 , "particl
 
 items.I34 = {}; 
 items.I34.name = 'Dead Man Emblem';
-items.I34.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently enables the auto-summoning of bosses. Right click on the boss button to toggle';
+items.I34.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently enables the auto-summoning of bosses once the current one gets defeated. Right click on the boss button to toggle';
 items.I34.flavor = '"No creature should suffer this fate."';
 items.I34.quality = 'Upgrade';
 items.I34.sell = 0;
@@ -4681,7 +4681,7 @@ quests.A1Q3.rewardIcon = 'itemIcon("I59")';
 quests.A1Q4 = {};
 quests.A1Q4.name = 'Miners Guild Request';
 quests.A1Q4.difficulty = 2;
-quests.A1Q4.description = 'These scorpions keep blocking the road to our sweet, sweet rocks. Clear the road and well show you our rocky goodness. <br><br> <span style="color:#FFD100"> [Tip: You can click the turtle to pet it]';
+quests.A1Q4.description = 'These scorpions keep blocking the road to our sweet, sweet rocks. Clear the road and well show you our rocky goodness. <br><br> <span style="color:#FFD100"> [Tip: You can click the turtle to get coins]';
 quests.A1Q4.objective = 'Defeat 50 Stinglets';
 quests.A1Q4.logic = 'enemies.E2.killCount>49';
 quests.A1Q4.effect = 'areas.A1.unlockedOre = 1';

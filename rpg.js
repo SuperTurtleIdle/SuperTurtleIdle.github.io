@@ -2034,16 +2034,23 @@ addItem()
 //----------------------============UI============-----------------------
 //----------------------==========================-----------------------
 //#region UI
+
+let contextKey = "Control"
+function switchContextKey(){
+  if (settings.alternateContext) contextKey = "Alt"
+  else contextKey = "Control"
+}
+
 var sellMode = false;
 document.addEventListener("keydown", function (event) { //enable sell mode
-  if (event.key === "Control" || event.key === "Meta") {
+  if (event.key === contextKey) {
     sellMode = true;
     did("sellModeText").style.display = "inline";
   }
 });
 
 document.addEventListener("keyup", function (event) { //disable sell mode
-  if (event.key === "Control" || event.key === "Meta") {
+  if (event.key === contextKey) {
     sellMode = false;
     did("sellModeText").style.display = "none";
   }
@@ -3518,7 +3525,7 @@ function tooltipShopItem(outcome, shop) {
       tooltipHover = "shopItem"
 
       document.addEventListener("keydown", function (event) { 
-        if ((event.key === "Control" || event.key === "Meta") && tooltipHover === "shopItem") {
+        if (event.key === contextKey && tooltipHover === "shopItem") {
           did("tooltipName").textContent = items[outcome.item].name+" x10";
 
           did("tooltipDescription").innerHTML = '<div style=" text-align: center;background:transparent"><FONT COLOR="white"> Price: <FONT COLOR="#ffbd54">' + beautify(eval(shopItems[shop].price)*10) + ' '+coinIcon+'Turtle Coins<br></div><div class="separador"></div><FONT COLOR="white">' +  items[outcome.item].description + '<br><div class="separador"></div>';
@@ -3530,7 +3537,7 @@ function tooltipShopItem(outcome, shop) {
       });
 
       document.addEventListener("keyup", function (event) { 
-        if ((event.key === "Control" || event.key === "Meta") && tooltipHover === "shopItem") {
+        if (event.key === contextKey && tooltipHover === "shopItem") {
           did("tooltipName").textContent = items[outcome.item].name;
           
           did("tooltipDescription").innerHTML = '<div style=" text-align: center;background:transparent"><FONT COLOR="white"> Price: <FONT COLOR="#ffbd54">' + beautify(eval(shopItems[shop].price)) + ' '+coinIcon+'Turtle Coins<br></div><div class="separador"></div><FONT COLOR="white">' +  items[outcome.item].description + '<br><div class="separador"></div>';
@@ -4433,6 +4440,7 @@ function rpgInitialization() {
   createTalent();
   updateTalentUI();
   createShopHonor();
+  switchContextKey();
 
   if (stats.currentArea==="A7"){ //if the player loads in arena, dont show the quest tab
       did("showdownTab").style.display = "flex";

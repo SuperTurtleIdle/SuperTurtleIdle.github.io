@@ -77,6 +77,7 @@
             <span><button id="disableCombatAudio" onclick="toggleSettings('disableCombatAudio')">OFF</button> &nbsp; Mute fighting sounds only</span>
             <span><button id="disableCustomCursor" onclick="toggleSettings('disableCustomCursor'); setCursor()">OFF</button> &nbsp; Disable custom cursor</span>
             <span><button id="disableAutosave" onclick="toggleSettings('disableAutosave')">OFF</button> &nbsp; Disable autosave</span>
+            <span><button id="alternateContext" onclick="toggleSettings('alternateContext'); switchContextKey()">OFF</button> &nbsp; Switch Cntrl interaction for Alt</span>
             <span id="disablePenguinRecapButton" style="display: none;"><button id="disablePenguinRecap" onclick="toggleSettings('disablePenguinRecap')">OFF</button> &nbsp; Disable penguin recap window on startup</span>
 
             <h2>Performance</h2>
@@ -1014,7 +1015,7 @@
              <div class="panelConstruccionTitulo" id="travelLine" style="display:none"><span>Travel</span></div>
                 
                <div id="travelWrapper">
-            <div id="questButton" class="gearButtonActive" >Quest</div>
+            <div id="questButton" class="gearButtonActive" >Quest <img src="img/src/icons/exclamation.png" class="newContent"></div>
             <div id="shopButton" class="gearButtonLocked" >?????</div>       
             <div id="areaButton" class="gearButtonLocked" >?????</div>    
             <div id="dungeonButton" class="gearButtonLocked">?????</div> 
