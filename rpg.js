@@ -1683,8 +1683,8 @@ function specialButtonUi() { //shows or hides special buttons depending on zone
       if (stats.currentArea === "A7") {
         did("encounterWrapper").style.display = "none";
         did("enemyPanel").style.display = "none";
-        did('shopButton').innerHTML = "Skirmish";
-        did('questButton').innerHTML = "Showdown";
+        did('shopButton').textContent = "Skirmish";
+        did('questButton').textContent = "Showdown";
         did("honorSign").style.display = "flex";
         did("honorPilar").style.display = "flex";
 
@@ -1697,8 +1697,8 @@ function specialButtonUi() { //shows or hides special buttons depending on zone
         showdownTime = false;
         showdownTimer=0;
         did("enemyPanel").style.display = "flex";
-        did('shopButton').innerHTML = "Shop";
-        did('questButton').innerHTML = "Quest";
+        did('shopButton').textContent = "Shop";
+        did('questButton').textContent = "Quest";
         did("showdownUI").style.display = "none";
         did("skirmishUI").style.display = "none";
       }
@@ -2036,14 +2036,14 @@ addItem()
 //#region UI
 var sellMode = false;
 document.addEventListener("keydown", function (event) { //enable sell mode
-  if (event.key === "Control") {
+  if (event.key === "Control" || event.key === "Meta") {
     sellMode = true;
     did("sellModeText").style.display = "inline";
   }
 });
 
 document.addEventListener("keyup", function (event) { //disable sell mode
-  if (event.key === "Control") {
+  if (event.key === "Control" || event.key === "Meta") {
     sellMode = false;
     did("sellModeText").style.display = "none";
   }
@@ -3391,6 +3391,7 @@ statTips = [
 '<FONT COLOR="#edd585">If your Crit Chance is over 100%, you can deal crits that deal more damage than regular ones.<div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
 '<FONT COLOR="#edd585">Damage dealt by skills do not benefit from flat bonuses but do from percentage based ones such as food and potions.<div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
 '<FONT COLOR="#edd585">Additional gathering level that surpass the met requirement will transform into +1 extra drop per level.<div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
+'<FONT COLOR="#edd585">Fishing is exclusively affected by fishing level<div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
 '<FONT COLOR="#edd585">Additional fishing level will increase both the quality and quantity of the catch.<div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
 
 ]
@@ -3517,7 +3518,7 @@ function tooltipShopItem(outcome, shop) {
       tooltipHover = "shopItem"
 
       document.addEventListener("keydown", function (event) { 
-        if (event.key === "Control" && tooltipHover === "shopItem") {
+        if ((event.key === "Control" || event.key === "Meta") && tooltipHover === "shopItem") {
           did("tooltipName").textContent = items[outcome.item].name+" x10";
 
           did("tooltipDescription").innerHTML = '<div style=" text-align: center;background:transparent"><FONT COLOR="white"> Price: <FONT COLOR="#ffbd54">' + beautify(eval(shopItems[shop].price)*10) + ' '+coinIcon+'Turtle Coins<br></div><div class="separador"></div><FONT COLOR="white">' +  items[outcome.item].description + '<br><div class="separador"></div>';
@@ -3529,7 +3530,7 @@ function tooltipShopItem(outcome, shop) {
       });
 
       document.addEventListener("keyup", function (event) { 
-        if (event.key === "Control" && tooltipHover === "shopItem") {
+        if ((event.key === "Control" || event.key === "Meta") && tooltipHover === "shopItem") {
           did("tooltipName").textContent = items[outcome.item].name;
           
           did("tooltipDescription").innerHTML = '<div style=" text-align: center;background:transparent"><FONT COLOR="white"> Price: <FONT COLOR="#ffbd54">' + beautify(eval(shopItems[shop].price)) + ' '+coinIcon+'Turtle Coins<br></div><div class="separador"></div><FONT COLOR="white">' +  items[outcome.item].description + '<br><div class="separador"></div>';
