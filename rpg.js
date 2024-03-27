@@ -1299,8 +1299,13 @@ function addItem() { //updates inventory items
 
         itemdiv.addEventListener('click', function(event) { 
           if (lockMode) {
+            
+            if (!items[i].locked) items[i].locked=true;
+            else items[i].locked=false;
+            
             playSound("audio/button4.mp3");
-            items[i].locked=true;
+            
+            
             addItem();
           }
       });
@@ -1311,7 +1316,7 @@ function addItem() { //updates inventory items
       }
     }
 
-    if (items[i].locked) did(items[i].id + "ItemLock").style.display = "inline";
+    if (did(items[i].id + "ItemLock") && items[i].locked){ did(items[i].id + "ItemLock").style.display = "inline"; } else if (did(items[i].id + "ItemLock") && !items[i].locked) { did(items[i].id + "ItemLock").style.display = "none";}
 
     if (did(items[i].id + "item")) {  //if it exists limit and update ammount
       if (items[i].max < items[i].count) items[i].count = items[i].max;
