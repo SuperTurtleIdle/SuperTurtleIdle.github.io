@@ -1162,6 +1162,17 @@ if (enemies.E27.killCount>0) { materialTable2.I40.P = 15; materialTable2.I58.P =
         //because the die can land on 0, substract 1 to make for it
         rollcount = eval(table[dt].A)
         items[dt].count += rollcount;
+
+
+       if (did(dt + "item")){
+        did(dt + "item").style.animation = "";
+        void did(dt + "item").offsetWidth;
+        did(dt + "item").style.animation = "newItemGot 1s 1, levelUp 0.5s 1";
+      }
+
+      
+
+
         if ("R" in table[dt]){ //dynamic price adjuster
 
           if (table[dt].R === "high") items[dt].sell = Math.max(1000, stats.totalCoins*0.1)
@@ -4185,12 +4196,13 @@ stats.mysteryPresentsOpened = 0;
 
 document.addEventListener("contextmenu", function(event) { if (event.target && event.target.closest("#E15Enemy img")) { 
 
-  animState("enemyAnimation", "gelatineHigh 0.4s 1");
-  animParticleBurst(10 , "particleSpark", "enemyPanel", 0);
+
+  deleteEnemy();
+
   playSound("audio/button3.mp3")
 
 setTimeout(() => {
-  startMysteryMinigame(); resetTooltip(); deleteEnemy(); enemyUpdate(); 
+  startMysteryMinigame(); resetTooltip();enemyUpdate(); 
 }, 300);
  } });
 
@@ -4230,6 +4242,9 @@ for (var i = container.children.length; i >= 0; i--) {
 //present functionality
 function openPresent(present) {
   did(present).addEventListener("click", function clickHandler() {
+
+    
+    
 
     const div = document.createElement("div");
 
