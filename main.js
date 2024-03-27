@@ -33,14 +33,14 @@ function setCursor() {
     var estilo = document.createElement('style');
 
     if (!settings.disableCustomCursor) {
-        //document.body.style.cursor = "url('img/sys/cursorHand.png'), auto";
-        //estilo.innerHTML = ` button:hover { cursor: url('img/sys/cursorHand.png'), auto; } `;
-        //document.head.appendChild(estilo);
+        document.body.style.cursor = "url('img/sys/cursorHand.png'), auto";
+        estilo.innerHTML = ` button:hover { cursor: url('img/sys/cursorHand.png'), auto; } `;
+        document.head.appendChild(estilo);
         
     } else {
-        //document.body.style.cursor = "default";
-        //estilo.innerHTML = ` button:hover { cursor: default; } `;
-        //document.head.appendChild(estilo);
+        document.body.style.cursor = "default";
+        estilo.innerHTML = ` button:hover { cursor: default; } `;
+        document.head.appendChild(estilo);
     }
 
 }
