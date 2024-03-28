@@ -685,8 +685,7 @@ function postDamageCheck(damage){ //check after all the calculations (should had
 
 
 
-
-  if (damage === 69) logs.L1P4.unlocked = true;
+  if (damage.toFixed(0) == 69) logs.L1P4.unlocked = true;
   if (damage > 999) logs.P35.unlocked = true;
   if (damage > 99999) logs.P35A.unlocked = true;
   if (damage > 999999) logs.P35B.unlocked = true;
