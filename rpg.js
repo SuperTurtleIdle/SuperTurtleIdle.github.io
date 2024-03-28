@@ -3274,20 +3274,24 @@ function setBonus() {
   else if (h === "I133" && c === "I135" && l === "I136" && f === "I132" && d === "I134") { //jungle king
     did("rpgPlayerImg").src = "img/src/armor/A4.png";
     currentSet="tiger";
+    logs.L1P21.unlocked=true;
     updateAlignUi();
   }
   else if ( f === "I138" &&  h === "I139" && d === "I140" && c === "I141" && l === "I142") { //pringu
     did("rpgPlayerImg").src = "img/src/armor/A7.png";
     currentSet="pringu";
+    logs.L1P21.unlocked=true;
   }
   else if ( f === "I143" &&  h === "I144" && d === "I145" && c === "I146" && l === "I147") { //captain
     did("rpgPlayerImg").src = "img/src/armor/A8.png";
     currentSet="captain";
+    logs.L1P21.unlocked=true;
     did("rpgPlayerImg").style.opacity = 0.8
   } 
   else if ( h === "I74" && c === "I76" && l === "I77" && f === "I73" && d === "I75" ) { //explorer
     did("rpgPlayerImg").src = "img/src/armor/A3.png";
     currentSet="explorer";
+    logs.L1P21.unlocked=true;
     updateAlignUi();
   } 
   else if ( h === "I59" ) { //frog hat
