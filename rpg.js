@@ -680,6 +680,24 @@ function trinketEnemyKill() {}
 const typestrength = 1.3;
 const typeResist = 0.7;
 
+
+function postDamageCheck(damage){ //check after all the calculations (should had done this much sooner)
+
+
+
+
+  if (damage === 69) logs.L1P4.unlocked = true;
+  if (damage > 999) logs.P35.unlocked = true;
+  if (damage > 99999) logs.P35A.unlocked = true;
+  if (damage > 999999) logs.P35B.unlocked = true;
+
+
+
+
+
+}
+
+
 function critMark(number) {  return "!".repeat(Math.max(0, number)); }
 
 function enemyNatureDamage(damage, type){
@@ -705,24 +723,10 @@ function enemyNatureDamage(damage, type){
   damageText(beautify(damageDealt)+critMark(critChance-1), 'damageText', '#21b42d', icon, "enemyPanel");
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Nature Damage");
     
-  
-}
-
-function postDamageCheck(damage){ //check after all the calculations (should had done this much sooner)
-
-
-
-
-  if (damage === 69) logs.L1P4.unlocked = true;
-  if (damage > 999) logs.P35.unlocked = true;
-  if (damage > 99999) logs.P35A.unlocked = true;
-  if (damage > 999999) logs.P35B.unlocked = true;
-
-
-
-
+  postDamageCheck(damageDealt)
 
 }
+
 
 function enemyMightDamage(damage, type){
   let damageDealt = (damage + additiveMightDamage) * multiplicativeMightDamage;
@@ -748,7 +752,7 @@ function enemyMightDamage(damage, type){
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Might Damage");
 
     
-  postDamageCheck(damage)
+  postDamageCheck(damageDealt)
 
   if(stats.currentEnemy==="E12" && enemyPhase === 1){ castTerragosa3()}
 
@@ -778,7 +782,7 @@ function enemyElementalDamage(damage, type){
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Elemental Damage");
 
     
-  postDamageCheck(damage)
+  postDamageCheck(damageDealt)
 
   if(stats.currentEnemy==="E10"){ castCubomite()}
 
@@ -809,7 +813,7 @@ function enemyOccultDamage(damage, type){
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Occult Damage");
 
     
-  postDamageCheck(damage)
+  postDamageCheck(damageDealt)
 }
 
 function enemyDeificDamage(damage, type){
@@ -835,7 +839,7 @@ function enemyDeificDamage(damage, type){
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Deific Damage");
 
     
-  postDamageCheck(damage)
+  postDamageCheck(damageDealt)
 }
 
 function enemyBasicDamage(damage){
@@ -845,7 +849,7 @@ function enemyBasicDamage(damage){
   enemyUpdate();
   damageText(beautify(damageDealt), 'damageText', '#818181', icon, "enemyPanel");
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Damage");
-  postDamageCheck(damage)
+  postDamageCheck(damageDealt)
 }
 
 function enemyHealingDamage(healing){
