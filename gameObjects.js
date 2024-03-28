@@ -2764,6 +2764,7 @@ items.I117.use = 'gearSwap(items.I117.id, rpgPlayer.trinketSlot, "rpgTrinketSlot
 items.I117.stats = 'items.I117.statUp = 2;'
 items.I117.remove = 'items.I117.statUp = 0;'
 items.I117.statUp = 0;
+items.I117.series = 'forgotten';
 
 items.I168 = {};
 items.I168.name = 'Sand In a Jar';
