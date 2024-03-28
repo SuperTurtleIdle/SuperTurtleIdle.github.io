@@ -262,7 +262,7 @@ if (currentSet === "explorer") {exlorerTier = 200} else {exlorerTier = 0}
 multiplicativeHealingItems = 1 + items.I282.statUp;
 
 let collectionRelicsStatUp = relicsCollectiblesGot * 0.05; //crit chance
-let collectionFishingStatUp = fishingCollectiblesGot * 0.05; //strenght
+let collectionFishingStatUp = fishingCollectiblesGot * 0.05; //Strength
 let collectionMiningStatUp = miningCollectiblesGot * 0.05; //max hp
 let collectionForagingStatUp = foragingCollectiblesGot * 0.05; //drop chance
 
@@ -358,6 +358,9 @@ playerPresentMinigameTimer = 1200 * (1+talent.TG0B.statUp)
 multiplicativePenguinPower = 1 + buildings.B7.statUp
 playerPenguinPower = 100 * multiplicativePenguinPower
 
+playerManaRegen = playerMaxMana*0.002;
+
+if (rpgPlayer.hp > playerMaxHp) { rpgPlayer.hp = playerMaxHp }//prevents overhealing
      
 }
 
@@ -1368,7 +1371,7 @@ items.I129.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increa
 items.I129.flavor = '"That will be 12.99$."';
 items.I129.quality = 'Uncommon';
 items.I129.sell = 800;
-items.I129.use = 'removeBuffs("food"); buffs.B29.time=1800; playerBuffs();playSound("audio/monch.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.4s 1");  items.I52.count--; ';
+items.I129.use = 'removeBuffs("food"); buffs.B29.time=1800; playerBuffs();playSound("audio/monch.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.4s 1");  items.I129.count--; ';
 
 items.I186 = {}; 
 items.I186.name = 'Arêtes de Poisson Frites';
@@ -1472,7 +1475,7 @@ items.I153.quality = 'Rare';
 items.I153.sell = 15500;
 items.I153.use = 'rollTable(infernalCache, 1); items.I153.count--;  ; ';
 
-var dungeonBonus1 = { I93:{P:10, A:1},I92:{P:5, A:'rng(1,3)'},I91:{P:2, A:'rng(1,7)'}, /*stamps*/ I22:{P:4, A:'rng(1,10)'},I42:{P:6, A:'rng(1,4)'}, /*gems*/ I96:{P:30,A:1},  I97:{P:30,A:1}, I207:{P:30,A:1},  /*gambas*/ I207:{P:30,A:1},  I178:{P:30,A:1},  /*vouchers*/ I200:{P:4,A:1},  /*phoenix*/  I208:{P:40,A:1},  /*jackinabox*/}
+var dungeonBonus1 = { I93:{P:10, A:1},I92:{P:5, A:'rng(1,3)'},I91:{P:2, A:'rng(1,7)'}, /*stamps*/ I22:{P:4, A:'rng(1,10)'},I42:{P:6, A:'rng(1,4)'}, /*gems*/ I96:{P:30,A:1},  I97:{P:30,A:1}, I207:{P:30,A:1},  /*gambas*/ I177:{P:30,A:1},  I178:{P:30,A:1},  /*vouchers*/ I200:{P:4,A:1},  /*phoenix*/  I208:{P:40,A:1},  /*jackinabox*/}
 var coolCooler =  { I142:{P:2,A:1}, I141:{P:2,A:1}, I140:{P:2,A:1}, I139:{P:2,A:1}, I138:{P:2,A:1},  /*armor*/ I60:{P:3,A:1},/*weapon*/ I166:{P:3,A:1},  /*waddling band*/  BR7:{P:15,A:1},  /*blueprint*/}
 items.I205 = {};
 items.I205.name = 'Cool Cooler';
@@ -1541,7 +1544,7 @@ items.I207.quality = 'Rare';
 items.I207.sell = 1000;
 items.I207.use = 'playSound("audio/monch.mp3"); animParticleBurst(7 , "particleHeart", "playerPanel", 0); playSound("audio/lily.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); buffs.B55.time=1800; playerBuffs(); items.I207.count--; ';
 
-var whiskersPresent = { I118:{P:3, A:1}, /*gamba*/ I98:{P:1, A:1}, I99:{P:1, A:1}, /*tokens*/ I26:{P:1, A:1}, /*dreamgamba*/ I177:{P:5, A:1}, I178:{P:5, A:1},I174:{P:5, A:1}, /*vouchers*/ I93:{P:3, A:1}, /*golden stamp*/ I96:{P:8, A:1}, I97:{P:8, A:1}, I207:{P:8, A:1}, /*special gambas*/  I209:{P:10, A:1}, I210:{P:10, A:1}, /*time eggs*/ I208:{P:10, A:1}, /*jackinabox*/ }
+var whiskersPresent = { I118:{P:3, A:1}, /*gamba*/ I98:{P:1, A:1}, I99:{P:1, A:1}, /*tokens*/ I26:{P:1, A:1}, /*dreamgamba*/ I177:{P:5, A:1}, I178:{P:5, A:1},I174:{P:4, A:1}, /*vouchers*/ I93:{P:3, A:1}, /*golden stamp*/ I96:{P:8, A:1}, I97:{P:8, A:1}, I207:{P:8, A:1}, /*special gambas*/  I209:{P:10, A:1}, I210:{P:10, A:1}, /*time eggs*/ I208:{P:10, A:1}, /*jackinabox*/ }
 items.I119 = {}; 
 items.I119.name = 'Carefully Wrapped Present';
 items.I119.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Open it!<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="white">?????';
@@ -1613,7 +1616,7 @@ items.I209.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Us
 items.I209.flavor = '"...Time, the very essence of change and decay, which would hatch forth and the very heartbeat of existence, would find its genesis..."';
 items.I209.quality = 'Rare';
 items.I209.sell = 1000;
-items.I209.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((3600/60)*(playerPenguinPower/100),"egg"); items.I209.count--; }';
+items.I209.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((3600/60)*(playerPenguinPower/20),"egg"); items.I209.count--; }';
 
 items.I210 = {};
 items.I210.name = 'Perennial Time Egg';
@@ -1621,7 +1624,7 @@ items.I210.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Us
 items.I210.flavor = '"...Encased within the shell of the cosmic ovum lay the potential for eternity, awaiting the pivotal moment of hatching, as within resided..."';
 items.I210.quality = 'Epic';
 items.I210.sell = 5000;
-items.I210.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((21600/60)*(playerPenguinPower/100),"egg"); items.I210.count--; }';
+items.I210.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((21600/60)*(playerPenguinPower/20),"egg"); items.I210.count--; }';
 
 items.I211 = {};
 items.I211.name = 'Everlasting Time Egg';
@@ -1629,7 +1632,7 @@ items.I211.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Us
 items.I211.flavor = '"—In the depths of its ancient shell harbored the essence of creation itself. And so, in an epoch-shattering moment, amidst the swirling mists of eternity, it laid an egg..."';
 items.I211.quality = 'Epic';
 items.I211.sell = 10000;
-items.I211.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((86400/60)*(playerPenguinPower/100),"egg"); items.I211.count--; }';
+items.I211.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((86400/60)*(playerPenguinPower/20),"egg"); items.I211.count--; }';
 
 items.I212 = {};
 items.I212.name = 'Timeless Time Egg';
@@ -1637,7 +1640,7 @@ items.I212.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Us
 items.I212.flavor = '"...As it unfurled its wings, ages passed like fleeting shadows, civilizations rose and crumbled, and the land itself bore witness to the inexorable march of time."';
 items.I212.quality = 'Legendary';
 items.I212.sell = 25000;
-items.I212.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((172800/60)*(playerPenguinPower/100),"egg"); items.I212.count--; }';
+items.I212.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((172800/60)*(playerPenguinPower/20),"egg"); items.I212.count--; }';
 
 items.I213 = {};
 items.I213.name = 'Reality Voxel';
@@ -1742,7 +1745,7 @@ items.I215.use = 'castHexTag(); items.I215.cd = 120; items.I215.count--; ;'
 
 items.I67 = {};
 items.I67.name = 'Net-O-Launcher 3000';
-items.I67.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Launches a net that immobilises the enemy for 10 seconds <FONT COLOR="gray"> (2 minute Cooldown)<br>(Doesnt work on targets higher level than 30)';
+items.I67.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Launches a net that immobilises the enemy for 10 seconds <FONT COLOR="gray"> (2 minute Cooldown)<br>(Doesnt work after reaching Level 30)';
 items.I67.flavor = '"We dont talk about the other 2999."';
 items.I67.quality = 'Uncommon';
 items.I67.sell = 2000;
@@ -1995,13 +1998,13 @@ items.I81.series = 'forgotten';
 
 items.I82 = {};
 items.I82.name = 'Dragonfell Sword';
-items.I82.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+beautify(296739)+' Might Damage<br>-2000 Haste<br>On Attack: Slams the foe with the weight of the sword';
+items.I82.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+beautify(386739)+' Might Damage<br>-2000 Haste<br>On Attack: Slams the foe with the weight of the sword';
 items.I82.flavor = '"Too big to be called a sword. Too big, too thick, too heavy, and too rough. Its more like a large hunk of iron."';
 items.I82.quality = 'Rare';
 items.I82.sell = 30000;
 items.I82.max = 1;
 items.I82.use = 'gearSwap(items.I82.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")';
-items.I82.stats = 'weaponMightDamage = 296739; weaponHaste = -2000'
+items.I82.stats = 'weaponMightDamage = 386739; weaponHaste = -2000'
 items.I82.remove = 'weaponMightDamage = 0; weaponHaste = 0'
 items.I82.attackChance = 'castDragonfellSword()';
 items.I82.align = "might";
@@ -2046,6 +2049,7 @@ items.I167.stats = 'weaponOccultDamage = returnItemUpgradeScaling(193722, "I167"
 items.I167.remove = 'weaponOccultDamage = 0;'
 items.I167.align = 'occult';
 items.I167.attackChance = 'if (rng(1,3)===1) castWraithbladeScimitar()'
+items.I167.series = "solstice"; 
 
 items.I137 = {};
 items.I137.name = 'King-Kat Decapitator';
@@ -2194,7 +2198,7 @@ items.I6.series = 'millionaire';
 
 items.I73 = {};
 items.I73.name = 'Plated Explorer Boots';
-items.I73.description = `'Equipable - Legs<br><FONT COLOR="#1EFF0C">+'+ returnItemUpgradeScaling(2775.5, "I73")+' Max HP<br>+'+ returnItemUpgradeScaling(265.5, "I73")+' Regeneration<br><FONT COLOR="#b983f7">Plated Explorer Set:<br>'`;
+items.I73.description = `'Equipable - Feet<br><FONT COLOR="#1EFF0C">+'+ returnItemUpgradeScaling(2775.5, "I73")+' Max HP<br>+'+ returnItemUpgradeScaling(265.5, "I73")+' Regeneration<br><FONT COLOR="#b983f7">Plated Explorer Set:<br>'`;
 items.I73.flavor = '"Adventures await at every step."';
 items.I73.tierDesc1 = "I74";
 items.I73.tierDesc2 = "I76";
@@ -2472,7 +2476,7 @@ items.I143.tierDesc2 = "I146";
 items.I143.tierDesc3 = "I145";
 items.I143.tierDesc4 = "I147";
 items.I143.tierDesc5 = "I143";
-items.I143.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
+items.I143.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
 items.I143.sell = 35000;
 items.I143.max = 10;
 items.I143.use = 'gearSwap(items.I143.id, rpgPlayer.feetSlot, "rpgFeetSlot", "feet")'
@@ -2490,7 +2494,7 @@ items.I144.tierDesc2 = "I146";
 items.I144.tierDesc3 = "I145";
 items.I144.tierDesc4 = "I147";
 items.I144.tierDesc5 = "I143";
-items.I144.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
+items.I144.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
 items.I144.sell = 35000;
 items.I144.max = 10; 
 items.I144.use = 'gearSwap(items.I144.id, rpgPlayer.headSlot, "rpgHeadSlot", "head")'
@@ -2508,7 +2512,7 @@ items.I145.tierDesc2 = "I146";
 items.I145.tierDesc3 = "I145";
 items.I145.tierDesc4 = "I147";
 items.I145.tierDesc5 = "I143";
-items.I145.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
+items.I145.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
 items.I145.sell = 35000;
 items.I145.max = 10;
 items.I145.use = 'gearSwap(items.I145.id, rpgPlayer.handsSlot, "rpgHandsSlot", "hands")'
@@ -2526,7 +2530,7 @@ items.I146.tierDesc2 = "I146";
 items.I146.tierDesc3 = "I145";
 items.I146.tierDesc4 = "I147";
 items.I146.tierDesc5 = "I143";
-items.I146.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
+items.I146.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
 items.I146.sell = 35000;
 items.I146.max = 10;
 items.I146.use = 'gearSwap(items.I146.id, rpgPlayer.chestSlot, "rpgChestSlot", "chest")'
@@ -2544,7 +2548,7 @@ items.I147.tierDesc2 = "I146";
 items.I147.tierDesc3 = "I145";
 items.I147.tierDesc4 = "I147";
 items.I147.tierDesc5 = "I143";
-items.I147.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strenght for 20 seconds";
+items.I147.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
 items.I147.sell = 35000;
 items.I147.max = 10;
 items.I147.use = 'gearSwap(items.I147.id, rpgPlayer.legsSlot, "rpgLegsSlot", "legs")'
@@ -2605,7 +2609,7 @@ items.I45.series = 'masterwork';
 
 items.I131 = {};
 items.I131.name = 'Thorn Binding';
-items.I131.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">Equip: Reflects damage recieved back to the enemy as '+natureIcon+'Nature Damage up to a maximum of '+ returnItemUpgradeScaling(312, "I131")+' damage'`;
+items.I131.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">Equip: Reflects damage received back to the enemy as '+natureIcon+'Nature Damage up to a maximum of '+ returnItemUpgradeScaling(312, "I131")+' damage'`;
 items.I131.flavor = '"A fierce ring made out of thorns and blossoms. To inflict pain one must be ready to recieve pain."';
 items.I131.quality = 'Uncommon';
 items.I131.sell = 4500;
@@ -2746,7 +2750,7 @@ items.I116.sell = 5500;
 items.I116.max = 10;
 items.I116.use = 'gearSwap(items.I116.id, rpgPlayer.trinketSlot, "rpgTrinketSlot", "trinket")';
 items.I116.cd = 0;
-items.I116.healthChance = ' if (rpgPlayer.hp<playerMaxHp/2 && items.I116.cd===0) {playSound("audio/monch.mp3"); let recovered = rng(returnItemUpgradeScaling(12000, "I116"),returnItemUpgradeScaling(13000, "I116")); items.I116.cd=60; playerHealingDamage(recovered); animState("rpgPlayerImg", "flash 0.5s 1"); playerUpdate(); animParticleBurst(10 , "particleHealth", "playerPanel", 0); logPrint(`<FONT COLOR="#18ccba"> You eat the Broccoli. It wasnt very tasty...`)}';
+items.I116.healthChance = ' if (rpgPlayer.hp<playerMaxHp/2 && items.I116.cd===0) {playSound("audio/monch.mp3"); let recovered = rng(returnItemUpgradeScaling(12000, "I116"),returnItemUpgradeScaling(13000, "I116")); items.I116.cd=60; playerHealingDamage(recovered); animState("rpgPlayerImg", "flash 0.5s 1"); playerUpdate(); animParticleBurst(10 , "particleHealth", "playerPanel", 0); if (!settings.disableSkillLog) {logPrint(`<FONT COLOR="#18ccba"> You eat the Broccoli. It wasnt very tasty...`)}}';
 items.I116.series = 'millionaire';
 
 items.I117 = {}; 
@@ -2797,6 +2801,7 @@ items.I182.use = 'gearSwap(items.I182.id, rpgPlayer.trinketSlot, "rpgTrinketSlot
 items.I182.stats = 'items.I182.statUp = 1;'
 items.I182.remove = 'items.I182.statUp = 0;'
 items.I182.statUp = 0;
+items.I182.series = 'masterwork';
 
 items.I201 = {};
 items.I201.name = 'Thunderous Gyroresonator';
@@ -3766,7 +3771,7 @@ items.I279.collectible = "B";
 
 items.I281 = {};
 items.I281.name = 'The Cube';
-items.I281.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">Can be upgraded infinitely<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Strenght<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Max HP<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Regen<br>'`;
+items.I281.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">Can be upgraded infinitely<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Strength<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Max HP<br>+'+ beautify(returnItemUpgradeScaling(19520, "I281"))+' Regen<br>'`;
 items.I281.flavor = '"Infinity."';
 items.I281.quality = 'Legendary';
 items.I281.sell = 1000;
@@ -3777,7 +3782,7 @@ items.I281.remove = 'items.I281.statUp = 0;'
 
 items.I282 = {}; 
 items.I282.name = 'Nanoturtles';
-items.I282.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases the health recived of healing items by 700%';
+items.I282.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases the health received of healing items by 700%';
 items.I282.flavor = '"Nanometric turtles that harden their shells in response to physical trauma."';
 items.I282.quality = 'Upgrade';
 items.I282.sell = 0;
@@ -4430,8 +4435,8 @@ buffs.B44.effect = '';
 buffs.B44.img = 'img/src/buffs/B11.jpg';
 
 buffs.B45 = {};
-buffs.B45.name = 'Strenght Roll';
-buffs.B45.description = '<FONT COLOR="#8fbaff">Strenght increased by 40%';
+buffs.B45.name = 'Strength Roll';
+buffs.B45.description = '<FONT COLOR="#8fbaff">Strength increased by 40%';
 buffs.B45.effect = 'buffEffect(0.4, "B45")';
 buffs.B45.img = 'img/src/buffs/B12.jpg';
 buffs.B45.player = true;
@@ -4553,7 +4558,7 @@ buffs.B60.img = 'img/src/buffs/B17.jpg';
 
 buffs.B61 = {};
 buffs.B61.name = 'Sea Chanty';
-buffs.B61.description = '<FONT COLOR="#8fbaff">Strenght increased by 20%';
+buffs.B61.description = '<FONT COLOR="#8fbaff">Strength increased by 20%';
 buffs.B61.effect = 'buffEffect(0.2, "B61")';
 buffs.B61.img = 'img/src/buffs/B18.jpg';
 buffs.B61.player = true;
@@ -4670,7 +4675,7 @@ quests.A1Q1 = {};
 quests.A1Q1.name = 'Important Notice';
 quests.A1Q1.difficulty = 1;
 quests.A1Q1.description = 'To complete the registation of the Super Turtle Adventure program, please terrorise the local wildlife. <br><br> <span style="color:#FFD100"> [Tip: You can equip gear by right-clicking it]';
-quests.A1Q1.objective = 'Defeat a bunch of slugs';
+quests.A1Q1.objective = `'Defeat a bunch of slugs <span class="questProgress">'+beautify(enemies.E1.killCount)+'/6</span>'`;
 quests.A1Q1.logic = 'enemies.E1.killCount>5';
 quests.A1Q1.effect = 'items.I8.count++;';
 quests.A1Q1.money = 500;
@@ -4684,7 +4689,7 @@ quests.A1Q2 = {};
 quests.A1Q2.name = 'To My Beloved Friend';
 quests.A1Q2.difficulty = 1;
 quests.A1Q2.description = 'I am a prince from Nigeria and a giant idiot spider destroyed shop, give me your money please. <br><br> <span style="color:#FFD100"> [Tip: You can sell items by pressing Control]';
-quests.A1Q2.objective = 'Hand over 2500 Turtle Coins';
+quests.A1Q2.objective = `'Hand over 2500 Turtle Coins <span class="questProgress">'+beautify(rpgPlayer.coins)+'/2500</span>'`;
 quests.A1Q2.logic = 'rpgPlayer.coins>=2500';
 quests.A1Q2.effect = 'rpgPlayer.coins-=2500; unlocks.shop = true;';
 quests.A1Q2.money = 0;
@@ -4696,7 +4701,7 @@ quests.A1Q3 = {};
 quests.A1Q3.name = 'Request From a Toad';
 quests.A1Q3.difficulty = 2;
 quests.A1Q3.description = 'Ribbit Ribbit. Ribbit Ribbit Ribbit Ribbit Ribbit Ribbit Ribbit.  Ribbit Ribbit. <br><br> <span style="color:#FFD100"> [Tip: Gear levels up automatically after getting multiple copies. Try buying multiple of them]';
-quests.A1Q3.objective = 'Defeat 50 Ribulls';
+quests.A1Q3.objective = `'Defeat 50 Ribulls <span class="questProgress">'+beautify(enemies.E3.killCount)+'/50</span>'`;
 quests.A1Q3.logic = 'enemies.E3.killCount>49';
 quests.A1Q3.effect = ' ';
 quests.A1Q3.money = 2100;
@@ -4708,7 +4713,7 @@ quests.A1Q4 = {};
 quests.A1Q4.name = 'Miners Guild Request';
 quests.A1Q4.difficulty = 2;
 quests.A1Q4.description = 'These scorpions keep blocking the road to our sweet, sweet rocks. Clear the road and well show you our rocky goodness. <br><br> <span style="color:#FFD100"> [Tip: You can click the turtle to get coins]';
-quests.A1Q4.objective = 'Defeat 50 Stinglets';
+quests.A1Q4.objective = `'Defeat 50 Stinglets <span class="questProgress">'+beautify(enemies.E2.killCount)+'/50</span>'`;
 quests.A1Q4.logic = 'enemies.E2.killCount>49';
 quests.A1Q4.effect = 'areas.A1.unlockedOre = 1';
 quests.A1Q4.money = 8500;
@@ -4720,7 +4725,7 @@ quests.A1Q5 = {};
 quests.A1Q5.name = 'Have You Seen My Pet';
 quests.A1Q5.difficulty = 3;
 quests.A1Q5.description = 'My pet Hoopperoona has gone missing. You will recognise her for her eight legs, rocky skin, and the ability to melt steel beams with her saliva. <br><br> <span style="color:#FFD100"> [Tip: You can switch browser tabs while the game is running]';
-quests.A1Q5.objective = 'Defeat Hoopperoona';
+quests.A1Q5.objective = `'Defeat Hoopperoona'`;
 quests.A1Q5.logic = 'enemies.E4.killCount>0';
 quests.A1Q5.effect = 'items.I213.count++';
 quests.A1Q5.money = 9000;
@@ -4734,7 +4739,7 @@ quests.A1Q6 = {};
 quests.A1Q6.name = 'Chai Chai Real Smooth';
 quests.A1Q6.difficulty = 1;
 quests.A1Q6.description = 'Muggey, the president of the Chai Association, requests to see the most unusual chai blend of the lands. <br><br> <span style="color:#FFD100"> [Tip: You might want to come later to do certain quests]';
-quests.A1Q6.objective = 'Show an unusual tea blend to Muggey';
+quests.A1Q6.objective = `'Show an unusual tea blend to Muggey'`;
 quests.A1Q6.logic = 'items.I111.count>0';
 quests.A1Q6.effect = 'items.RCN8.count++; items.I111.count = 0; recipes.CN7.unlocked = false;';
 quests.A1Q6.money = 25000;
@@ -4762,7 +4767,7 @@ quests.A2Q2 = {};
 quests.A2Q2.name = 'Help! Missing Feline';
 quests.A2Q2.difficulty = 1;
 quests.A2Q2.description = 'My cat Whiskers is missing. He likes dark closed spaces. I have nothing to offer but Whiskers grattitude.';
-quests.A2Q2.objective = 'Find Whiskers';
+quests.A2Q2.objective = `'Find Whiskers'`;
 quests.A2Q2.reward = 'Whiskers Gratitude';
 quests.A2Q2.rewardIcon = 'itemIcon("I120")';
 quests.A2Q2.logic = 'items.I123.count>0';
@@ -4774,7 +4779,7 @@ quests.A2Q1 = {};
 quests.A2Q1.name = 'Crafters Guild Request';
 quests.A2Q1.difficulty = 2;
 quests.A2Q1.description = 'The animals punched the heck out of our workshops. We will let anyone who help us repair them into the Crafters Guild.';
-quests.A2Q1.objective = 'Hand over 100 copper ore and 100 rabbit hide';
+quests.A2Q1.objective = `'Hand over 100 copper ore <span class="questProgress">'+beautify(items.I32.count)+'/100</span><br>❖Hand over 100 rabbit hide <span class="questProgress">'+beautify(items.I114.count)+'/100</span>'`;
 quests.A2Q1.logic = 'items.I32.count>99 && items.I114.count>99';
 quests.A2Q1.effect = 'items.I32.count-=100; items.I114.count-=100; unlocks.jobs = true;';
 quests.A2Q1.money = 11500;
@@ -4786,7 +4791,7 @@ quests.A2Q3 = {};
 quests.A2Q3.name = 'A very corny request';
 quests.A2Q3.difficulty = 3;
 quests.A2Q3.description = 'To beat a squirrel I need to become a squirrel. Help me achieve my dream.';
-quests.A2Q3.objective = 'Defeat 80 Karateil';
+quests.A2Q3.objective = `'Defeat 80 Karateil <span class="questProgress">'+beautify(enemies.E6.killCount)+'/80</span>'`;
 quests.A2Q3.reward = 'Unlock Herb Node';
 quests.A2Q3.logic = 'enemies.E6.killCount>79';
 quests.A2Q3.effect = 'areas.A2.unlockedHerb = 1;';
@@ -4798,7 +4803,7 @@ quests.A2Q4 = {};
 quests.A2Q4.name = 'Husbandry Issues';
 quests.A2Q4.difficulty = 3;
 quests.A2Q4.description = 'My chickens escaped from my coop and learnt full body combat. Help me bring them back.';
-quests.A2Q4.objective = 'Capture 10 Roostrikas';
+quests.A2Q4.objective = `'Capture 10 Roostrikas <span class="questProgress">'+beautify(items.I122.count)+'/10</span>'`;
 quests.A2Q4.reward = 'Ornated Stamper x3';
 quests.A2Q4.logic = 'items.I122.count>9';
 quests.A2Q4.effect = 'items.I122.count=0; items.I93.count+=3;';
@@ -4810,7 +4815,7 @@ quests.A2Q5 = {};
 quests.A2Q5.name = 'Sovereign Affairs';
 quests.A2Q5.difficulty = 4;
 quests.A2Q5.description = 'Teach him a lesson on my behalf. I would do it if it wasnt a 3 meter tiger proficient in breaking bones. <br><br> <span style="color:#FFD100"> [Tip: Area bosses can generally be tough to beat without first dabbling on the next area or coming a bit later]';
-quests.A2Q5.objective = 'Defeat King-Kat';
+quests.A2Q5.objective = `'Defeat King-Kat'`;
 quests.A2Q5.reward = 'Reality Voxel';
 quests.A2Q5.rewardIcon = 'itemIcon("I213")';
 quests.A2Q5.logic = 'enemies.E8.killCount>0';
@@ -4822,7 +4827,7 @@ quests.A2Q6 = {};
 quests.A2Q6.name = 'The Way Of Karate';
 quests.A2Q6.difficulty = 1;
 quests.A2Q6.description = 'These animals got hands. I need something to make them learn a lesson or two about martial arts.';
-quests.A2Q6.objective = 'Hand over 10 Light Dynamites';
+quests.A2Q6.objective = `'Hand over 10 Light Dynamites <span class="questProgress">'+beautify(items.I30.count)+'/10</span>'`;
 quests.A2Q6.reward = 'Vitreous Gamba';
 quests.A2Q6.rewardIcon = 'itemIcon("I97")';
 quests.A2Q6.logic = 'items.I30.count>9';
@@ -4850,7 +4855,7 @@ quests.A3Q1 = {};
 quests.A3Q1.name = 'Herbology Research';
 quests.A3Q1.difficulty = 1;
 quests.A3Q1.description = 'I need Nature Potions for totally legal reasons. Supply me and do not ask further questions.';
-quests.A3Q1.objective = 'Reluctantly hand over 20 Lesser Nature Flasks';
+quests.A3Q1.objective = `'Reluctantly hand over 20 Lesser Nature Flasks <span class="questProgress">'+beautify(items.I49.count)+'/20</span>'`;
 quests.A3Q1.reward = 'Recipe: Lesser Elemental Flask';
 quests.A3Q1.rewardIcon = 'itemIcon("I154")';
 quests.A3Q1.logic = 'items.I49.count>19';
@@ -4862,7 +4867,7 @@ quests.A3Q2 = {};
 quests.A3Q2.name = 'Unfortunate Subsidence';
 quests.A3Q2.difficulty = 1;
 quests.A3Q2.description = 'The cargo we were transporting got destroyed when a cave collapsed. Can you help us make up for it?';
-quests.A3Q2.objective = 'Hand over 2000 White Stingers';
+quests.A3Q2.objective = `'Hand over 2000 White Stingers <span class="questProgress">'+beautify(items.I37.count)+'/2000</span>'`;
 quests.A3Q2.reward = 'Runic Die III';
 quests.A3Q2.rewardIcon = 'itemIcon("I11")';
 quests.A3Q2.logic = 'items.I37.count>1999';
@@ -4874,7 +4879,7 @@ quests.A3Q3 = {};
 quests.A3Q3.name = 'Pressing Matters';
 quests.A3Q3.difficulty = 2;
 quests.A3Q3.description = 'I was playing with my building blocks and realised im missing yellow ones.';
-quests.A3Q3.objective = 'Hand over 300 Yellow Cubes';
+quests.A3Q3.objective = `'Hand over 300 Yellow Cubes <span class="questProgress">'+beautify(items.I16.count)+'/300</span>'`;
 quests.A3Q3.reward = 'Giantite Chunk';
 quests.A3Q3.rewardIcon = 'itemIcon("I219")';
 quests.A3Q3.logic = 'items.I16.count>299';
@@ -4886,7 +4891,7 @@ quests.A3Q4 = {};
 quests.A3Q4.name = 'Sittin\' Carefully Away';
 quests.A3Q4.difficulty = 3;
 quests.A3Q4.description = 'These darn TNT fellas will pose a serious danger to the miners if left unchecked.';
-quests.A3Q4.objective = 'Defeat 100 Cubomites<br>❖ Ignite 10 Cubomites with Elemental Damage';
+quests.A3Q4.objective = `'Defeat 100 Cubomites <span class="questProgress">'+beautify(enemies.E10.killCount)+'/100</span><br>❖ Ignite 10 Cubomites with Elemental Damage <span class="questProgress">'+beautify(stats.ignitedCubomites)+'/10</span>'`;
 quests.A3Q4.reward = 'Unlock Ore Node';
 quests.A3Q4.rewardIcon = 'itemIcon("I36")';
 quests.A3Q4.logic = 'stats.ignitedCubomites>9 && enemies.E10.killCount>99';
@@ -4898,7 +4903,7 @@ quests.A3Q5 = {};
 quests.A3Q5.name = 'Poor Lodging Choices';
 quests.A3Q5.difficulty = 1;
 quests.A3Q5.description = 'There\'s rare ore on this cave. And im going to make a house out of it.';
-quests.A3Q5.objective = 'Hand over 150 Arcanite Bar???';
+quests.A3Q5.objective = `'Hand over 150 Arcanite Bar??? <span class="questProgress">'+beautify(items.I35.count)+'/150???</span>'`;
 quests.A3Q5.reward = 'Recipe: Shatterstone Potion';
 quests.A3Q5.rewardIcon = 'itemIcon("I185")';
 quests.A3Q5.logic = 'items.I35.count>149';
@@ -4910,7 +4915,7 @@ quests.A3Q6 = {};
 quests.A3Q6.name = 'Harder Than Rock';
 quests.A3Q6.difficulty = 4;
 quests.A3Q6.description = 'The recent extraction of granite has caused a rise in the population of elementals.';
-quests.A3Q6.objective = 'Defeat 100 Granite Elementals';
+quests.A3Q6.objective = `'Defeat 100 Granite Elementals <span class="questProgress">'+beautify(enemies.E11.killCount)+'/100</span>'`;
 quests.A3Q6.reward = 'Reinforced Mattock'; 
 quests.A3Q6.rewardIcon = 'itemIcon("I85")';
 quests.A3Q6.logic = 'enemies.E11.killCount>99';
@@ -4922,7 +4927,7 @@ quests.A3Q6A = {};
 quests.A3Q6A.name = 'Cool, Cool Island';
 quests.A3Q6A.difficulty = 5;
 quests.A3Q6A.description = 'Im just more of a summer person, ya know?';
-quests.A3Q6A.objective = 'Clear the Penguin Glacier';
+quests.A3Q6A.objective = `'Clear the Penguin Glacier'`;
 quests.A3Q6A.reward = 'Philanthropy Marble';
 quests.A3Q6A.rewardIcon = 'itemIcon("I217")';
 quests.A3Q6A.logic = 'enemies.E23.killCount>0';
@@ -4934,7 +4939,7 @@ quests.A3Q6B = {};
 quests.A3Q6B.name = 'Big Bad, Bad Dragon';
 quests.A3Q6B.difficulty = 6;
 quests.A3Q6B.description = 'Until that drake is out of commission we cant dwell further into the mines. Be sure to avoid using '+mightIcon+'Might Damage or shell get very pissy!';
-quests.A3Q6B.objective = 'Defeat Terragosa';
+quests.A3Q6B.objective = `'Defeat Terragosa'`;
 quests.A3Q6B.reward = 'Reality Voxel';
 quests.A3Q6B.rewardIcon = 'itemIcon("I213")';
 quests.A3Q6B.logic = 'enemies.E12.killCount>0';
@@ -4946,7 +4951,7 @@ quests.A3Q7 = {};
 quests.A3Q7.name = 'Lost In The Blue';
 quests.A3Q7.difficulty = 1;
 quests.A3Q7.description = 'Ive never left the caves, I want to see jellyfish.';
-quests.A3Q7.objective = 'Hand over 10 Ghost Jellyfish';
+quests.A3Q7.objective = `'Hand over 10 Ghost Jellyfish <span class="questProgress">'+beautify(items.I159.count)+'/10</span>'`;
 quests.A3Q7.reward = 'Recipe: Shiny Fishing Lure';
 quests.A3Q7.rewardIcon = 'itemIcon("I213")';
 quests.A3Q7.logic = 'items.I159.count>9';
@@ -4959,9 +4964,9 @@ quests.A4Q1 = {};
 quests.A4Q1.name = 'Blacksmith Request';
 quests.A4Q1.difficulty = 1;
 quests.A4Q1.description = 'Im going to make the finest of armors and I need the finest of materials.';
-quests.A4Q1.objective = 'Hand over 1000 Agate Crystal Scales';
-quests.A4Q1.logic = 'items.I71.count>999';
-quests.A4Q1.effect = 'items.I71.count-=1000; items.RAN11.count++';
+quests.A4Q1.objective = `'Hand over 600 Agate Crystal Scales <span class="questProgress">'+beautify(items.I71.count)+'/600</span>'`;
+quests.A4Q1.logic = 'items.I71.count>599';
+quests.A4Q1.effect = 'items.I71.count-=600; items.RAN11.count++';
 quests.A4Q1.reward = 'Recipe: Reinforced Stamper Transfiguration';
 quests.A4Q1.rewardIcon = 'itemIcon("I92")';
 quests.A4Q1.money = 280000;
@@ -4971,7 +4976,7 @@ quests.A4Q2 = {};
 quests.A4Q2.name = 'Spineless Tourist';
 quests.A4Q2.difficulty = 2;
 quests.A4Q2.description = 'This depressing scenary is tooootaly making me unconfortable. Bring me something to drink.';
-quests.A4Q2.objective = 'Hand over 15 Pumkin Spice Latte';
+quests.A4Q2.objective = `'Hand over 15 Pumkin Spice Latte <span class="questProgress">'+beautify(items.I129.count)+'/15</span>'`;
 quests.A4Q2.reward = 'Unlock Fishing Pond';
 quests.A4Q2.rewardIcon = 'itemIcon("I162")';
 quests.A4Q2.logic = 'items.I129.count>14';
@@ -4983,7 +4988,7 @@ quests.A4Q3 = {};
 quests.A4Q3.name = 'There is Always A Catch';
 quests.A4Q3.difficulty = 1;
 quests.A4Q3.description = 'Lately im getting pretty restless over what I lost playing near the pond, can you get it for me?';
-quests.A4Q3.objective = 'Hand over the lost item on the pond';
+quests.A4Q3.objective = `'Hand over the lost item on the pond'`;
 quests.A4Q3.reward = 'Recipe: Lesser Deific Flask';
 quests.A4Q3.rewardIcon = 'itemIcon("I155")';
 quests.A4Q3.logic = 'items.I286.count>0';
@@ -4995,10 +5000,10 @@ quests.A4Q4 = {};
 quests.A4Q4.name = 'Begone Dark Presences';
 quests.A4Q4.difficulty = 4;
 quests.A4Q4.description = 'You feel the powerful aura, yes? I need a powerful exorciser to aid me on this Job.';
-quests.A4Q4.objective = 'Exorcise 3 Morgatos with salt';
+quests.A4Q4.objective = `'Exorcise 3 Morgatos with salt <span class="questProgress">'+beautify(stats.purifiedMorgatosDefeated)+'/3</span>'`;
 quests.A4Q4.reward = 'Recipe: Lesser Occult Flask';
 quests.A4Q4.rewardIcon = 'itemIcon("I156")';
-quests.A4Q4.logic = 'stats.purifiedMorgatosDefeated>3'; 
+quests.A4Q4.logic = 'stats.purifiedMorgatosDefeated>2'; 
 quests.A4Q4.effect = 'items.RAN8.count++';
 quests.A4Q4.money = 320000;
 quests.A4Q4.exp = 960000000;
@@ -5007,7 +5012,7 @@ quests.A4Q6 = {};
 quests.A4Q6.name = 'Exorcism Aboard';
 quests.A4Q6.difficulty = 5;
 quests.A4Q6.description = 'Well this is fantastic. Now the ghosts are throwing their own floating party.';
-quests.A4Q6.objective = 'Clear the Pirate Galleon';
+quests.A4Q6.objective = `'Clear the Pirate Galleon'`;
 quests.A4Q6.reward = '?????????';
 quests.A4Q6.logic = 'enemies.E26.killCount>0';
 quests.A4Q6.rewardIcon = 'itemIcon("I287")';
@@ -5019,7 +5024,7 @@ quests.A4Q4A = {};
 quests.A4Q4A.name = 'Monster Hunt Request';
 quests.A4Q4A.difficulty = 6;
 quests.A4Q4A.description = 'The adventurer\'s guild has reported sightings of a fiery monster several times more powerful than the rest.';
-quests.A4Q4A.objective = 'Defeat Infernalus';
+quests.A4Q4A.objective = `'Defeat Infernalus'`;
 quests.A4Q4A.reward = 'Reality Voxel';
 quests.A4Q4A.logic = 'enemies.E27.killCount>0';
 quests.A4Q4A.rewardIcon = 'itemIcon("I213")';
@@ -5031,7 +5036,7 @@ quests.A4Q7 = {};
 quests.A4Q7.name = 'Relatable Situation';
 quests.A4Q7.difficulty = 1;
 quests.A4Q7.description = 'The lord of hell fire stole my grill. I think his reign over fiery goods has gone too far.';
-quests.A4Q7.objective = 'Steal back the grill from Infernalus';
+quests.A4Q7.objective = `'Steal back the grill from Infernalus'`;
 quests.A4Q7.reward = 'Recipe: Firetank Pyrocombulator';
 quests.A4Q7.rewardIcon = 'itemIcon("I187")';
 quests.A4Q7.logic = 'items.I90.count>0';
@@ -5043,7 +5048,7 @@ quests.A4Q5 = {};
 quests.A4Q5.name = 'Red Hooded Behest';
 quests.A4Q5.difficulty = 6;
 quests.A4Q5.description = 'That... Thing... Hand it over... I can make something useful... For you...';
-quests.A4Q5.objective = 'Hand over 200 Nightmare Fuel';
+quests.A4Q5.objective = `'Hand over 200 Nightmare Fuel <span class="questProgress">'+beautify(items.I100.count)+'/50</span>'`;
 quests.A4Q5.reward = 'Anima Anvil';
 quests.A4Q5.rewardIcon = 'itemIcon("I157")';
 quests.A4Q5.logic = 'items.I100.count>199'; 
@@ -5472,6 +5477,7 @@ recipes.EN6.reagent1 = 'I66';
 recipes.EN6.amount1 = 5;
 recipes.EN6.reagent2 = 'I29';
 recipes.EN6.amount2 = 10;
+recipes.EN6.unlocked = false;
 
 recipes.EN6A = {};
 recipes.EN6A.level = 15;
@@ -5705,7 +5711,7 @@ Object.keys(jobPanels).forEach(function(key) {
 //----------------------==========================-----------------------
 //----------------------===========SHOP===========-----------------------
 //----------------------==========================-----------------------
-const materialPrice = 0.001;
+const materialPrice = 100;
 //#region ShopItems
 var shopItems = {}
 
@@ -5757,7 +5763,7 @@ shopItems.A1S9.stock = 1;
 
 shopItems.A1S10 = {}
 shopItems.A1S10.item = 'I89';
-shopItems.A1S10.price = 'Math.max(500, stats.totalCoins*materialPrice)';
+shopItems.A1S10.price = materialPrice;
 shopItems.A1S10.stock = 5;
 shopItems.A1S10.restock = 5;
 
@@ -5800,7 +5806,7 @@ shopItems.A1S17.stock = "∞";
 
 shopItems.A2S1 = {}
 shopItems.A2S1.item = 'I1';
-shopItems.A2S1.price = 'Math.max(500, stats.totalCoins*materialPrice)';
+shopItems.A2S1.price = materialPrice;
 shopItems.A2S1.stock = 200;
 shopItems.A2S1.restock = 200;
 
@@ -5846,12 +5852,12 @@ shopItems.A2S9.stock = 1;
 
 shopItems.A2S10 = {}
 shopItems.A2S10.item = 'I48';
-shopItems.A2S10.price = 'Math.max(500, stats.totalCoins*0.006)';
+shopItems.A2S10.price = 500;
 shopItems.A2S10.stock = "∞";
 
 shopItems.A2S11 = {}
 shopItems.A2S11.item = 'I37';
-shopItems.A2S11.price = 'Math.max(500, stats.totalCoins*materialPrice)';
+shopItems.A2S11.price = materialPrice;
 shopItems.A2S11.stock = 200;
 shopItems.A2S11.restock = 200;
 
@@ -5862,7 +5868,7 @@ shopItems.A2S12.stock = "∞";
 
 shopItems.A2S13 = {}
 shopItems.A2S13.item = 'I51';
-shopItems.A2S13.price = 'Math.max(500, stats.totalCoins*materialPrice)';
+shopItems.A2S13.price = materialPrice;
 shopItems.A2S13.stock = 200;
 shopItems.A2S13.restock = 200;
 
@@ -5886,7 +5892,7 @@ shopItems.A3S3.restock = 3;
 
 shopItems.A3S4 = {}
 shopItems.A3S4.item = 'I114';
-shopItems.A3S4.price = 'Math.max(500, stats.totalCoins*materialPrice)';
+shopItems.A3S4.price = materialPrice;
 shopItems.A3S4.stock = 200;
 shopItems.A3S4.restock = 200;
 
@@ -5936,13 +5942,13 @@ shopItems.A3S12.restock = 3;
 
 shopItems.A3S13 = {}
 shopItems.A3S13.item = 'I25';
-shopItems.A3S13.price = 'Math.max(500, stats.totalCoins*materialPrice)';
+shopItems.A3S13.price = materialPrice;
 shopItems.A3S13.stock = 200;
 shopItems.A3S13.restock = 200;
 
 shopItems.A3S14 = {}
 shopItems.A3S14.item = 'I115';
-shopItems.A3S14.price = 'Math.max(500, stats.totalCoins*materialPrice)';
+shopItems.A3S14.price = materialPrice;
 shopItems.A3S14.stock = 200;
 shopItems.A3S14.restock = 200;
 
@@ -5961,7 +5967,7 @@ shopItems.A4S2.stock = "∞";
 shopItems.A4S3 = {}
 shopItems.A4S3.item = 'I17';
 shopItems.A4S3.price = 19000;
-shopItems.A4S3.price = 'Math.max(500, stats.totalCoins*materialPrice)';
+shopItems.A4S3.price = materialPrice;
 shopItems.A4S3.stock = 200;
 shopItems.A4S3.restock = 200;
 /*
@@ -6007,13 +6013,13 @@ shopItems.A4S11.stock = "1";
 
 shopItems.A4S12 = {}
 shopItems.A4S12.item = 'I29';
-shopItems.A4S12.price = 19000;
+shopItems.A4S12.price = materialPrice;
 shopItems.A4S12.stock = 200;
 shopItems.A4S12.restock = 200;
 
 shopItems.A4S13 = {}
 shopItems.A4S13.item = 'I16';
-shopItems.A4S13.price = 19000;
+shopItems.A4S13.price = materialPrice;
 shopItems.A4S13.stock = 200;
 shopItems.A4S13.restock = 200;
 
@@ -6187,10 +6193,10 @@ logs.L1P22.logic = 'stats.currentWeather==="bluemoon"';
 
 logs.L1P22A = {}
 logs.L1P22A.name = "Strong Guts";
-logs.L1P22A.description = "Survive With 1 HP Left";
+logs.L1P22A.description = "Survive With 1 HP Left in a Boss Fight";
 logs.L1P22A.hint = '"Threading inbetween life and death."';
 logs.L1P22A.insight = 5;
-logs.L1P22A.logic = 'stats.currentWeather==="bluemoon"';
+logs.L1P22A.logic = '';
 
 logs.P22B = {}
 logs.P22B.name = "Meat Beater";
@@ -6372,7 +6378,7 @@ logs.P43.name = "Luck Issue";
 logs.P43.description = "Obtain a Golden Clover";
 logs.P43.hint = '"Its shrimple."';
 logs.P43.insight = 10;
-logs.P43.insight = 'items.I102.count>0';
+logs.P43.logic = 'items.I102.count>0';
 
 logs.P44 = {}
 logs.P44.name = "It All Returns to Nothing";
@@ -6702,7 +6708,7 @@ talent.TA0.position = '0px -60px'
 talent.TA0.parent = "T0"
 talent.TA0.name = "Apprentice";
 talent.TA0.category = "Class";
-talent.TA0.description = 'Bunnies out of your hat, conjuring doves... What do you mean thats just street magic? Its still magic after all, isnt it?<br><br><span class="logStat">[Innate Skill: Incendiary Bunny]</span><br>Casts a flaming rabbit out of your hat, <span style="color:orange"> dealing '+beautify(skillDmg5*100)+'% of your strenght as Elemental Damage and '+beautify(skillDmg3*100)+'% of your strenght as Elemental Damage over 15 seconds</span>';
+talent.TA0.description = 'Bunnies out of your hat, conjuring doves... What do you mean thats just street magic? Its still magic after all, isnt it?<br><br><span class="logStat">[Innate Skill: Incendiary Bunny]</span><br>Casts a flaming rabbit out of your hat, <span style="color:orange"> dealing '+beautify(skillDmg5*100)+'% of your Strength as Elemental Damage and '+beautify(skillDmg3*100)+'% of your Strength as Elemental Damage over 15 seconds</span>';
 
 talent.TA0B = {};
 talent.TA0B.position = '50px -100px'
@@ -6716,7 +6722,7 @@ talent.TA0BASE = {};
 talent.TA0BASE.position = '9999px 9999px'
 talent.TA0BASE.name = "Incendiary Bunny";
 talent.TA0BASE.category = "Skill";
-talent.TA0BASE.description = "Casts a flaming rabbit out of your hat, <span style='color:orange'> dealing "+beautify(skillDmg5*100)+"% of your strenght as Elemental Damage and "+beautify(skillDmg3*100)+"% of your strenght as Elemental Damage over 15 seconds</span>"; 
+talent.TA0BASE.description = "Casts a flaming rabbit out of your hat, <span style='color:orange'> dealing "+beautify(skillDmg5*100)+"% of your Strength as Elemental Damage and "+beautify(skillDmg3*100)+"% of your Strength as Elemental Damage over 15 seconds</span>"; 
 talent.TA0BASE.cast = "castIncendiaryBunny()";
 talent.TA0BASE.cost = 6;
 talent.TA0BASE.cd = 20;
@@ -6760,7 +6766,7 @@ talent.TA1D.position = '40px -230px'
 talent.TA1D.parent = "TA1B"
 talent.TA1D.name = "Wizhard Shell";
 talent.TA1D.category = "Skill";
-talent.TA1D.description = "Creates a magic barrier, <span style='color:orange'> absorbing damage worth "+beautify(skillDmg8*100)+"% of your strenght</span>"; 
+talent.TA1D.description = "Creates a magic barrier, <span style='color:orange'> absorbing damage worth "+beautify(skillDmg8*100)+"% of your Strength</span>"; 
 talent.TA1D.cast = "castWizhardShield()";
 talent.TA1D.cost = 10;
 talent.TA1D.cd = 30;
@@ -6778,7 +6784,7 @@ talent.TA1F.position = '-100px -150px'
 talent.TA1F.parent = "TA1C"
 talent.TA1F.name = "Dove Flock";
 talent.TA1F.category = "Skill";
-talent.TA1F.description = "Sends 4 doves, <span style='color:orange'> dealing "+beautify(skillDmg2*100)+"% of your strenght as "+natureIcon+"Nature Damage 4 times</span>"; 
+talent.TA1F.description = "Sends 4 doves, <span style='color:orange'> dealing "+beautify(skillDmg2*100)+"% of your Strength as "+natureIcon+"Nature Damage 4 times</span>"; 
 talent.TA1F.cast = "castDoveFlock()";
 talent.TA1F.cost = 3;
 talent.TA1F.cd = 5;
@@ -6788,7 +6794,7 @@ talent.TA1G.position = '-40px -240px'
 talent.TA1G.parent = "TA1E"
 talent.TA1G.name = "Prestidigitation";
 talent.TA1G.category = "Passive";
-talent.TA1G.description = "Increases Max SP by 7% of your Strenght <FONT COLOR='gray'> (Max 60%)";
+talent.TA1G.description = "Increases Max SP by 7% of your Strength <FONT COLOR='gray'> (Max 60%)";
 talent.TA1G.logic = 'Math.min(playerStrength * 0.0007, 0.6)';
 
 talent.TA1H = {};
@@ -6796,7 +6802,7 @@ talent.TA1H.position = '-100px -220px'
 talent.TA1H.parent = "TA1E"
 talent.TA1H.name = "Cleanse";
 talent.TA1H.category = "Skill";
-talent.TA1H.description = "Purifies the body, <span style='color:orange'> removing one negative debuff from yourself, and dealing "+beautify(skillDmg7*100)+"% of your strenght as "+deificIcon+"Deific Damage.</span> Only deals damage if the purification succeeds"; 
+talent.TA1H.description = "Purifies the body, <span style='color:orange'> removing one negative debuff from yourself, and dealing "+beautify(skillDmg7*100)+"% of your Strength as "+deificIcon+"Deific Damage.</span> Only deals damage if the purification succeeds"; 
 talent.TA1H.cast = "castCleanse()";
 talent.TA1H.cost = 10;
 talent.TA1H.cd = 5;
@@ -6822,7 +6828,7 @@ talent.TG0.position = '60px 60px'
 talent.TG0.parent = "T0"
 talent.TG0.name = "Gambler";
 talent.TG0.category = "Class";
-talent.TG0.description = 'Have you ever considered using your crippling addiction as a weapon? Myriad of cards and dice shall trump over your foes.<br><br><span class="logStat">[Innate Skill: Card Fan]</span><br>Throws 3 sharp cards, <span style="color:orange"> dealing '+beautify(skillDmg1*100)+'% of your strenght as '+mightIcon+'Might Damage 3 times</span>';
+talent.TG0.description = 'Have you ever considered using your crippling addiction as a weapon? Myriad of cards and dice shall trump over your foes.<br><br><span class="logStat">[Innate Skill: Card Fan]</span><br>Throws 3 sharp cards, <span style="color:orange"> dealing '+beautify(skillDmg1*100)+'% of your Strength as '+mightIcon+'Might Damage 3 times</span>';
 
 talent.TG0B = {};
 talent.TG0B.position = '50px 120px'
@@ -6844,7 +6850,7 @@ talent.TG0BASE = {};
 talent.TG0BASE.position = '9999px 9999px'
 talent.TG0BASE.name = "Card Fan";
 talent.TG0BASE.category = "Skill";
-talent.TG0BASE.description = "Throws 3 sharp cards, <span style='color:orange'> dealing x% of your strenght as "+mightIcon+"Might Damage 3 times</span>"; 
+talent.TG0BASE.description = "Throws 3 sharp cards, <span style='color:orange'> dealing x% of your Strength as "+mightIcon+"Might Damage 3 times</span>"; 
 talent.TG0BASE.cast = "castCardFan();";
 talent.TG0BASE.cost = 1;
 talent.TG0BASE.cd = 1;
@@ -6864,7 +6870,7 @@ talent.TG1C.position = '110px 110px'
 talent.TG1C.parent = "TG1"
 talent.TG1C.name = "Roll the Dice!";
 talent.TG1C.category = "Skill";
-talent.TG1C.description = "Rolls magical dice with 3 possible outcomes; <span style='color:orange'> Increase Haste, Critical Chance or Strenght for 20 seconds</span>"; 
+talent.TG1C.description = "Rolls magical dice with 3 possible outcomes; <span style='color:orange'> Increase Haste, Critical Chance or Strength for 20 seconds</span>"; 
 talent.TG1C.cast = "castRollTheDice()";
 talent.TG1C.cost = 10;
 talent.TG1C.cd = 30;
@@ -6890,7 +6896,7 @@ talent.TG2.position = '160px 90px'
 talent.TG2.parent = "TG1"
 talent.TG2.name = "Summon Jackpot";
 talent.TG2.category = "Skill";
-talent.TG2.description = "Pulls the lever on a magic jackpot, with 3 possible outcomes; <span style='color:orange'> Hurls a fireball dealing "+beautify(skillDmg7*100)+"% of your strenght as "+elementalIcon+"Elemental Damage, Heals 10% of your Max HP, or have a chance of backfiring</span>"; 
+talent.TG2.description = "Pulls the lever on a magic jackpot, with 3 possible outcomes; <span style='color:orange'> Hurls a fireball dealing "+beautify(skillDmg7*100)+"% of your Strength as "+elementalIcon+"Elemental Damage, Heals 10% of your Max HP, or have a chance of backfiring</span>"; 
 talent.TG2.cast = "castSummonJackpot()"
 talent.TG2.cost = 3;
 talent.TG2.cd = 10;
@@ -6900,7 +6906,7 @@ talent.TG2B.position = '200px 140px'
 talent.TG2B.parent = "TG2"
 talent.TG2B.name = "Reverse Card";
 talent.TG2B.category = "Skill";
-talent.TG2B.description = "Pulls a fast one at the enemy, <span style='color:orange'> reflecting 50% of all damage recieved converted into "+occultIcon+"Occult Damage</span> for 20 seconds"; 
+talent.TG2B.description = "Pulls a fast one at the enemy, <span style='color:orange'> reflecting 50% of all damage received converted into "+occultIcon+"Occult Damage</span> for 20 seconds"; 
 talent.TG2B.cast = "castReverseCard()"
 talent.TG2B.cost = 10;
 talent.TG2B.cd = 30;
@@ -6936,7 +6942,7 @@ talent.TG3.position = '140px 150px'
 talent.TG3.parent = "TG2"
 talent.TG3.name = "Nat D20";
 talent.TG3.category = "Passive";
-talent.TG3.description = "Increases Drop Chance by 6% of your Strenght <FONT COLOR='gray'>(Max 30%)"
+talent.TG3.description = "Increases Drop Chance by 6% of your Strength <FONT COLOR='gray'>(Max 30%)"
 talent.TG3.logic = 'Math.min(playerStrength * 0.0006, 0.3)';
 
 talent.TI0 = {};
@@ -6944,7 +6950,7 @@ talent.TI0.position = '-60px 60px'
 talent.TI0.parent = "T0"
 talent.TI0.name = "Instrumentalist";
 talent.TI0.category = "Class";
-talent.TI0.description = 'Charm your enemies and play requiems for their demise.<br><br><span class="logStat">[Innate Skill: Riff Tempo]</span><br>Plays a rhythm-guided riff, <span style="color:orange"> dealing '+beautify(skillDmg3*100)+'% of your strenght as '+natureIcon+'Nature Damage 10 times</span>';
+talent.TI0.description = 'Charm your enemies and play requiems for their demise.<br><br><span class="logStat">[Innate Skill: Riff Tempo]</span><br>Plays a rhythm-guided riff, <span style="color:orange"> dealing '+beautify(skillDmg3*100)+'% of your Strength as '+natureIcon+'Nature Damage 10 times</span>';
 
 talent.TI0B = {};
 talent.TI0B.position = '-50px 110px'
@@ -6957,7 +6963,7 @@ talent.TI0BASE = {};
 talent.TI0BASE.position = '9999px 9999px'
 talent.TI0BASE.name = "Riff Tempo";
 talent.TI0BASE.category = "Skill";
-talent.TI0BASE.description = "Plays a rhythm-guided riff, <span style='color:orange'> dealing "+beautify(skillDmg2*100)+"% of your strenght as "+natureIcon+"Nature Damage 10 times</span>"; 
+talent.TI0BASE.description = "Plays a rhythm-guided riff, <span style='color:orange'> dealing "+beautify(skillDmg2*100)+"% of your Strength as "+natureIcon+"Nature Damage 10 times</span>"; 
 talent.TI0BASE.cast = "castRiffTempo()"
 talent.TI0BASE.cost = 3;
 talent.TI0BASE.cd = 20;
@@ -6993,7 +6999,7 @@ talent.TI1.position = '-120px 70px'
 talent.TI1.parent = "TI0"
 talent.TI1.name = "Conjure Violin";
 talent.TI1.category = "Skill";
-talent.TI1.description = "Summons a magic violin to fight alongside you, <span style='color:orange'> dealing "+beautify(skillDmg3*100)+"% of your strenght as "+natureIcon+"Nature Damage every time you attack</span>"; 
+talent.TI1.description = "Summons a magic violin to fight alongside you, <span style='color:orange'> dealing "+beautify(skillDmg3*100)+"% of your Strength as "+natureIcon+"Nature Damage every time you attack</span>"; 
 talent.TI1.cast = 'castConjureViolin()';
 talent.TI1.cost = 15;
 talent.TI1.cd = 35;
@@ -7029,7 +7035,7 @@ talent.TI2B.position = '-210px 140px'
 talent.TI2B.parent = "TI2"
 talent.TI2B.name = "Perish Song";
 talent.TI2B.category = "Skill";
-talent.TI2B.description = "Plays a requiem of death, inflicting a debuff lasting 20 seconds that deals<span style='color:orange'> "+beautify(skillDmg7*100)+"% of your strenght as "+occultIcon+"Occult Damage once it expires</span>"; 
+talent.TI2B.description = "Plays a requiem of death, inflicting a debuff lasting 20 seconds that deals<span style='color:orange'> "+beautify(skillDmg7*100)+"% of your Strength as "+occultIcon+"Occult Damage once it expires</span>"; 
 talent.TI2B.cast = "castPerishSong()";
 talent.TI2B.cost = 10;
 talent.TI2B.cd = 30;
@@ -7055,7 +7061,7 @@ talent.TI3B.position = '-190px 190px'
 talent.TI3B.parent = "TI3"
 talent.TI3B.name = "Song of Healing";
 talent.TI3B.category = "Skill";
-talent.TI3B.description = "Plays a requiem of life, <span style='color:orange'> healing "+beautify(skillDmg4*100)+"% of your strenght every second for 20 seconds</span>"; 
+talent.TI3B.description = "Plays a requiem of life, <span style='color:orange'> healing "+beautify(skillDmg4*100)+"% of your Strength every second for 20 seconds</span>"; 
 talent.TI3B.cast = "castSongOfHealing()";
 talent.TI3B.cost = 10;
 talent.TI3B.cd = 30;
@@ -7102,7 +7108,7 @@ buildings.B2.img = "C10";
 
 buildings.B3 = {};
 buildings.B3.name = 'Metal Workshop';
-buildings.B3.description = 'Increases Strenght by 6% per level<br><br>';
+buildings.B3.description = 'Increases Strength by 6% per level<br><br>';
 buildings.B3.price = 300;
 buildings.B3.item1 = 'I196';
 buildings.B3.item1Amount = 5;

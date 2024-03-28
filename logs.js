@@ -68,6 +68,7 @@ function createLog() {
 function tooltipLog(i) {
     if (did(i+"log")) {
     did(i+"log").addEventListener('mouseenter', function () { //on mouseenter
+    did(i + "log").style.animation = "none";
     playSound("audio/page.mp3")
     did('tooltip').style.display = "flex";
     did("tooltipName").textContent = logs[i].name;
@@ -143,6 +144,7 @@ function logCheck() {
         }
 
         if (logs[i].unlocked && !logs[i].once) { //plays only once ever
+          did(i + "log").style.animation = "newItemGot 40s 1, levelUp 0.5s 1";
           stats.logsGot++;
           logs[i].once = true;
           createPopup('&#128196 Log Acquired: '+logs[i].name, 'page')

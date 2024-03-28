@@ -304,6 +304,7 @@ function playerUpdate(){ //updates player HP and checks if its dead
       did("rpgCanvas").style.animation = "";
       void did("rpgCanvas").offsetWidth;
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
+      
     }
     if (dungeonTime){
       dungeonTime=false;
@@ -317,14 +318,17 @@ function playerUpdate(){ //updates player HP and checks if its dead
       switchArea();
       specialButtonUi();
       deleteEnemy();
+      
     }
     if (showdownTime || skirmishTime){
       endShowdown();
       deleteEnemy();
-      buffs.B57.time=0; //dai goran poison
-      playerBuffs();
+      
       revive();
     }
+
+    clearNegativeBuffs()
+    playerBuffs();
 
     rpgPlayer.alive = false;
     logPrint(stats.turtleName + " perishes :c");
@@ -346,12 +350,26 @@ if (rpgPlayer.trinketSlot !== 'none' && 'healthChance' in items[rpgPlayer.trinke
 
 }
 
+
+function clearNegativeBuffs(){
+for (i in buffs){
+  if (buffs[i].time>0 && buffs[i].player && !buffs[i].buff){
+    buffs[i].time = 0;
+  }
+}
+
+
+
+
+}
+
 setInterval(hpRegen, 1000);
 function hpRegen() { //additionally manages death
   if (rpgPlayer.alive) {
     //if player alive
     if (rpgPlayer.hp < playerMaxHp && !bossTime && !dungeonTime && !showdownTime && !skirmishTime) rpgPlayer.hp += playerHpRegen/4;
     playerUpdate()
+    if (bossTime && rpgPlayer.hp===1) logs.L1P22A.unlocked=true
     
   } else {
     //if player dead
@@ -687,10 +705,23 @@ function enemyNatureDamage(damage, type){
   damageText(beautify(damageDealt)+critMark(critChance-1), 'damageText', '#21b42d', icon, "enemyPanel");
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Nature Damage");
     
-  if (damageDealt === 69) logs.L1P4.unlocked = true;
-  if (damageDealt > 999) logs.P35.unlocked = true;
-  if (damageDealt > 99999) logs.P35A.unlocked = true;
-  if (damageDealt > 999999) logs.P35B.unlocked = true;
+  
+}
+
+function postDamageCheck(damage){ //check after all the calculations (should had done this much sooner)
+
+
+
+
+  if (damage === 69) logs.L1P4.unlocked = true;
+  if (damage > 999) logs.P35.unlocked = true;
+  if (damage > 99999) logs.P35A.unlocked = true;
+  if (damage > 999999) logs.P35B.unlocked = true;
+
+
+
+
+
 }
 
 function enemyMightDamage(damage, type){
@@ -717,10 +748,7 @@ function enemyMightDamage(damage, type){
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Might Damage");
 
     
-  if (damageDealt === 69) logs.L1P4.unlocked = true;
-  if (damageDealt > 999) logs.P35.unlocked = true;
-  if (damageDealt > 99999) logs.P35A.unlocked = true;
-  if (damageDealt > 999999) logs.P35B.unlocked = true;
+  postDamageCheck(damage)
 
   if(stats.currentEnemy==="E12" && enemyPhase === 1){ castTerragosa3()}
 
@@ -750,10 +778,7 @@ function enemyElementalDamage(damage, type){
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Elemental Damage");
 
     
-  if (damageDealt === 69) logs.L1P4.unlocked = true;
-  if (damageDealt > 999) logs.P35.unlocked = true;
-  if (damageDealt > 99999) logs.P35A.unlocked = true;
-  if (damageDealt > 999999) logs.P35B.unlocked = true;
+  postDamageCheck(damage)
 
   if(stats.currentEnemy==="E10"){ castCubomite()}
 
@@ -784,10 +809,7 @@ function enemyOccultDamage(damage, type){
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Occult Damage");
 
     
-  if (damageDealt === 69) logs.L1P4.unlocked = true;
-  if (damageDealt > 999) logs.P35.unlocked = true;
-  if (damageDealt > 99999) logs.P35A.unlocked = true;
-  if (damageDealt > 999999) logs.P35B.unlocked = true;
+  postDamageCheck(damage)
 }
 
 function enemyDeificDamage(damage, type){
@@ -813,10 +835,7 @@ function enemyDeificDamage(damage, type){
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Deific Damage");
 
     
-  if (damageDealt === 69) logs.L1P4.unlocked = true;
-  if (damageDealt > 999) logs.P35.unlocked = true;
-  if (damageDealt > 99999) logs.P35A.unlocked = true;
-  if (damageDealt > 999999) logs.P35B.unlocked = true;
+  postDamageCheck(damage)
 }
 
 function enemyBasicDamage(damage){
@@ -826,6 +845,7 @@ function enemyBasicDamage(damage){
   enemyUpdate();
   damageText(beautify(damageDealt), 'damageText', '#818181', icon, "enemyPanel");
   if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Damage");
+  postDamageCheck(damage)
 }
 
 function enemyHealingDamage(healing){
@@ -1643,7 +1663,7 @@ function createAreaPanel() {
       tooltipAreas(a);
     }
 
-    if (rpgClass[stats.currentClass].level >= areas[a].level ) did(a + "areal").style.background = "#58B86C";
+    if (rpgClass[stats.currentClass].level >= areas[a].level || areas[a].dungeon){ did(a + "areal").style.background = "#58B86C"; }else { did(a + "areal").style.background = "#D85858"}
 
 
 
@@ -2866,6 +2886,8 @@ for (let i in talent) {
       animState("rpgPlayerImg", "flash 0.4s 1");
     animImageSplash("soundWave", "playerPanel", "wave", 100);
 
+    createAreaPanel();
+
     });
   
 
@@ -3247,6 +3269,7 @@ function setBonus() {
   if (h === "I3" && c === "I5" && l === "I6" && f === "I2" && d === "I4") { //cloth
     did("rpgPlayerImg").src = "img/src/armor/A1.png";
     currentSet = "cloth";
+    logs.L1P21.unlocked=true;
   } 
   else if (h === "I133" && c === "I135" && l === "I136" && f === "I132" && d === "I134") { //jungle king
     did("rpgPlayerImg").src = "img/src/armor/A4.png";
@@ -3773,7 +3796,7 @@ function tooltipAreas(id) {
 
 
       let description1 = ""
-      if (rpgClass[stats.currentClass].level<areas[id].level) description1 = "<FONT COLOR='#fc2626'>You dont meet the level requirement for this area<br>"
+      if (rpgClass[stats.currentClass].level<areas[id].level && !areas[id].dungeon) description1 = "<FONT COLOR='#fc2626'>You dont meet the level requirement for this area<br>"
 
       let description05 = ""
       if (!areas[id].dungeon) description05 = "<FONT COLOR='white'>Select this area to travel to " + areas[id].name + "<br>"
@@ -3877,7 +3900,7 @@ function tooltipQuests(id) {
         did("tooltipRarity").textContent = "Quest";
         did("tooltipRarity").style.color = "#FFD100";
         did("tooltipName").style.color = "#FFD100";
-        did("tooltipDescription").innerHTML = '“ '+quests[id].description+' ”<br><br><span style="color:#FFD100; font-size:1vw"> Objective:</span><br><span style="color:#deaf6a">❖ '+quests[id].objective+'</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ '+eval(quests[id].rewardIcon)+quests[id].reward+'</span><br><span style="color:#ffbd54">★ '+beautify(quests[id].money)+' '+coinIcon+'Turtle Coins</span><br><span style="color:#ae77f7">★ '+beautify(quests[id].exp)+' '+expIcon+'Experience</span>'
+        did("tooltipDescription").innerHTML = '“ '+quests[id].description+' ”<br><br><span style="color:#FFD100; font-size:1vw"> Objective:</span><br><span style="color:#deaf6a">❖ '+eval(quests[id].objective)+'</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ '+eval(quests[id].rewardIcon)+quests[id].reward+'</span><br><span style="color:#ffbd54">★ '+beautify(quests[id].money)+' '+coinIcon+'Turtle Coins</span><br><span style="color:#ae77f7">★ '+beautify(quests[id].exp)+' '+expIcon+'Experience</span>'
         did("tooltipFlavor").textContent = "";
         did("tooltipImage").src = "img/src/items/quest.jpg";
         //position related code

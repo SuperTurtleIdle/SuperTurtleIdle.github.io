@@ -2529,6 +2529,16 @@ background: transparent;
     animation: useSkill 1 0.2s;
 }
 
+.questProgress{
+    background:#516385 !important;
+    padding: 0 2%;
+    border-radius: 0.4vh;
+    font-family: fredoka;
+    font-weight: 400;
+    white-space: nowrap;
+    color: white;
+}
+
 
 @keyframes newItemGot{
 

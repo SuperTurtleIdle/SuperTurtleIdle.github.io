@@ -930,4 +930,6 @@ function castMetronome(){
         var randomcastkeys = castkeys[Math.floor(Math.random() * castkeys.length)];
         eval(talent[randomcastkeys].cast)
 
+        if (!settings.disableSkillLog) logPrint(`<FONT COLOR="#18ccba"> Metronome casts ` + talent[randomcastkeys].name);
+
         }, 800);} 

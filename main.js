@@ -762,11 +762,11 @@ function calculateInactiveTime() { //calculates idle time
             stats.totalSeconds += secondsInactive; 
             for (let i in cd) if (cd[i]>0) {cd[i]-=secondsInactive};
             did('idleTime').innerHTML = convertSecondsToHMS(secondsInactive);
-            if (farmable) offlineRewards((secondsInactive/60)*(playerPenguinPower/100));
+            if (farmable) offlineRewards((secondsInactive/60)*(playerPenguinPower/20));
             if (!settings.disablePenguinRecap && unlocks.penguins && farmable) { did("penguinRecap").style.display = "flex"; }
             
             for (let i in research) { if (research[i].status === "researching" && research[i].timer>1) research[i].timer -= secondsInactive}
-            
+            for (let i in areas) { if ("dungeonTimer" in areas[i] && areas[i].dungeonTimer>0) areas[i].dungeonTimer -= secondsInactive; if (areas[i].dungeonTimer<0) areas[i].dungeonTimer=0;}
 
         }
 
@@ -812,7 +812,7 @@ function tooltipPenguin() {
     did("penguinCurrentResourceImage").src = "img/src/items/"+currentDrop+".jpg";
     }
 
-    did("penguinPowerMeter").innerHTML = 'Penguin Power: '+playerPenguinPower+' ('+playerPenguinPower/100+' kills per minute)';
+    did("penguinPowerMeter").innerHTML = 'Penguin Power: '+beautify(playerPenguinPower)+' ('+playerPenguinPower.toFixed(1)/20+' kills per minute)';
 
 
 
@@ -855,13 +855,13 @@ if (enemies[stats.currentEnemy].tag!=="areaBoss" && !dungeonTime && stats.curren
 
     if (concept==='egg'){
 
-        createPopup('&#9201; Time Skipped and gathered '+beautify(Math.round(amount))+'<img src="img/src/items/'+currentDrop+'.jpg">and '+beautify(enemies[stats.currentEnemy].exp * Math.round(amount))+' EXP', '#4e9690')
+        createPopup('&#9201; Time Skipped and gathered '+beautify(Math.round(amount))+'<img src="img/src/items/'+currentDrop+'.jpg">and '+beautify(enemies[stats.currentEnemy].exp/2 * Math.round(amount))+' EXP', '#4e9690')
 
 
     }
 
 items[currentDrop].count += Math.round(amount);
-rpgClass[stats.currentClass].currentExp += enemies[stats.currentEnemy].exp * Math.round(amount);
+rpgClass[stats.currentClass].currentExp += enemies[stats.currentEnemy].exp/2 * Math.round(amount);
 
 did("idleItem").innerHTML = beautify(Math.round(amount));
 did("idleItemImg").src = "img/src/items/"+currentDrop+".jpg";
