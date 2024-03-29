@@ -295,8 +295,8 @@ function reduceRecipeTimeCheck(){ //codigo del diablo lol
 stats.craftedItems = 0;
 
 var craftingCollectibles = { 
-    I264A:{P:rareCollectibleChance,A:1, R:"medium"}, 
-    I264B:{P:rareCollectibleChance,A:1, R:"medium"},
+    I264A:{P:collectibleChance2,A:1, R:"medium"}, 
+    I264B:{P:collectibleChance2,A:1, R:"medium"},
   }
 
 
