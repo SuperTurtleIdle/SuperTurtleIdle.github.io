@@ -329,11 +329,20 @@ function playerUpdate(){ //updates player HP and checks if its dead
 
     clearNegativeBuffs()
     playerBuffs();
-
+    if (buffs.B64.time>0){
+      rpgPlayer.hp += playerMaxHp * 0.3
+      buffs.B64.time=0;
+      animParticleBurst(6 , "particleFire", "playerPanel", 0);
+      animParticleBurst(6 , "particleSmoke", "playerPanel", 0);
+      animState("rpgPlayerImg", "shakeFlash 0.5s 1");
+      playSound("audio/retro1.mp3");
+      playerBuffs();
+    } else{
     rpgPlayer.alive = false;
     logPrint(stats.turtleName + " perishes :c");
     playSound("audio/death.mp3");
     hpRegen();
+  }
   }
 
   playerHealthCheck();
@@ -363,6 +372,21 @@ for (i in buffs){
 
 }
 
+
+
+did("rpgPlayerImg").addEventListener("click", function () {
+  if (!rpgPlayer.alive && unlocks.medikit){
+    playSound("audio/throw.mp3");
+    rpgPlayer.hp += playerMaxHp*0.04
+    animParticleBurst(1 , "particleHeart", "playerPanel", 0);
+    hpRegen()
+    playerUpdate();
+  }
+  
+  
+  
+});
+
 setInterval(hpRegen, 1000);
 function hpRegen() { //additionally manages death
   if (rpgPlayer.alive) {
@@ -376,13 +400,15 @@ function hpRegen() { //additionally manages death
     if (rpgPlayer.hp < 0) rpgPlayer.hp=0;
     if (rpgPlayer.hp < playerMaxHp) rpgPlayer.hp += playerHpRegen / 10;
     playerUpdate()
-    playSound("audio/throw.mp3");
     did("playerAnimation").style.animation = "playerDeath 1s 1";
     setTimeout(function () { did("playerAnimation").style.transform = "rotateX(180deg) translateY(-35%)"; }, 800);
     did("rpgPlayerImg").src = "img/src/armor/dead.png";
 
     if (rpgPlayer.hp >= playerMaxHp) {
       rpgPlayer.alive = true;
+      playSound("audio/lily.mp3");
+      animParticleBurst(4 , "particleHeart", "playerPanel", 0);
+      animParticleBurst(4 , "particleLight", "playerPanel", 0);
       
       stats.timesDied++; //prevents the player from reloading and getting points
 
@@ -1205,7 +1231,7 @@ if (enemies.E27.killCount>0) { materialTable2.I40.P = 15; materialTable2.I58.P =
 
           
         }
-        if (!settings.disableDropsLog) logPrint("<FONT COLOR='#8fba77'>You obtain " + items[dt].name + " x"+rollcount+"!");
+        if (!settings.disableDropsLog) logPrint("<FONT COLOR='#8fba77'>You obtain <FONT COLOR="+returnQualityColor(items[dt].quality)+">" + itemIcon(dt) + items[dt].name + " x"+rollcount+"!");
       }
     }
   }
@@ -3497,7 +3523,7 @@ function updateStampMenu(){
 statTips = [
 
 '<FONT COLOR="#edd585">When you level up, your Strength, Max Health and Regeneration go up.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
-'<FONT COLOR="#edd585">Be sure to pay attention to alignments!<br><br><img id="chartImage" src="img/src/icons/alignChart.png"><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
+'<FONT COLOR="#edd585">Be sure to pay attention to alignments!<br><br><img id="chartImage" src="img/src/icons/alignChart.png"><div style=" text-align: center;background:#5A8C98; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">(1.3x Damage Multiplier)</div><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
 '<FONT COLOR="#edd585">Haste determines the speed of your attack over the base 100%.<div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
 '<FONT COLOR="#edd585">When Drop Chance goes over 100%, youll have the chance of getting multiple items per kill.<div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
 '<FONT COLOR="#edd585">Stamps are multiplicative with other bonuses, making them always very strong!<div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
@@ -4377,7 +4403,7 @@ function openPresent(present) {
     }
 
     if (present.startsWith("rareitem")) {
-      let roll = rng(1,10);
+      let roll = rng(1,11);
       if (roll === 1) { div.innerHTML = '<img src="img/src/items/I96.jpg">x1 Gold-Tinged Gamba'; items.I96.count+=1}
       else if (roll === 2) { div.innerHTML = div.innerHTML = '<img src="img/src/items/I97.jpg">x1 Vitreous Gamba'; items.I97.count+=1}
       else if (roll === 3) { div.innerHTML = div.innerHTML = '<img src="img/src/items/I207.jpg">x1 Wood-Carved Gamba'; items.I207.count+=1}
@@ -4388,6 +4414,7 @@ function openPresent(present) {
       else if (roll === 8) { div.innerHTML = div.innerHTML = '<img src="img/src/items/I219.jpg">x1 Giantite Chunk'; items.I219.count++}
       else if (roll === 9) { div.innerHTML = div.innerHTML = '<img src="img/src/items/I209.jpg">x1 Ephemeral Time Egg'; items.I209.count++}
       else if (roll === 10) { div.innerHTML = div.innerHTML = '<img src="img/src/items/I210.jpg">x1 Perennial Time Egg'; items.I210.count++}
+      else if (roll === 11) { div.innerHTML = div.innerHTML = '<img src="img/src/items/I200.jpg">x1 Phoenix Prawn'; items.I200.count++}
       logs.P32.unlocked = true;
     }
 

@@ -14,9 +14,9 @@ const scalingIcon = '<img style="border-color: gold" src="img/src/icons/scaling.
 const honorIcon = '<img src="img/src/icons/honor.jpg">';
 
 
-const collectibleChance = 1000;
-const rareCollectibleChance = 5000;
-const veryRareCollectibleChance = 30000;
+const collectibleChance1 = 1000;
+const collectibleChance2 = 7000;
+const collectibleChance3 = 30000;
 
 function itemIcon(id){
   return '<img style="border-color: '+returnQualityColor(items[id].quality)+' " src="img/src/items/'+id+'.jpg">'
@@ -272,7 +272,7 @@ let armoryforgottenStatUp = armoryforgottenGot * 0.1; //drop chance
 let armorymasterworkStatUp = armorymasterworkGot * 0.05; //max hp
 let armorybeastfallenStatUp = armorybeastfallenGot * 0.05; //exp rate
 let armoryreveredStatUp = armoryreveredGot * 0.05; //max sp
-let armorysolsticeStatUp = armorysolsticeGot * 0.05; //click power
+let armorysolsticeStatUp = armorysolsticeGot * 0.03; //crit chance
 
 if (disableArmory){
   armorymillionaireStatUp = 0;
@@ -285,7 +285,7 @@ if (disableArmory){
 
 multiplicativeSellValue = 1 + armorymillionaireStatUp;
 
-multiplicativeDropChance = 1 + items.I11.statUp + buffs.B11.statUp + sakuraDropUp + buffs.B24.statUp + talent.TA1E.statUp + talent.TG3.statUp + buffs.B36.statUp + items.I184.statUp + buffs.B55.statUp + collectionForagingStatUp + armoryforgottenStatUp + talent.TG2E.statUp + buffs.B29.statUp
+multiplicativeDropChance = 1 + items.I11.statUp + buffs.B11.statUp + sakuraDropUp + buffs.B24.statUp + talent.TA1E.statUp + talent.TG3.statUp + buffs.B36.statUp + items.I184.statUp + buffs.B55.statUp + collectionForagingStatUp + armoryforgottenStatUp + talent.TG2E.statUp + buffs.B29.statUp + buffs.B63.statUp
 
 multiplicativeEXPGain = 1 + bluemoonExpUp + buffs.B9.statUp + buffs.B10.statUp + buffs.B23.statUp + talent.TG1D.statUp + items.I172.statUp + buffs.B35.statUp + items.I193.statUp + armorybeastfallenStatUp + talent.TI2C.statUp + talent.TI0D.statUp
 
@@ -298,7 +298,7 @@ multiplicativeStrength = 1 + talent.TI1C.statUp + buildings.B3.statUp + buffs.B4
 playerStrength = rpgPlayer.baseStrength * multiplicativeStrength;
 playerMultihit = 1 * multihitStampStatUp;
 
-multiplicativeCritChance = 1 + talent.TA1C.statUp + talent.TI0E.statUp + buffs.B46.statUp + collectionRelicsStatUp + buffs.B62.statUp
+multiplicativeCritChance = 1 + talent.TA1C.statUp + talent.TI0E.statUp + buffs.B46.statUp + collectionRelicsStatUp + buffs.B62.statUp  + armorysolsticeStatUp
 playerCritChance = (1 + items.I15.statUp ) * multiplicativeCritChance * critStampStatUp;
 
 multiplicativeNatureDamage = (1 + buffs.B4.statUp + buffs.B15.statUp + items.I44.statUp + buffs.B18.statUp + buffs.B19.statUp + talent.TI1B.statUp + talent.TI3.statUp) * natureStampStatUp;
@@ -324,12 +324,11 @@ multiplicativeDeificDamage = (1 + buffs.B18.statUp + buffs.B31.statUp + items.I1
 additiveDeificDamage = weaponDeificDamage
 playerTotalDeificDamage = (playerStrength/10 + additiveDeificDamage) * multiplicativeDeificDamage;
 
-
 armorAdditiveRegen = headAdditiveRegen + chestAdditiveRegen + legsAdditiveRegen + feetAdditiveRegen + handsAdditiveRegen + ringAdditiveRegen
 multiplicativeRegen = 1 + buffs.B14.statUp + buildings.B2.statUp
 playerHpRegen = (rpgPlayer.baseHpRegen + additiveRegen + armorAdditiveRegen) * multiplicativeRegen;
 
-multiplicativeHaste = 1 - buffs.B7.statUp - buffs.B47.statUp - buffs.B63.statUp
+multiplicativeHaste = 1 - buffs.B7.statUp - buffs.B47.statUp
 additiveHaste = weaponHaste;
 playerHaste = Math.max((rpgPlayer.baseHaste - additiveHaste) * multiplicativeHaste, 500)  
 
@@ -340,10 +339,10 @@ playerMiningDamage = additiveMiningDamage * multiplicativeMiningDamage;
 playerGatheringLevel = 0 + weaponGatheringLevel + buffs.B37.statUp; 
 
 additiveFishingLevel = 0 + items.I182.statUp + buffs.B22.statUp + buffs.B14.statUp + items.I117.statUp;
-playerFishingLevel = baseFishingLevel + additiveFishingLevel;
+playerFishingLevel = baseFishingLevel + additiveFishingLevel + rainFishingUp;
 
 additiveCoinsPerClick = items.I113.statUp + items.I124.statUp + items.I128.statUp +  items.I202.statUp
-multiplicativeCoinsPerClick = 1 + buffs.B8.statUp + buffs.B25.statUp + buffs.B26.statUp + talent.TA1B.statUp + talent.TG1.statUp + armorysolsticeStatUp
+multiplicativeCoinsPerClick = 1 + buffs.B8.statUp + buffs.B25.statUp + buffs.B26.statUp + talent.TA1B.statUp + talent.TG1.statUp
 playerCoinsPerClick = (10 + additiveCoinsPerClick) * multiplicativeCoinsPerClick;
 
 playerClickRate = 100 / ( 1 + ( buffs.B27.statUp + buffs.B28.statUp ))
@@ -374,7 +373,7 @@ enemies.E1 = {};
 enemies.E1.name = 'Caulislug';
 enemies.E1.level = '[lvl 1]';
 enemies.E1.hp = 59;
-enemies.E1.description = 'A slug so passionate about vegetables that he raised one on its shell. Scientists are in absolute awe.'
+enemies.E1.description = 'A slug so passionate about vegetables that he raised one on it\'s shell. Scientists are in absolute awe.'
 enemies.E1.area = 'A1';
 enemies.E1.attack = 6;
 enemies.E1.difficulty = 'easy';
@@ -401,7 +400,7 @@ enemies.E3 = {};
 enemies.E3.name = 'Ribull';
 enemies.E3.level = '[lvl 4]';
 enemies.E3.hp = 400;
-enemies.E3.description = 'Recognized for its loud croaking sound, numerous noise complaints have been filled wherever they reside. But they never listen...'
+enemies.E3.description = 'Recognized for it\'s loud croaking sound, numerous noise complaints have been filled wherever they reside. But they never listen...'
 enemies.E3.area = 'A1';
 enemies.E3.attack = 180;
 enemies.E3.difficulty = 'medium';
@@ -415,7 +414,7 @@ enemies.E4 = {};
 enemies.E4.name = 'Hoopperoona';
 enemies.E4.level = '[lvl 10]';
 enemies.E4.hp = 7000;
-enemies.E4.description = 'An overgrown arachnid that doesnt seem too up for conversation.<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ Fleming Bite: Applies poison on attack';
+enemies.E4.description = 'An overgrown arachnid that doesn\'t seem too up for conversation.<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ Fleming Bite: Applies poison on attack';
 enemies.E4.attack = 350;
 enemies.E4.exp = 9500;
 enemies.E4.attackChance = 'if (rng(1,5)===1) castHoopperoona1()';
@@ -442,7 +441,7 @@ enemies.E6 = {};
 enemies.E6.name = 'Karateil';
 enemies.E6.level = '[lvl 14]';
 enemies.E6.hp = 4500;
-enemies.E6.description = 'A common red squirrel that has found its ways into martial arts. Not so common anymore.'
+enemies.E6.description = 'A common red squirrel that has found it\'s ways into martial arts. Not so common anymore.'
 enemies.E6.area = 'A2';
 enemies.E6.attack = 1400;
 enemies.E6.exp = 1312;
@@ -455,7 +454,7 @@ enemies.E7 = {};
 enemies.E7.name = 'Roostrika';
 enemies.E7.level = '[lvl 17]';
 enemies.E7.hp = 8000;
-enemies.E7.description = 'A hen proeficient in full body combat. This one doesnt even want to cross the road.'
+enemies.E7.description = 'A hen proeficient in full body combat. This one doesn\'t even want to cross the road.'
 enemies.E7.area = 'A2';
 enemies.E7.attack = 2200;
 enemies.E7.exp = 4366;
@@ -472,7 +471,7 @@ enemies.E8 = {};
 enemies.E8.name = 'King-Kat';
 enemies.E8.level = '[lvl 20]';
 enemies.E8.hp = 150000;
-enemies.E8.description = 'King of the jungle and king of all fighting styles. Try hitting its weakness.<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ King Punch: Moderate '+mightIcon+'Might Damage<br>❖ [When below 40% HP] Enrage: Increase attack by 40%';
+enemies.E8.description = 'King of the jungle and king of all fighting styles. Try hitting it\'s weakness.<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ King Punch: Moderate '+mightIcon+'Might Damage<br>❖ [When below 40% HP] Enrage: Increase attack by 40%';
 enemies.E8.attack = 4500;
 enemies.E8.exp = 550000;
 enemies.E8.attackChance = ' if(rng(1,4)===1) {castKingKat1()} if (currentHP < enemies.E8.hp*0.4 && enemyPhase===1){ enemyPhase=2; castKingKat2() }';
@@ -486,7 +485,7 @@ enemies.E9 = {};
 enemies.E9.name = 'Picore';
 enemies.E9.level = '[lvl 21]';
 enemies.E9.hp = 9000;
-enemies.E9.description = 'A cute square monster that likes to mine rocks. He doesnt do it with any purpose in mind, he just likes to do so.'
+enemies.E9.description = 'A cute square monster that likes to mine rocks. He doesn\'t do it with any purpose in mind, he just likes to do so.'
 enemies.E9.area = 'A3';
 enemies.E9.attack = 3400;
 enemies.E9.exp = 12000;
@@ -499,7 +498,7 @@ enemies.E10 = {};
 enemies.E10.name = 'Cubomite';
 enemies.E10.level = '[lvl 24]';
 enemies.E10.hp = 28000;
-enemies.E10.description = 'A monster with a highly volatile personality. If attacked with elemental damage, well, why dont you try it out for yourself?'
+enemies.E10.description = 'A monster with a highly volatile personality. If attacked with elemental damage, well, why don\'t you try it out for yourself?'
 enemies.E10.area = 'A3';
 enemies.E10.attack = 8000;
 enemies.E10.exp = 44000;
@@ -526,7 +525,7 @@ enemies.E12 = {};
 enemies.E12.name = 'Terragosa';
 enemies.E12.level = '[lvl 30]';
 enemies.E12.hp = 2500000;
-enemies.E12.description = 'A crystalline drake formed out of sheer willpower and pressure. Be wary of its Prismatic Shift<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ Razor Claws: Low '+mightIcon+'Might Damage<br>❖ Crystal Breath: Moderate '+elementalIcon+'Elemental Damage<br>❖ [When attacked with '+mightIcon+'Might Damage] Prismatic Shift: Increase attack by 1600%';
+enemies.E12.description = 'A crystalline drake formed out of sheer willpower and pressure. Be wary of it\'s Prismatic Shift<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ Razor Claws: Low '+mightIcon+'Might Damage<br>❖ Crystal Breath: Moderate '+elementalIcon+'Elemental Damage<br>❖ [When attacked with '+mightIcon+'Might Damage] Prismatic Shift: Increase attack by 1600%';
 enemies.E12.attack = 70000;
 enemies.E12.exp = 31750000;
 enemies.E12.align = 'elemental';
@@ -536,24 +535,24 @@ enemies.E12.attackChance = 'if (rng(1,5)===1){ castTerragosa1() }else if (rng(1,
 enemies.E12.tag = 'areaBoss';
 
 var miningCollectibles = { 
-  I241:{P:collectibleChance,A:1, R:"low"}, //tiger eye
-  I227:{P:collectibleChance,A:1, R:"low"}, //ruby
-  I228:{P:collectibleChance,A:1, R:"low"}, //topaz
-  I233:{P:collectibleChance,A:1, R:"low"}, //sapphire
+  I241:{P:collectibleChance1,A:1, R:"low"}, //tiger eye
+  I227:{P:collectibleChance1,A:1, R:"low"}, //ruby
+  I228:{P:collectibleChance1,A:1, R:"low"}, //topaz
+  I233:{P:collectibleChance1,A:1, R:"low"}, //sapphire
 
-  I226:{P:rareCollectibleChance,A:1, R:"medium"}, //diamond
-  I229:{P:rareCollectibleChance,A:1, R:"medium"}, //turqueosite
-  I230:{P:rareCollectibleChance,A:1, R:"medium"}, //peridot
-  I231:{P:rareCollectibleChance,A:1, R:"medium"}, //feldespate
-  I232:{P:rareCollectibleChance,A:1, R:"medium"}, //raritarium
-  I234:{P:rareCollectibleChance,A:1, R:"medium"}, //gammanite
-  I237:{P:rareCollectibleChance,A:1, R:"medium"}, //pointy
-  I238:{P:rareCollectibleChance,A:1, R:"medium"}, //chromatic
-  I240:{P:rareCollectibleChance,A:1, R:"medium"}, //taoline
+  I226:{P:collectibleChance2,A:1, R:"medium"}, //diamond
+  I229:{P:collectibleChance2,A:1, R:"medium"}, //turqueosite
+  I230:{P:collectibleChance2,A:1, R:"medium"}, //peridot
+  I231:{P:collectibleChance2,A:1, R:"medium"}, //feldespate
+  I232:{P:collectibleChance2,A:1, R:"medium"}, //raritarium
+  I234:{P:collectibleChance2,A:1, R:"medium"}, //gammanite
+  I237:{P:collectibleChance2,A:1, R:"medium"}, //pointy
+  I238:{P:collectibleChance2,A:1, R:"medium"}, //chromatic
+  I240:{P:collectibleChance2,A:1, R:"medium"}, //taoline
 
-  I235:{P:veryRareCollectibleChance,A:1, R:"high"}, //stardustite
-  I236:{P:veryRareCollectibleChance,A:1, R:"high"}, //twilight
-  I239:{P:veryRareCollectibleChance,A:1, R:"high"}, //xyzite
+  I235:{P:collectibleChance3,A:1, R:"high"}, //stardustite
+  I236:{P:collectibleChance3,A:1, R:"high"}, //twilight
+  I239:{P:collectibleChance3,A:1, R:"high"}, //xyzite
 }
 
 
@@ -571,23 +570,23 @@ enemies.E13.tag = "ore"
 enemies.E13.gatheringLevel = 1;
 
 var foragingCollectibles = { 
-  I265:{P:collectibleChance,A:1, R:"low"}, //grasshopper
-  I266:{P:collectibleChance,A:1, R:"low"}, //moth
-  I267:{P:collectibleChance,A:1, R:"low"}, //bee
-  I269:{P:collectibleChance,A:1, R:"low"}, //ladybug
+  I265:{P:collectibleChance1,A:1, R:"low"}, //grasshopper
+  I266:{P:collectibleChance1,A:1, R:"low"}, //moth
+  I267:{P:collectibleChance1,A:1, R:"low"}, //bee
+  I269:{P:collectibleChance1,A:1, R:"low"}, //ladybug
   
-  I268:{P:rareCollectibleChance,A:1, R:"medium"}, //tarantula
-  I270:{P:rareCollectibleChance,A:1, R:"medium"}, //butterfly
-  I271:{P:rareCollectibleChance,A:1, R:"medium"}, //stick bug
-  I272:{P:rareCollectibleChance,A:1, R:"medium"}, //beetle
-  I274:{P:rareCollectibleChance,A:1, R:"medium"}, //firefly
-  I277:{P:rareCollectibleChance,A:1, R:"medium"}, //sparx
-  I278:{P:rareCollectibleChance,A:1, R:"medium"}, //pulga
+  I268:{P:collectibleChance2,A:1, R:"medium"}, //tarantula
+  I270:{P:collectibleChance2,A:1, R:"medium"}, //butterfly
+  I271:{P:collectibleChance2,A:1, R:"medium"}, //stick bug
+  I272:{P:collectibleChance2,A:1, R:"medium"}, //beetle
+  I274:{P:collectibleChance2,A:1, R:"medium"}, //firefly
+  I277:{P:collectibleChance2,A:1, R:"medium"}, //sparx
+  I278:{P:collectibleChance2,A:1, R:"medium"}, //pulga
   
-  I273:{P:veryRareCollectibleChance,A:1, R:"high"}, //hypnomoth
-  I275:{P:veryRareCollectibleChance,A:1, R:"high"}, //void beetle
-  I276:{P:veryRareCollectibleChance,A:1, R:"high"}, //crystal scorpion
-  I279:{P:veryRareCollectibleChance,A:1, R:"high"}, //error
+  I273:{P:collectibleChance3,A:1, R:"high"}, //hypnomoth
+  I275:{P:collectibleChance3,A:1, R:"high"}, //void beetle
+  I276:{P:collectibleChance3,A:1, R:"high"}, //crystal scorpion
+  I279:{P:collectibleChance3,A:1, R:"high"}, //error
 }
 
 enemies.E14 = {};
@@ -669,22 +668,23 @@ var fishingEeriePond1 = { I161:{P:10, A:1}, /*skelefish*/ I160:{P:20, A:1}, /*de
 var fishingEeriePond2 = { I169:{P:1000, A:1}, /*the catch*/ I117:{P:1000, A:1}, /*fosil*/ I286:{P:30, A:1}, /*quest*/}
 
 var fishingCollectibles = { 
-  I243:{P:collectibleChance,A:1, R:"low"}, //koi
-  I248:{P:collectibleChance,A:1, R:"low"}, //jellyfish
-  I249:{P:collectibleChance,A:1, R:"low"}, //spectrefish
-  I244:{P:collectibleChance,A:1, R:"low"}, //fishbag
+  I243:{P:collectibleChance1,A:1, R:"low"}, //koi
+  I248:{P:collectibleChance1,A:1, R:"low"}, //jellyfish
+  I249:{P:collectibleChance1,A:1, R:"low"}, //spectrefish
+  I244:{P:collectibleChance1,A:1, R:"low"}, //fishbag
 
-  I242:{P:rareCollectibleChance,A:1, R:"medium"}, //eel
-  I245:{P:rareCollectibleChance,A:1, R:"medium"}, //pulpo
-  I247:{P:rareCollectibleChance,A:1, R:"medium"}, //fish snack
-  I251:{P:rareCollectibleChance,A:1, R:"medium"}, //catfish
-  I253:{P:rareCollectibleChance,A:1, R:"medium"}, //blobfish
-  I254:{P:rareCollectibleChance,A:1, R:"medium"}, //seahorse
-  I256:{P:rareCollectibleChance,A:1, R:"medium"}, //pufferfish
+  I242:{P:collectibleChance2,A:1, R:"medium"}, //eel
+  I245:{P:collectibleChance2,A:1, R:"medium"}, //pulpo
+  I247:{P:collectibleChance2,A:1, R:"medium"}, //fish snack
+  I251:{P:collectibleChance2,A:1, R:"medium"}, //catfish
+  I253:{P:collectibleChance2,A:1, R:"medium"}, //blobfish
+  I254:{P:collectibleChance2,A:1, R:"medium"}, //seahorse
+  I256:{P:collectibleChance2,A:1, R:"medium"}, //pufferfish
     
-  I255:{P:veryRareCollectibleChance,A:1, R:"high"}, //lava eel
-  I250:{P:veryRareCollectibleChance,A:1, R:"high"}, //axolotl
-  I249:{P:veryRareCollectibleChance,A:1, R:"high"}, //goldfish
+  I255:{P:collectibleChance3,A:1, R:"high"}, //lava eel
+  I250:{P:collectibleChance3,A:1, R:"high"}, //axolotl
+  I249:{P:collectibleChance3,A:1, R:"high"}, //goldfish
+  I252:{P:collectibleChance3,A:1, R:"high"}, //blobfish baby
 }
 
 enemies.E20 = {};
@@ -692,10 +692,10 @@ enemies.E20.name = 'Eerie Pond';
 enemies.E20.level = '';
 enemies.E20.difficulty = 'pond';
 enemies.E20.area = 'A4';
-enemies.E20.hp = 25;
-enemies.E20.description = 'A shadow-laden pond cloaked in an eerie mist. Grab a fishing rod and dont get your hopes too high.'
+enemies.E20.hp = 20;
+enemies.E20.description = 'A shadow-laden pond cloaked in an eerie mist. Grab a fishing rod and don\'t get your hopes too high.'
 enemies.E20.exp = 508571;
-enemies.E20.drop = "rollTable(area4Loot, 1); rollFishingTables(); rollTable(fishingCollectibles, 2); removeTableItem()";
+enemies.E20.drop = "rollTable(area4Loot, 1); rollFishingTables(); rollTable(fishingCollectibles, 1); removeTableItem()";
 enemies.E20.dropDesc = '<FONT COLOR="orange">Try your luck';
 
 //e21 is reserved for the sheep of polymorph
@@ -818,7 +818,7 @@ enemies.E31 = {};
 enemies.E31.name = 'Hoopperoona Jr.';
 enemies.E31.level = '[lvl 30]';
 enemies.E31.hp = 300000;
-enemies.E31.description = 'An overgrown arachnid that STILL doesnt seem too up for conversation.<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ Melting Bite: Applies poison on attack';
+enemies.E31.description = 'An overgrown arachnid that STILL doesn\'t seem too up for conversation.<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ Melting Bite: Applies poison on attack';
 enemies.E31.attack = 1400;
 enemies.E31.exp = 9500;
 enemies.E31.attackChance = 'if (rng(1,5)===1) castHoopperoonaJr1()';
@@ -1039,14 +1039,14 @@ items.I114.sell = 38;
 items.I115 = {}; 
 items.I115.name = 'Acorn';
 items.I115.description = 'Material';
-items.I115.flavor = '"A small, nut-like seed oak trees. Additionally, on the Squirrel Kingdom, its a standard form of currency."';
+items.I115.flavor = '"A small, nut-like seed from oak trees. Additionally, in the Squirrel Kingdom, it\'s a standard form of currency."';
 items.I115.quality = 'Common';
 items.I115.sell = 40;
 
 items.I25 = {};
 items.I25.name = 'Feather Pinion';
 items.I25.description = 'Material';
-items.I25.flavor = '"One kilogram of this weights surprisingly the same as a lot of stuff."';
+items.I25.flavor = '"One kilogram of this weight is surprisingly the same as a lot of stuff."';
 items.I25.quality = 'Common';
 items.I25.sell = 42;
 
@@ -1060,7 +1060,7 @@ items.I165.sell = 95;
 items.I16 = {};
 items.I16.name = 'Yellow Cube';
 items.I16.description = 'Material';
-items.I16.flavor = '"You feel unconfortable carrying more than 64 of these at a time."';
+items.I16.flavor = '"You feel uncomfortable carrying more than 64 of these at a time."';
 items.I16.quality = 'Common';
 items.I16.sell = 48;
 
@@ -1088,7 +1088,7 @@ items.I71.sell = 58;
 items.I40 = {};
 items.I40.name = 'Spooky Wood';
 items.I40.description = 'Material';
-items.I40.flavor = '"An eerie, creaking log. Its ominous aura makes you feel uneasy."';
+items.I40.flavor = '"An eerie, creaking log. It\'s ominous aura makes you feel uneasy."';
 items.I40.quality = 'Common';
 items.I40.sell = 72;
 
@@ -1116,14 +1116,14 @@ items.I100.sell = 21;
 items.I22 = {};
 items.I22.name = 'Nephrite';
 items.I22.description = 'Material';
-items.I22.flavor = '"One impure variety of jade. Despite that, It still can fetch a good price."';
+items.I22.flavor = '"An impure variety of jade. Despite that, it still can fetch a good price."';
 items.I22.quality = 'Common';
 items.I22.sell = 550;
 
 items.I42 = {};
 items.I42.name = 'Malachite';
 items.I42.description = 'Material';
-items.I42.flavor = '"A striking green mineral, prized for its vivid color and used in jewelry for centuries."';
+items.I42.flavor = '"A striking green mineral, prized for it\'s vivid color and used in jewelry for centuries."';
 items.I42.quality = 'Uncommon';
 items.I42.sell = 2000;
 
@@ -1144,7 +1144,7 @@ items.I31.sell = 150;
 items.I66 = {};
 items.I66.name = 'Copper Plate';
 items.I66.description = 'Material';
-items.I66.flavor = '"Versatile material used in various crafting, valued for its strength and adaptability."';
+items.I66.flavor = '"Versatile material used in various crafting, valued for it\'s strength and adaptability."';
 items.I66.quality = 'Common';
 items.I66.sell = 300;
 
@@ -1172,7 +1172,7 @@ items.I198.sell = 600;
 items.I88 = {};
 items.I88.name = 'Old Boot';
 items.I88.description = 'Material';
-items.I88.flavor = '"Its just trash."';
+items.I88.flavor = '"It\'s just trash."';
 items.I88.quality = 'Poor';
 items.I88.sell = 5;
 
@@ -1200,7 +1200,7 @@ items.I159.sell = 2200;
 items.I160 = {}; 
 items.I160.name = 'Imp Devilfish';
 items.I160.description = 'Material';
-items.I160.flavor = '"Doesnt seem like it will be easy to bring this to a plate."';
+items.I160.flavor = '"Doesn\'t seem like it will be easy to bring this to a plate."';
 items.I160.quality = 'Uncommon';
 items.I160.sell = 800;
 
@@ -1221,14 +1221,14 @@ items.I38.sell = 39;
 items.I108 = {}; 
 items.I108.name = 'Dayleaf Spice';
 items.I108.description = 'Material';
-items.I108.flavor = '"A spice known for its sweet licorice-like flavor."';
+items.I108.flavor = '"A spice known for it\'s sweet licorice-like flavor."';
 items.I108.quality = 'Common';
 items.I108.sell = 200;
 
 items.I68 = {};
 items.I68.name = 'Lesser Alchemical Dust';
 items.I68.description = 'Material';
-items.I68.flavor = '"A shimmering, iridescent powder valued for its reactivity in alchemy."';
+items.I68.flavor = '"A shimmering, iridescent powder valued for it\'s reactivity in alchemy."';
 items.I68.quality = 'Common';
 items.I68.sell = 150;
 
@@ -1296,7 +1296,7 @@ items.I130.cd = 0;
 
 items.I21 = {};
 items.I21.name = 'Lesser Poison Flask';
-items.I21.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Applies a poison that deals 1000 '+natureIcon+'Nature Damage over 20 seconds<FONT COLOR="gray"> (2 minute Cooldown)';
+items.I21.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Applies a poison that deals 1000 '+natureIcon+'Nature Damage every second over 20 seconds<FONT COLOR="gray"> (2 minute Cooldown)';
 items.I21.flavor = '"In the midst of chaos, there is also opportunity."';
 items.I21.quality = 'Common';
 items.I21.sell = 500;
@@ -1315,7 +1315,7 @@ items.I185.cd = 0;
 items.I12 = {};
 items.I12.name = 'Skewed Lizard';
 items.I12.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Restores 1500-2000 Health';
-items.I12.flavor = '"Dont complain, it tastes like chicken."';
+items.I12.flavor = '"Don\'t complain, it tastes like chicken."';
 items.I12.quality = 'Common';
 items.I12.sell = 200;
 items.I12.use = ' playSound("audio/monch.mp3"); playerHealingDamage(rng(1500,2000)); animState("rpgPlayerImg", "gelatineHigh 0.4s 1"); items.I12.count--; ';
@@ -1343,7 +1343,7 @@ items.I280.dynamic = true;
 
 items.I54 = {};
 items.I54.name = 'Monster Sausage';
-items.I54.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increases Max Health by 10% for for 30 minutes <FONT COLOR="gray">(Only one food buff can be active at a time)';
+items.I54.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increases Max Health by 10% for 30 minutes <FONT COLOR="gray">(Only one food buff can be active at a time)';
 items.I54.flavor = '"The meat grinder does not discriminate, and neither should you."';
 items.I54.quality = 'Uncommon';
 items.I54.sell = 500;
@@ -1352,7 +1352,7 @@ items.I54.use = 'removeBuffs("food"); buffs.B12.time=1800; playerBuffs();playSou
 items.I52 = {};
 items.I52.name = 'Frog Pho';
 items.I52.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increases '+mightIcon+'Might Damage by 50% for 30 minutes <FONT COLOR="gray">(Only one food buff can be active at a time)'
-items.I52.flavor = '"A dish known for its flavorful broth, typically made with beef or chicken, rice noodles, and aromatic herbs. And now frog."';
+items.I52.flavor = '"A dish known for it\'s flavorful broth, typically made with beef or chicken, rice noodles, and aromatic herbs. And now frog."';
 items.I52.quality = 'Uncommon';
 items.I52.sell = 600;
 items.I52.use = 'removeBuffs("food"); buffs.B13.time=1800; playerBuffs(); playSound("audio/monch.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.4s 1");  items.I52.count--; ';
@@ -1367,7 +1367,7 @@ items.I110.use = 'removeBuffs("food"); buffs.B15.time=1800; playerBuffs();playSo
 
 items.I129 = {};
 items.I129.name = 'Pumpkin Spice Latte';
-items.I129.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increases Drop Rate by 20% for 30 minutes <FONT COLOR="gray">(Only one food buff can be active at a time)'
+items.I129.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increases Drop Chance by 20% for 30 minutes <FONT COLOR="gray">(Only one food buff can be active at a time)'
 items.I129.flavor = '"That will be 12.99$."';
 items.I129.quality = 'Uncommon';
 items.I129.sell = 800;
@@ -1384,7 +1384,7 @@ items.I186.use = 'removeBuffs("food"); buffs.B38.time=1800; playerBuffs(); playS
 items.I189 = {}; 
 items.I189.name = 'Devilfish Sashimi';
 items.I189.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increases '+occultIcon+'Occult Damage by 50% for 30 minutes <FONT COLOR="gray">(Only one food buff can be active at a time)';
-items.I189.flavor = '"May have lingering effects on the soul, but its definitely worth it."';
+items.I189.flavor = '"May have lingering effects on the soul, but it\'s definitely worth it."';
 items.I189.quality = 'Uncommon';
 items.I189.sell = 900;
 items.I189.use = 'removeBuffs("food"); buffs.B41.time=1800; playerBuffs();playSound("audio/monch.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.4s 1");   items.I189.count--; ';
@@ -1396,13 +1396,13 @@ items.I190.flavor = '"Just a carton of Pilk."';
 items.I190.quality = 'Legendary';
 items.I190.sell = 69;
 items.I190.max = 1;
-items.I190.use = 'if (stats.currentEnemy==="E18") {deleteEnemy("E30"); animParticleBurst(10 , "particleFire", "enemyPanel", 200); animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/creatura1.mp3"); playSound("audio/creatura2.mp3"); logs.P54.unlocked=true;}'; 
+items.I190.use = 'if (stats.currentEnemy==="E18") {deleteEnemy("E30"); animParticleBurst(10 , "particleFire", "enemyPanel", 200); animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/creatura1.mp3"); playSound("audio/creatura2.mp3"); logs.P54.unlocked=true; items.I190.count--}'; 
 items.I190.align = "occult";
 
 items.I188 = {}; 
 items.I188.name = 'Granite Pachamanca';
 items.I188.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increases '+elementalIcon+'Elemental Damage by 50% for 30 minutes <FONT COLOR="gray">(Only one food buff can be active at a time)';
-items.I188.flavor = '"High temperature rocks are pour into the stew for heating. You are not supposed to eat them, but im not a cop."';
+items.I188.flavor = '"High temperature rocks are poured into the stew for heating. You are not supposed to eat them, but I\'m not a cop."';
 items.I188.quality = 'Uncommon';
 items.I188.sell = 700;
 items.I188.use = 'removeBuffs("food"); buffs.B40.time=1800; playerBuffs(); playSound("audio/monch.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.4s 1");   items.I188.count--; ';
@@ -1410,7 +1410,7 @@ items.I188.use = 'removeBuffs("food"); buffs.B40.time=1800; playerBuffs(); playS
 var smallCache =  { I22:{P:1,A:"rng(1,5)"}, /*nephrite*/ I12:{P:1,A:"rng(1,3)"}, /*lizard*/ I42:{P:5,A:1}, /*malachite*/ REN5:{P:20,A:1}, RSN8:{P:20,A:1}, I33:{P:7,A:1}, /*blade*/ I91:{P:2,A:'rng(1,2)'}, /*stamp*/ I131:{P:7,A:1}, /*thorn ring*/ I112:{P:1,A:'rng(1,5)'}, /*boomerang*/}
 items.I10 = {};
 items.I10.name = 'Small Wooden Lockbox';
-items.I10.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Unlock with a Novice-Lock key to open<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="#1eff00">❖ Foliar Blade<br>❖ Thorn Binding<br>❖ Recipe: Nephrite-Embedded Ring<br>❖ Recipe: Net-o-Launcher 3000<br>❖ Malachite<br>❖ Wooden Stamper<br><FONT COLOR="white">❖ Skewed Lizard<br>❖ Nephrite<br>❖ Pine Boomerang<br><FONT COLOR="orange">❖ ...And More!'
+items.I10.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Unlock with a Copper Key to open<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="#1eff00">❖ Foliar Blade<br>❖ Thorn Binding<br>❖ Recipe: Nephrite-Embedded Ring<br>❖ Recipe: Net-o-Launcher 3000<br>❖ Malachite<br>❖ Wooden Stamper<br><FONT COLOR="white">❖ Skewed Lizard<br>❖ Nephrite<br>❖ Pine Boomerang<br><FONT COLOR="orange">❖ ...And More!'
 items.I10.flavor = '"Life is like a Small Wooden Lockbox."';
 items.I10.quality = 'Uncommon';
 items.I10.sell = 2000;
@@ -1418,7 +1418,7 @@ items.I10.use = 'if (items.I41.count>0){ items.I41.count--; rollTable(smallCache
 
 items.I41 = {};
 items.I41.name = 'Copper Key';
-items.I41.description = 'Miscellaneous - Key<br><FONT COLOR="#1EFF0C">Can open Novice-Lock containers';
+items.I41.description = 'Miscellaneous - Key<br><FONT COLOR="#1EFF0C">Can open small containers';
 items.I41.flavor = '"For the easily-influenced locks."';
 items.I41.quality = 'Common';
 items.I41.sell = 350;
@@ -1426,7 +1426,7 @@ items.I41.sell = 350;
 var reinforcedChest = { I42:{P:2,A:"rng(1,3)"}, /*malachite*/ I91:{P:1,A:"rng(1,2)"}, /*woodenstamper*/ I92:{P:2,A:"rng(1,3)"}, /*reinforcedstamper*/ I81:{P:8,A:1}, /*sacdagger*/  I62:{P:50,A:1}, /*heartcard*/ RSN9:{P:20,A:1},  REN8:{P:30,A:1}, /*recipes*/}
 items.I43 = {};
 items.I43.name = 'Reinforced Wooden Chest';
-items.I43.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Unlock with a Apprentice-Lock key to open<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="#0070dd">❖ Sacrificial Dagger<br>❖ Reinforced Stamper<br>❖ Heart of Tortugas<br>❖ Recipe: Malachite-Embedded Ring<br><FONT COLOR="#1eff00">❖ Recipe: Soul Canister<br>❖ Malachite<br>❖ Wooden Stamper<br><FONT COLOR="orange">❖ ...And More!'
+items.I43.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Unlock with an Arcanite Blasting Charge to open<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="#0070dd">❖ Sacrificial Dagger<br>❖ Reinforced Stamper<br>❖ Heart of Tortugas<br>❖ Recipe: Malachite-Embedded Ring<br><FONT COLOR="#1eff00">❖ Recipe: Soul Canister<br>❖ Malachite<br>❖ Wooden Stamper<br><FONT COLOR="orange">❖ ...And More!'
 items.I43.flavor = '"As reinforced as wood can be."';
 items.I43.quality = 'Uncommon';
 items.I43.sell = 4000;
@@ -1434,7 +1434,7 @@ items.I43.use = 'if (items.I46.count>0){ items.I43.count--; items.I46.count--; r
 
 items.I46 = {};
 items.I46.name = 'Arcanite Blasting Charge';
-items.I46.description = 'Miscellaneous - Key<br><FONT COLOR="#1EFF0C">Can open Apprentice-Lock containers';
+items.I46.description = 'Miscellaneous - Key<br><FONT COLOR="#1EFF0C">Can open reinforced containers';
 items.I46.flavor = '"For the moderately-swayed locks."';
 items.I46.quality = 'Uncommon';
 items.I46.sell = 900;
@@ -1443,7 +1443,7 @@ var wolfSpiderCache = { I83:{P:4,A:1}, /*weapon*/ I192:{P:4,A:1}, /*ring*/ I47:{
 items.I107 = {};
 items.I107.name = 'Wolf Spider Cache';
 items.I107.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Open it!<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="#0070dd">❖ Chrysalis Recurver<br>❖ Web-Threaded Promise<br>❖ Hoopperona\'s Phylactery<br><FONT COLOR="white">❖ Creeping Wolf Web';
-items.I107.flavor = '"Spiders not included, and its for the best."';
+items.I107.flavor = '"Spiders not included, and it\'s for the best."';
 items.I107.quality = 'Uncommon';
 items.I107.sell = 2000;
 items.I107.use = 'rollTable(wolfSpiderCache, 1); items.I107.count--;  ;';
@@ -1475,21 +1475,21 @@ items.I153.quality = 'Rare';
 items.I153.sell = 15500;
 items.I153.use = 'rollTable(infernalCache, 1); items.I153.count--;  ; ';
 
-var dungeonBonus1 = { I93:{P:10, A:1},I92:{P:5, A:'rng(1,3)'},I91:{P:2, A:'rng(1,7)'}, /*stamps*/ I22:{P:4, A:'rng(1,10)'},I42:{P:6, A:'rng(1,4)'}, /*gems*/ I96:{P:30,A:1},  I97:{P:30,A:1}, I207:{P:30,A:1},  /*gambas*/ I177:{P:30,A:1},  I178:{P:30,A:1},  /*vouchers*/ I200:{P:4,A:1},  /*phoenix*/  I208:{P:40,A:1},  /*jackinabox*/}
+var dungeonBonus1 = { I93:{P:10, A:1},I92:{P:5, A:'rng(1,3)'},I91:{P:2, A:'rng(1,7)'}, /*stamps*/ I22:{P:4, A:'rng(1,10)'},I42:{P:6, A:'rng(1,4)'}, /*gems*/ I96:{P:30,A:1},  I97:{P:30,A:1}, I207:{P:30,A:1},  /*gambas*/ I177:{P:30,A:1},  I178:{P:30,A:1},  /*vouchers*/ I200:{P:30,A:1},  /*phoenix*/  I208:{P:40,A:1},  /*jackinabox*/}
 var coolCooler =  { I142:{P:2,A:1}, I141:{P:2,A:1}, I140:{P:2,A:1}, I139:{P:2,A:1}, I138:{P:2,A:1},  /*armor*/ I60:{P:3,A:1},/*weapon*/ I166:{P:3,A:1},  /*waddling band*/  BR7:{P:15,A:1},  /*blueprint*/}
 items.I205 = {};
 items.I205.name = 'Cool Cooler';
 items.I205.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Open it!<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="#a335ee">❖ Blueprint: Penguin Aviary<br><FONT COLOR="#0070dd">★ Pringu Armor Set<br>❖ Bluefin Tuna<br>❖ Waddling Band<br><FONT COLOR="orange">❖ ...And More!'
-items.I205.flavor = '"Doesnt it just scream summer?"';
+items.I205.flavor = '"Doesn\'t it just scream summer?"';
 items.I205.quality = 'Rare';
 items.I205.sell = 5000;
 items.I205.use = 'rollTable(coolCooler, 1); rollTable(materialTable1, 3); rollTable(materialTable2, 3); rollTable(dungeonBonus1, 1);items.I205.count--; removeTableItem() ';
 
 var jonesLocker =  { I147:{P:2,A:1}, I146:{P:2,A:1}, I145:{P:2,A:1}, I144:{P:2,A:1}, I143:{P:2,A:1},  /*armor*/  I167:{P:3,A:1},  /*scimitar*/ I61:{P:10,A:1},  /*card*/} 
 items.I206 = {};
-items.I206.name = 'Davy Jones Locker';
+items.I206.name = 'Davy Jones\' Locker';
 items.I206.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Open it!<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="#a335ee">❖ Wraithblade Scimitar<br><FONT COLOR="#0070dd">★ Ghastly Captain Set<br>❖ Spade of Tortugas<br><FONT COLOR="orange">❖ ...And More!'
-items.I206.flavor = '"I dont really see whats all the fuss about this one."';
+items.I206.flavor = '"I don\'t really see whats all the fuss about this one."';
 items.I206.quality = 'Rare';
 items.I206.sell = 7000;
 items.I206.use = 'items.I206.count--; rollTable(jonesLocker, 1);';
@@ -1513,7 +1513,7 @@ items.I96.use = 'playSound("audio/monch.mp3"); animParticleBurst(7 , "particleHe
 
 items.I97 = {};
 items.I97.name = 'Vitreous Gamba';
-items.I97.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Increases Experience Gain by 100% for 30 minutes'
+items.I97.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Increases EXP Rate by 100% for 30 minutes'
 items.I97.flavor = '"A symbol of beauty and elegance."';
 items.I97.quality = 'Rare';
 items.I97.sell = 1000;
@@ -1521,12 +1521,12 @@ items.I97.use = 'playSound("audio/monch.mp3"); animParticleBurst(7 , "particleHe
 
 items.I200 = {};
 items.I200.name = 'Phoenix Prawn';
-items.I200.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Revives a fallen turtle';
+items.I200.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Grants a buff for 10 minutes that prevents death, reviving instead your turle with 30% of its life <FONT COLOR="gray">(15 minute Cooldown)';
 items.I200.flavor = '"A bit on the nose on this one."';
 items.I200.quality = 'Rare';
 items.I200.sell = 2000;
 items.I200.max = 10;
-items.I200.use = ' if (!rpgPlayer.alive) {revive(); playSound("audio/monch.mp3"); playSound("audio/lily.mp3");let recovered = rng(900,1200); playerHealingDamage(recovered); animState("rpgPlayerImg", "flash 0.5s 1"); playerUpdate(); animParticleBurst(10 , "particleLight", "playerPanel", 0);  items.I200.count--; }';
+items.I200.use = ' if (rpgPlayer.alive) {playSound("audio/monch.mp3"); animParticleBurst(7 , "particleHeart", "playerPanel", 0);animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); playSound("audio/lily.mp3"); buffs.B64.time=600; playerBuffs(); items.I200.cd=900; items.I200.count--; }';
 
 items.I26 = {};
 items.I26.name = 'Dreamwoven Gamba';
@@ -1544,7 +1544,7 @@ items.I207.quality = 'Rare';
 items.I207.sell = 1000;
 items.I207.use = 'playSound("audio/monch.mp3"); animParticleBurst(7 , "particleHeart", "playerPanel", 0); playSound("audio/lily.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); buffs.B55.time=1800; playerBuffs(); items.I207.count--; ';
 
-var whiskersPresent = { I118:{P:3, A:1}, /*gamba*/ I98:{P:1, A:1}, I99:{P:1, A:1}, /*tokens*/ I26:{P:1, A:1}, /*dreamgamba*/ I177:{P:5, A:1}, I178:{P:5, A:1},I174:{P:4, A:1}, /*vouchers*/ I93:{P:3, A:1}, /*golden stamp*/ I96:{P:8, A:1}, I97:{P:8, A:1}, I207:{P:8, A:1}, /*special gambas*/  I209:{P:10, A:1}, I210:{P:10, A:1}, /*time eggs*/ I208:{P:10, A:1}, /*jackinabox*/ }
+var whiskersPresent = { I118:{P:3, A:1}, /*gamba*/ I98:{P:1, A:1}, I99:{P:1, A:1}, /*tokens*/ I26:{P:1, A:1}, /*dreamgamba*/ I177:{P:5, A:1}, I178:{P:5, A:1},I174:{P:1, A:1}, /*vouchers*/ I93:{P:3, A:1}, /*golden stamp*/ I96:{P:8, A:1}, I97:{P:8, A:1}, I207:{P:8, A:1}, I200:{P:8,A:1}, /*special gambas*/  I209:{P:10, A:1}, I210:{P:10, A:1}, /*time eggs*/ I208:{P:10, A:1}, /*jackinabox*/ }
 items.I119 = {}; 
 items.I119.name = 'Carefully Wrapped Present';
 items.I119.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Open it!<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="white">?????';
@@ -1555,7 +1555,7 @@ items.I119.use = 'playSound("audio/meow.mp3"); rollTable(whiskersPresent, 1); it
 
 items.I98 = {};
 items.I98.name = 'Friendly Cat Token';
-items.I98.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Increases Experience Gain by 300% for 30 minutes'
+items.I98.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Increases EXP Gain by 300% for 30 minutes'
 items.I98.flavor = '"Protection awaits for the friends of Whiskers."';
 items.I98.quality = 'Epic';
 items.I98.sell = 1000;
@@ -1573,7 +1573,7 @@ stats.stampsUsed = 0;
 
 items.I91 = {}; 
 items.I91.name = 'Wooden Stamper';
-items.I91.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Apply or reroll a random stamp to the currently equiped weapon, with low chance of adding multiple stamp<br><FONT COLOR="gray">[Stamps give specific damage bonuses to your weapon or, in rare cases, general ones such as Critical Chance]';
+items.I91.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Applies or rerolls a random stamp to the currently equiped weapon, with a low chance of adding multiple stamp<br><FONT COLOR="gray">[Stamps give specific damage bonuses to your weapon or, in rare cases, general ones such as Critical Chance]';
 items.I91.flavor = '"Pluck."';
 items.I91.quality = 'Uncommon';
 items.I91.sell = 100;
@@ -1581,15 +1581,15 @@ items.I91.use = 'stampWeapon("wood"); stats.stampsUsed++; items.I91.count--; ; u
 
 items.I92 = {}; 
 items.I92.name = 'Reinforced Stamper';
-items.I92.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Apply or reroll a random stamp to the currently equiped weapon, with high chance of adding multiple stamps';
+items.I92.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Applies or rerolls a random stamp to the currently equiped weapon, with a high chance of adding multiple stamps';
 items.I92.flavor = '"Doink."';
 items.I92.quality = 'Rare';
 items.I92.sell = 400;
 items.I92.use = 'stampWeapon("iron"); stats.stampsUsed++; items.I92.count--; ; updateStampMenu(); animParticleBurst(4 , "particleExp", "stampMenuDescription", 0)'
 
 items.I93 = {}; 
-items.I93.name = 'Ornated Stamper';
-items.I93.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Apply or reroll a random stamp to the currently equiped weapon, always adding multiple stamps';
+items.I93.name = 'Ornate Stamper';
+items.I93.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Applies or rerolls a random stamp to the currently equiped weapon, always adding multiple stamps';
 items.I93.flavor = '"Tunk."';
 items.I93.quality = 'Epic';
 items.I93.sell = 800;
@@ -1605,7 +1605,7 @@ items.I222.sell = 1000;
 items.I208 = {};
 items.I208.name = 'Jack-In-The-Box';
 items.I208.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Summons a Jester Turtle<FONT COLOR="gray"> (1 minute Cooldown)'
-items.I208.flavor = '"Whats in the box?"';
+items.I208.flavor = '"What\'s in the box?"';
 items.I208.quality = 'Epic';
 items.I208.sell = 5000;
 items.I208.use = 'playSound("audio/button8.mp3"); items.I208.cd = 120;animParticleBurst(5 , "particleSpark", "cursor", 0); spawnJesterTurtle() ;items.I208.count--; ';
@@ -1613,10 +1613,10 @@ items.I208.use = 'playSound("audio/button8.mp3"); items.I208.cd = 120;animPartic
 items.I209 = {};
 items.I209.name = 'Ephemeral Time Egg';
 items.I209.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 1 hour of offline progress<br><FONT COLOR="gray"> (Only works if the current enemy has been defeated more than 100 times)'
-items.I209.flavor = '"...Time, the very essence of change and decay, which would hatch forth and the very heartbeat of existence, would find its genesis..."';
+items.I209.flavor = '"...Time, the very essence of change and decay, which would hatch forth and the very heartbeat of existence, would find it\'s genesis..."';
 items.I209.quality = 'Rare';
 items.I209.sell = 1000;
-items.I209.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((3600/60)*(playerPenguinPower/20),"egg"); items.I209.count--; }';
+items.I209.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((3600/60)*(playerPenguinPower/15),"egg"); items.I209.count--; }';
 
 items.I210 = {};
 items.I210.name = 'Perennial Time Egg';
@@ -1624,28 +1624,28 @@ items.I210.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Us
 items.I210.flavor = '"...Encased within the shell of the cosmic ovum lay the potential for eternity, awaiting the pivotal moment of hatching, as within resided..."';
 items.I210.quality = 'Epic';
 items.I210.sell = 5000;
-items.I210.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((21600/60)*(playerPenguinPower/20),"egg"); items.I210.count--; }';
+items.I210.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((21600/60)*(playerPenguinPower/15),"egg"); items.I210.count--; }';
 
 items.I211 = {};
 items.I211.name = 'Everlasting Time Egg';
 items.I211.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 24 hours of offline progress<br><FONT COLOR="gray"> (Only works if the current enemy has been defeated more than 100 times)'
-items.I211.flavor = '"—In the depths of its ancient shell harbored the essence of creation itself. And so, in an epoch-shattering moment, amidst the swirling mists of eternity, it laid an egg..."';
+items.I211.flavor = '"—In the depths of it\'s ancient shell harbored the essence of creation itself. And so, in an epoch-shattering moment, amidst the swirling mists of eternity, it laid an egg..."';
 items.I211.quality = 'Epic';
 items.I211.sell = 10000;
-items.I211.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((86400/60)*(playerPenguinPower/20),"egg"); items.I211.count--; }';
+items.I211.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((86400/60)*(playerPenguinPower/15),"egg"); items.I211.count--; }';
 
 items.I212 = {};
 items.I212.name = 'Timeless Time Egg';
 items.I212.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 48 hours of offline progress<br><FONT COLOR="gray"> (Only works if the current enemy has been defeated more than 100 times)'
-items.I212.flavor = '"...As it unfurled its wings, ages passed like fleeting shadows, civilizations rose and crumbled, and the land itself bore witness to the inexorable march of time."';
+items.I212.flavor = '"...As it unfurled it\'s wings, ages passed like fleeting shadows, civilizations rose and crumbled, and the land itself bore witness to the inexorable march of time."';
 items.I212.quality = 'Legendary';
 items.I212.sell = 25000;
-items.I212.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((172800/60)*(playerPenguinPower/20),"egg"); items.I212.count--; }';
+items.I212.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((172800/60)*(playerPenguinPower/15),"egg"); items.I212.count--; }';
 
 items.I213 = {};
 items.I213.name = 'Reality Voxel';
 items.I213.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Combine 4 into a Reality Cube'
-items.I213.flavor = '"Seems like it really doesnt belong in this world."';
+items.I213.flavor = '"Seems like it really doesn\'t belong in this world."';
 items.I213.quality = 'Epic';
 items.I213.sell = 0;
 items.I213.use = 'if (items.I213.count>3) { playSound("audio/talent.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); items.I213.count-=4; items.I214.count++; }';
@@ -1669,7 +1669,7 @@ items.I217.statUp = 0;
 
 items.I219 = {};
 items.I219.name = 'Giantite Chunk';
-items.I219.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Upgrade the equipped weapon by +1 level'
+items.I219.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Upgrades the currently equipped weapon by +1 level'
 items.I219.flavor = '"...b-ar...s-ek...se-k...le-t..."';
 items.I219.quality = 'Epic';
 items.I219.sell = 3000;
@@ -1736,7 +1736,7 @@ items.I179.cd = 0;
 
 items.I215 = {};
 items.I215.name = 'Hex Tag';
-items.I215.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Applies a damaging curse that deals 90K '+occultIcon+'Occult Damage over 20 seconds<FONT COLOR="gray"> (2 minute Cooldown)';
+items.I215.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Applies a damaging curse that deals 90K '+occultIcon+'Occult Damage every second over 20 seconds<FONT COLOR="gray"> (2 minute Cooldown)';
 items.I215.flavor = '"Something might happen if you eat this."';
 items.I215.quality = 'Uncommon';
 items.I215.sell = 1300;
@@ -1745,8 +1745,8 @@ items.I215.use = 'castHexTag(); items.I215.cd = 120; items.I215.count--; ;'
 
 items.I67 = {};
 items.I67.name = 'Net-O-Launcher 3000';
-items.I67.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Launches a net that immobilises the enemy for 10 seconds <FONT COLOR="gray"> (2 minute Cooldown)<br>(Doesnt work after reaching Level 30)';
-items.I67.flavor = '"We dont talk about the other 2999."';
+items.I67.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Launches a net that immobilises the enemy for 10 seconds <FONT COLOR="gray"> (2 minute Cooldown)<br>(Doesn\'t work after reaching Level 30)';
+items.I67.flavor = '"We don\'t talk about the other 2999."';
 items.I67.quality = 'Uncommon';
 items.I67.sell = 2000;
 items.I67.use = ' if (rpgClass[stats.currentClass].level<31) {castNetOLauncher3000(); items.I67.cd = 120; items.I67.count --; ;}'
@@ -1755,7 +1755,7 @@ items.I67.cd = 0;
 items.I84 = {};
 items.I84.name = 'Stone Mattock';
 items.I84.description = 'Equipable - Tool<br><FONT COLOR="#1EFF0C">Can be used to gather ores and herbs<br>+1 Gathering Level';
-items.I84.flavor = '"Three thousand years ago, this baby would be considered top-notch engineering, but right now its better than punching rocks."';
+items.I84.flavor = '"Three thousand years ago, this baby would be considered top-notch engineering, but right now it\'s better than punching rocks."';
 items.I84.quality = 'Common';
 items.I84.sell = 1000;
 items.I84.max = 1;
@@ -1999,7 +1999,7 @@ items.I81.series = 'forgotten';
 items.I82 = {};
 items.I82.name = 'Dragonfell Sword';
 items.I82.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+beautify(386739)+' Might Damage<br>-2000 Haste<br>On Attack: Slams the foe with the weight of the sword';
-items.I82.flavor = '"Too big to be called a sword. Too big, too thick, too heavy, and too rough. Its more like a large hunk of iron."';
+items.I82.flavor = '"Too big to be called a sword. Too big, too thick, too heavy, and too rough. It\'s more like a large hunk of iron."';
 items.I82.quality = 'Rare';
 items.I82.sell = 30000;
 items.I82.max = 1;
@@ -2012,13 +2012,13 @@ items.I82.series = 'millionaire';
 
 items.I169 = {};
 items.I169.name = 'The Caught';
-items.I169.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+280.3K Might Damage<br>On Attack: Low chance to create a whirlpool that hits 6 times for medium '+mightIcon+'Might Damage';
+items.I169.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+510.3K Might Damage<br>On Attack: Low chance to create a whirlpool that hits 6 times for medium '+mightIcon+'Might Damage';
 items.I169.flavor = '"A two-pronged fishing spear forged from a unique blue-hued metal, reflecting the mysteries of the deep."';
-items.I169.quality = 'Rare';
-items.I169.sell = 40000;
+items.I169.quality = 'Epic';
+items.I169.sell = 250000;
 items.I169.max = 1;
 items.I169.use = 'gearSwap(items.I169.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")'
-items.I169.stats = 'weaponMightDamage = 280392'
+items.I169.stats = 'weaponMightDamage = 510392'
 items.I169.remove = 'weaponMightDamage = 0;'
 items.I169.align = 'might';
 items.I169.attackChance = 'if (rng(1,5)===1) castTheCaught()'
@@ -2307,7 +2307,7 @@ items.I132.series = "beastfallen";
 items.I133 = {};
 items.I133.name = 'Jungle King Helm';
 items.I133.description = `'Equipable - Head<br><FONT COLOR="#1EFF0C">+'+ beautify(returnItemUpgradeScaling(279*65, "I133"))+' Max HP<br>+'+ returnItemUpgradeScaling(27*65, "I133")+' Regeneration<br><FONT COLOR="#b983f7">Jungle King Set:<br>'`;
-items.I133.flavor = '"Its hard to look mighty with those fluffy ears looking at me."';
+items.I133.flavor = '"It\'s hard to look mighty with those fluffy ears looking at me."';
 items.I133.quality = 'Rare';
 items.I133.tierDesc1 = "I133";
 items.I133.tierDesc2 = "I135";
@@ -2361,7 +2361,7 @@ items.I135.series = "beastfallen";
 items.I136 = {};
 items.I136.name = 'Jungle King Tail';
 items.I136.description = `'Equipable - Legs<br><FONT COLOR="#1EFF0C">+'+ beautify(returnItemUpgradeScaling(279*65, "I136"))+' Max HP<br>+'+ returnItemUpgradeScaling(27*65, "I136")+' Regeneration<br><FONT COLOR="#b983f7">Jungle King Set:<br>'`;
-items.I136.flavor = '"Doesnt need to be plugged anywhere fortunately."';
+items.I136.flavor = '"Doesn\'t need to be plugged anywhere fortunately."';
 items.I136.quality = 'Rare';
 items.I136.tierDesc1 = "I133";
 items.I136.tierDesc2 = "I135";
@@ -2415,7 +2415,7 @@ items.I139.series = "revered";
 items.I140 = {};
 items.I140.name = 'Pringu Gloves';
 items.I140.description = `'Equipable - Hands<br><FONT COLOR="#1EFF0C">+'+ beautify(returnItemUpgradeScaling(278*410, "I140"))+' Max HP<br>+'+ returnItemUpgradeScaling(26*410, "I140")+' Regeneration<br><FONT COLOR="#b983f7">Pringu Set:<br>'`;
-items.I140.flavor = '"Thats how they keep themselves warm."';
+items.I140.flavor = '"That\'s how they keep themselves warm."';
 items.I140.quality = 'Rare';
 items.I140.tierDesc1 = "I139";
 items.I140.tierDesc2 = "I141";
@@ -2476,7 +2476,7 @@ items.I143.tierDesc2 = "I146";
 items.I143.tierDesc3 = "I145";
 items.I143.tierDesc4 = "I147";
 items.I143.tierDesc5 = "I143";
-items.I143.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
+items.I143.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Drop Rate, Crit Chance or Strength for 20 seconds";
 items.I143.sell = 35000;
 items.I143.max = 10;
 items.I143.use = 'gearSwap(items.I143.id, rpgPlayer.feetSlot, "rpgFeetSlot", "feet")'
@@ -2494,7 +2494,7 @@ items.I144.tierDesc2 = "I146";
 items.I144.tierDesc3 = "I145";
 items.I144.tierDesc4 = "I147";
 items.I144.tierDesc5 = "I143";
-items.I144.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
+items.I144.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Drop Rate, Crit Chance or Strength for 20 seconds";
 items.I144.sell = 35000;
 items.I144.max = 10; 
 items.I144.use = 'gearSwap(items.I144.id, rpgPlayer.headSlot, "rpgHeadSlot", "head")'
@@ -2512,7 +2512,7 @@ items.I145.tierDesc2 = "I146";
 items.I145.tierDesc3 = "I145";
 items.I145.tierDesc4 = "I147";
 items.I145.tierDesc5 = "I143";
-items.I145.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
+items.I145.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Drop Rate, Crit Chance or Strength for 20 seconds";
 items.I145.sell = 35000;
 items.I145.max = 10;
 items.I145.use = 'gearSwap(items.I145.id, rpgPlayer.handsSlot, "rpgHandsSlot", "hands")'
@@ -2530,7 +2530,7 @@ items.I146.tierDesc2 = "I146";
 items.I146.tierDesc3 = "I145";
 items.I146.tierDesc4 = "I147";
 items.I146.tierDesc5 = "I143";
-items.I146.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
+items.I146.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Drop Rate, Crit Chance or Strength for 20 seconds";
 items.I146.sell = 35000;
 items.I146.max = 10;
 items.I146.use = 'gearSwap(items.I146.id, rpgPlayer.chestSlot, "rpgChestSlot", "chest")'
@@ -2548,7 +2548,7 @@ items.I147.tierDesc2 = "I146";
 items.I147.tierDesc3 = "I145";
 items.I147.tierDesc4 = "I147";
 items.I147.tierDesc5 = "I143";
-items.I147.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Haste, Crit Chance or Strength for 20 seconds";
+items.I147.tierArmorBonus = "★ Set bonus [5]: Your attacks have a chance to trigger a Sea Chanty, increasing Drop Rate, Crit Chance or Strength for 20 seconds";
 items.I147.sell = 35000;
 items.I147.max = 10;
 items.I147.use = 'gearSwap(items.I147.id, rpgPlayer.legsSlot, "rpgLegsSlot", "legs")'
@@ -2621,7 +2621,7 @@ items.I131.series = 'forgotten';
 items.I166 = {};
 items.I166.name = 'Waddling Band';
 items.I166.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">+'+ beautify(returnItemUpgradeScaling(23520, "I166"))+' '+natureIcon+'Nature Damage'`;
-items.I166.flavor = '"Its not going anywhere though."';
+items.I166.flavor = '"It\'s not going anywhere though."';
 items.I166.quality = 'Rare';
 items.I166.sell = 5000;
 items.I166.max = 10;
@@ -2659,7 +2659,7 @@ items.I175.series = "solstice";
 items.I184 = {};
 items.I184.name = 'Ring of Mimic Friendship';
 items.I184.description = 'Equipable - Ring<br><FONT COLOR="#1EFF0C">Equip: +20% Item Drop Chance';
-items.I184.flavor = '"We wont take a single bait, promised."';
+items.I184.flavor = '"We won\'t take a single bait, promised."';
 items.I184.quality = 'Rare';
 items.I184.sell = 68000;
 items.I184.max = 1;
@@ -2721,7 +2721,7 @@ items.I13.series = 'heirloom';
 
 items.I47 = {};
 items.I47.name = 'Hoopperona\'s Phylactery';
-items.I47.description = `'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: Low chance to summon the spirit of Hoopperona, poisoning the enemy for '+ returnItemUpgradeScaling(220, "I47")+' '+natureIcon+'Nature Damage'`;
+items.I47.description = `'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: Low chance to summon the spirit of Hoopperona, poisoning the enemy for '+ returnItemUpgradeScaling(220, "I47")+' '+natureIcon+'Nature Damage every second'`;
 items.I47.flavor = '"Remains of a forbidden friendship."';
 items.I47.quality = 'Rare';
 items.I47.sell = 1000;
@@ -2794,7 +2794,7 @@ items.I172.series = 'heirloom';
 items.I182 = {};
 items.I182.name = 'Shiny Fishing Lure';
 items.I182.description = 'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: +1 Fishing Level';
-items.I182.flavor = '"Its iridescent hues attract the curiosity of aquatic life."';
+items.I182.flavor = '"It\'s iridescent hues attract the curiosity of aquatic life."';
 items.I182.quality = 'Uncommon';
 items.I182.sell = 4500;
 items.I182.max = 1;
@@ -2838,7 +2838,7 @@ items.I113.statUp = 0;
 items.I124 = {}; 
 items.I124.name = 'Ironwork Gloves';
 items.I124.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases Turtle Coin reward from clicking by +100';
-items.I124.flavor = '"Maybe it doesnt give the warmest pats, but it gives the most secure and firm ones."';
+items.I124.flavor = '"Maybe it doesn\'t give the warmest pats, but it gives the most secure and firm ones."';
 items.I124.quality = 'Upgrade';
 items.I124.sell = 0;
 items.I124.max = 1;
@@ -3158,7 +3158,7 @@ items.I183.use = 'removeBuffs("bait"); buffs.B22.time=1800; playerBuffs(); animP
 items.I187 = {};
 items.I187.name = 'Firetank Pyrocombulator';
 items.I187.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Attach it to your weapon, dealing 70K additional '+elementalIcon+'Elemental Damage with every attack. Lasts 2 Minutes until it runs out of fuel <FONT COLOR="gray"> (3 minute Cooldown)'
-items.I187.flavor = '"Good grief you dont have fingers to blow up."';
+items.I187.flavor = '"Good grief you don\'t have fingers to blow up."';
 items.I187.quality = 'Uncommon';
 items.I187.sell = 4000;
 items.I187.use =  'playSound("audio/engine.mp3"); items.I187.cd = 180; buffs.B39.time=120; playerBuffs(); animParticleBurst(6 , "particleGear", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); items.I187.count--; ';
@@ -3186,8 +3186,8 @@ items.I199.use = ' playSound("audio/retro2.mp3"); animParticleBurst(5 , "particl
 
 items.I203 = {};
 items.I203.name = 'Purifying Salt';
-items.I203.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Purifies the spirit of a Morgato';
-items.I203.flavor = '"If youre wondering, it tastes just like table salt."';
+items.I203.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Purifies the spirit of a Morgato <FONT COLOR="gray"> (20 second Cooldown)';
+items.I203.flavor = '"If you\'re wondering, it tastes just like table salt."';
 items.I203.quality = 'Quest';
 items.I203.sell = 100;
 items.I203.use = ' castPurifyingSalt(); items.I203.cd = 20; items.I203.count-- ;'
@@ -3221,6 +3221,17 @@ items.I218.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particle
 items.I218.statUp = 0;
 items.I218.max = 1;
 
+unlocks.medikit=false;
+items.I288 = {};
+items.I288.name = 'Hasty Medikit';
+items.I288.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently unlocks ability to revive the turtle by clicking repeatedly on it'
+items.I288.flavor = '"Can you feel ze schadenfreude?"';
+items.I288.quality = 'Upgrade';
+items.I288.sell = 0;
+items.I288.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); unlocks.medikit=true; unlocksReveal(); items.I288.count--; ';
+items.I288.statUp = 0;
+items.I288.max = 1;
+
 var wolfSpiderCachePlus = { I83:{P:1,A:1}, /*weapon*/ I192:{P:1,A:1}, /*ring*/ I47:{P:1,A:1}, /*trinket*/ I57:{P:1,A:'rng(18,24)'}, /*material*/ }
 items.I221 = {};
 items.I221.name = 'Wolf Spider Cache +';
@@ -3247,16 +3258,6 @@ items.I224.quality = 'Rare';
 items.I224.sell = 2000;
 items.I224.use = 'rollTable(jungleKingCachePlus, 1); items.I53.count--;  ;';
 
-items.I226 = {}; 
-items.I226.name = 'Diamond';
-items.I226.description = 'Miscellaneous - Collectible';
-items.I226.flavor = '"Prized for its brilliance, hardness, and rarity."';
-items.I226.quality = 'Collectible';
-items.I226.sell = 1; // out
-items.I226.max = 1;
-items.I226.relic = 1;
-items.I226.collectible = "M";
-
 items.I227 = {}; 
 items.I227.name = 'Blood Ruby';
 items.I227.description = 'Miscellaneous - Collectible';
@@ -3265,6 +3266,7 @@ items.I227.quality = 'Collectible';
 items.I227.sell = 1; // out
 items.I227.max = 1;
 items.I227.collectible = "M";
+items.I227.rarity = 1;
 
 items.I228 = {}; 
 items.I228.name = 'Topaz';
@@ -3274,42 +3276,17 @@ items.I228.quality = 'Collectible';
 items.I228.sell = 1; // out
 items.I228.max = 1;
 items.I228.collectible = "M";
+items.I228.rarity = 1;
 
-items.I229 = {}; 
-items.I229.name = 'Turquoiserite';
-items.I229.description = 'Miscellaneous - Collectible';
-items.I229.flavor = '"A rare tubular gemstone found in marine environments."';
-items.I229.quality = 'Collectible';
-items.I229.sell = 1; // out
-items.I229.max = 1;
-items.I229.collectible = "M";
-
-items.I230 = {}; 
-items.I230.name = 'Peridot';
-items.I230.description = 'Miscellaneous - Collectible';
-items.I230.flavor = '"A luminous gemstone born from volcanic activity. Pray for it to not turn evil."';
-items.I230.quality = 'Collectible';
-items.I230.sell = 1; // out
-items.I230.max = 1;
-items.I230.collectible = "M";
-
-items.I231 = {}; 
-items.I231.name = 'Feldespate';
-items.I231.description = 'Miscellaneous - Collectible';
-items.I231.flavor = '"A spiky teal mineral utilized as ammunition in the high-stakes battles of the Turtle Wars. Just kidding, it just looks cool."';
-items.I231.quality = 'Collectible';
-items.I231.sell = 1; // out
-items.I231.max = 1;
-items.I231.collectible = "M";
-
-items.I232 = {}; 
-items.I232.name = 'Raritanium';
-items.I232.description = 'Miscellaneous - Collectible';
-items.I232.flavor = '"Turtles will go nuts and bolts for this."';
-items.I232.quality = 'Collectible';
-items.I232.sell = 1; // out
-items.I232.max = 1;
-items.I232.collectible = "M";
+items.I241 = {}; 
+items.I241.name = 'Tiger Eye';
+items.I241.description = 'Miscellaneous - Collectible';
+items.I241.flavor = '"A type of quartz with fibrous inclusions of crocidolite, which impart it\'s distinctive appearance."';
+items.I241.quality = 'Collectible';
+items.I241.sell = 1; // out
+items.I241.max = 1;
+items.I241.collectible = "M";
+items.I241.rarity = 1;
 
 items.I233 = {}; 
 items.I233.name = 'Sapphire';
@@ -3319,33 +3296,68 @@ items.I233.quality = 'Collectible';
 items.I233.sell = 1; // out
 items.I233.max = 1;
 items.I233.collectible = "M";
+items.I233.rarity = 1;
+
+items.I226 = {}; 
+items.I226.name = 'Diamond';
+items.I226.description = 'Miscellaneous - Collectible';
+items.I226.flavor = '"Prized for it\'s brilliance, hardness, and rarity."';
+items.I226.quality = 'Collectible';
+items.I226.sell = 1; // out
+items.I226.max = 1;
+items.I226.relic = 1;
+items.I226.collectible = "M";
+items.I226.rarity = 2;
+
+items.I229 = {}; 
+items.I229.name = 'Turquoiserite';
+items.I229.description = 'Miscellaneous - Collectible';
+items.I229.flavor = '"A rare tubular gemstone found in marine environments."';
+items.I229.quality = 'Collectible';
+items.I229.sell = 1; // out
+items.I229.max = 1;
+items.I229.collectible = "M";
+items.I229.rarity = 2;
+
+items.I230 = {}; 
+items.I230.name = 'Peridot';
+items.I230.description = 'Miscellaneous - Collectible';
+items.I230.flavor = '"A luminous gemstone born from volcanic activity. Pray for it to not turn evil."';
+items.I230.quality = 'Collectible';
+items.I230.sell = 1; // out
+items.I230.max = 1;
+items.I230.collectible = "M";
+items.I230.rarity = 2;
+
+items.I231 = {}; 
+items.I231.name = 'Feldespate';
+items.I231.description = 'Miscellaneous - Collectible';
+items.I231.flavor = '"A spiky teal mineral utilized as ammunition in the high-stakes battles of the Turtle Wars. Just kidding, it just looks cool."';
+items.I231.quality = 'Collectible';
+items.I231.sell = 1; // out
+items.I231.max = 1;
+items.I231.collectible = "M";
+items.I231.rarity = 2;
+
+items.I232 = {}; 
+items.I232.name = 'Raritanium';
+items.I232.description = 'Miscellaneous - Collectible';
+items.I232.flavor = '"Turtles will go nuts and bolts for this."';
+items.I232.quality = 'Collectible';
+items.I232.sell = 1; // out
+items.I232.max = 1;
+items.I232.collectible = "M";
+items.I232.rarity = 2;
 
 items.I234 = {}; 
 items.I234.name = 'Gammanite';
 items.I234.description = 'Miscellaneous - Collectible';
-items.I234.flavor = '"Despite its hazardous nature, turtles insist on making house walls out of it."';
+items.I234.flavor = '"Despite it\'s hazardous nature, turtles insist on making house walls out of it."';
 items.I234.quality = 'Collectible';
 items.I234.sell = 1; // out
 items.I234.max = 1;
 items.I234.collectible = "M";
-
-items.I235 = {}; 
-items.I235.name = 'Flepatite';
-items.I235.description = 'Miscellaneous - Collectible';
-items.I235.flavor = '"A rare crystal born from the fusion of stardust and seawater."';
-items.I235.quality = 'Collectible';
-items.I235.sell = 1; // out
-items.I235.max = 1;
-items.I235.collectible = "M";
-
-items.I236 = {}; 
-items.I236.name = 'Equinoxium';
-items.I236.description = 'Miscellaneous - Collectible';
-items.I236.flavor = '"Absorbing both moonlight and sunlight, this gemstone is often referred as crystallised twilight."';
-items.I236.quality = 'Collectible';
-items.I236.sell = 1; // out
-items.I236.max = 1;
-items.I236.collectible = "M";
+items.I234.rarity = 2;
 
 items.I237 = {}; 
 items.I237.name = 'Advandrite';
@@ -3355,6 +3367,7 @@ items.I237.quality = 'Collectible';
 items.I237.sell = 1; // out
 items.I237.max = 1;
 items.I237.collectible = "M";
+items.I237.rarity = 2;
 
 items.I238 = {}; 
 items.I238.name = 'Chromatic Tourmaline';
@@ -3364,42 +3377,49 @@ items.I238.quality = 'Collectible';
 items.I238.sell = 1; // out
 items.I238.max = 1;
 items.I238.collectible = "M";
-
-items.I239 = {}; 
-items.I239.name = 'Xyzite';
-items.I239.description = 'Miscellaneous - Collectible';
-items.I239.flavor = '"A stone of alien origin. Its constant shapeshifting and geometric screaming puts you at unease."';
-items.I239.quality = 'Collectible';
-items.I239.sell = 1; // out
-items.I239.max = 1;
-items.I239.collectible = "M";
+items.I238.rarity = 2;
 
 items.I240 = {}; 
 items.I240.name = 'Taoline';
 items.I240.description = 'Miscellaneous - Collectible';
-items.I240.flavor = '"No matter on what slope you put it on, it seems to always mantain its balance."';
+items.I240.flavor = '"No matter on what slope you put it on, it seems to always mantain it\'s balance."';
 items.I240.quality = 'Collectible';
 items.I240.sell = 1; // out
 items.I240.max = 1;
 items.I240.collectible = "M";
+items.I240.rarity = 2;
 
-items.I241 = {}; 
-items.I241.name = 'Tiger Eye';
-items.I241.description = 'Miscellaneous - Collectible';
-items.I241.flavor = '"A type of quartz with fibrous inclusions of crocidolite, which impart its distinctive appearance."';
-items.I241.quality = 'Collectible';
-items.I241.sell = 1; // out
-items.I241.max = 1;
-items.I241.collectible = "M";
+items.I235 = {}; 
+items.I235.name = 'Flepatite';
+items.I235.description = 'Miscellaneous - Collectible';
+items.I235.flavor = '"A rare crystal born from the fusion of stardust and seawater."';
+items.I235.quality = 'Collectible';
+items.I235.sell = 1; // out
+items.I235.max = 1;
+items.I235.collectible = "M";
+items.I235.rarity = 3;
 
-items.I242 = {}; 
-items.I242.name = 'Saltwater Eel';
-items.I242.description = 'Miscellaneous - Collectible';
-items.I242.flavor = '"A sleek and sinuous marine creature found in coastal waters worldwide."';
-items.I242.quality = 'Collectible';
-items.I242.sell = 1; // out
-items.I242.max = 1;
-items.I242.collectible = "F";
+items.I236 = {}; 
+items.I236.name = 'Equinoxium';
+items.I236.description = 'Miscellaneous - Collectible';
+items.I236.flavor = '"Absorbing both moonlight and sunlight, this gemstone is often referred as crystallised twilight."';
+items.I236.quality = 'Collectible';
+items.I236.sell = 1; // out
+items.I236.max = 1;
+items.I236.collectible = "M";
+items.I236.rarity = 3;
+
+items.I239 = {}; 
+items.I239.name = 'Xyzite';
+items.I239.description = 'Miscellaneous - Collectible';
+items.I239.flavor = '"A stone of alien origin. It\'s constant shapeshifting and geometric screaming puts you at unease."';
+items.I239.quality = 'Collectible';
+items.I239.sell = 1; // out
+items.I239.max = 1;
+items.I239.collectible = "M";
+items.I239.rarity = 3;
+
+//fish
 
 items.I243 = {}; 
 items.I243.name = 'Risingsun Koi';
@@ -3409,6 +3429,7 @@ items.I243.quality = 'Collectible';
 items.I243.sell = 1; // out
 items.I243.max = 1;
 items.I243.collectible = "F";
+items.I243.rarity = 1;
 
 items.I244 = {}; 
 items.I244.name = 'Storebought Fish';
@@ -3418,33 +3439,7 @@ items.I244.quality = 'Collectible';
 items.I244.sell = 1; // out
 items.I244.max = 1;
 items.I244.collectible = "F";
-
-items.I245 = {}; 
-items.I245.name = 'Octopus';
-items.I245.description = 'Miscellaneous - Collectible';
-items.I245.flavor = '"Known for its intelligence, adaptability and great parenthood."';
-items.I245.quality = 'Collectible';
-items.I245.sell = 1; // out
-items.I245.max = 1;
-items.I245.collectible = "F";
-
-items.I246 = {}; 
-items.I246.name = 'Goldfish';
-items.I246.description = 'Miscellaneous - Collectible';
-items.I246.flavor = '"Not what I expected but ill take it."';
-items.I246.quality = 'Collectible';
-items.I246.sell = 1; // out
-items.I246.max = 1;
-items.I246.collectible = "F";
-
-items.I247 = {}; 
-items.I247.name = 'Fish Snack';
-items.I247.description = 'Miscellaneous - Collectible';
-items.I247.flavor = '"This one is not smiling back :("';
-items.I247.quality = 'Collectible';
-items.I247.sell = 1; // out
-items.I247.max = 1;
-items.I247.collectible = "F";
+items.I244.rarity = 1;
 
 items.I248 = {}; 
 items.I248.name = 'Pink Jellyfish';
@@ -3454,42 +3449,57 @@ items.I248.quality = 'Collectible';
 items.I248.sell = 1; // out
 items.I248.max = 1;
 items.I248.collectible = "F";
+items.I248.rarity = 1;
 
 items.I249 = {}; 
 items.I249.name = 'Miragefish';
 items.I249.description = 'Miscellaneous - Collectible';
-items.I249.flavor = '"Resembling a mirage in the water, tales describe its elusive nature and ethereal beauty."';
+items.I249.flavor = '"Resembling a mirage in the water, tales describe it\'s elusive nature and ethereal beauty."';
 items.I249.quality = 'Collectible';
 items.I249.sell = 1; // out
 items.I249.max = 1;
 items.I249.collectible = "F";
+items.I249.rarity = 1;
 
-items.I250 = {}; 
-items.I250.name = 'Axolotl';
-items.I250.description = 'Miscellaneous - Collectible';
-items.I250.flavor = '"I mean. Look at this guy. Come on."';
-items.I250.quality = 'Collectible';
-items.I250.sell = 1; // out
-items.I250.max = 1;
-items.I250.collectible = "F";
+items.I242 = {}; 
+items.I242.name = 'Saltwater Eel';
+items.I242.description = 'Miscellaneous - Collectible';
+items.I242.flavor = '"A sleek and sinuous marine creature found in coastal waters worldwide."';
+items.I242.quality = 'Collectible';
+items.I242.sell = 1; // out
+items.I242.max = 1;
+items.I242.collectible = "F";
+items.I242.rarity = 2;
+
+items.I245 = {}; 
+items.I245.name = 'Octopus';
+items.I245.description = 'Miscellaneous - Collectible';
+items.I245.flavor = '"Known for it\'s intelligence, adaptability and great parenthood."';
+items.I245.quality = 'Collectible';
+items.I245.sell = 1; // out
+items.I245.max = 1;
+items.I245.collectible = "F";
+items.I245.rarity = 2;
+
+items.I247 = {}; 
+items.I247.name = 'Fish Snack';
+items.I247.description = 'Miscellaneous - Collectible';
+items.I247.flavor = '"This one is not smiling back :("';
+items.I247.quality = 'Collectible';
+items.I247.sell = 1; // out
+items.I247.max = 1;
+items.I247.collectible = "F";
+items.I247.rarity = 2;
 
 items.I251 = {}; 
 items.I251.name = 'Tiger Catfish';
 items.I251.description = 'Miscellaneous - Collectible';
-items.I251.flavor = '"It is characterized by its distinctive pattern of dark stripes and their loud purr."';
+items.I251.flavor = '"It is characterized by it\'s distinctive pattern of dark stripes and their loud purr."';
 items.I251.quality = 'Collectible';
 items.I251.sell = 1; // out
 items.I251.max = 1;
 items.I251.collectible = "F";
-
-items.I252 = {}; 
-items.I252.name = 'Baby Blobfish';
-items.I252.description = 'Miscellaneous - Collectible';
-items.I252.flavor = '"It looks like it already knows the fate that awaits it."';
-items.I252.quality = 'Collectible';
-items.I252.sell = 1; // out
-items.I252.max = 1;
-items.I252.collectible = "F";
+items.I251.rarity = 2;
 
 items.I253 = {}; 
 items.I253.name = 'Blobfish';
@@ -3499,6 +3509,7 @@ items.I253.quality = 'Collectible';
 items.I253.sell = 1; // out
 items.I253.max = 1;
 items.I253.collectible = "F";
+items.I253.rarity = 2;
 
 items.I254 = {}; 
 items.I254.name = 'Spotted Seahorse';
@@ -3508,15 +3519,7 @@ items.I254.quality = 'Collectible';
 items.I254.sell = 1; // out
 items.I254.max = 1;
 items.I254.collectible = "F";
-
-items.I255 = {}; 
-items.I255.name = 'Igneous Eel';
-items.I255.description = 'Miscellaneous - Collectible';
-items.I255.flavor = '"The hottest catch around."';
-items.I255.quality = 'Collectible';
-items.I255.sell = 1; // out
-items.I255.max = 1;
-items.I255.collectible = "F";
+items.I254.rarity = 2;
 
 items.I256 = {}; 
 items.I256.name = 'Pufferfish';
@@ -3526,6 +3529,49 @@ items.I256.quality = 'Collectible';
 items.I256.sell = 1; // out
 items.I256.max = 1;
 items.I256.collectible = "F";
+items.I256.rarity = 2;
+
+items.I255 = {}; 
+items.I255.name = 'Igneous Eel';
+items.I255.description = 'Miscellaneous - Collectible';
+items.I255.flavor = '"The hottest catch around."';
+items.I255.quality = 'Collectible';
+items.I255.sell = 1; // out
+items.I255.max = 1;
+items.I255.collectible = "F";
+items.I255.rarity = 3;
+
+items.I250 = {}; 
+items.I250.name = 'Axolotl';
+items.I250.description = 'Miscellaneous - Collectible';
+items.I250.flavor = '"I mean. Look at this guy. Come on."';
+items.I250.quality = 'Collectible';
+items.I250.sell = 1; // out
+items.I250.max = 1;
+items.I250.collectible = "F";
+items.I250.rarity = 3;
+
+items.I246 = {}; 
+items.I246.name = 'Goldfish';
+items.I246.description = 'Miscellaneous - Collectible';
+items.I246.flavor = '"Not what I expected but I\'ll take it."';
+items.I246.quality = 'Collectible';
+items.I246.sell = 1; // out
+items.I246.max = 1;
+items.I246.collectible = "F";
+items.I246.rarity = 3;
+
+items.I252 = {}; 
+items.I252.name = 'Baby Blobfish';
+items.I252.description = 'Miscellaneous - Collectible';
+items.I252.flavor = '"It looks like it already knows the fate that awaits it."';
+items.I252.quality = 'Collectible';
+items.I252.sell = 1; // out
+items.I252.max = 1;
+items.I252.collectible = "F";
+items.I252.rarity = 3;
+
+//relics
 
 items.I257 = {}; 
 items.I257.name = 'Guiding Relic';
@@ -3535,6 +3581,7 @@ items.I257.quality = 'Collectible';
 items.I257.sell = 1; // out
 items.I257.max = 1;
 items.I257.collectible = "R";
+items.I257.rarity = 3;
 
 items.I258 = {}; 
 items.I258.name = 'Pointy Relic';
@@ -3544,6 +3591,7 @@ items.I258.quality = 'Collectible';
 items.I258.sell = 1; // out
 items.I258.max = 1;
 items.I258.collectible = "R";
+items.I258.rarity = 3;
 
 items.I259 = {}; 
 items.I259.name = 'Training Relic';
@@ -3553,15 +3601,17 @@ items.I259.quality = 'Collectible';
 items.I259.sell = 1; // out
 items.I259.max = 1;
 items.I259.collectible = "R";
+items.I259.rarity = 3;
 
 items.I260 = {}; 
 items.I260.name = 'Proteiny Relic';
 items.I260.description = 'Miscellaneous - Collectible';
-items.I260.flavor = '"Mythical concoction that its said to enhance the muscular mass of whoever that consumes it."';
+items.I260.flavor = '"Mythical concoction that it\'s said to enhance the muscular mass of whoever that consumes it."';
 items.I260.quality = 'Collectible';
 items.I260.sell = 1; // out
 items.I260.max = 1;
 items.I260.collectible = "R";
+items.I260.rarity = 3;
 
 items.I261 = {}; 
 items.I261.name = 'Safety Relic';
@@ -3571,15 +3621,17 @@ items.I261.quality = 'Collectible';
 items.I261.sell = 1; // out
 items.I261.max = 1;
 items.I261.collectible = "R";
+items.I261.rarity = 3;
 
 items.I262 = {}; 
 items.I262.name = 'Flashy Relic';
 items.I262.description = 'Miscellaneous - Collectible';
-items.I262.flavor = '"An enigmatic invention that can store and channel rays of light whenever its pointed at."';
+items.I262.flavor = '"An enigmatic invention that can store and channel rays of light whenever it\'s pointed at."';
 items.I262.quality = 'Collectible';
 items.I262.sell = 1; // out
 items.I262.max = 1;
 items.I262.collectible = "R";
+items.I262.rarity = 3;
 
 items.I263 = {}; 
 items.I263.name = 'Self-Replicating Relic';
@@ -3589,15 +3641,17 @@ items.I263.quality = 'Collectible';
 items.I263.sell = 1; // out
 items.I263.max = 1;
 items.I263.collectible = "R";
+items.I263.rarity = 3;
 
 items.I264 = {}; 
 items.I264.name = 'Companionship Relic';
 items.I264.description = 'Miscellaneous - Collectible';
-items.I264.flavor = '"Despite its eerie look, it makes you feel somewhat at ease."';
+items.I264.flavor = '"Despite it\'s eerie look, it makes you feel somewhat at ease."';
 items.I264.quality = 'Collectible';
 items.I264.sell = 1; // out
 items.I264.max = 1;
 items.I264.collectible = "R";
+items.I264.rarity = 3;
 
 items.I264A = {}; 
 items.I264A.name = 'Sticky Relic';
@@ -3607,6 +3661,7 @@ items.I264A.quality = 'Collectible';
 items.I264A.sell = 1; // out
 items.I264A.max = 1;
 items.I264A.collectible = "R";
+items.I264A.rarity = 2;
 
 items.I264B = {}; 
 items.I264B.name = 'Measuring Relic';
@@ -3616,6 +3671,7 @@ items.I264B.quality = 'Collectible';
 items.I264B.sell = 1; // out
 items.I264B.max = 1;
 items.I264B.collectible = "R";
+items.I264B.rarity = 2;
 
 items.I284 = {}; 
 items.I284.name = 'Cutty Relic';
@@ -3625,6 +3681,7 @@ items.I284.quality = 'Collectible';
 items.I284.sell = 1; // out
 items.I284.max = 1;
 items.I284.collectible = "R";
+items.I284.rarity = 2;
 
 items.I283 = {}; 
 items.I283.name = 'Monetary Relic';
@@ -3634,6 +3691,9 @@ items.I283.quality = 'Collectible';
 items.I283.sell = 1; // out
 items.I283.max = 1;
 items.I283.collectible = "R";
+items.I283.rarity = 2;
+
+//foraging
 
 items.I265 = {}; 
 items.I265.name = 'Young Grasshopper';
@@ -3643,15 +3703,17 @@ items.I265.quality = 'Collectible';
 items.I265.sell = 1; // out
 items.I265.max = 1;
 items.I265.collectible = "B";
+items.I265.rarity = 1;
 
 items.I266 = {}; 
 items.I266.name = 'White Moth';
 items.I266.description = 'Miscellaneous - Collectible';
-items.I266.flavor = '"Characterized by its predominantly white wings and known for their nocturnal habits."';
+items.I266.flavor = '"Characterized by it\'s predominantly white wings and known for their nocturnal habits."';
 items.I266.quality = 'Collectible';
 items.I266.sell = 1; // out
 items.I266.max = 1;
 items.I266.collectible = "B";
+items.I266.rarity = 1;
 
 items.I267 = {}; 
 items.I267.name = 'Bee';
@@ -3661,15 +3723,7 @@ items.I267.quality = 'Collectible';
 items.I267.sell = 1; // out
 items.I267.max = 1;
 items.I267.collectible = "B";
-
-items.I268 = {}; 
-items.I268.name = 'Brown Tarantula';
-items.I268.description = 'Miscellaneous - Collectible';
-items.I268.flavor = '"As it lacks poison, it is relatively harmless to turtles. Its still more harmful than not being biten by a tarantula."';
-items.I268.quality = 'Collectible';
-items.I268.sell = 1; // out
-items.I268.max = 1;
-items.I268.collectible = "B";
+items.I267.rarity = 1;
 
 items.I269 = {}; 
 items.I269.name = 'Common Ladybug';
@@ -3679,15 +3733,27 @@ items.I269.quality = 'Collectible';
 items.I269.sell = 1; // out
 items.I269.max = 1;
 items.I269.collectible = "B";
+items.I269.rarity = 1;
+
+items.I268 = {}; 
+items.I268.name = 'Brown Tarantula';
+items.I268.description = 'Miscellaneous - Collectible';
+items.I268.flavor = '"As it lacks poison, it is relatively harmless to turtles. It\'s still more harmful than not being biten by a tarantula."';
+items.I268.quality = 'Collectible';
+items.I268.sell = 1; // out
+items.I268.max = 1;
+items.I268.collectible = "B";
+items.I268.rarity = 2;
 
 items.I270 = {}; 
 items.I270.name = 'Purple Emperor Butterfly';
 items.I270.description = 'Miscellaneous - Collectible';
-items.I270.flavor = '"A striking butterfly species known for its deep purple iridescent wings."';
+items.I270.flavor = '"A striking butterfly species known for it\'s deep purple iridescent wings."';
 items.I270.quality = 'Collectible';
 items.I270.sell = 1; // out
 items.I270.max = 1;
 items.I270.collectible = "B";
+items.I270.rarity = 2;
 
 items.I271 = {}; 
 items.I271.name = 'Stick Bug';
@@ -3697,24 +3763,17 @@ items.I271.quality = 'Collectible';
 items.I271.sell = 1; // out
 items.I271.max = 1;
 items.I271.collectible = "B";
+items.I271.rarity = 2;
 
 items.I272 = {}; 
 items.I272.name = 'Hercules Beetle';
 items.I272.description = 'Miscellaneous - Collectible';
-items.I272.flavor = '"It can lift objects 850 times its weight. Which sounds good but on paper he weights as much as a cookie."';
+items.I272.flavor = '"It can lift objects 850 times it\'s weight. Which sounds good but on paper he weights as much as a cookie."';
 items.I272.quality = 'Collectible';
 items.I272.sell = 1; // out
 items.I272.max = 1;
 items.I272.collectible = "B";
-
-items.I273 = {}; 
-items.I273.name = 'Alienithera Hypnotica';
-items.I273.description = 'Miscellaneous - Collectible';
-items.I273.flavor = '"A species so pretty you would wish it wasnt brainwashing you while admiring its colors."';
-items.I273.quality = 'Collectible';
-items.I273.sell = 1; // out
-items.I273.max = 1;
-items.I273.collectible = "B";
+items.I272.rarity = 2;
 
 items.I274 = {}; 
 items.I274.name = 'Fire Fly';
@@ -3724,6 +3783,37 @@ items.I274.quality = 'Collectible';
 items.I274.sell = 1; // out
 items.I274.max = 1;
 items.I274.collectible = "B";
+items.I274.rarity = 2;
+
+items.I277 = {}; 
+items.I277.name = 'Sparkly Dragonfly';
+items.I277.description = 'Miscellaneous - Collectible';
+items.I277.flavor = '"Don\'t let it get close to butterflies."';
+items.I277.quality = 'Collectible';
+items.I277.sell = 1; // out
+items.I277.max = 1;
+items.I277.collectible = "B";
+items.I277.rarity = 2;
+
+items.I278 = {}; 
+items.I278.name = 'Flea';
+items.I278.description = 'Miscellaneous - Collectible';
+items.I278.flavor = '"It is small but it\'s really there."';
+items.I278.quality = 'Collectible';
+items.I278.sell = 1; // out
+items.I278.max = 1;
+items.I278.collectible = "B";
+items.I278.rarity = 2;
+
+items.I273 = {}; 
+items.I273.name = 'Alienithera Hypnotica';
+items.I273.description = 'Miscellaneous - Collectible';
+items.I273.flavor = '"A species so pretty you would wish it wasnt brainwashing you while admiring it\'s colors."';
+items.I273.quality = 'Collectible';
+items.I273.sell = 1; // out
+items.I273.max = 1;
+items.I273.collectible = "B";
+items.I273.rarity = 3;
 
 items.I275 = {}; 
 items.I275.name = 'Void Stag';
@@ -3733,6 +3823,7 @@ items.I275.quality = 'Collectible';
 items.I275.sell = 1; // out
 items.I275.max = 1;
 items.I275.collectible = "B";
+items.I275.rarity = 3;
 
 items.I276 = {}; 
 items.I276.name = 'Crystal Scorpion';
@@ -3742,33 +3833,17 @@ items.I276.quality = 'Collectible';
 items.I276.sell = 1; // out
 items.I276.max = 1;
 items.I276.collectible = "B";
-
-items.I277 = {}; 
-items.I277.name = 'Sparkly Dragonfly';
-items.I277.description = 'Miscellaneous - Collectible';
-items.I277.flavor = '"Dont let it close to butterflies."';
-items.I277.quality = 'Collectible';
-items.I277.sell = 1; // out
-items.I277.max = 1;
-items.I277.collectible = "B";
-
-items.I278 = {}; 
-items.I278.name = 'Flea';
-items.I278.description = 'Miscellaneous - Collectible';
-items.I278.flavor = '"Its small but its really there."';
-items.I278.quality = 'Collectible';
-items.I278.sell = 1; // out
-items.I278.max = 1;
-items.I278.collectible = "B";
+items.I276.rarity = 3;
 
 items.I279 = {}; 
 items.I279.name = 'Uncaught TypeError';
 items.I279.description = 'Miscellaneous - Collectible';
-items.I279.flavor = '"Im never using Any ever again."';
+items.I279.flavor = '"I\'m never using Any ever again."';
 items.I279.quality = 'Collectible';
 items.I279.sell = 1; // out
 items.I279.max = 1;
 items.I279.collectible = "B";
+items.I279.rarity = 3;
 
 items.I281 = {};
 items.I281.name = 'The Cube';
@@ -3783,7 +3858,7 @@ items.I281.remove = 'items.I281.statUp = 0;'
 
 items.I282 = {}; 
 items.I282.name = 'Nanoturtles';
-items.I282.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases the health received of healing items by 700%';
+items.I282.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases the health received from healing items by 700%';
 items.I282.flavor = '"Nanometric turtles that harden their shells in response to physical trauma."';
 items.I282.quality = 'Upgrade';
 items.I282.sell = 0;
@@ -4029,6 +4104,7 @@ items.BR8.sell = 0;
 items.BR8.max = 1;
 items.BR8.use = 'animParticleBurst(7 , "particleLight", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); research.R8.unlocked = true; items.BR8.count--; ; createResearch()';
 
+
 Object.keys(items).forEach(function(key) {
   items[key].id = key;
   items[key].locked = false;
@@ -4130,7 +4206,7 @@ buffs.B8.img = 'img/src/items/I96.jpg';
 
 buffs.B9 = {};
 buffs.B9.name = 'Vitreous Gamba';
-buffs.B9.description = '<FONT COLOR="#8fbaff">Experience Gain increased by 100%';
+buffs.B9.description = '<FONT COLOR="#8fbaff">EXP Rate increased by 100%';
 buffs.B9.player = true;
 buffs.B9.effect = 'buffEffect(1, "B9")';
 buffs.B9.buff = true;
@@ -4138,7 +4214,7 @@ buffs.B9.img = 'img/src/items/I97.jpg';
 
 buffs.B10 = {};
 buffs.B10.name = 'Friendly Cat Token';
-buffs.B10.description = '<FONT COLOR="#8fbaff">Experience Gain increased by 300%';
+buffs.B10.description = '<FONT COLOR="#8fbaff">EXP Rate increased by 300%';
 buffs.B10.player = true;
 buffs.B10.effect = 'buffEffect(3, "B10")';
 buffs.B10.buff = true;
@@ -4575,12 +4651,19 @@ buffs.B62.buff = true;
 
 buffs.B63 = {};
 buffs.B63.name = 'Sea Chanty';
-buffs.B63.description = '<FONT COLOR="#8fbaff">Haste increased by 20%';
+buffs.B63.description = '<FONT COLOR="#8fbaff">Drop Chance by 20%';
 buffs.B63.player = true;
 buffs.B63.effect = 'buffEffect(0.2, "B63")';
 buffs.B63.buff = true;
-buffs.B63.haste = true;
 buffs.B63.img = 'img/src/buffs/B18.jpg';
+
+buffs.B64 = {};
+buffs.B64.name = 'Phoenix Prawn';
+buffs.B64.description = '<FONT COLOR="#8fbaff">+1 Extra Life';
+buffs.B64.player = true;
+buffs.B64.effect = '';
+buffs.B64.buff = true;
+buffs.B64.img = 'img/src/items/I200.jpg';
 
 Object.keys(buffs).forEach(function(key) {
   buffs[key].percentage = 1;      
@@ -4600,7 +4683,7 @@ var materialTable2 = { I16:{P:0,A:'rng(20,40)*materialStage'}, I29:{P:0,A:'rng(2
 var materialStage = 1;
 
 
-var area1Loot = { I10:{P:150,A:1}, /*chest*/ I106:{P:180,A:1}, /*boss*/ I257:{P:rareCollectibleChance,A:1, R:"medium"}, I258:{P:rareCollectibleChance,A:1, R:"medium"}, /*relics*/}
+var area1Loot = { I10:{P:150,A:1}, /*chest*/ I106:{P:180,A:1}, /*boss*/ I257:{P:collectibleChance3,A:1, R:"medium"}, I258:{P:collectibleChance3,A:1, R:"medium"}, /*relics*/}
 areas.A1 = {};
 areas.A1.name = 'Cradle Hills';
 areas.A1.level = 1;
@@ -4611,7 +4694,7 @@ areas.A1.boss = 'E4';
 areas.A1.bossKey = 'I106';
 areas.A1.unlockedOre = 0;
 
-var area2Loot = { I10:{P:150,A:1}, /*chest*/ I127:{P:180,A:1}, /*boss*/ I259:{P:veryRareCollectibleChance,A:1, R:"medium"}, I260:{P:veryRareCollectibleChance,A:1, R:"medium"}, /*relics*/}
+var area2Loot = { I10:{P:150,A:1}, /*chest*/ I127:{P:180,A:1}, /*boss*/ I259:{P:collectibleChance3,A:1, R:"medium"}, I260:{P:collectibleChance3,A:1, R:"medium"}, /*relics*/}
 areas.A2 = {};
 areas.A2.name = 'Lost Dojo';
 areas.A2.level = 10;
@@ -4620,7 +4703,7 @@ areas.A2.boss = 'E8';
 areas.A2.bossKey = 'I127';
 areas.A2.unlockedHerb = 0;
 
-var area3Loot = { I43:{P:200,A:1}, /*chest*/ I163:{P:400,A:1}, /*boss*/ I261:{P:veryRareCollectibleChance,A:1, R:"medium"}, I262:{P:veryRareCollectibleChance,A:1, R:"medium"}, /*relics*/}
+var area3Loot = { I43:{P:200,A:1}, /*chest*/ I163:{P:350,A:1}, /*boss*/ I261:{P:collectibleChance3,A:1, R:"medium"}, I262:{P:collectibleChance3,A:1, R:"medium"}, /*relics*/}
 areas.A3 = {};
 areas.A3.name = 'Granite Grotto';
 areas.A3.level = 20;
@@ -4634,11 +4717,11 @@ areas.A7.name = 'Monster Arena';
 areas.A7.level = 25;
 areas.A7.description = '"Welcoming all brave turtles, this thunderdome is a place of glory and riches. Fight against powerful foes and claim prize for yourself!."';
 
-var area4Loot = { I43:{P:200,A:1}, /*chest*/ I164:{P:400,A:1}, /*boss*/ I263:{P:veryRareCollectibleChance,A:1, R:"medium"}, I264:{P:veryRareCollectibleChance,A:1, R:"medium"}, /*relics*/}
+var area4Loot = { I43:{P:200,A:1}, /*chest*/ I164:{P:350,A:1}, /*boss*/ I263:{P:collectibleChance3,A:1, R:"medium"}, I264:{P:collectibleChance3,A:1, R:"medium"}, /*relics*/}
 areas.A4 = {};
 areas.A4.name = 'Hallow Forest';
 areas.A4.level = 31;
-areas.A4.description = '"A land devoid of life. Death always finds its way, and the ghostly remains of the undead torment the living in mortuary anger. I also heard there is a cute cat in here."';
+areas.A4.description = '"A land devoid of life. Death always finds it\'s way, and the ghostly remains of the undead torment the living in mortuary anger. I also heard there is a cute cat in here."';
 areas.A4.boss = 'E27';
 areas.A4.bossKey = 'I164';
 areas.A4.unlockedPond = 0;
@@ -4879,7 +4962,7 @@ quests.A3Q2.exp = 2183922;
 quests.A3Q3 = {};
 quests.A3Q3.name = 'Pressing Matters';
 quests.A3Q3.difficulty = 2;
-quests.A3Q3.description = 'I was playing with my building blocks and realised im missing yellow ones.';
+quests.A3Q3.description = 'I was playing with my building blocks and realised I\'m missing yellow ones.';
 quests.A3Q3.objective = `'Hand over 300 Yellow Cubes <span class="questProgress">'+beautify(items.I16.count)+'/300</span>'`;
 quests.A3Q3.reward = 'Giantite Chunk';
 quests.A3Q3.rewardIcon = 'itemIcon("I219")';
@@ -4903,7 +4986,7 @@ quests.A3Q4.exp = 5213922;
 quests.A3Q5 = {};
 quests.A3Q5.name = 'Poor Lodging Choices';
 quests.A3Q5.difficulty = 1;
-quests.A3Q5.description = 'There\'s rare ore on this cave. And im going to make a house out of it.';
+quests.A3Q5.description = 'There\'s rare ore on this cave. And I\'m going to make a house out of it.';
 quests.A3Q5.objective = `'Hand over 150 Arcanite Bar??? <span class="questProgress">'+beautify(items.I35.count)+'/150???</span>'`;
 quests.A3Q5.reward = 'Recipe: Shatterstone Potion';
 quests.A3Q5.rewardIcon = 'itemIcon("I185")';
@@ -4927,7 +5010,7 @@ quests.A3Q6.exp = 19182312;
 quests.A3Q6A = {};
 quests.A3Q6A.name = 'Cool, Cool Island';
 quests.A3Q6A.difficulty = 5;
-quests.A3Q6A.description = 'Im just more of a summer person, ya know?';
+quests.A3Q6A.description = 'I\'m just more of a summer person, ya know?';
 quests.A3Q6A.objective = `'Clear the Penguin Glacier'`;
 quests.A3Q6A.reward = 'Philanthropy Marble';
 quests.A3Q6A.rewardIcon = 'itemIcon("I217")';
@@ -4964,7 +5047,7 @@ quests.A3Q7.exp = 780000000;
 quests.A4Q1 = {};
 quests.A4Q1.name = 'Blacksmith Request';
 quests.A4Q1.difficulty = 1;
-quests.A4Q1.description = 'Im going to make the finest of armors and I need the finest of materials.';
+quests.A4Q1.description = 'I\'m going to make the finest of armors and I need the finest of materials.';
 quests.A4Q1.objective = `'Hand over 600 Agate Crystal Scales <span class="questProgress">'+beautify(items.I71.count)+'/600</span>'`;
 quests.A4Q1.logic = 'items.I71.count>599';
 quests.A4Q1.effect = 'items.I71.count-=600; items.RAN11.count++';
@@ -4988,7 +5071,7 @@ quests.A4Q2.exp = 190000000;
 quests.A4Q3 = {};
 quests.A4Q3.name = 'There is Always A Catch';
 quests.A4Q3.difficulty = 1;
-quests.A4Q3.description = 'Lately im getting pretty restless over what I lost playing near the pond, can you get it for me?';
+quests.A4Q3.description = 'Lately I\'m getting pretty restless over what I lost playing near the pond, can you get it for me?';
 quests.A4Q3.objective = `'Hand over the lost item on the pond'`;
 quests.A4Q3.reward = 'Recipe: Lesser Deific Flask';
 quests.A4Q3.rewardIcon = 'itemIcon("I155")';
@@ -5049,7 +5132,7 @@ quests.A4Q5 = {};
 quests.A4Q5.name = 'Red Hooded Behest';
 quests.A4Q5.difficulty = 6;
 quests.A4Q5.description = 'That... Thing... Hand it over... I can make something useful... For you...';
-quests.A4Q5.objective = `'Hand over 200 Nightmare Fuel <span class="questProgress">'+beautify(items.I100.count)+'/50</span>'`;
+quests.A4Q5.objective = `'Hand over 200 Nightmare Fuel <span class="questProgress">'+beautify(items.I100.count)+'/200</span>'`;
 quests.A4Q5.reward = 'Anima Anvil';
 quests.A4Q5.rewardIcon = 'itemIcon("I157")';
 quests.A4Q5.logic = 'items.I100.count>199'; 
@@ -5953,6 +6036,11 @@ shopItems.A3S14.price = materialPrice;
 shopItems.A3S14.stock = 200;
 shopItems.A3S14.restock = 200;
 
+shopItems.A3S15 = {}
+shopItems.A3S15.item = 'I288';
+shopItems.A3S15.price = 50000;
+shopItems.A3S15.stock = 1;
+
 //area 4
 
 shopItems.A4S1 = {}
@@ -6069,7 +6157,7 @@ logs.L1P4.logic = '';
 logs.L1P5 = {}
 logs.L1P5.name = "Beginner Adventurer";
 logs.L1P5.description = "Complete 5 Quests";
-logs.L1P5.hint = '"Im Ready! Im Ready! Im Ready! Im Ready!"';
+logs.L1P5.hint = '"I\'m Ready! I\'m Ready! I\'m Ready! I\'m Ready!"';
 logs.L1P5.insight = 5;
 logs.L1P5.logic = 'stats.questsCompleted>4';
 
@@ -6118,7 +6206,7 @@ logs.L1P11.logic = 'rpgClass[stats.currentClass].level>9';
 logs.L1P12 = {}
 logs.L1P12.name = "Path of the Hero";
 logs.L1P12.description = "Reach level 20";
-logs.L1P12.hint = '"And they dont stop coming..."';
+logs.L1P12.hint = '"And they don\'t stop coming..."';
 logs.L1P12.insight = 5;
 logs.L1P12.logic = 'rpgClass[stats.currentClass].level>19';
 
@@ -6139,7 +6227,7 @@ logs.L1P14.logic = "logTrackName!=='base'";
 logs.L1P15 = {}
 logs.L1P15.name = "Back in Black";
 logs.L1P15.description = "Change the name of your turtle back to Jeffrey";
-logs.L1P15.hint = '"Its like he never left..."';
+logs.L1P15.hint = '"It\'s like he never left..."';
 logs.L1P15.insight = 5;
 logs.L1P15.logic = "logTrackName==='jeffrey' || logTrackName==='Jeffrey'";
 
@@ -6160,7 +6248,7 @@ logs.L1P17.logic = 'stats.activeSeconds>180000';
 logs.L1P18 = {}
 logs.L1P18.name = "I Can Stop Whenever I want";
 logs.L1P18.description = "Play for 100 hours";
-logs.L1P18.hint = '"I just dont want to."';
+logs.L1P18.hint = '"I just don\'t want to."';
 logs.L1P18.insight = 15;
 logs.L1P18.logic = 'stats.activeSeconds>360000';
 
@@ -6174,7 +6262,7 @@ logs.L1P19.logic = 'stats.clickCount>9999';
 logs.L1P20 = {}
 logs.L1P20.name = "Quack.";
 logs.L1P20.description = "Click the hidden duck";
-logs.L1P20.hint = '"Thats not the animal you want to click."';
+logs.L1P20.hint = '"That\'s not the animal you want to click."';
 logs.L1P20.insight = 5;
 logs.L1P20.logic = 'logTrackClickDuck';
 
@@ -6210,7 +6298,7 @@ logs.P22B.tag = 'upper';
 logs.P23 = {}
 logs.P23.name = "Pay 2 Win";
 logs.P23.description = "Buy this book out of a store";
-logs.P23.hint = '"It just doesnt feel morally right, right?"';
+logs.P23.hint = '"It just doesn\'t feel morally right, right?"';
 logs.P23.insight = 5;
 logs.P23.tag = 'upper';
 
@@ -6249,7 +6337,7 @@ logs.P27.tag = 'upper';
 logs.P28 = {}
 logs.P28.name = "Master Of My Craftship";
 logs.P28.description = "Reach Level 20 In Any Job";
-logs.P28.hint = '"Thats a very disciplined tortuga."';
+logs.P28.hint = '"That\'s a very disciplined tortuga."';
 logs.P28.insight = 10;
 logs.P28.logic = 'jobs.blacksmith.level>19 || jobs.cooking.level>19 || jobs.alchemy.level>19 || jobs.engineering.level>19';
 logs.P28.tag = 'upper';
@@ -6293,7 +6381,7 @@ logs.P32.logic = '';
 logs.P33 = {}
 logs.P33.name = "Mysterious Benefactor";
 logs.P33.description = "Open 100 Mysterious Presents";
-logs.P33.hint = '"I dont care who it was, they are now mine."';
+logs.P33.hint = '"I don\'t care who it was, they are now mine."';
 logs.P33.insight = 15;
 logs.P33.logic = 'stats.mysteryPresentsOpened>99';
 
@@ -6307,7 +6395,7 @@ logs.P34.logic = 'stats.boughtItems>99';
 logs.P35 = {}
 logs.P35.name = "One Punch Turtle";
 logs.P35.description = "Deal 1K Damage in one hit";
-logs.P35.hint = '"Thats a lotta damage."';
+logs.P35.hint = '"That\'s a lotta damage."';
 logs.P35.insight = 5;
 logs.P35.logic = '';
 
@@ -6377,7 +6465,7 @@ logs.P42.logic = 'stats.criticalHitsDealt>99';
 logs.P43 = {}
 logs.P43.name = "Luck Issue";
 logs.P43.description = "Obtain a Golden Clover";
-logs.P43.hint = '"Its shrimple."';
+logs.P43.hint = '"It\'s shrimple."';
 logs.P43.insight = 10;
 logs.P43.logic = 'items.I102.count>0';
 
@@ -6475,7 +6563,7 @@ logs.P52.logic = '';
 logs.P52A = {}
 logs.P52A.name = "Et tu, Bunnytus?";
 logs.P52A.description = "Throw an Incendiary Bunny into a Jabbit";
-logs.P52A.hint = '"Im you but stronger."';
+logs.P52A.hint = '"I\'m you but stronger."';
 logs.P52A.insight = 5;
 logs.P52A.logic = '';
 
@@ -6531,7 +6619,7 @@ logs.P57.logic = 'talent.TI0.active === true && talent.TG0.active === true && ta
 logs.P58 = {}
 logs.P58.name = "The Architect";
 logs.P58.description = "Research 3 Buildings";
-logs.P58.hint = '"Its work o clock."';
+logs.P58.hint = '"It\'s work o clock."';
 logs.P58.insight = 10;
 logs.P58.logic = 'stats.researchedBuildings>2';
 
@@ -6625,7 +6713,7 @@ mail.M1.effect = "items.I13.count++"
 
 mail.M2 = {};
 mail.M2.title = 'Hi, my dear hatchling, hows over there, dear?'
-mail.M2.body = 'Im hoping you can still recall your dear mother. Ive heard youve made the decision to pursue adventure. While Im cheering you on from afar, just like any mother would, Im still worried about my cub.<br><br>We will pray for your safety, every single one of us. Im sure that you are assisting others and that you are not ignoring their requests. You better not.<br><br>Anyhow, these are some cookies I baked for you. Love you, Tortumom.'
+mail.M2.body = 'I\'m hoping you can still recall your dear mother. Ive heard youve made the decision to pursue adventure. While I\'m cheering you on from afar, just like any mother would, I\'m still worried about my cub.<br><br>We will pray for your safety, every single one of us. I\'m sure that you are assisting others and that you are not ignoring their requests. You better not.<br><br>Anyhow, these are some cookies I baked for you. Love you, Tortumom.'
 mail.M2.item = 'I14'
 mail.M2.effect = "items.I14.count++"
 
@@ -6637,12 +6725,12 @@ mail.M3.effect = "items.I79.count++"
 
 mail.M5 = {};
 mail.M5.title = 'Your journey awaits!'
-mail.M5.body = 'This is a Super Turtle Adventure Program official statement.<br><br>We are glad to learn that you have been fulfilling requests from individuals in need.<br><br>We have determined that youre prepared to set out on an exciting adventure by yourself and make your own decisions moving forward<br><br>We acknowledge that you will face numerous obstacles, but we believe you can overcome every obstacle if you remain true to your principles.'
+mail.M5.body = 'This is a Super Turtle Adventure Program official statement.<br><br>We are glad to learn that you have been fulfilling requests from individuals in need.<br><br>We have determined that you\'re prepared to set out on an exciting adventure by yourself and make your own decisions moving forward<br><br>We acknowledge that you will face numerous obstacles, but we believe you can overcome every obstacle if you remain true to your principles.'
 mail.M5.effect = "unlocks.areas = true; unlocksReveal()"
 
 mail.M6 = {};
 mail.M6.title = 'Adventure guild request.'
-mail.M6.body = 'This is a Super Turtle Adventure Program official request. Reports have surfaced of an undiscovered island in the middle of the ocean.<br><br>We are convinced you are prepared to venture into perilous dungeons after noticing your accomplishments, and we would like to summon you personally to said destination.<br><br>You wont be able to access other menus while exploring dungeons, so be cautious of their increased difficulty.<br><br>We hope that your journey is successful.'
+mail.M6.body = 'This is a Super Turtle Adventure Program official request. Reports have surfaced of an undiscovered island in the middle of the ocean.<br><br>We are convinced you are prepared to venture into perilous dungeons after noticing your accomplishments, and we would like to summon you personally to said destination.<br><br>You won\'t be able to access other menus while exploring dungeons, so be cautious of their increased difficulty.<br><br>We hope that your journey is successful.'
 mail.M6.item = 'I174'
 mail.M6.effect = "items.I174.count++; unlocks.dungeons=true; unlocksReveal()"
 
@@ -6660,7 +6748,7 @@ mail.M8.effect = "items.I109.count++";
 
 mail.M4 = {};
 mail.M4.title = 'The stars are calling...'
-mail.M4.body = 'Salutations, shining star, Robertus Shellington is my name. As I pondered my magic orb, I observed your voyage, and I was more than thrilled to see the extent of your willingness to assist others.<br><br>Without a doubt, you are unique. I noticed the desire and spark in your eyes, which far surpasses that of a typical turtle. <br><br>I chose to write you this letter to let you know that you can now learn skills if you click the level panel. Dont ask me what any of those words mean, for I am merely informing you what my orb told me.'
+mail.M4.body = 'Salutations, shining star, Robertus Shellington is my name. As I pondered my magic orb, I observed your voyage, and I was more than thrilled to see the extent of your willingness to assist others.<br><br>Without a doubt, you are unique. I noticed the desire and spark in your eyes, which far surpasses that of a typical turtle. <br><br>I chose to write you this letter to let you know that you can now learn skills if you click the level panel. Don\'t ask me what any of those words mean, for I am merely informing you what my orb told me.'
 mail.M4.item = 'I26'
 mail.M4.effect = "items.I26.count++; unlocks.magic=true; unlocks.skills=true; unlocksReveal()"
 
@@ -6709,7 +6797,7 @@ talent.TA0.position = '0px -60px'
 talent.TA0.parent = "T0"
 talent.TA0.name = "Apprentice";
 talent.TA0.category = "Class";
-talent.TA0.description = 'Bunnies out of your hat, conjuring doves... What do you mean thats just street magic? Its still magic after all, isnt it?<br><br><span class="logStat">[Innate Skill: Incendiary Bunny]</span><br>Casts a flaming rabbit out of your hat, <span style="color:orange"> dealing '+beautify(skillDmg5*100)+'% of your Strength as Elemental Damage and '+beautify(skillDmg3*100)+'% of your Strength as Elemental Damage over 15 seconds</span>';
+talent.TA0.description = 'Bunnies out of your hat, conjuring doves... What do you mean that\'s just street magic? It\'s still magic after all, isnt it?<br><br><span class="logStat">[Innate Skill: Incendiary Bunny]</span><br>Casts a flaming rabbit out of your hat, <span style="color:orange"> dealing '+beautify(skillDmg5*100)+'% of your Strength as Elemental Damage and '+beautify(skillDmg3*100)+'% of your Strength as Elemental Damage over 15 seconds</span>';
 
 talent.TA0B = {};
 talent.TA0B.position = '50px -100px'

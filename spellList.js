@@ -535,8 +535,8 @@ function castHoopperoonaJr1(){
 }
 
 let thiefCollectibles = {
-  I283:{P:collectibleChance,A:1, R:"medium"}, 
-  I284:{P:collectibleChance,A:1, R:"medium"},
+  I283:{P:collectibleChance1,A:1, R:"medium"}, 
+  I284:{P:collectibleChance1,A:1, R:"medium"},
 }
 
 stats.timesStolen = 0;

@@ -3417,6 +3417,7 @@ z-index: 20
 #rpgPlayerImg {
     scale:1.4;
     object-fit: cover;
+    pointer-events: initial;
 }
 
 @keyframes enemyHurt{
@@ -4133,6 +4134,10 @@ background: rgba(34, 32, 38, 0.77);
     flex-direction: column; 
     overflow-y: scroll; 
     transition: all 0.5s}
+
+#combatLog img{
+    width: 0.8vw; height: 1.6vh; transform: translateY(3px); background: transparent; border-radius: 4px; margin-right: 0.2vh;
+}
 
 .logMessage{height: 1.6vh; 
     font-size: 1.6vh; 

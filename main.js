@@ -71,6 +71,9 @@ function updateCounters() { //DO NOT PUT HERE ANYTHING THATS NOT UI
     did("statDeaths").textContent = beautify(stats.timesDied);
     did("statDungeons").textContent = beautify(stats.dungeonsCleared);
 
+    did("statThief").textContent = beautify(stats.timesStolen);
+    did("statJester").textContent = beautify(stats.jesterTurtleClicks);
+
     };
 //#endregion
 //----------------------==========================-----------------------
@@ -354,6 +357,7 @@ stats.currentWeather = 'day';
 var bluemoonExpUp = 0;
 var bluemoonDmgUp = 0;
 var sakuraDropUp = 0;
+var rainFishingUp = 0;
 setInterval(weatherCheck, 2500); //1 day = 1 hour
 function weatherCheck() {
     stats.rpgTime++;
@@ -379,13 +383,13 @@ function weatherCheck() {
     }
 
     //este codigo se repite multiples veces pese a que claramente no deberia y no se que hacer con esto
-    if (stats.currentWeather === 'day' && did('currentWeather').src !== "/img/src/icons/day.png"){ resetOverlay(); did('currentWeather').src = "/img/src/icons/day.png"; did('weatherOverlay').style.opacity = 0; did('weatherEffectOverlay').style.opacity = 0}
-    if (stats.currentWeather === 'night' && did('currentWeather').src !== "/img/src/icons/night.png"){ resetOverlay(); did('currentWeather').src = "/img/src/icons/night.png"; did('weatherOverlay').style.opacity = 0.5; did('weatherEffectOverlay').style.opacity = 0}
-    if (stats.currentWeather === 'bluemoon' && did('currentWeather').src !== "/img/src/icons/bluemoon.png"){ resetOverlay(); did('currentWeather').src = "/img/src/icons/bluemoon.png"; did('weatherOverlay').style.opacity = 0.5; did('weatherOverlay').style.background = "#010028"; did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/bluemoon.gif)"; did('weatherEffectOverlay').style.opacity = "0.5"; bluemoonExpUp = 1; bluemoonDmgUp = 0.2; statsUpdate(); updateStatsUI(); }
-    if (stats.currentWeather === 'vortex' && did('currentWeather').src !== "/img/src/icons/vortex.png"){ resetOverlay(); did('currentWeather').src = "/img/src/icons/vortex.png"; did('weatherOverlay').style.opacity = 0.5; did('weatherOverlay').style.background = "#18011F" ;did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/vortex.gif)";  did('weatherEffectOverlay').style.opacity = "1";  did('weatherEffectOverlay').style.backgroundSize = "150%"; did('weatherEffectOverlay').style.backgroundPosition = "150% 60%";}
-    if (stats.currentWeather === 'rain' && did('currentWeather').src !== "/img/src/icons/rain.png"){ resetOverlay(); did('currentWeather').src = "/img/src/icons/rain.png"; did('weatherOverlay').style.opacity = 0; did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/rain.gif)";  did('weatherEffectOverlay').style.opacity = "1"; }
-    if (stats.currentWeather === 'sakura' && did('currentWeather').src !== "/img/src/icons/sakura.png"){ resetOverlay(); did('currentWeather').src = "/img/src/icons/sakura.png"; did('weatherOverlay').style.opacity = 0.2; did('weatherOverlay').style.background = "#512551" ;did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/sakura.gif)";  did('weatherEffectOverlay').style.opacity = "1"; sakuraDropUp = 1; statsUpdate(); updateStatsUI();}
-    if (stats.currentWeather === 'snow' && did('currentWeather').src !== "/img/src/icons/snow.png"){ resetOverlay(); did('currentWeather').src = "/img/src/icons/snow.png"; did('weatherOverlay').style.opacity = 0.35; did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/snow.gif)";  did('weatherEffectOverlay').style.opacity = "1";}
+    if (stats.currentWeather === 'day' && !(document.getElementById('currentWeather').src.endsWith("day.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/day.png"; did('weatherOverlay').style.opacity = 0; did('weatherEffectOverlay').style.opacity = 0; statsUpdate(); updateStatsUI();}
+    if (stats.currentWeather === 'night' && !(document.getElementById('currentWeather').src.endsWith("night.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/night.png"; did('weatherOverlay').style.opacity = 0.5; did('weatherEffectOverlay').style.opacity = 0; statsUpdate(); updateStatsUI();}
+    if (stats.currentWeather === 'bluemoon' && !(document.getElementById('currentWeather').src.endsWith("bluemoon.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/bluemoon.png"; did('weatherOverlay').style.opacity = 0.5; did('weatherOverlay').style.background = "#010028"; did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/bluemoon.gif)"; did('weatherEffectOverlay').style.opacity = "0.5"; bluemoonExpUp = 1; bluemoonDmgUp = 0.2; statsUpdate(); updateStatsUI(); }
+    if (stats.currentWeather === 'vortex' && !(document.getElementById('currentWeather').src.endsWith("vortex.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/vortex.png"; did('weatherOverlay').style.opacity = 0.5; did('weatherOverlay').style.background = "#18011F" ;did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/vortex.gif)";  did('weatherEffectOverlay').style.opacity = "1";  did('weatherEffectOverlay').style.backgroundSize = "150%"; did('weatherEffectOverlay').style.backgroundPosition = "150% 60%"; statsUpdate(); updateStatsUI();}
+    if (stats.currentWeather === 'rain' && !(document.getElementById('currentWeather').src.endsWith("rain.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/rain.png"; did('weatherOverlay').style.opacity = 0; did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/rain.gif)";  did('weatherEffectOverlay').style.opacity = "1"; rainFishingUp = 1; statsUpdate(); updateStatsUI();}
+    if (stats.currentWeather === 'sakura' && !(document.getElementById('currentWeather').src.endsWith("sakura.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/sakura.png"; did('weatherOverlay').style.opacity = 0.2; did('weatherOverlay').style.background = "#512551" ;did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/sakura.gif)";  did('weatherEffectOverlay').style.opacity = "1"; sakuraDropUp = 1; statsUpdate(); updateStatsUI();}
+    if (stats.currentWeather === 'snow' && !(document.getElementById('currentWeather').src.endsWith("snow.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/snow.png"; did('weatherOverlay').style.opacity = 0.35; did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/snow.gif)";  did('weatherEffectOverlay').style.opacity = "1"; statsUpdate(); updateStatsUI();}
     };
 
     function resetOverlay(){
@@ -396,6 +400,7 @@ function weatherCheck() {
         bluemoonExpUp = 0;
         bluemoonDmgUp = 0;
         sakuraDropUp = 0;
+        rainFishingUp = 0;
     }
 
   //#endregion
@@ -762,7 +767,7 @@ function calculateInactiveTime() { //calculates idle time
             stats.totalSeconds += secondsInactive; 
             for (let i in cd) if (cd[i]>0) {cd[i]-=secondsInactive};
             did('idleTime').innerHTML = convertSecondsToHMS(secondsInactive);
-            if (farmable) offlineRewards((secondsInactive/60)*(playerPenguinPower/20));
+            if (farmable) offlineRewards((secondsInactive/60)*(playerPenguinPower/15));
             if (!settings.disablePenguinRecap && unlocks.penguins && farmable) { did("penguinRecap").style.display = "flex"; }
             
             for (let i in research) { if (research[i].status === "researching" && research[i].timer>1) research[i].timer -= secondsInactive}
@@ -812,7 +817,7 @@ function tooltipPenguin() {
     did("penguinCurrentResourceImage").src = "img/src/items/"+currentDrop+".jpg";
     }
 
-    did("penguinPowerMeter").innerHTML = 'Penguin Power: '+beautify(playerPenguinPower)+' ('+playerPenguinPower.toFixed(1)/20+' kills per minute)';
+    did("penguinPowerMeter").innerHTML = 'Penguin Power: '+beautify(playerPenguinPower)+' ('+(playerPenguinPower/15).toFixed(1)+' kills per minute)';
 
 
 
@@ -855,13 +860,19 @@ if (enemies[stats.currentEnemy].tag!=="areaBoss" && !dungeonTime && stats.curren
 
     if (concept==='egg'){
 
-        createPopup('&#9201; Time Skipped and gathered '+beautify(Math.round(amount))+'<img src="img/src/items/'+currentDrop+'.jpg">and '+beautify(enemies[stats.currentEnemy].exp/2 * Math.round(amount))+' EXP', '#4e9690')
-
+        createPopup('&#9201; Time Skipped and gathered '+beautify(Math.round(amount))+'<img src="img/src/items/'+currentDrop+'.jpg">and '+beautify(enemies[stats.currentEnemy].exp/6 * Math.round(amount))+' EXP', '#4e9690')
 
     }
 
+if (stats.currentArea === "A1") rollTable(area1Loot, amount/7)
+if (stats.currentArea === "A2") rollTable(area2Loot, amount/7)
+if (stats.currentArea === "A3") rollTable(area3Loot, amount/7)
+if (stats.currentArea === "A4") rollTable(area4Loot, amount/7)
+
+
+
 items[currentDrop].count += Math.round(amount);
-rpgClass[stats.currentClass].currentExp += enemies[stats.currentEnemy].exp/2 * Math.round(amount);
+rpgClass[stats.currentClass].currentExp += enemies[stats.currentEnemy].exp/6 * Math.round(amount);
 
 did("idleItem").innerHTML = beautify(Math.round(amount));
 did("idleItemImg").src = "img/src/items/"+currentDrop+".jpg";

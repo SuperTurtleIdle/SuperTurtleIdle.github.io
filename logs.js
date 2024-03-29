@@ -317,7 +317,7 @@ function tooltipCatalogue(i) {
   did("tooltipPrice").innerHTML = '';
   did("tooltipFlavor").textContent = items[i].flavor;
   did('tooltipImage').src = "img/src/items/"+i+".jpg";
-  did("tooltipRarity").textContent = 'Collectible';
+  did("tooltipRarity").textContent = "★".repeat(items[i].rarity);
   did("tooltipRarity").style.color = returnQualityColor("Collectible");  
   did("tooltipName").style.color = returnQualityColor("Collectible");  
   did("tooltipArrow").style.display = "none";
@@ -459,7 +459,7 @@ function tooltipArmory(i) {
     if (series === "masterwork") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Max Health]</span>';
     if (series === "beastfallen") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% EXP Rate]</span>';
     if (series === "revered") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Max SP]</span>';
-    if (series === "solstice") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Pat Power]</span>';
+    if (series === "solstice") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 4% Crit Chance]</span>';
   }
 
  
