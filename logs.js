@@ -94,10 +94,8 @@ function tooltipLog(i) {
     did("tooltipFlavor").textContent = logs[i].hint;
   
     
-  
 
-
-    if (i.startsWith("L1") || logs[i].tag === "upper") { 
+   
 
       did("tooltipArrowUp").style.display = 'flex'
       did("tooltipArrow").style.display = 'none'
@@ -111,18 +109,7 @@ function tooltipLog(i) {
     movingDiv.style.left = newLeft +73+ 'px';
     movingDiv.style.top = newTop + 'px';
     did("tooltipArrowUp").style.right = '22%'
-    } else {
-    did("tooltipArrow").style.right = '22%'
-    const movingDiv = did('tooltip');
-    const referenceDiv = did(i+"log");
-    const referenceRect = referenceDiv.getBoundingClientRect();
-    const referenceLeft = referenceRect.left + 33;
-    const referenceTop = referenceRect.top - 15;
-    const newLeft = referenceLeft + referenceRect.width - movingDiv.offsetWidth;
-    const newTop = referenceTop - movingDiv.offsetHeight;
-    movingDiv.style.left = newLeft + 40+ 'px';
-    movingDiv.style.top = newTop + 'px';
-    }
+    
         
   });
     did(i+"log").addEventListener('mouseleave', function () {
@@ -324,7 +311,7 @@ function tooltipCatalogue(i) {
   did('tooltip').style.backgroundImage = "url(img/sys/fondotooltipCollectible.jpg)"
 
   if (collection.startsWith("M")) did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Max Health]</span>';
-  if (collection.startsWith("F")) did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Strenght]</span>';
+  if (collection.startsWith("F")) did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Strength]</span>';
   if (collection.startsWith("R")) did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Crit Chance]</span>';
   if (collection.startsWith("B")) did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Drop Chance]</span>';;
 

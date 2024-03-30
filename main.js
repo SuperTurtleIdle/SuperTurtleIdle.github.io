@@ -73,6 +73,7 @@ function updateCounters() { //DO NOT PUT HERE ANYTHING THATS NOT UI
 
     did("statThief").textContent = beautify(stats.timesStolen);
     did("statJester").textContent = beautify(stats.jesterTurtleClicks);
+    did("statPresents").textContent = beautify(stats.mysteryPresentsOpened);
 
     };
 //#endregion
@@ -1225,6 +1226,19 @@ function unlocksReveal(){
     
 }
 
+
+function retroactiveUpdate(){
+
+    if (quests.A3Q6.state === "completed") shopItems.A3S16.unlocked = true;
+
+
+
+
+
+
+
+}
+
 function upgradesReveal(){
     for (let i in items) {
         if (items[i].quality==="Upgrade" && items[i].gotOnce && !did(i+"upgrades")) {
@@ -1306,6 +1320,7 @@ function initialization() {
     addItem();
     setCursor();
     upgradesReveal();
+    retroactiveUpdate();
 
 }
 //#endregion

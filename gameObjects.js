@@ -298,8 +298,8 @@ multiplicativeStrength = 1 + talent.TI1C.statUp + buildings.B3.statUp + buffs.B4
 playerStrength = rpgPlayer.baseStrength * multiplicativeStrength;
 playerMultihit = 1 * multihitStampStatUp;
 
-multiplicativeCritChance = 1 + talent.TA1C.statUp + talent.TI0E.statUp + buffs.B46.statUp + collectionRelicsStatUp + buffs.B62.statUp  + armorysolsticeStatUp
-playerCritChance = (1 + items.I15.statUp ) * multiplicativeCritChance * critStampStatUp;
+multiplicativeCritChance = 1 + talent.TA1C.statUp + talent.TI0E.statUp + buffs.B46.statUp + collectionRelicsStatUp + buffs.B62.statUp  + armorysolsticeStatUp + items.I15.statUp
+playerCritChance = multiplicativeCritChance * critStampStatUp;
 
 multiplicativeNatureDamage = (1 + buffs.B4.statUp + buffs.B15.statUp + items.I44.statUp + buffs.B18.statUp + buffs.B19.statUp + talent.TI1B.statUp + talent.TI3.statUp) * natureStampStatUp;
 armorNatureDamage = headAdditiveNatureDamage + chestAdditiveNatureDamage + legsAdditiveNatureDamage + feetAdditiveNatureDamage + handsAdditiveNatureDamage + ringAdditiveNatureDamage
@@ -332,13 +332,13 @@ multiplicativeHaste = 1 - buffs.B7.statUp - buffs.B47.statUp
 additiveHaste = weaponHaste;
 playerHaste = Math.max((rpgPlayer.baseHaste - additiveHaste) * multiplicativeHaste, 500)  
 
-multiplicativeMiningDamage = 1 + items.I117.statUp
-additiveMiningDamage = buffs.B37.statUp + weaponMiningDamage
+multiplicativeMiningDamage = 1
+additiveMiningDamage = buffs.B37.statUp + weaponMiningDamage ;
 playerMiningDamage = additiveMiningDamage * multiplicativeMiningDamage;
 
-playerGatheringLevel = 0 + weaponGatheringLevel + buffs.B37.statUp; 
+playerGatheringLevel = 0 + weaponGatheringLevel + buffs.B37.statUp + items.I117.statUp; 
 
-additiveFishingLevel = 0 + items.I182.statUp + buffs.B22.statUp + buffs.B14.statUp + items.I117.statUp;
+additiveFishingLevel = 0 + items.I182.statUp + buffs.B22.statUp + buffs.B14.statUp;
 playerFishingLevel = baseFishingLevel + additiveFishingLevel + rainFishingUp;
 
 additiveCoinsPerClick = items.I113.statUp + items.I124.statUp + items.I128.statUp +  items.I202.statUp
@@ -697,7 +697,7 @@ enemies.E20.area = 'A4';
 enemies.E20.hp = 20;
 enemies.E20.description = 'A shadow-laden pond cloaked in an eerie mist. Grab a fishing rod and don\'t get your hopes too high.'
 enemies.E20.exp = 508571;
-enemies.E20.drop = "rollTable(area4Loot, 1); rollFishingTables(); rollTable(fishingCollectibles, 1); removeTableItem()";
+enemies.E20.drop = "rollTable(area4Loot, 1); rollTable(fishingJunk, 4-playerFishingLevel);  rollTable(fishingEeriePond1, playerFishingLevel); rollTable(fishingEeriePond2, -3+playerFishingLevel);  rollTable(fishingCollectibles, 1); removeTableItem()";
 enemies.E20.dropDesc = '<FONT COLOR="orange">Try your luck';
 
 //e21 is reserved for the sheep of polymorph
@@ -1285,7 +1285,6 @@ items.I156.quality = 'Uncommon';
 items.I156.sell = 500;
 items.I156.use = 'removeBuffs("potion"); items.I156.cd = 120; playSound("audio/potion.mp3"); buffs.B32.time=20; playerBuffs(); animParticleBurst(10 , "particleGlow", "playerPanel", 0); animState("rpgPlayerImg", "flash 0.5s 1"); items.I156.count--; ';
 items.I156.cd = 0;
-items.I156.align = "nature";
 
 items.I130 = {};
 items.I130.name = 'Lesser Haste Flask';
@@ -1494,7 +1493,7 @@ items.I206.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: O
 items.I206.flavor = '"I don\'t really see whats all the fuss about this one."';
 items.I206.quality = 'Rare';
 items.I206.sell = 7000;
-items.I206.use = 'items.I206.count--; rollTable(jonesLocker, 1);';
+items.I206.use = 'items.I206.count--; rollTable(materialTable1, 3); rollTable(materialTable2, 3); rollTable(dungeonBonus1, 1); rollTable(jonesLocker, 1);';
 
 items.I118 = {}; 
 items.I118.name = 'Gamba';
@@ -1816,6 +1815,22 @@ items.I171.remove = 'baseFishingLevel -= 2; weaponSwap("W0")';
 items.I171.tag = "rod"
 items.I171.animation = 'ranged';
 
+items.I181 = {};
+items.I181.name = 'Fish Bait';
+items.I181.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Increases Fishing Level by 1 for 30 Minutes <FONT COLOR="gray"> <br>(Only one bait can be active at a time)'
+items.I181.flavor = '"Slimy yet satisfying."';
+items.I181.quality = 'Common';
+items.I181.sell = 500;
+items.I181.use = 'removeBuffs("bait"); buffs.B14.time=1800; playerBuffs(); animParticleBurst(7 , "particleLight", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1");  items.I181.count--; ';
+
+items.I183 = {};
+items.I183.name = 'Soul Grub';
+items.I183.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Increases Fishing Level by 2 for 30 Minutes <FONT COLOR="gray"> <br>(Only one bait can be active at a time)'
+items.I183.flavor = '"Infused with unresting spirits."';
+items.I183.quality = 'Uncommon';
+items.I183.sell = 1000;
+items.I183.use = 'removeBuffs("bait"); buffs.B22.time=1800; playerBuffs(); animParticleBurst(7 , "particleLight", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1");  items.I181.count--; ';
+
 items.I8 = {};
 items.I8.name = 'Wooden Sword';
 items.I8.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+20 Nature Damage';
@@ -1955,7 +1970,7 @@ items.I64.stats = 'weaponOccultDamage = 25666;'
 items.I64.remove = 'weaponOccultDamage = 0;';
 items.I64.align = 'occult';
 items.I64.attackChance = 'if (rng(1,10)===1) castTerrorscythe();';
-items.I64.series = 'forgotten';
+//items.I64.series = 'forgotten';
 
 items.I69 = {};
 items.I69.name = 'Boxing Gloves';
@@ -2000,13 +2015,13 @@ items.I81.series = 'forgotten';
 
 items.I82 = {};
 items.I82.name = 'Dragonfell Sword';
-items.I82.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+beautify(386739)+' Might Damage<br>-2000 Haste<br>On Attack: Slams the foe with the weight of the sword';
+items.I82.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+beautify(486739)+' Might Damage<br>-2000 Haste<br>On Attack: Slams the foe with the weight of the sword';
 items.I82.flavor = '"Too big to be called a sword. Too big, too thick, too heavy, and too rough. It\'s more like a large hunk of iron."';
 items.I82.quality = 'Rare';
 items.I82.sell = 30000;
 items.I82.max = 1;
 items.I82.use = 'gearSwap(items.I82.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")';
-items.I82.stats = 'weaponMightDamage = 386739; weaponHaste = -2000'
+items.I82.stats = 'weaponMightDamage = 486739; weaponHaste = -2000'
 items.I82.remove = 'weaponMightDamage = 0; weaponHaste = 0'
 items.I82.attackChance = 'castDragonfellSword()';
 items.I82.align = "might";
@@ -2757,13 +2772,13 @@ items.I116.series = 'millionaire';
 
 items.I117 = {}; 
 items.I117.name = 'Fossilised Fish';
-items.I117.description = 'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: +2 Fishing Level';
+items.I117.description = 'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: +1 Gathering Level';
 items.I117.flavor = '"Whiskers favorite."';
 items.I117.quality = 'Rare';
 items.I117.sell = 5000;
 items.I117.max = 1;
 items.I117.use = 'gearSwap(items.I117.id, rpgPlayer.trinketSlot, "rpgTrinketSlot", "trinket")'
-items.I117.stats = 'items.I117.statUp = 2;'
+items.I117.stats = 'items.I117.statUp = 1;'
 items.I117.remove = 'items.I117.statUp = 0;'
 items.I117.statUp = 0;
 items.I117.series = 'forgotten';
@@ -3140,22 +3155,6 @@ items.I176.sell = 500;
 items.I176.use = 'playSound("audio/potion.mp3"); buffs.B34.time=600; playerBuffs(); animParticleBurst(10 , "particleGlow", "playerPanel", 0); animState("rpgPlayerImg", "flash 0.5s 1"); items.I176.count--; ';
 items.I176.cd = 0;
 items.I176.max = 10;
-
-items.I181 = {};
-items.I181.name = 'Fish Bait';
-items.I181.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Increases Fishing Level by 1 for 30 Minutes <FONT COLOR="gray"> <br>(Only one bait can be active at a time)'
-items.I181.flavor = '"Slimy yet satisfying."';
-items.I181.quality = 'Common';
-items.I181.sell = 500;
-items.I181.use = 'removeBuffs("bait"); buffs.B14.time=1800; playerBuffs(); animParticleBurst(7 , "particleLight", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1");  items.I181.count--; ';
-
-items.I183 = {};
-items.I183.name = 'Soul Grub';
-items.I183.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Increases Fishing Level by 2 for 30 Minutes <FONT COLOR="gray"> <br>(Only one bait can be active at a time)'
-items.I183.flavor = '"Infused with unresting spirits."';
-items.I183.quality = 'Uncommon';
-items.I183.sell = 1000;
-items.I183.use = 'removeBuffs("bait"); buffs.B22.time=1800; playerBuffs(); animParticleBurst(7 , "particleLight", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1");  items.I181.count--; ';
 
 items.I187 = {};
 items.I187.name = 'Firetank Pyrocombulator';
@@ -3860,7 +3859,7 @@ items.I281.remove = 'items.I281.statUp = 0;'
 
 items.I282 = {}; 
 items.I282.name = 'Nanoturtles';
-items.I282.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases the health received from healing items by 700%';
+items.I282.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases the health received from consumable items by 700%';
 items.I282.flavor = '"Nanometric turtles that harden their shells in response to physical trauma."';
 items.I282.quality = 'Upgrade';
 items.I282.sell = 0;
@@ -4106,6 +4105,13 @@ items.BR8.sell = 0;
 items.BR8.max = 1;
 items.BR8.use = 'animParticleBurst(7 , "particleLight", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); research.R8.unlocked = true; items.BR8.count--; ; createResearch()';
 
+items.I289 = {};
+items.I289.name = 'Conqueror of 0.3 Medal';
+items.I289.description = 'Miscellaneous<br><FONT COLOR="#bb83de">A commemorative badge acrediting that the owner completed the 0.3 update <FONT COLOR="gray"><br> (The method of obtention of this will permanently disappear once the next update takes place)';
+items.I289.flavor = '"A winner is you!"';
+items.I289.quality = 'Epic';
+items.I289.sell = 1;
+items.I289.max = 1;
 
 Object.keys(items).forEach(function(key) {
   items[key].id = key;
@@ -5005,7 +5011,7 @@ quests.A3Q6.objective = `'Defeat 100 Granite Elementals <span class="questProgre
 quests.A3Q6.reward = 'Reinforced Mattock'; 
 quests.A3Q6.rewardIcon = 'itemIcon("I85")';
 quests.A3Q6.logic = 'enemies.E11.killCount>99';
-quests.A3Q6.effect = ' items.I85.count++;';
+quests.A3Q6.effect = ' items.I85.count++; shopItems.A3S16.unlocked = true; createShopItem()';
 quests.A3Q6.money = 30000;
 quests.A3Q6.exp = 19182312;
 
@@ -6043,6 +6049,12 @@ shopItems.A3S15.item = 'I288';
 shopItems.A3S15.price = 50000;
 shopItems.A3S15.stock = 1;
 
+shopItems.A3S16 = {}
+shopItems.A3S16.item = 'I85';
+shopItems.A3S16.price = 300000;
+shopItems.A3S16.stock = "∞";
+shopItems.A3S16.unlocked = false;
+
 //area 4
 
 shopItems.A4S1 = {}
@@ -6189,7 +6201,7 @@ logs.L1P9.name = "Fight Poison With Poison";
 logs.L1P9.description = "Poison Hoopperoona";
 logs.L1P9.hint = '"Feels good man."';
 logs.L1P9.insight = 5;
-logs.L1P9.logic = "stats.currentEnemy==='E4' && buffs.B2.time>2";
+logs.L1P9.logic = "stats.currentEnemy==='E4' && (buffs.B2.time>0 || buffs.B54.time>0 )";
 
 logs.L1P10 = {}
 logs.L1P10.name = "Whatever Did We Do?";
@@ -6427,7 +6439,7 @@ logs.P37.name = "The Entire Circus";
 logs.P37.description = "Click on 100 Jester Turtles";
 logs.P37.hint = '"You got all us laughing."';
 logs.P37.insight = 15;
-logs.P37.logic = 'stats.jesterTurtleClicks>100';
+logs.P37.logic = 'stats.jesterTurtleClicks>99';
 
 logs.P38 = {}
 logs.P38.name = "Take a Break";
@@ -6494,10 +6506,10 @@ logs.P45A.logic = 'goldenMedalsGot>0';
 
 logs.P45C = {}
 logs.P45C.name = "World Record Any%";
-logs.P45C.description = "Obtain a Best Time of 1 Second in a Showdown";
+logs.P45C.description = "Obtain a Last Time of 0 Seconds in a Showdown";
 logs.P45C.hint = '"(Unbeatable)"';
 logs.P45C.insight = 10;
-logs.P45C.logic = 'showdown.S1.bestTime===1 || showdown.S2.bestTime===1';
+logs.P45C.logic = 'showdown.S1.bestTime===0 || showdown.S2.bestTime===0';
 
 logs.P45B = {}
 logs.P45B.name = "Awww Man";
@@ -6645,6 +6657,13 @@ logs.P60.description = "Win a Coin Flip 5 Times in a Row";
 logs.P60.hint = '"This coin will take me out poverty."';
 logs.P60.insight = 5;
 logs.P60.logic = 'coinWins>4';
+
+logs.P61 = {}
+logs.P61.name = "Honest Mistake";
+logs.P61.description = "Throw Purifying Salt on a Caulislug";
+logs.P61.hint = '"I just wanted to salt the salad..."';
+logs.P61.insight = 5;
+logs.P61.logic = '';
 
 
 
@@ -6799,7 +6818,7 @@ talent.TA0.position = '0px -60px'
 talent.TA0.parent = "T0"
 talent.TA0.name = "Apprentice";
 talent.TA0.category = "Class";
-talent.TA0.description = 'Bunnies out of your hat, conjuring doves... What do you mean that\'s just street magic? It\'s still magic after all, isnt it?<br><br><span class="logStat">[Innate Skill: Incendiary Bunny]</span><br>Casts a flaming rabbit out of your hat, <span style="color:orange"> dealing '+beautify(skillDmg5*100)+'% of your Strength as Elemental Damage and '+beautify(skillDmg3*100)+'% of your Strength as Elemental Damage over 15 seconds</span>';
+talent.TA0.description = 'Bunnies out of your hat, conjuring doves... What do you mean that\'s just street magic? It\'s still magic after all, isnt it?<br><br><span class="logStat">[Innate Skill: Incendiary Bunny]</span><br><br><FONT COLOR="gray">Consumes 6 SP<br>20s Cooldown<FONT COLOR="white"><br><br>Casts a flaming rabbit out of your hat, <span style="color:orange"> dealing '+beautify(skillDmg5*100)+'% of your Strength as Elemental Damage and '+beautify(skillDmg3*100)+'% of your Strength as Elemental Damage over 15 seconds</span>';
 
 talent.TA0B = {};
 talent.TA0B.position = '50px -100px'
@@ -6919,7 +6938,7 @@ talent.TG0.position = '60px 60px'
 talent.TG0.parent = "T0"
 talent.TG0.name = "Gambler";
 talent.TG0.category = "Class";
-talent.TG0.description = 'Have you ever considered using your crippling addiction as a weapon? Myriad of cards and dice shall trump over your foes.<br><br><span class="logStat">[Innate Skill: Card Fan]</span><br>Throws 3 sharp cards, <span style="color:orange"> dealing '+beautify(skillDmg1*100)+'% of your Strength as '+mightIcon+'Might Damage 3 times</span>';
+talent.TG0.description = 'Have you ever considered using your crippling addiction as a weapon? Myriad of cards and dice shall trump over your foes.<br><br><span class="logStat">[Innate Skill: Card Fan]</span><br><br><FONT COLOR="gray">Consumes 1 SP<br>1s Cooldown<FONT COLOR="white"><br><br>Throws 3 sharp cards, <span style="color:orange"> dealing '+beautify(skillDmg1*100)+'% of your Strength as '+mightIcon+'Might Damage 3 times</span>';
 
 talent.TG0B = {};
 talent.TG0B.position = '50px 120px'
@@ -7041,7 +7060,7 @@ talent.TI0.position = '-60px 60px'
 talent.TI0.parent = "T0"
 talent.TI0.name = "Instrumentalist";
 talent.TI0.category = "Class";
-talent.TI0.description = 'Charm your enemies and play requiems for their demise.<br><br><span class="logStat">[Innate Skill: Riff Tempo]</span><br>Plays a rhythm-guided riff, <span style="color:orange"> dealing '+beautify(skillDmg3*100)+'% of your Strength as '+natureIcon+'Nature Damage 10 times</span>';
+talent.TI0.description = 'Charm your enemies and play requiems for their demise.<br><br><span class="logStat">[Innate Skill: Riff Tempo]<br><br><FONT COLOR="gray">Consumes 3 SP<br>20s Cooldown<FONT COLOR="white"><br><br><br>Plays a rhythm-guided riff, <span style="color:orange"> dealing '+beautify(skillDmg3*100)+'% of your Strength as '+natureIcon+'Nature Damage 10 times</span>';
 
 talent.TI0B = {};
 talent.TI0B.position = '-50px 110px'
@@ -7460,6 +7479,12 @@ shopHonor.SH12.item = 'I14';
 shopHonor.SH12.price = 1;
 shopHonor.SH12.stock = 1;
 shopHonor.SH12.parent = 'honorShopListing3';
+
+shopHonor.SH13 = {}
+shopHonor.SH13.item = 'I289';
+shopHonor.SH13.price = 1;
+shopHonor.SH13.stock = 1;
+shopHonor.SH13.parent = 'honorShopListing3';
 
 
 

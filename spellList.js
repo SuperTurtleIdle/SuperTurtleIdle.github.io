@@ -46,11 +46,24 @@ function castPurifyingSalt(){
         did(stats.currentEnemy+"enemy").style.filter = 'hue-rotate(250deg)'
         did(stats.currentEnemy+"enemy").style.opacity = '0.6'
 
-
-        
-           
         
     }, 700);
+
+}
+
+    if (stats.currentEnemy === "E1") {
+        setTimeout(() => {
+            
+            animParticleBurst(10 , "particleSpark", "enemyPanel", 200);
+            currentHP=0;
+            enemyUpdate();
+            logs.P61.unlocked=true;
+    
+            
+        }, 700);
+
+
+
     }
 }
 

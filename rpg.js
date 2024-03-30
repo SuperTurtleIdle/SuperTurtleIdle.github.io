@@ -137,7 +137,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
       did("rpgCanvas").style.animation = "";
       void did("rpgCanvas").offsetWidth;
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
-      stats.currentArea = "A1";
+      stats.currentArea = previousArea;
       dungeonPoints = 0;
       dungeonStage=0
       stats.dungeonsCleared++;
@@ -311,7 +311,7 @@ function playerUpdate(){ //updates player HP and checks if its dead
       did("rpgCanvas").style.animation = "";
       void did("rpgCanvas").offsetWidth;
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
-      stats.currentArea = "A1";
+      stats.currentArea = previousArea;
       dungeonPoints = 0;
       dungeonStage=0
       updateDungeonPoints()
@@ -660,19 +660,6 @@ function updateClass(){
   updateStatsUI();
 }
 
-function rollFishingTables(){
-
-if (stats.currentEnemy==='E20') { //eerie pond
-
-if (playerFishingLevel<=1) {rollTable(fishingJunk, 4); rollTable(fishingEeriePond1, 1)}
-if (playerFishingLevel===2) {rollTable(fishingJunk, 2); rollTable(fishingEeriePond1, 2)}
-if (playerFishingLevel>=3) {rollTable(fishingJunk, 1); rollTable(fishingEeriePond1, 3); rollTable(fishingEeriePond2, 1)}
-
-}
-
-
-
-}
 
 function updateDungeonPoints(){
 
@@ -1699,6 +1686,9 @@ function createAreaPanel() {
   }
 };
 
+
+let previousArea = 0;
+
 function areaButton(id) {
   if (did(id + "area")) {
     did(id + "area").addEventListener("click", function () {
@@ -1725,6 +1715,7 @@ function areaButton(id) {
 
         addItem();
         playSound("audio/button3.mp3");
+        previousArea = stats.currentArea;
         stats.currentArea = id;
         resetAreaButtonClass();
         stats.currentDifficulty = "easy";
@@ -2078,10 +2069,6 @@ function createShopItem() {
       tooltipShopItem(shopItems[si], si);
     }
 
-    if (shopItems[si].unlocked === false) {
-      did(shopItems[si].id + "itemTag").style.display = "flex";
-      did(shopItems[si].id + "itemTag").innerHTML = "SOON";
-    } else { did(shopItems[si].id + "itemTag").style.display = "none"; } 
 
 
     if (shopItems[si].stock < 1) {
@@ -2089,11 +2076,22 @@ function createShopItem() {
       did(shopItems[si].id + "itemTag").innerHTML = "SOLD OUT";
     } else {did(shopItems[si].id + "itemTag").style.display = "none";}
 
+    
+    if (shopItems[si].unlocked === false) {
+      did(shopItems[si].id + "itemTag").style.display = "flex";
+      did(shopItems[si].id + "itemTag").innerHTML = "SOON";
+      did(shopItems[si].id + "displayItem").style.filter = "grayscale(0.8)";
+    } else { did(shopItems[si].id + "itemTag").style.display = "none"; } 
+
 
     did(shopItems[si].id + "displayItem").style.filter = "grayscale(0)"
-    if (shopItems[si].stock < 1 || shopItems[si].unlocked === false)
-      did(shopItems[si].id + "displayItem").style.filter = "grayscale(0.8)";
+    
+    
+      
     }
+
+
+    
   }
 } createShopItem();
 
@@ -2698,7 +2696,7 @@ function tooltipShopHonor(id) {
 function honorItemButton(id) {
   if (did(id+ "shopHonor")) {
     did(id + "shopHonor").addEventListener("click", function () {
-      if (shopHonor[id].stock && rpgPlayer.coins>=shopHonor[id].price) {
+      if (shopHonor[id].stock && rpgPlayer.coins>=shopHonor[id].price && items[shopHonor[id].item].count!==items[shopHonor[id].item].max ) {
         playSound("audio/button3.mp3");
         rpgPlayer.coins-=shopHonor[id].price
         if (shopHonor[id].stock != "∞") shopHonor[id].stock--;
@@ -2884,20 +2882,13 @@ for (let i in talent) {
 
     
 
-      did("rpgCanvas").style.animation = "";
-        void did("rpgCanvas").offsetWidth;
-        did("rpgCanvas").style.animation = "rpgFade 1s 1";
-      stats.currentArea = "A1";
+    
+
       resetAreaButtonClass();
       dungeonPoints = 0;
       dungeonStage=0;
       updateDungeonPoints()
-      switchArea();
-      specialButtonUi();
       deleteEnemy();
-
-    
-
       
       stats.currentClass = i
 
@@ -2906,6 +2897,16 @@ for (let i in talent) {
 
       updateSkills();
       updateClass();
+
+
+      if (rpgClass[stats.currentClass].level < areas[stats.currentArea].level){
+        did("rpgCanvas").style.animation = "";
+          void did("rpgCanvas").offsetWidth;
+          did("rpgCanvas").style.animation = "rpgFade 1s 1";
+        stats.currentArea = "A1";
+        switchArea();
+        specialButtonUi();
+      }
 
       did(i + "class").style.animation = "";
       void did(i + "class").offsetWidth;
@@ -3651,8 +3652,10 @@ function tooltipInventoryHelpingDuck() {
 let tooltipHover = "nothing"
 
 function tooltipShopItem(outcome, shop) {
-  if (did(outcome.id + "shopItem") && outcome.unlocked !== false) {
+  if (did(outcome.id + "shopItem")) {
     did(outcome.id + "shopItem").addEventListener("mouseenter", function () {
+
+      if ( outcome.unlocked !== false){
 
       tooltipHover = "shopItem"
 
@@ -3667,6 +3670,8 @@ function tooltipShopItem(outcome, shop) {
           if (shopItems[shop].stock<10) did("tooltipName").innerHTML = items[outcome.item].name+" x10 <FONT COLOR='coral'> [Not Enough Stock!]";
         }
       });
+
+    }
 
       document.addEventListener("keyup", function (event) { 
         if (event.key === contextKey && tooltipHover === "shopItem") {
@@ -3883,10 +3888,11 @@ function tooltipTalents(id) {
       if (!talent[id].active) description2 = '<br><br><div class="separador"></div><FONT COLOR="#edd585">Left Click to allocate 1 Talent Point into this star'
 
       let description1 = "";
-      if ("parent" in talent[id]) description1 = '<FONT COLOR="#ff1f1f">Requires '+ talent[talent[id].parent].name + '<br><br>';
+      if ("parent" in talent[id]) description1 = '<FONT COLOR="#de5757">Requires '+ talent[talent[id].parent].name + '<br><br>';
+      if ("parent" in talent[id] && talent[talent[id].parent].active) description1 = '<FONT COLOR="#71de8e">Requires '+ talent[talent[id].parent].name + '<br><br>';
 
       let classDescription = "";
-      if (talent[id].category==='Class') classDescription = '<FONT COLOR="#f7ff66">Current Level: '+ rpgClass[id].level + '<br><FONT COLOR="#f7ff66">Max Level: '+ rpgClass[id].maxLevel + '<br><br>';
+      if (talent[id].category==='Class') classDescription = '<span class="questProgress">Current Level: '+ rpgClass[id].level + '/'+ rpgClass[id].maxLevel+'</span><br><br>';
 
       let castDescription = ""
       if ("cast" in talent[id]) castDescription = "<span style='color:gray'>Consumes "+eval(talent[id].cost)+" SP<br>"+talent[id].cd+"s Cooldown</span><br><br>"
@@ -3975,7 +3981,7 @@ function tooltipSkill(id, full) {
 
         did("tooltipDescription").innerHTML = castDescription + talent[id].description + assigndesc;
 
-        if (talent[id].category === "Class") did("tooltipDescription").innerHTML = '<FONT COLOR="#f7ff66">Current Level: '+ rpgClass[id].level + '<br><FONT COLOR="#f7ff66">Max Level: '+ rpgClass[id].maxLevel + '<br><br><FONT COLOR="white">'+ castDescription + talent[id].description + '<br><br><div style=" text-align: center; background:transparent" ><div class="separador"></div><FONT COLOR="orange">Click to swap to this class</span></div>';
+        if (talent[id].category === "Class") did("tooltipDescription").innerHTML = '<br><span class="questProgress">Current Level: '+ rpgClass[id].level + '/'+ rpgClass[id].maxLevel+'</span><br><br><FONT COLOR="white">'+ castDescription + talent[id].description + '<br><br><div style=" text-align: center; background:transparent" ><div class="separador"></div><FONT COLOR="orange">Click to swap to this class</span></div>';
 
         did("tooltipFlavor").textContent = "";
         did("tooltipImage").src = "img/src/talents/" + id + ".jpg";
