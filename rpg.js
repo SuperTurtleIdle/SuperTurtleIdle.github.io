@@ -1230,16 +1230,29 @@ if (enemies.E27.killCount>0) { materialTable2.I40.P = 15; materialTable2.I58.P =
   addItem()
 }
 
+let itemCDSnapshot = 20;
+
 setInterval(itemCooldownTick, 1000);
 function itemCooldownTick(ID, time) { //removes one second from the cd of every single item
   for (let i in items) {
+    if ("cd" in items[i]){
     if (items[i].cd > 0 && did(items[i].id + "item")) { //if its on CD
       items[i].cd--;
-      did(items[i].id + "item").style.filter = "brightness(0.4)";
+      did(items[i].id + "item").style.filter = "brightness(0.7)";
     }
     if (items[i].cd === 0 && did(items[i].id + "item")) { //if its not anymore
       did(items[i].id + "item").style.filter = "brightness(1)";
     }
+
+    if (did(i+'itemCooldown')){
+
+    
+    let percentage = ((items[i].cd / itemCDSnapshot) * 100);
+    did(i+'itemCooldown').style.height = percentage+"%";
+    
+    
+  }
+  }
   }
 }
 
@@ -1272,10 +1285,12 @@ function addItem() { //updates inventory items
       if (!did(items[i].id + "item") && currentSort==="all" || !did(items[i].id + "item") && items[i].sort===currentSort) {  //if it doesnt exist yet create it
         const itemdiv = document.createElement("div");
         itemdiv.id = items[i].id + "item";
+        itemCDScreen = ""
+        if ("cd" in items[i]) itemCDScreen = '<div class="itemCooldownTimer" id="'+i+'itemCooldown"></div>'
         if (items[i].max === 1)
-          itemdiv.innerHTML = '<img id="'+i+'ItemImage"  src = "img/src/items/' + items[i].img + '.jpg"><span id="'+i+'ItemLock" style="display:none" class="itemLock">🔒</span>';
+          itemdiv.innerHTML = itemCDScreen+'<img id="'+i+'ItemImage"  src = "img/src/items/' + items[i].img + '.jpg"><span id="'+i+'ItemLock" style="display:none" class="itemLock">🔒</span>';
         else //if its not singular, add counter
-          itemdiv.innerHTML = '<img id="'+i+'ItemImage" src = "img/src/items/' + items[i].img + '.jpg"> <div class="itemCount" id="' + items[i].id + "itemCount" + '">' + items[i].count + '</div><span id="'+i+'ItemLock" style="display:none" class="itemLock">🔒</span>';
+          itemdiv.innerHTML = itemCDScreen+'<img id="'+i+'ItemImage" src = "img/src/items/' + items[i].img + '.jpg"> <div class="itemCount" id="' + items[i].id + "itemCount" + '">' + items[i].count + '</div><span id="'+i+'ItemLock" style="display:none" class="itemLock">🔒</span>';
           
         itemdiv.className = "itemSlot";
 
@@ -1409,6 +1424,7 @@ function itemUse(id, effect) { //right click functionality of items
         did(id + "item").style.animation = "";
         void did(id + "item").offsetWidth;
         did(id + "item").style.animation = "noBuyAnimation 0.2s 1";
+        
       }
       if (items[id].cd === 0 && !sellMode) {
         playSound("audio/use.mp3")
@@ -1417,6 +1433,14 @@ function itemUse(id, effect) { //right click functionality of items
         did(id + "item").style.animation = "levelUp 0.1s 1";
         effect();
         if(items[id].count<1) resetTooltip()
+        itemCDSnapshot = items[id].cd
+        itemCooldownTick();
+        if (did(id+'itemCooldown')) setTimeout(() => { did(id+'itemCooldown').style.transition = "1s all"  }, 100);
+        
+          
+       
+        
+        
       }
 
     } else if (!sellMode) {
@@ -2081,7 +2105,7 @@ function createShopItem() {
     if (shopItems[si].stock < 1 && shopItems[si].unlocked !== false) {
       did(shopItems[si].id + "itemTag").style.display = "flex";
       did(shopItems[si].id + "itemTag").innerHTML = "SOLD OUT";
-    } else {did(shopItems[si].id + "itemTag").style.display = "none";}
+    } else if (shopItems[si].unlocked !== false) {did(shopItems[si].id + "itemTag").style.display = "none";}
 
     
 

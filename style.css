@@ -3420,6 +3420,17 @@ z-index: 20
     pointer-events: initial;
 }
 
+.itemCooldownTimer{
+    height: 0%;
+    width: 100%;
+    align-self: flex-end;
+    justify-self: flex-end;
+    position: absolute;
+    background: black;
+    opacity: 0.8;
+    transform-origin: bottom;
+}
+
 @keyframes enemyHurt{
     0%{transform: translateX(20px)}
 }
