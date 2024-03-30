@@ -181,7 +181,7 @@ itemOfTheDay.price = 'stats.totalCoins*0.015';
 itemOfTheDay.bought = false;
 
 did("itemOfTheDay").addEventListener("click", function () {
-    if (rpgPlayer.coins >= eval(itemOfTheDay.price) && itemOfTheDay.bought===false) {
+    if (rpgPlayer.coins >= eval(itemOfTheDay.price) && itemOfTheDay.bought===false && items[itemOfTheDay.item].count!==items[itemOfTheDay.item].max) {
 
         itemOfTheDay.bought = true;
       

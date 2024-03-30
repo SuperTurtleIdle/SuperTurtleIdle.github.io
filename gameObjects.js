@@ -780,6 +780,7 @@ enemies.E27.align = 'elemental';
 enemies.E27.drop =  "rollTable(infernalusDrop, 1)";
 enemies.E27.dropDesc = '<FONT COLOR="#0070dd">★ [Infernal Cache]'
 enemies.E27.attackChance = ' castInfernalus1(); if (currentHP < enemies.E27.hp*0.9 && enemyPhase===1) { enemyPhase=2; castInfernalus2()}  if (currentHP < enemies.E27.hp*0.4 && enemyPhase===2) { enemyPhase=3; castInfernalus2()}';
+enemies.E27.tag = 'areaBoss';
 
 enemies.E28 = {};
 enemies.E28.name = 'Dai-Goran';
@@ -2637,7 +2638,7 @@ items.I131.series = 'forgotten';
 
 items.I166 = {};
 items.I166.name = 'Waddling Band';
-items.I166.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">+'+ beautify(returnItemUpgradeScaling(23520, "I166"))+' '+natureIcon+'Nature Damage'`;
+items.I166.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">+'+ beautify(returnItemUpgradeScaling(23520, "I166"))+' '+natureIcon+'Weapon Nature Damage'`;
 items.I166.flavor = '"It\'s not going anywhere though."';
 items.I166.quality = 'Rare';
 items.I166.sell = 5000;
