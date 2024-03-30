@@ -2071,18 +2071,19 @@ function createShopItem() {
 
 
 
-    if (shopItems[si].stock < 1) {
-      did(shopItems[si].id + "itemTag").style.display = "flex";
-      did(shopItems[si].id + "itemTag").innerHTML = "SOLD OUT";
-    } else {did(shopItems[si].id + "itemTag").style.display = "none";}
 
-    
     if (shopItems[si].unlocked === false) {
       did(shopItems[si].id + "itemTag").style.display = "flex";
       did(shopItems[si].id + "itemTag").innerHTML = "SOON";
       did(shopItems[si].id + "displayItem").style.filter = "grayscale(0.8)";
     } else { did(shopItems[si].id + "itemTag").style.display = "none"; } 
 
+    if (shopItems[si].stock < 1 && shopItems[si].unlocked !== false) {
+      did(shopItems[si].id + "itemTag").style.display = "flex";
+      did(shopItems[si].id + "itemTag").innerHTML = "SOLD OUT";
+    } else {did(shopItems[si].id + "itemTag").style.display = "none";}
+
+    
 
     did(shopItems[si].id + "displayItem").style.filter = "grayscale(0)"
     
