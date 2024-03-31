@@ -4620,12 +4620,21 @@ function updateStatsUI() {
 document.addEventListener("DOMContentLoaded", rpgInitialization);
 
 function rpgInitialization() {
+
+
+  
+
+
+
   createAreaPanel();
   expBar();
   encounterButtonPress();
   hpRegen();
-  initGearAll()
+  initGearAll();
+  
+  retroactiveUpdate();
   switchArea();
+  
   specialButtonUi();
   contractLog();
   armorycheck();
@@ -4652,6 +4661,13 @@ function rpgInitialization() {
       did("showdownTab").style.display = "flex";
       did("questTab").style.display = "none";
   }
+
+
+
+
+
+
+ 
 
 }
 //#endregion

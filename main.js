@@ -1239,7 +1239,11 @@ function retroactiveUpdate(){
     if (quests.A3Q6.state === "completed") shopItems.A3S16.unlocked = true;
 
 
-
+    if (stats.currentArea === 0) {
+        stats.currentArea="A1";
+        switchArea();
+        specialButtonUi();
+    } 
 
 
 
@@ -1326,7 +1330,7 @@ function initialization() {
     addItem();
     setCursor();
     upgradesReveal();
-    retroactiveUpdate();
+    
 
 }
 //#endregion
