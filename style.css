@@ -4133,6 +4133,17 @@ background: rgba(34, 32, 38, 0.77);
     right: 4%;
 }
 
+#inventorySearch{
+    position: absolute;
+    height: 80%;
+    width: 35%;
+    right: 14%;
+    color: white;
+    font-family: fredoka;
+    font-size: 2vh;
+    display: flex;
+}
+
 .itemCount{
     height: 38%;
     width: auto;

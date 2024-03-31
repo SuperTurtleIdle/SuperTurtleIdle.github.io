@@ -19,6 +19,39 @@ stats.currentEnemy = 'E1';
 
 var currentHP = 0;
 
+const fuse = new Fuse(Object.values(items), {
+  keys: ['name', 'description'],
+  threshold: 0.1,
+  ignoreLocation: true, 
+})
+
+
+let resultIds = "";
+let emptySearchBar = true;
+
+did("inventorySearch").addEventListener('input', function() {
+
+
+  let searchResult = fuse.search(inventorySearch.value);
+
+  resultIds = searchResult
+  .map(({ item }) => Object.keys(items).find(key => items[key].name === item.name));
+
+
+  if (inventorySearch.value.length < 2){
+    emptySearchBar = true;
+  }else emptySearchBar = false
+
+
+  if (inventorySearch.value.length > 2){
+  did("inventory").innerHTML = ""
+  addItem();
+  }
+  
+
+
+});
+
 //#endregion
 //----------------------==========================-----------------------
 //----------------------==========COMBAT==========-----------------------
@@ -103,7 +136,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
 
           for (let i in enemies){ if (did(i+"enemy")){
             did(i + "enemy").style.animation = "enemyDefeat 0.2s 1 ease";
-            setTimeout(function () { did(i + "enemy").remove(); }, 180);
+            setTimeout(function () { if (did(i+"enemy")){ did(i + "enemy").remove(); } }, 180);
             }}
 
         }
@@ -138,6 +171,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
       void did("rpgCanvas").offsetWidth;
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
       stats.currentArea = previousArea;
+      stats.currentDifficulty = previousDifficulty;
       dungeonPoints = 0;
       dungeonStage=0
       stats.dungeonsCleared++;
@@ -312,6 +346,7 @@ function playerUpdate(){ //updates player HP and checks if its dead
       void did("rpgCanvas").offsetWidth;
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
       stats.currentArea = previousArea;
+      stats.currentDifficulty = previousDifficulty;
       dungeonPoints = 0;
       dungeonStage=0
       updateDungeonPoints()
@@ -553,7 +588,7 @@ function logPrint(print) {
   hitLog.innerHTML = print;
   
   if (did("combatLog").children.length >= 100)
-    did("combatLog").removeChild(did("combatLog").firstChild); //if it has more than x childs delete the first
+  did("combatLog").firstChild.remove();
 }
 
 function expBar() { //updates exp bar and checks level up
@@ -1281,7 +1316,7 @@ stats.recipesLearnt = 0;
 function addItem() { //updates inventory items
   for (let i in items) {
     if (items[i].count >= 1) {
-      if (!did(items[i].id + "item") && currentSort==="all" || !did(items[i].id + "item") && (items[i].sort===currentSort || currentSort==='favorites' && items[i].favorited)) {  //if it doesnt exist yet create it
+      if (!did(items[i].id + "item") && (resultIds.includes(i) || emptySearchBar) && currentSort==="all" || !did(items[i].id + "item") && (items[i].sort===currentSort && (resultIds.includes(i) || emptySearchBar) || (currentSort==='favorites' && items[i].favorited && (resultIds.includes(i) || emptySearchBar)))) {  //if it doesnt exist yet create it
         const itemdiv = document.createElement("div");
         itemdiv.id = items[i].id + "item";
         itemCDScreen = ""
@@ -1446,7 +1481,7 @@ function itemUse(id, effect) { //right click functionality of items
         if(items[id].count<1) resetTooltip()
         itemCDSnapshot = items[id].cd
         itemCooldownTick();
-        if (did(id+'itemCooldown')) setTimeout(() => { did(id+'itemCooldown').style.transition = "1s all"  }, 100);
+        if (did(id+'itemCooldown')) setTimeout(() => {  if (did(id+'itemCooldown')) { did(id+'itemCooldown').style.transition = "1s all" } }, 100);
         
           
        
@@ -1492,11 +1527,13 @@ function toggleSell(){
       favoriteMode = false;
       did("lockModeText").style.display = "none";
       did("favoriteModeText").style.display = "none";
+      did("inventorySearch").style.display = "none";
 
     }
     else{
       sellMode = false;
       did("sellModeText").style.display = "none";
+      did("inventorySearch").style.display = "flex";
     } 
 
 }
@@ -1514,11 +1551,13 @@ function toggleLock(){
       favoriteMode = false;
       did("sellModeText").style.display = "none";
       did("favoriteModeText").style.display = "none";
+      did("inventorySearch").style.display = "none";
 
     }
     else{
       lockMode = false;
       did("lockModeText").style.display = "none";
+      did("inventorySearch").style.display = "flex";
     } 
 
 }
@@ -1538,10 +1577,12 @@ function toggleFavorite(){
       lockMode = false;
       did("sellModeText").style.display = "none";
       did("lockModeText").style.display = "none";
+      did("inventorySearch").style.display = "none";
     }
     else{
       favoriteMode = false;
       did("favoriteModeText").style.display = "none";
+      did("inventorySearch").style.display = "flex";
     } 
 
 }
@@ -1748,6 +1789,7 @@ function createAreaPanel() {
 
 
 let previousArea = "A1";
+let previousDifficulty = "easy";
 
 function areaButton(id) {
   if (did(id + "area")) {
@@ -1776,6 +1818,7 @@ function areaButton(id) {
         addItem();
         playSound("audio/button3.mp3");
         previousArea = stats.currentArea;
+        previousDifficulty = stats.currentDifficulty;
         stats.currentArea = id;
         resetAreaButtonClass();
         stats.currentDifficulty = "easy";
@@ -2229,6 +2272,7 @@ document.addEventListener("keydown", function (event) { //enable sell mode
     did("sellModeText").style.display = "inline";
     did("lockModeText").style.display = "none";
     did("favoriteModeText").style.display = "none";
+    did("inventorySearch").style.display = "none";
   }
 });
 
@@ -2236,6 +2280,7 @@ document.addEventListener("keyup", function (event) { //disable sell mode
   if (event.key === contextKey) {
     sellMode = false;
     did("sellModeText").style.display = "none";
+    did("inventorySearch").style.display = "flex";
   }
 });
 
@@ -4663,7 +4708,7 @@ function rpgInitialization() {
   }
 
 
-
+save();
 
 
 

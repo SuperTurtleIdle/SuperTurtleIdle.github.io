@@ -14,7 +14,7 @@ window.addEventListener("contextmenu", function (e) { //disables web right click
 
 
 document.addEventListener('keydown', function (event) { //disables spacebar
-    if (event.key === ' ') {
+    if (event.key === ' ' && did("skillMenu").style.display === "flex") {
       event.preventDefault();
     } });
 
@@ -456,7 +456,7 @@ function tooltipWeather() {
       if (stats.currentWeather==="rain"){
          did("tooltipName").textContent = "Rainy Day";
          did("tooltipFlavor").textContent = '"The sky is specially wet today."';
-         did("tooltipDescription").innerHTML = '<span style="color:gray">No special weather bonuses.</span>';
+         did("tooltipDescription").innerHTML = '<span style="color:#1EFF0C">❖ +1 Fishing Level</span>';
       }
 
       if (stats.currentWeather==="snow"){
