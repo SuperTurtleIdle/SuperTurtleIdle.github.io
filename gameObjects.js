@@ -4117,6 +4117,7 @@ items.I289.max = 1;
 Object.keys(items).forEach(function(key) {
   items[key].id = key;
   items[key].locked = false;
+  items[key].favorited = false;
   items[key].count = 0;
   if (key.startsWith("R")) {items[key].img = 'I103';} 
   else if (key.startsWith("B")) {items[key].img = 'I180';}

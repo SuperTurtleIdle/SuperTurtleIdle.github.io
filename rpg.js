@@ -551,8 +551,7 @@ function logPrint(print) {
   did("combatLog").appendChild(hitLog);
   hitLog.className = "logMessage";
   hitLog.innerHTML = print;
-  const elemento = document.getElementById("combatLog");
-  //did('combatLog').scrollTop = did('combatLog').scrollHeight; //scroll to bottom on creation
+  
   if (did("combatLog").children.length >= 100)
     did("combatLog").removeChild(did("combatLog").firstChild); //if it has more than x childs delete the first
 }
@@ -1282,15 +1281,15 @@ stats.recipesLearnt = 0;
 function addItem() { //updates inventory items
   for (let i in items) {
     if (items[i].count >= 1) {
-      if (!did(items[i].id + "item") && currentSort==="all" || !did(items[i].id + "item") && items[i].sort===currentSort) {  //if it doesnt exist yet create it
+      if (!did(items[i].id + "item") && currentSort==="all" || !did(items[i].id + "item") && (items[i].sort===currentSort || currentSort==='favorites' && items[i].favorited)) {  //if it doesnt exist yet create it
         const itemdiv = document.createElement("div");
         itemdiv.id = items[i].id + "item";
         itemCDScreen = ""
         if ("cd" in items[i]) itemCDScreen = '<div class="itemCooldownTimer" id="'+i+'itemCooldown"></div>'
         if (items[i].max === 1)
-          itemdiv.innerHTML = itemCDScreen+'<img id="'+i+'ItemImage"  src = "img/src/items/' + items[i].img + '.jpg"><span id="'+i+'ItemLock" style="display:none" class="itemLock">🔒</span>';
+          itemdiv.innerHTML = itemCDScreen+'<img id="'+i+'ItemImage"  src = "img/src/items/' + items[i].img + '.jpg"><span id="'+i+'ItemLock" style="display:none" class="itemLock">🔒</span><span id="'+i+'ItemFavorite" style="display:none" class="itemFavorite">⭐</span>';
         else //if its not singular, add counter
-          itemdiv.innerHTML = itemCDScreen+'<img id="'+i+'ItemImage" src = "img/src/items/' + items[i].img + '.jpg"> <div class="itemCount" id="' + items[i].id + "itemCount" + '">' + items[i].count + '</div><span id="'+i+'ItemLock" style="display:none" class="itemLock">🔒</span>';
+          itemdiv.innerHTML = itemCDScreen+'<img id="'+i+'ItemImage" src = "img/src/items/' + items[i].img + '.jpg"> <div class="itemCount" id="' + items[i].id + "itemCount" + '">' + items[i].count + '</div><span id="'+i+'ItemLock" style="display:none" class="itemLock">🔒</span><span id="'+i+'ItemFavorite" style="display:none" class="itemFavorite">⭐</span>';
           
         itemdiv.className = "itemSlot";
 
@@ -1360,6 +1359,16 @@ function addItem() { //updates inventory items
             
             addItem();
           }
+
+          if (favoriteMode){
+
+            playSound("audio/button4.mp3");
+            if (!items[i].favorited) items[i].favorited=true;
+            else items[i].favorited=false;
+            
+            addItem();
+
+          }
       });
 
         if (!items[i].gotOnce) items[i].gotOnce = true;
@@ -1369,6 +1378,8 @@ function addItem() { //updates inventory items
     }
 
     if (did(items[i].id + "ItemLock") && items[i].locked){ did(items[i].id + "ItemLock").style.display = "inline"; } else if (did(items[i].id + "ItemLock") && !items[i].locked) { did(items[i].id + "ItemLock").style.display = "none";}
+
+    if (did(items[i].id + "ItemFavorite") && items[i].favorited){ did(items[i].id + "ItemFavorite").style.display = "inline"; } else if (did(items[i].id + "ItemFavorite") && !items[i].favorited) { did(items[i].id + "ItemFavorite").style.display = "none";}
 
     if (did(items[i].id + "item")) {  //if it exists limit and update ammount
       if (items[i].max < items[i].count) items[i].count = items[i].max;
@@ -1478,7 +1489,9 @@ function toggleSell(){
       sellMode = true;
 
       lockMode = false;
+      favoriteMode = false;
       did("lockModeText").style.display = "none";
+      did("favoriteModeText").style.display = "none";
 
     }
     else{
@@ -1498,7 +1511,9 @@ function toggleLock(){
       lockMode = true;
 
       sellMode = false;
+      favoriteMode = false;
       did("sellModeText").style.display = "none";
+      did("favoriteModeText").style.display = "none";
 
     }
     else{
@@ -1508,7 +1523,28 @@ function toggleLock(){
 
 }
 
+favoriteMode = false
 
+function toggleFavorite(){
+
+
+  playSound("audio/button2.mp3")
+
+    if (!favoriteMode){
+      did("favoriteModeText").style.display = "inline";
+      favoriteMode = true;
+
+      sellMode = false;
+      lockMode = false;
+      did("sellModeText").style.display = "none";
+      did("lockModeText").style.display = "none";
+    }
+    else{
+      favoriteMode = false;
+      did("favoriteModeText").style.display = "none";
+    } 
+
+}
 
 
 
@@ -1711,7 +1747,7 @@ function createAreaPanel() {
 };
 
 
-let previousArea = 0;
+let previousArea = "A1";
 
 function areaButton(id) {
   if (did(id + "area")) {
@@ -2191,6 +2227,8 @@ document.addEventListener("keydown", function (event) { //enable sell mode
   if (event.key === contextKey) {
     sellMode = true;
     did("sellModeText").style.display = "inline";
+    did("lockModeText").style.display = "none";
+    did("favoriteModeText").style.display = "none";
   }
 });
 

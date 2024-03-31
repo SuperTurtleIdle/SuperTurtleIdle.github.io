@@ -2529,6 +2529,14 @@ background: transparent;
     animation: useSkill 1 0.2s;
 }
 
+.itemFavorite{
+    background: transparent;
+    position: absolute;
+    right: 0;
+    top: 0;
+    animation: useSkill 1 0.2s;
+}
+
 .questProgress{
     background:#516385 !important;
     padding: 0 2%;
@@ -4041,7 +4049,7 @@ background: rgba(47, 34, 22, 0.77);
     align-self: center;
 }
 
-#sellModeText, #lockModeText{
+#sellModeText, #lockModeText,  #favoriteModeText{
     
     font-size: 2vh;
     margin-left: 2%;
@@ -4058,7 +4066,7 @@ background: rgba(47, 34, 22, 0.77);
     background: transparent;
 }
 
-#sellModeText span, #lockModeText span{
+#sellModeText span, #lockModeText span,  #favoriteModeText span{
         font-size: 2vh;
      background: transparent;
      border: rgb(255, 69, 69) solid 2px;
@@ -4073,6 +4081,12 @@ background: rgba(47, 34, 22, 0.77);
 #lockModeText span{
     border: rgb(111, 112, 155) solid 2px;
     color: rgb(111, 112, 155);
+}
+
+
+#favoriteModeText span{
+    border: #e0903f solid 2px;
+    color: #e0903f;
 }
 
 .rpgPanel{

@@ -1011,6 +1011,8 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
 
   saveData.savedItemLocked = {}; for (const i in items) { saveData.savedItemLocked[i] = items[i].locked;}
 
+  saveData.savedItemFavorited = {}; for (const i in items) { saveData.savedItemFavorited[i] = items[i].favorited;}
+
 
     
   const JSONData = JSON.stringify(saveData);
@@ -1021,6 +1023,8 @@ function load() {
   const datosGuardados = localStorage.getItem('saveData');
   if (datosGuardados) { //checks if savedata available
     const parsedData = JSON.parse(datosGuardados);
+
+    for (const i in parsedData.savedItemFavorited) { items[i].favorited = parsedData.savedItemFavorited[i];}
 
     for (const i in parsedData.savedItemLocked) { items[i].locked = parsedData.savedItemLocked[i];}
 
@@ -1191,7 +1195,10 @@ function unlocksReveal(){
     if (unlocks.itemOfTheDay) did('itemOfTheDay').style.display = "flex";
     if (unlocks.journal) did('achievementsTab').style.display = "flex";
     if (unlocks.penguins) {did('disablePenguinRecapButton').style.display = "inline"; did('penguinIndicatorButton').style.display = "flex"; did('penguinIndicator').style.display = "flex"; }
-    if (unlocks.inventorySorting) did('inventorySorters2').style.display = "flex";
+    if (unlocks.inventorySorting) {
+        did('inventorySorters2').style.display = "flex";
+        did('addFavoriteButton').style.display = "flex";
+}
     if (unlocks.shop) {did('shopButton').className = "gearButtonInactive"; if (stats.currentArea !== "A7") did('shopButton').innerHTML = "Shop"; }
     if (unlocks.dungeons) {did('dungeonButton').innerHTML = "Dungeon"; did('dungeonButton').className = "gearButtonInactive"}
     if (unlocks.areas) {did('areaButton').innerHTML = "Area"; did('areaButton').className = "gearButtonInactive"}
@@ -1230,7 +1237,6 @@ function unlocksReveal(){
 function retroactiveUpdate(){
 
     if (quests.A3Q6.state === "completed") shopItems.A3S16.unlocked = true;
-
 
 
 
