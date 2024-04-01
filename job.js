@@ -211,6 +211,10 @@ let itemQueueValue = 1;
 function craftButton(count){
 
     if (craftingQueue.value.length!==0) {itemQueueValue = craftingQueue.value} else itemQueueValue = 1;
+
+    if (isNaN(craftingQueue.value) || craftingQueue.value < 1 || craftingQueue.value > 99) {
+        itemQueueValue = 1;
+    }
     
      let canCraft = true; //codigo marciano que me ha dado gpt, checks for ingredient number
      if (items[recipes[currentRecipe].reagent1].count< recipes[currentRecipe].amount1*itemQueueValue) { canCraft = false;}
@@ -248,7 +252,6 @@ function craftButton(count){
 
  did('craftButtonCancel').addEventListener('click', cancelCrafting);
  function cancelCrafting() {
-    if (craftingQueue.value.length!==0) {itemQueueValue = craftingQueue.value} else itemQueueValue = 1;
 
     if (recipes[currentRecipe].crafting !== "false") {
         recipes[currentRecipe].crafting = "false";
