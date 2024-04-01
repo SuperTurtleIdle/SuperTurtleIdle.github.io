@@ -214,9 +214,9 @@ function craftButton(count){
     
      let canCraft = true; //codigo marciano que me ha dado gpt, checks for ingredient number
      if (items[recipes[currentRecipe].reagent1].count< recipes[currentRecipe].amount1*itemQueueValue) { canCraft = false;}
-     if (recipes[currentRecipe].reagent2*itemQueueValue && items[recipes[currentRecipe].reagent2].count < recipes[currentRecipe].amount2*itemQueueValue) {canCraft = false;}
-     if (recipes[currentRecipe].reagent3*itemQueueValue && items[recipes[currentRecipe].reagent3].count < recipes[currentRecipe].amount3*itemQueueValue) {canCraft = false;}
-     if (recipes[currentRecipe].reagent4*itemQueueValue && items[recipes[currentRecipe].reagent4].count < recipes[currentRecipe].amount4*itemQueueValue) {canCraft = false;}
+     if (recipes[currentRecipe].reagent2 && items[recipes[currentRecipe].reagent2].count < recipes[currentRecipe].amount2*itemQueueValue) {canCraft = false;}
+     if (recipes[currentRecipe].reagent3 && items[recipes[currentRecipe].reagent3].count < recipes[currentRecipe].amount3*itemQueueValue) {canCraft = false;}
+     if (recipes[currentRecipe].reagent4 && items[recipes[currentRecipe].reagent4].count < recipes[currentRecipe].amount4*itemQueueValue) {canCraft = false;}
     
      if (canCraft && (recipes[currentRecipe].crafting === "false" || (recipes[currentRecipe].craftingQueue>=0 && count !== "all")) && recipes[currentRecipe].crafting !== "all") {
          playSound("audio/craft.mp3")
