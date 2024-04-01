@@ -238,12 +238,24 @@ function craftButton(count){
 
          recipes[currentRecipe].time = recipes[currentRecipe].timer;
          createRecipe();
-
+         if (count === "once"){
          items[recipes[currentRecipe].reagent1].count -= recipes[currentRecipe].amount1*itemQueueValue; //deducts on the initial press
          if ('reagent2' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent2].count -= recipes[currentRecipe].amount2*itemQueueValue;
          if ('reagent3' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent3].count -= recipes[currentRecipe].amount3*itemQueueValue;
          if ('reagent4' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent4].count -= recipes[currentRecipe].amount4*itemQueueValue;
          addItem()
+        }
+
+        if (count === "all"){
+            items[recipes[currentRecipe].reagent1].count -= recipes[currentRecipe].amount1; //deducts on the initial press
+            if ('reagent2' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent2].count -= recipes[currentRecipe].amount2;
+            if ('reagent3' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent3].count -= recipes[currentRecipe].amount3;
+            if ('reagent4' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent4].count -= recipes[currentRecipe].amount4;
+            addItem()
+        }
+
+
+
 
      }
 
@@ -265,10 +277,10 @@ function craftButton(count){
          recipes[currentRecipe].time = recipes[currentRecipe].timer;
          createRecipe();
          craftingBarUi()
-         items[recipes[currentRecipe].reagent1].count += recipes[currentRecipe].amount1*recipes[currentRecipe].craftingQueue; //returns materials
-         if ('reagent2' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent2].count += recipes[currentRecipe].amount2*recipes[currentRecipe].craftingQueue; //aqui menos uno quizas
-         if ('reagent3' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent3].count += recipes[currentRecipe].amount3*recipes[currentRecipe].craftingQueue;
-         if ('reagent4' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent4].count += recipes[currentRecipe].amount4*recipes[currentRecipe].craftingQueue;
+         items[recipes[currentRecipe].reagent1].count += recipes[currentRecipe].amount1*Math.max(recipes[currentRecipe].craftingQueue, 1); //returns materials
+         if ('reagent2' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent2].count += recipes[currentRecipe].amount2*Math.max(recipes[currentRecipe].craftingQueue, 1); //aqui menos uno quizas
+         if ('reagent3' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent3].count += recipes[currentRecipe].amount3*Math.max(recipes[currentRecipe].craftingQueue, 1);
+         if ('reagent4' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent4].count += recipes[currentRecipe].amount4*Math.max(recipes[currentRecipe].craftingQueue, 1);
          addItem()
 
          recipes[currentRecipe].craftingQueue = 0;
