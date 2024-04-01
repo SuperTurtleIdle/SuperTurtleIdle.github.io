@@ -4924,7 +4924,7 @@ box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25) inset;
 .recipe{
     height: 2vh;
     background: transparent;
-    width: 90%;
+    width: 100%;
     margin-left: 8%;
     border-radius: 0.4vh;
     margin-top: 1%;
@@ -4949,10 +4949,19 @@ box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25) inset;
     animation: gelatineHigh 0.3s 1;
 }
 
+.recipe div, .recipeSelect div{
+    display: flex;
+    width: 30%;
+    background: transparent;
+    font-family: fredoka;
+    color: #7ACCDE;
+    font-weight: 500;
+}
+
 .recipeSelect{
     height: 2vh;
     background: linear-gradient(90deg, rgba(255, 232, 27, 0.22) 0.6%, rgba(217, 217, 217, 0.00) 90%);
-    width: 90%;
+    width: 100%;
     margin-left: 8%;
     border-radius: 0.4vh;
     margin-top: 1%;
@@ -5045,7 +5054,7 @@ box-shadow: 6px 4px 15px 0px rgba(0, 0, 0, 0.4) inset, -2px -3px 7px 0px rgba(25
 
 .recipeButtonWrap{
     height: 10%;
-    width: 60%;
+    width: 70%;
     background: #433B3B;
     margin-left: auto;
     margin-top: 3%;
@@ -5055,6 +5064,17 @@ box-shadow: 6px 4px 15px 0px rgba(0, 0, 0, 0.4) inset, -2px -3px 7px 0px rgba(25
     align-items: center;
     padding:0 1%;
     gap:2%;
+}
+
+.recipeButtonWrap input{
+    height: 88%;
+    width: 30%;
+    border: solid #863838 0.3vh;
+    border-bottom: solid #521616 1vh;
+    background: #3B2C29;
+    font-size: 3vh;
+    color: white;
+    text-align: center;
 }
 
 .craftButton{

@@ -363,7 +363,7 @@
             <div class=bannerLateral>
                 <h1 translate="no">Super Turtle Idle</h1>
             </div>
-            <h2>v 0.3.7 <strong id="botonChangelog">(Version History)</strong></h2>
+            <h2>v 0.3.8 <strong id="botonChangelog">(Version History)</strong></h2>
             <div class=listaLateral>
 
                 <div>
@@ -786,7 +786,7 @@
                     <div class="recipeBox" id="recipeReagents"><div class="itemSlot"></div><div class="itemSlot"></div></div>
                     <div class="recipeSeparator">Creates:</div>
                     <div class="recipeBox" id="recipeOutcome"><div class="itemSlot"></div><div class="itemSlot"></div></div>
-                    <div class="recipeButtonWrap"><div class="craftButton" id="craftButtonOne"><img src="img/src/icons/anvil.png">Craft</div><div id="craftButtonAll" class="craftButton" >All</div><div class="craftButton" id="craftButtonCancel" >X</div></div>
+                    <div class="recipeButtonWrap"><input id="craftingQueue" type="text" placeholder="1" maxlength="2" onclick="craftingQueue.value=''"><div class="craftButton" id="craftButtonOne"><img src="img/src/icons/anvil.png">Craft</div><div id="craftButtonAll" class="craftButton" >All</div><div class="craftButton" id="craftButtonCancel" >X</div></div>
                  
                     <div id="craftBarWrap"><div class="craftBarBg"><div id="craftBar"></div></div><div class="craftBar1"><div class="craftBarDiamond"></div></div><div class="craftBar2"><div class="craftBarDiamond"></div></div></div>
                  
@@ -910,7 +910,7 @@
                         <div id="sellModeText"> <span>⚠ Sell Mode ⚠</span> [Left Click] Sell One | [Right Click] Sell All</div>
                         <div id="lockModeText"><span>⚠ Lock Mode ⚠</span> [Left Click] to Prevent Items From Being Sold</div>
                         <div id="favoriteModeText"><span>⚠ Favorite Mode ⚠</span> [Left Click] to Add to the Favorite Tab</div>
-                        <input id="inventorySearch" type="text" placeholder="Search for an Item..." autocomplete="off" maxlength="30" onkeypress="if(event.key === 'Enter') this.blur(); addItem();">
+                        <input id="inventorySearch" type="text" placeholder="Search for an Item..." autocomplete="off" maxlength="30" onkeypress="if(event.key === 'Enter') this.blur(); addItem();" onclick="inventorySearch.value=''; emptySearchBar = true; addItem();">
                             
                             <div id="inventorySorters3"><button onclick="toggleFavorite()" id="addFavoriteButton" style="display: none;"><img src="img/src/icons/favoritesAdd.png"></button><button onclick="toggleLock()"><img src="img/src/icons/lockButton.png"></button><button onclick="toggleSell()"><img src="img/src/icons/shopButton.png"></button></div><span class="helpingDuck" id="inventoryHelpingDuck">&#129414</span></div>       
            <div class="rpgPanel" id="inventory"></div>      
@@ -1087,7 +1087,7 @@
 
     </span>
     <script src="scripts/HackTimer.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+    <script type="text/javascript" src="scripts/fuse.js"></script>
     <script src="gameObjects.js"></script>
     <script src="spellList.js"></script>
     <script type="text/javascript" src="scripts/panzoom.js"></script>

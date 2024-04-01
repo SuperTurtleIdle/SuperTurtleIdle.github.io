@@ -2128,7 +2128,7 @@ items.I170.attackChance = 'if (rng(1,2)===1) castPenguinsUmbrella()'
 
 items.I167 = {};
 items.I167.name = 'Wraithblade Scimitar';
-items.I167.description = `'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+ beautify(returnItemUpgradeScaling(193722, "I167"))+' Occult Damage<br>On Attack: Burns the soul of the enemy inflicting '+occultIcon+'Occult Damage overtime. Once this effect reaches 10 stacks, the target soul with collapse dealing high '+occultIcon+'Occult Damage'`;
+items.I167.description = `'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+ beautify(returnItemUpgradeScaling(193722, "I167"))+' Occult Damage<br>On Attack: Burns the soul of the enemy inflicting '+occultIcon+'Occult Damage overtime. Once this effect reaches 10 stacks, the target soul will collapse dealing high '+occultIcon+'Occult Damage'`;
 items.I167.flavor = '"A spooky scary blade with an otherworldly edge. It sends shivers down your spine."';
 items.I167.quality = 'Epic';
 items.I167.sell = 40000;
@@ -5731,6 +5731,7 @@ Object.keys(recipes).forEach(function(key) {
   recipes[key].selected = false;
   recipes[key].time = recipes[key].timer;
   recipes[key].crafting = 'false';
+  recipes[key].craftingQueue = 0;
 });
 
 //#endregion
@@ -6806,7 +6807,7 @@ talent.T0.position = '0px 0px'
 talent.T0.hue = "0deg"
 talent.T0.name = "Awakening";
 talent.T0.category = "Passive";
-talent.T0.description = '<span class="logStat">Enables the hidden inner power that resides within your shell.<br><br>Unlocks classes and skills using SP (Skill Points). You can unlock as many classes as you want and swap them at will.<br><br>Skills unlocked in one class will carry to others, allowing your turtle to become increasingly more powerful the more classes you level.<br><br>You can get Talent Points to unlock new talents by leveling classes.</span>'
+talent.T0.description = '<span class="logStat">Enables the hidden inner power that resides within your shell.<br><br>Unlocks classes and skills using SP (Skill Points). You can unlock as many classes as you want and swap them at will. Assign them from the Skills panel at the side of your gear.<br><br>Skills unlocked in one class will carry to others, allowing your turtle to become increasingly more powerful the more classes you level.<br><br>You can get Talent Points to unlock new talents by leveling classes.</span>'
 
 talent.noClass = {};
 talent.noClass.position = '9999px 9999px'

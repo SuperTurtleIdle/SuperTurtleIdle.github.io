@@ -1025,6 +1025,7 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
 
   saveData.savedItemFavorited = {}; for (const i in items) { saveData.savedItemFavorited[i] = items[i].favorited;}
 
+  saveData.savedItemQueue = {}; for (const i in recipes) { saveData.savedItemQueue[i] = recipes[i].craftingQueue;}
 
     
   const JSONData = JSON.stringify(saveData);
@@ -1035,6 +1036,8 @@ function load() {
   const datosGuardados = localStorage.getItem('saveData');
   if (datosGuardados) { //checks if savedata available
     const parsedData = JSON.parse(datosGuardados);
+
+    for (const i in parsedData.savedItemQueue) { recipes[i].craftingQueue = parsedData.savedItemQueue[i];}
 
     for (const i in parsedData.savedItemFavorited) { items[i].favorited = parsedData.savedItemFavorited[i];}
 

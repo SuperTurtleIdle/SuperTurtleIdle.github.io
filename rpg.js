@@ -3074,10 +3074,10 @@ function getHoveredSkill(id) { //assign skills
 }
 
 document.addEventListener('keydown', function (event) {
-  if (event.key === '1' && skillHover !== "none" && rpgPlayer.skill2 !== skillHover && rpgPlayer.skill3 !== skillHover && rpgPlayer.skill4 !== skillHover) { rpgPlayer.skill1 = skillHover }
-  if (event.key === '2' && skillHover !== "none" && rpgPlayer.skill1 !== skillHover && rpgPlayer.skill3 !== skillHover && rpgPlayer.skill4 !== skillHover) { rpgPlayer.skill2 = skillHover }
-  if (event.key === '3' && skillHover !== "none" && rpgPlayer.skill2 !== skillHover && rpgPlayer.skill1 !== skillHover && rpgPlayer.skill4 !== skillHover) { rpgPlayer.skill3 = skillHover }
-  if (event.key === '4' && skillHover !== "none" && rpgPlayer.skill2 !== skillHover && rpgPlayer.skill3 !== skillHover && rpgPlayer.skill1 !== skillHover) { rpgPlayer.skill4 = skillHover }
+  if (event.key === '2' && skillHover !== "none" && rpgPlayer.skill2 !== skillHover && rpgPlayer.skill3 !== skillHover && rpgPlayer.skill4 !== skillHover) { rpgPlayer.skill1 = skillHover }
+  if (event.key === '3' && skillHover !== "none" && rpgPlayer.skill1 !== skillHover && rpgPlayer.skill3 !== skillHover && rpgPlayer.skill4 !== skillHover) { rpgPlayer.skill2 = skillHover }
+  if (event.key === '4' && skillHover !== "none" && rpgPlayer.skill2 !== skillHover && rpgPlayer.skill1 !== skillHover && rpgPlayer.skill4 !== skillHover) { rpgPlayer.skill3 = skillHover }
+  if (event.key === '5' && skillHover !== "none" && rpgPlayer.skill2 !== skillHover && rpgPlayer.skill3 !== skillHover && rpgPlayer.skill1 !== skillHover) { rpgPlayer.skill4 = skillHover }
 
   if (event.key === '1' && skillHover === "none" && rpgPlayer.skill0 !== "none") castSkill("0")
   if (event.key === '2' && skillHover === "none" && rpgPlayer.skill1 !== "none") castSkill("1")
@@ -4084,7 +4084,7 @@ function tooltipSkill(id, full) {
         did("tooltipArrowRight").style.display = "flex";
         did("tooltipArrowRight").style.top = "20%";
 
-        let assigndesc = '<br><br><div style=" text-align: center; background:transparent" ><div class="separador"></div><span style="color:gray">Press <FONT COLOR="orange">[1], [2] , [3]<FONT COLOR="gray"> or <FONT COLOR="orange">[4]<FONT COLOR="gray"> to assign this skill to the hotbar</span></div>'
+        let assigndesc = '<br><br><div style=" text-align: center; background:transparent" ><div class="separador"></div><span style="color:gray">Press <FONT COLOR="orange">[2], [3] , [4]<FONT COLOR="gray"> or <FONT COLOR="orange">[5]<FONT COLOR="gray"> to assign this skill to the hotbar</span></div>'
 
         let castDescription = ""
         if ("cast" in talent[id]) castDescription = "<span style='color:gray'>Consumes "+eval(talent[id].cost)+" SP<br>"+talent[id].cd+"s Cooldown</span><br><br>"
