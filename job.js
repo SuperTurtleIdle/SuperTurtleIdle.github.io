@@ -346,21 +346,21 @@ function craftingProgress(){
     addItem()
     
 
-    if (recipes[r].crafting === 'once' && recipes[currentRecipe].craftingQueue === 1){
+    if (recipes[r].crafting === 'once' && recipes[r].craftingQueue === 1){
 
 
     recipes[r].crafting = 'false';
     recipes[r].time = recipes[r].timer;
     createRecipe();
-    did (currentRecipe+'craftQueue').innerHTML = "";
-    recipes[currentRecipe].craftingQueue = 0;
+    did (r+'craftQueue').innerHTML = "";
+    recipes[r].craftingQueue = 0;
 
     
 
-    } else if (recipes[r].crafting === 'once' && recipes[currentRecipe].craftingQueue > 1) {
+    } else if (recipes[r].crafting === 'once' && recipes[r].craftingQueue > 1) {
 
-        recipes[currentRecipe].craftingQueue--
-        did (currentRecipe+'craftQueue').innerHTML = recipes[currentRecipe].craftingQueue;
+        recipes[r].craftingQueue--
+        did (r+'craftQueue').innerHTML = recipes[r].craftingQueue;
         recipes[r].time = recipes[r].timer;
         createRecipe();
 
