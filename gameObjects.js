@@ -375,7 +375,7 @@ enemies.E1 = {};
 enemies.E1.name = 'Caulislug';
 enemies.E1.level = '[lvl 1]';
 enemies.E1.hp = 59;
-enemies.E1.description = 'A slug so passionate about vegetables that he raised one on it\'s shell. Scientists are in absolute awe.'
+enemies.E1.description = 'A slug so passionate about vegetables that he raised one on its shell. Scientists are in absolute awe.'
 enemies.E1.area = 'A1';
 enemies.E1.attack = 6;
 enemies.E1.difficulty = 'easy';
@@ -402,7 +402,7 @@ enemies.E3 = {};
 enemies.E3.name = 'Ribull';
 enemies.E3.level = '[lvl 4]';
 enemies.E3.hp = 400;
-enemies.E3.description = 'Recognized for it\'s loud croaking sound, numerous noise complaints have been filled wherever they reside. But they never listen...'
+enemies.E3.description = 'Recognized for their loud croaking sound, numerous noise complaints have been filled wherever they reside. But they never listen...'
 enemies.E3.area = 'A1';
 enemies.E3.attack = 180;
 enemies.E3.difficulty = 'medium';
@@ -430,7 +430,7 @@ enemies.E5 = {};
 enemies.E5.name = 'Jabbit';
 enemies.E5.level = '[lvl 11]';
 enemies.E5.hp = 840;
-enemies.E5.description = 'Although it lacks poison or claws, does it really look like it couldnt hurt you?'
+enemies.E5.description = 'Although it lacks poison or claws, does it really look like it couldn\'t hurt you?'
 enemies.E5.area = 'A2';
 enemies.E5.attack = 315;
 enemies.E5.exp = 380;
@@ -443,7 +443,7 @@ enemies.E6 = {};
 enemies.E6.name = 'Karateil';
 enemies.E6.level = '[lvl 14]';
 enemies.E6.hp = 4500;
-enemies.E6.description = 'A common red squirrel that has found it\'s ways into martial arts. Not so common anymore.'
+enemies.E6.description = 'A common red squirrel that has found its ways into martial arts. Not so common anymore.'
 enemies.E6.area = 'A2';
 enemies.E6.attack = 1400;
 enemies.E6.exp = 1312;
@@ -473,7 +473,7 @@ enemies.E8 = {};
 enemies.E8.name = 'King-Kat';
 enemies.E8.level = '[lvl 20]';
 enemies.E8.hp = 150000;
-enemies.E8.description = 'King of the jungle and king of all fighting styles. Try hitting it\'s weakness.<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ King Punch: Moderate '+mightIcon+'Might Damage<br>❖ [When below 40% HP] Enrage: Increase attack by 40%';
+enemies.E8.description = 'King of the jungle and king of all fighting styles. Try hitting its weakness.<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ King Punch: Moderate '+mightIcon+'Might Damage<br>❖ [When below 40% HP] Enrage: Increase attack by 40%';
 enemies.E8.attack = 4500;
 enemies.E8.exp = 550000;
 enemies.E8.attackChance = ' if(rng(1,4)===1) {castKingKat1()} if (currentHP < enemies.E8.hp*0.4 && enemyPhase===1){ enemyPhase=2; castKingKat2() }';
@@ -513,7 +513,7 @@ enemies.E11 = {};
 enemies.E11.name = 'Granite Elemental';
 enemies.E11.level = '[lvl 27]';
 enemies.E11.hp = 55000;
-enemies.E11.description = 'Sentient mineral rock that has taken a monstruous shape. Every geologist dream. Probably.'
+enemies.E11.description = 'Sentient mineral rock that has taken a monstruous shape. Every geologist\'s dream. Probably.'
 enemies.E11.area = 'A3';
 enemies.E11.attack = 20000;
 enemies.E11.exp = 152000;
@@ -527,7 +527,7 @@ enemies.E12 = {};
 enemies.E12.name = 'Terragosa';
 enemies.E12.level = '[lvl 30]';
 enemies.E12.hp = 2500000;
-enemies.E12.description = 'A crystalline drake formed out of sheer willpower and pressure. Be wary of it\'s Prismatic Shift<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ Razor Claws: Low '+mightIcon+'Might Damage<br>❖ Crystal Breath: Moderate '+elementalIcon+'Elemental Damage<br>❖ [When attacked with '+mightIcon+'Might Damage] Prismatic Shift: Increase attack by 1600%';
+enemies.E12.description = 'A crystalline drake formed out of sheer willpower and pressure. Be wary of its Prismatic Shift<br><br><span class="logStat">[Skills]</span><FONT COLOR="#93b56e"><br>❖ Razor Claws: Low '+mightIcon+'Might Damage<br>❖ Crystal Breath: Moderate '+elementalIcon+'Elemental Damage<br>❖ [When attacked with '+mightIcon+'Might Damage] Prismatic Shift: Increase attack by 1600%';
 enemies.E12.attack = 70000;
 enemies.E12.exp = 31750000;
 enemies.E12.align = 'elemental';
@@ -629,7 +629,7 @@ enemies.E17 = {};
 enemies.E17.name = 'Caladora';
 enemies.E17.level = '[lvl 34]';
 enemies.E17.hp = 850000;
-enemies.E17.description = 'A genetical monstrosity between a pumpking and a dragon. On second thought, it looks kind of cute.'
+enemies.E17.description = 'A genetic monstrosity between a pumpking and a dragon. On second thought, it looks kind of cute.'
 enemies.E17.area = 'A4';
 enemies.E17.attack = 140000;
 enemies.E17.exp = 1848571;
@@ -1091,7 +1091,7 @@ items.I71.sell = 58;
 items.I40 = {};
 items.I40.name = 'Spooky Wood';
 items.I40.description = 'Material';
-items.I40.flavor = '"An eerie, creaking log. It\'s ominous aura makes you feel uneasy."';
+items.I40.flavor = '"An eerie, creaking log. Its ominous aura makes you feel uneasy."';
 items.I40.quality = 'Common';
 items.I40.sell = 72;
 
@@ -1126,7 +1126,7 @@ items.I22.sell = 550;
 items.I42 = {};
 items.I42.name = 'Malachite';
 items.I42.description = 'Material';
-items.I42.flavor = '"A striking green mineral, prized for it\'s vivid color and used in jewelry for centuries."';
+items.I42.flavor = '"A striking green mineral, prized for its vivid color and used in jewelry for centuries."';
 items.I42.quality = 'Uncommon';
 items.I42.sell = 2000;
 
@@ -1147,7 +1147,7 @@ items.I31.sell = 150;
 items.I66 = {};
 items.I66.name = 'Copper Plate';
 items.I66.description = 'Material';
-items.I66.flavor = '"Versatile material used in various crafting, valued for it\'s strength and adaptability."';
+items.I66.flavor = '"Versatile material used in various crafting, valued for its strength and adaptability."';
 items.I66.quality = 'Common';
 items.I66.sell = 300;
 
@@ -1193,6 +1193,13 @@ items.I158.flavor = '"A lackluster catch."';
 items.I158.quality = 'Poor';
 items.I158.sell = 4;
 
+items.I216 = {};
+items.I216.name = 'Golden Trashbag';
+items.I216.description = 'Miscellaneous - Treasure';
+items.I216.flavor = '"One man\'s gold is another man\'s trash."';
+items.I216.quality = 'Uncommon';
+items.I216.sell = 500000;
+
 items.I159 = {}; 
 items.I159.name = 'Ghost Jellyfish';
 items.I159.description = 'Material';
@@ -1224,14 +1231,14 @@ items.I38.sell = 39;
 items.I108 = {}; 
 items.I108.name = 'Dayleaf Spice';
 items.I108.description = 'Material';
-items.I108.flavor = '"A spice known for it\'s sweet licorice-like flavor."';
+items.I108.flavor = '"A spice known for its sweet licorice-like flavor."';
 items.I108.quality = 'Common';
 items.I108.sell = 200;
 
 items.I68 = {};
 items.I68.name = 'Lesser Alchemical Dust';
 items.I68.description = 'Material';
-items.I68.flavor = '"A shimmering, iridescent powder valued for it\'s reactivity in alchemy."';
+items.I68.flavor = '"A shimmering, iridescent powder valued for its reactivity in alchemy."';
 items.I68.quality = 'Common';
 items.I68.sell = 150;
 
@@ -1354,7 +1361,7 @@ items.I54.use = 'removeBuffs("food"); buffs.B12.time=1800; playerBuffs();playSou
 items.I52 = {};
 items.I52.name = 'Frog Pho';
 items.I52.description = 'Consumable - Food<br><FONT COLOR="#1EFF0C">Use: Increases '+mightIcon+'Might Damage by 50% for 30 minutes <FONT COLOR="gray">(Only one food buff can be active at a time)'
-items.I52.flavor = '"A dish known for it\'s flavorful broth, typically made with beef or chicken, rice noodles, and aromatic herbs. And now frog."';
+items.I52.flavor = '"A dish known for its flavorful broth, typically made with beef or chicken, rice noodles, and aromatic herbs. And now frog."';
 items.I52.quality = 'Uncommon';
 items.I52.sell = 600;
 items.I52.use = 'removeBuffs("food"); buffs.B13.time=1800; playerBuffs(); playSound("audio/monch.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.4s 1");  items.I52.count--; ';
@@ -1478,7 +1485,7 @@ items.I153.sell = 15500;
 items.I153.use = 'rollTable(infernalCache, 1); items.I153.count--;  ; ';
 
 var dungeonBonus1 = { I93:{P:10, A:1},I92:{P:5, A:'rng(1,3)'},I91:{P:2, A:'rng(1,7)'}, /*stamps*/ I22:{P:4, A:'rng(1,10)'},I42:{P:6, A:'rng(1,4)'}, /*gems*/ I96:{P:30,A:1},  I97:{P:30,A:1}, I207:{P:30,A:1},  /*gambas*/ I177:{P:30,A:1},  I178:{P:30,A:1},  /*vouchers*/ I200:{P:30,A:1},  /*phoenix*/  I208:{P:40,A:1},  /*jackinabox*/}
-var coolCooler =  { I142:{P:2,A:1}, I141:{P:2,A:1}, I140:{P:2,A:1}, I139:{P:2,A:1}, I138:{P:2,A:1},  /*armor*/ I60:{P:3,A:1},/*weapon*/ I166:{P:3,A:1},  /*waddling band*/  BR7:{P:15,A:1},  /*blueprint*/}
+var coolCooler =  { I142:{P:2,A:1}, I141:{P:2,A:1}, I140:{P:2,A:1}, I139:{P:2,A:1}, I138:{P:2,A:1},  /*armor*/ I60:{P:3,A:1},/*weapon*/ I166:{P:3,A:1},  /*waddling band*/  BR7:{P:9,A:1},  /*blueprint*/}
 items.I205 = {};
 items.I205.name = 'Cool Cooler';
 items.I205.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Open it!<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="#a335ee">❖ Blueprint: Penguin Aviary<br><FONT COLOR="#0070dd">★ Pringu Armor Set<br>❖ Bluefin Tuna<br>❖ Waddling Band<br><FONT COLOR="orange">❖ ...And More!'
@@ -1491,7 +1498,7 @@ var jonesLocker =  { I147:{P:2,A:1}, I146:{P:2,A:1}, I145:{P:2,A:1}, I144:{P:2,A
 items.I206 = {};
 items.I206.name = 'Davy Jones\' Locker';
 items.I206.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Open it!<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="#a335ee">❖ Wraithblade Scimitar<br><FONT COLOR="#0070dd">★ Ghastly Captain Set<br>❖ Spade of Tortugas<br><FONT COLOR="orange">❖ ...And More!'
-items.I206.flavor = '"I don\'t really see whats all the fuss about this one."';
+items.I206.flavor = '"I don\'t really see what\'s all the fuss about this one."';
 items.I206.quality = 'Rare';
 items.I206.sell = 7000;
 items.I206.use = 'items.I206.count--; rollTable(materialTable1, 3); rollTable(materialTable2, 3); rollTable(dungeonBonus1, 1); rollTable(jonesLocker, 1);';
@@ -1615,7 +1622,7 @@ items.I208.use = 'playSound("audio/button8.mp3"); items.I208.cd = 120;animPartic
 items.I209 = {};
 items.I209.name = 'Ephemeral Time Egg';
 items.I209.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 1 hour of offline progress<br><FONT COLOR="gray"> (Only works if the current enemy has been defeated more than 100 times)'
-items.I209.flavor = '"...Time, the very essence of change and decay, which would hatch forth and the very heartbeat of existence, would find it\'s genesis..."';
+items.I209.flavor = '"...Time, the very essence of change and decay, which would hatch forth and the very heartbeat of existence, would find its genesis..."';
 items.I209.quality = 'Rare';
 items.I209.sell = 1000;
 items.I209.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((3600/60)*(playerPenguinPower/15),"egg"); items.I209.count--; }';
@@ -1631,7 +1638,7 @@ items.I210.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBur
 items.I211 = {};
 items.I211.name = 'Everlasting Time Egg';
 items.I211.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 24 hours of offline progress<br><FONT COLOR="gray"> (Only works if the current enemy has been defeated more than 100 times)'
-items.I211.flavor = '"—In the depths of it\'s ancient shell harbored the essence of creation itself. And so, in an epoch-shattering moment, amidst the swirling mists of eternity, it laid an egg..."';
+items.I211.flavor = '"—In the depths of its ancient shell harbored the essence of creation itself. And so, in an epoch-shattering moment, amidst the swirling mists of eternity, it laid an egg..."';
 items.I211.quality = 'Epic';
 items.I211.sell = 10000;
 items.I211.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((86400/60)*(playerPenguinPower/15),"egg"); items.I211.count--; }';
@@ -1639,7 +1646,7 @@ items.I211.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBur
 items.I212 = {};
 items.I212.name = 'Timeless Time Egg';
 items.I212.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 48 hours of offline progress<br><FONT COLOR="gray"> (Only works if the current enemy has been defeated more than 100 times)'
-items.I212.flavor = '"...As it unfurled it\'s wings, ages passed like fleeting shadows, civilizations rose and crumbled, and the land itself bore witness to the inexorable march of time."';
+items.I212.flavor = '"...As it unfurled its wings, ages passed like fleeting shadows, civilizations rose and crumbled, and the land itself bore witness to the inexorable march of time."';
 items.I212.quality = 'Legendary';
 items.I212.sell = 25000;
 items.I212.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((172800/60)*(playerPenguinPower/15),"egg"); items.I212.count--; }';
@@ -1655,7 +1662,7 @@ items.I213.use = 'if (items.I213.count>3) { playSound("audio/talent.mp3"); animP
 items.I214 = {};
 items.I214.name = 'Reality Cube';
 items.I214.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently grants 1 additional Talent Point'
-items.I214.flavor = '"I cant say I fully trust how our third dimensional plane bends arround this."';
+items.I214.flavor = '"I cant say I fully trust how our third dimensional plane bends around this."';
 items.I214.quality = 'Legendary';
 items.I214.sell = 0;
 items.I214.use = 'playSound("audio/talent2.mp3"); rpgPlayer.talentPoints++; rpgPlayer.totalTalentPoints++; animParticleBurst(5 , "particleSpark", "cursor", 0); updateTalentUI(); items.I214.count--; ';
@@ -1708,6 +1715,51 @@ items.I14.quality = 'Uncommon';
 items.I14.sell = 10;
 items.I14.use = 'playSound("audio/monch.mp3"); animParticleBurst(7 , "particleHeart", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); items.I14.count--; ';
 
+let coinWins = 0;
+items.I39 = {};
+items.I39.name = 'Pirate Coin';
+items.I39.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Flip the coin';
+items.I39.flavor = '"Fateful decisions upon the high seas await ye."';
+items.I39.quality = 'Uncommon';
+items.I39.sell = 900;
+items.I39.use = 'items.I39.cd = 3; playSound("audio/touchGlass.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); items.I39.count--; if (rng(1,2)===1) {createPopup("&#127922; Tails", "#913c3c"); coinWins = 0;} else {createPopup("&#127922; Heads", "#61ba56"); coinWins++}; if (rng(1,50)===1) {playSound("audio/meow.mp3"); createPopup("&#127922; You feel lucky!", "#61ba56"); items.I193.count++; }';
+
+items.I61 = {}; //mazz pirata
+items.I61.name = 'Spade of Tortugas';
+items.I61.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Combine the clover, the spade, the heart and the diamond into a deck'
+items.I61.flavor = '"Luck Be A Turtle."';
+items.I61.quality = 'Rare';
+items.I61.sell = 5000;
+items.I61.use = 'if (items.I61.count>0 && items.I62.count>0 && items.I63.count>0 && items.I65.count>0){items.I61.count--; items.I62.count--; items.I63.count--; items.I65.count--; items.I56.count++; ;}';
+items.I61.max = 1;
+
+items.I62 = {}; //reinforced
+items.I62.name = 'Heart of Tortugas';
+items.I62.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Combine the clover, the spade, the heart and the diamond into a deck'
+items.I62.flavor = '"Luck Be A Turtle."';
+items.I62.quality = 'Rare';
+items.I62.sell = 5000;
+items.I62.use = 'if (items.I61.count>0 && items.I62.count>0 && items.I63.count>0 && items.I65.count>0){items.I61.count--; items.I62.count--; items.I63.count--; items.I65.count--; items.I56.count++; ;}';
+items.I62.max = 1;
+
+items.I63 = {}; //bought 4 shop
+items.I63.name = 'Diamond of Tortugas';
+items.I63.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Combine the clover, the spade, the heart and the diamond into a deck'
+items.I63.flavor = '"Luck Be A Turtle."';
+items.I63.quality = 'Rare';
+items.I63.sell = 5000;
+items.I63.use = 'if (items.I61.count>0 && items.I62.count>0 && items.I63.count>0 && items.I65.count>0){items.I61.count--; items.I62.count--; items.I63.count--; items.I65.count--; items.I56.count++; ;}';
+items.I63.max = 1;
+
+items.I65 = {}; //infernalus
+items.I65.name = 'Clover of Tortugas';
+items.I65.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Combine the clover, the spade, the heart and the diamond into a deck'
+items.I65.flavor = '"Luck Be A Turtle."';
+items.I65.quality = 'Rare';
+items.I65.sell = 5000;
+items.I65.use = 'if (items.I61.count>0 && items.I62.count>0 && items.I63.count>0 && items.I65.count>0){items.I61.count--; items.I62.count--; items.I63.count--; items.I65.count--; items.I56.count++; ;}';
+items.I65.max = 1;
+
 items.I112 = {};
 items.I112.name = 'Pine Boomerang';
 items.I112.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Throws a wooden boomerang that deals 260-300 '+natureIcon+'Nature Damage';
@@ -1717,6 +1769,16 @@ items.I112.use = 'castPineBoomerang(); items.I112.count --; ;'
 items.I112.sell = 100;
 items.I112.max = 10;
 items.I112.align = 'nature'
+
+items.I176 = {};
+items.I176.name = 'Antidote';
+items.I176.description = 'Consumable - Potion<br><FONT COLOR="#1EFF0C">Use: Prevents enemy-inflicted poisons for 10 minutes'
+items.I176.flavor = '"Might be useful in a pinch."';
+items.I176.quality = 'Common';
+items.I176.sell = 500;
+items.I176.use = 'playSound("audio/potion.mp3"); buffs.B34.time=600; playerBuffs(); animParticleBurst(10 , "particleGlow", "playerPanel", 0); animState("rpgPlayerImg", "flash 0.5s 1"); items.I176.count--; ';
+items.I176.cd = 0;
+items.I176.max = 10;
 
 items.I30 = {};
 items.I30.name = 'Light Dynamite';
@@ -1753,6 +1815,15 @@ items.I67.quality = 'Uncommon';
 items.I67.sell = 2000;
 items.I67.use = ' if (rpgClass[stats.currentClass].level<31) {castNetOLauncher3000(); items.I67.cd = 120; items.I67.count --; ;}'
 items.I67.cd = 0;
+
+items.I187 = {};
+items.I187.name = 'Firetank Pyrocombulator';
+items.I187.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Attach it to your weapon, dealing 70K additional '+elementalIcon+'Elemental Damage with every attack. Lasts 2 Minutes until it runs out of fuel <FONT COLOR="gray"> (3 minute Cooldown)'
+items.I187.flavor = '"Good grief you don\'t have fingers to blow up."';
+items.I187.quality = 'Uncommon';
+items.I187.sell = 4000;
+items.I187.use =  'playSound("audio/engine.mp3"); items.I187.cd = 180; buffs.B39.time=120; playerBuffs(); animParticleBurst(6 , "particleGear", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); items.I187.count--; ';
+items.I187.cd = 0;
 
 items.I84 = {};
 items.I84.name = 'Stone Mattock';
@@ -2057,7 +2128,7 @@ items.I170.attackChance = 'if (rng(1,2)===1) castPenguinsUmbrella()'
 
 items.I167 = {};
 items.I167.name = 'Wraithblade Scimitar';
-items.I167.description = `'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+ beautify(returnItemUpgradeScaling(193722, "I167"))+' Occult Damage<br>On Attack: High chance to burn the soul of the enemy inflicting '+occultIcon+'Occult Damage overtime. This effect can stack up to 10 times'`;
+items.I167.description = `'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+'+ beautify(returnItemUpgradeScaling(193722, "I167"))+' Occult Damage<br>On Attack: Burns the soul of the enemy inflicting '+occultIcon+'Occult Damage overtime. Once this effect reaches 10 stacks, the target soul with collapse dealing high '+occultIcon+'Occult Damage'`;
 items.I167.flavor = '"A spooky scary blade with an otherworldly edge. It sends shivers down your spine."';
 items.I167.quality = 'Epic';
 items.I167.sell = 40000;
@@ -2066,7 +2137,7 @@ items.I167.use = 'gearSwap(items.I167.id, rpgPlayer.weaponSlot, "rpgWeaponSlot",
 items.I167.stats = 'weaponOccultDamage = returnItemUpgradeScaling(193722, "I167");'
 items.I167.remove = 'weaponOccultDamage = 0;'
 items.I167.align = 'occult';
-items.I167.attackChance = 'if (rng(1,3)===1) castWraithbladeScimitar()'
+items.I167.attackChance = 'castWraithbladeScimitar()'
 items.I167.series = "solstice"; 
 
 items.I137 = {};
@@ -2628,7 +2699,7 @@ items.I45.series = 'masterwork';
 items.I131 = {};
 items.I131.name = 'Thorn Binding';
 items.I131.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">Equip: Reflects damage received back to the enemy as '+natureIcon+'Nature Damage up to a maximum of '+ returnItemUpgradeScaling(312, "I131")+' damage'`;
-items.I131.flavor = '"A fierce ring made out of thorns and blossoms. To inflict pain one must be ready to recieve pain."';
+items.I131.flavor = '"A fierce ring made out of thorns and blossoms. To inflict pain one must be ready to receive pain."';
 items.I131.quality = 'Uncommon';
 items.I131.sell = 4500;
 items.I131.max = 10; 
@@ -2750,7 +2821,7 @@ items.I47.series = "beastfallen";
 
 items.I56 = {};
 items.I56.name = 'Heart of the Cards';
-items.I56.description = 'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: Everytime you recieve damage, gain one stack of Card Shuffle. Once Card Shuffle reaches 10 stacks, unleash a barrage of cards dealing 600K '+deificIcon+'Deific Damage 10 times';
+items.I56.description = 'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: Everytime you receive damage, gain one stack of Card Shuffle. Once Card Shuffle reaches 10 stacks, unleash a barrage of cards dealing 600K '+deificIcon+'Deific Damage 10 times';
 items.I56.flavor = '"A mystic deck with cards from all known card games. We are definitely getting kicked out of the casino with this one."';
 items.I56.quality = 'Epic';
 items.I56.sell = 75000;
@@ -2812,7 +2883,7 @@ items.I172.series = 'heirloom';
 items.I182 = {};
 items.I182.name = 'Shiny Fishing Lure';
 items.I182.description = 'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: +1 Fishing Level';
-items.I182.flavor = '"It\'s iridescent hues attract the curiosity of aquatic life."';
+items.I182.flavor = '"Its iridescent hues attract the curiosity of aquatic life."';
 items.I182.quality = 'Uncommon';
 items.I182.sell = 4500;
 items.I182.max = 1;
@@ -2824,7 +2895,7 @@ items.I182.series = 'masterwork';
 
 items.I201 = {};
 items.I201.name = 'Thunderous Gyroresonator';
-items.I201.description = `'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: Your attacks have a high chance of summoning lightning to struck your enemies, dealing '+ returnItemUpgradeScaling(4900, "I201")+'-'+ returnItemUpgradeScaling(5100, "I201")+' '+elementalIcon+'Elemental Damage'`;
+items.I201.description = `'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: Your attacks have a high chance of summoning lightning to strike your enemies, dealing '+ returnItemUpgradeScaling(4900, "I201")+'-'+ returnItemUpgradeScaling(5100, "I201")+' '+elementalIcon+'Elemental Damage'`;
 items.I201.flavor = '"A device that can harness electricity and discharge it right at the enemy spot."';
 items.I201.quality = 'Rare';
 items.I201.sell = 6000;
@@ -2918,52 +2989,6 @@ items.I34.quality = 'Upgrade';
 items.I34.sell = 0;
 items.I34.max = 1;
 items.I34.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); unlocks.autoBoss = true; upgrades.I34.got=true;  items.I34.count--; ';
-
-let coinWins = 0;
-
-items.I39 = {};
-items.I39.name = 'Pirate Coin';
-items.I39.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Flip the coin';
-items.I39.flavor = '"Fateful decisions upon the high seas await ye."';
-items.I39.quality = 'Uncommon';
-items.I39.sell = 900;
-items.I39.use = 'items.I39.cd = 3; playSound("audio/touchGlass.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); items.I39.count--; if (rng(1,2)===1) {createPopup("&#127922; Tails", "#913c3c"); coinWins = 0;} else {createPopup("&#127922; Heads", "#61ba56"); coinWins++}; if (rng(1,50)===1) {playSound("audio/meow.mp3"); createPopup("&#127922; You feel lucky!", "#61ba56"); items.I193.count++; }';
-
-items.I61 = {}; //mazz pirata
-items.I61.name = 'Spade of Tortugas';
-items.I61.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Combine the clover, the spade, the heart and the diamond into a deck'
-items.I61.flavor = '"Luck Be A Turtle."';
-items.I61.quality = 'Rare';
-items.I61.sell = 5000;
-items.I61.use = 'if (items.I61.count>0 && items.I62.count>0 && items.I63.count>0 && items.I65.count>0){items.I61.count--; items.I62.count--; items.I63.count--; items.I65.count--; items.I56.count++; ;}';
-items.I61.max = 1;
-
-items.I62 = {}; //reinforced
-items.I62.name = 'Heart of Tortugas';
-items.I62.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Combine the clover, the spade, the heart and the diamond into a deck'
-items.I62.flavor = '"Luck Be A Turtle."';
-items.I62.quality = 'Rare';
-items.I62.sell = 5000;
-items.I62.use = 'if (items.I61.count>0 && items.I62.count>0 && items.I63.count>0 && items.I65.count>0){items.I61.count--; items.I62.count--; items.I63.count--; items.I65.count--; items.I56.count++; ;}';
-items.I62.max = 1;
-
-items.I63 = {}; //bought 4 shop
-items.I63.name = 'Diamond of Tortugas';
-items.I63.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Combine the clover, the spade, the heart and the diamond into a deck'
-items.I63.flavor = '"Luck Be A Turtle."';
-items.I63.quality = 'Rare';
-items.I63.sell = 5000;
-items.I63.use = 'if (items.I61.count>0 && items.I62.count>0 && items.I63.count>0 && items.I65.count>0){items.I61.count--; items.I62.count--; items.I63.count--; items.I65.count--; items.I56.count++; ;}';
-items.I63.max = 1;
-
-items.I65 = {}; //infernalus
-items.I65.name = 'Clover of Tortugas';
-items.I65.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Combine the clover, the spade, the heart and the diamond into a deck'
-items.I65.flavor = '"Luck Be A Turtle."';
-items.I65.quality = 'Rare';
-items.I65.sell = 5000;
-items.I65.use = 'if (items.I61.count>0 && items.I62.count>0 && items.I63.count>0 && items.I65.count>0){items.I61.count--; items.I62.count--; items.I63.count--; items.I65.count--; items.I56.count++; ;}';
-items.I65.max = 1;
 
 unlocks.inventorySorting = false;
 
@@ -3073,7 +3098,7 @@ items.I109.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particle
 items.I111 = {}; 
 items.I111.name = 'Special Chai Blend';
 items.I111.description = 'Miscellaneous';
-items.I111.flavor = '"The raw power of a hundreds of herbs, compressed and atomized into fragrant dust. If you look closely, light is slightly bending arround the spices."';
+items.I111.flavor = '"The raw power of a hundreds of herbs, compressed and atomized into fragrant dust. If you look closely, light is slightly bending around the spices."';
 items.I111.quality = 'Quest';
 items.I111.sell = 0;
 items.I111.max = 1;
@@ -3147,25 +3172,6 @@ items.I126.quality = 'Uncommon';
 items.I126.sell = 1000;
 items.I126.max = 1;
 
-items.I176 = {};
-items.I176.name = 'Antidote';
-items.I176.description = 'Consumable - Potion<br><FONT COLOR="#1EFF0C">Use: Prevents enemy-inflicted poisons for 10 minutes'
-items.I176.flavor = '"Might be useful in a pinch."';
-items.I176.quality = 'Common';
-items.I176.sell = 500;
-items.I176.use = 'playSound("audio/potion.mp3"); buffs.B34.time=600; playerBuffs(); animParticleBurst(10 , "particleGlow", "playerPanel", 0); animState("rpgPlayerImg", "flash 0.5s 1"); items.I176.count--; ';
-items.I176.cd = 0;
-items.I176.max = 10;
-
-items.I187 = {};
-items.I187.name = 'Firetank Pyrocombulator';
-items.I187.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Attach it to your weapon, dealing 70K additional '+elementalIcon+'Elemental Damage with every attack. Lasts 2 Minutes until it runs out of fuel <FONT COLOR="gray"> (3 minute Cooldown)'
-items.I187.flavor = '"Good grief you don\'t have fingers to blow up."';
-items.I187.quality = 'Uncommon';
-items.I187.sell = 4000;
-items.I187.use =  'playSound("audio/engine.mp3"); items.I187.cd = 180; buffs.B39.time=120; playerBuffs(); animParticleBurst(6 , "particleGear", "playerPanel", 0); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); items.I187.count--; ';
-items.I187.cd = 0;
-
 /*
 items.I191 = {};
 items.I191.name = 'Lesser Mana Potion';
@@ -3203,13 +3209,6 @@ items.I204.quality = 'Upgrade';
 items.I204.sell = 0;
 items.I204.max = 1;
 items.I204.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); unlocks.garrison=true; jobPanels.GS.unlocked = true; createRecipeListing(); unlocksReveal(); upgrades.I204.got=true;  items.I204.count--; ';
-
-items.I216 = {};
-items.I216.name = 'Golden Trashbag';
-items.I216.description = 'Miscellaneous - Treasure';
-items.I216.flavor = '"One man\'s gold is another man\'s trash."';
-items.I216.quality = 'Uncommon';
-items.I216.sell = 500000;
 
 unlocks.itemOfTheDay = false;
 
@@ -3283,7 +3282,7 @@ items.I228.rarity = 1;
 items.I241 = {}; 
 items.I241.name = 'Tiger Eye';
 items.I241.description = 'Miscellaneous - Collectible';
-items.I241.flavor = '"A type of quartz with fibrous inclusions of crocidolite, which impart it\'s distinctive appearance."';
+items.I241.flavor = '"A type of quartz with fibrous inclusions of crocidolite, which impart its distinctive appearance."';
 items.I241.quality = 'Collectible';
 items.I241.sell = 1; // out
 items.I241.max = 1;
@@ -3303,7 +3302,7 @@ items.I233.rarity = 1;
 items.I226 = {}; 
 items.I226.name = 'Diamond';
 items.I226.description = 'Miscellaneous - Collectible';
-items.I226.flavor = '"Prized for it\'s brilliance, hardness, and rarity."';
+items.I226.flavor = '"Prized for its brilliance, hardness, and rarity."';
 items.I226.quality = 'Collectible';
 items.I226.sell = 1; // out
 items.I226.max = 1;
@@ -3354,7 +3353,7 @@ items.I232.rarity = 2;
 items.I234 = {}; 
 items.I234.name = 'Gammanite';
 items.I234.description = 'Miscellaneous - Collectible';
-items.I234.flavor = '"Despite it\'s hazardous nature, turtles insist on making house walls out of it."';
+items.I234.flavor = '"Despite its hazardous nature, turtles insist on making house walls out of it."';
 items.I234.quality = 'Collectible';
 items.I234.sell = 1; // out
 items.I234.max = 1;
@@ -3384,7 +3383,7 @@ items.I238.rarity = 2;
 items.I240 = {}; 
 items.I240.name = 'Taoline';
 items.I240.description = 'Miscellaneous - Collectible';
-items.I240.flavor = '"No matter on what slope you put it on, it seems to always mantain it\'s balance."';
+items.I240.flavor = '"No matter on what slope you put it on, it seems to always mantain its balance."';
 items.I240.quality = 'Collectible';
 items.I240.sell = 1; // out
 items.I240.max = 1;
@@ -3456,7 +3455,7 @@ items.I248.rarity = 1;
 items.I249 = {}; 
 items.I249.name = 'Miragefish';
 items.I249.description = 'Miscellaneous - Collectible';
-items.I249.flavor = '"Resembling a mirage in the water, tales describe it\'s elusive nature and ethereal beauty."';
+items.I249.flavor = '"Resembling a mirage in the water, tales describe its elusive nature and ethereal beauty."';
 items.I249.quality = 'Collectible';
 items.I249.sell = 1; // out
 items.I249.max = 1;
@@ -3476,7 +3475,7 @@ items.I242.rarity = 2;
 items.I245 = {}; 
 items.I245.name = 'Octopus';
 items.I245.description = 'Miscellaneous - Collectible';
-items.I245.flavor = '"Known for it\'s intelligence, adaptability and great parenthood."';
+items.I245.flavor = '"Known for its intelligence, adaptability and great parenthood."';
 items.I245.quality = 'Collectible';
 items.I245.sell = 1; // out
 items.I245.max = 1;
@@ -3496,7 +3495,7 @@ items.I247.rarity = 2;
 items.I251 = {}; 
 items.I251.name = 'Tiger Catfish';
 items.I251.description = 'Miscellaneous - Collectible';
-items.I251.flavor = '"It is characterized by it\'s distinctive pattern of dark stripes and their loud purr."';
+items.I251.flavor = '"It is characterized by its distinctive pattern of dark stripes and their loud purr."';
 items.I251.quality = 'Collectible';
 items.I251.sell = 1; // out
 items.I251.max = 1;
@@ -3648,7 +3647,7 @@ items.I263.rarity = 3;
 items.I264 = {}; 
 items.I264.name = 'Companionship Relic';
 items.I264.description = 'Miscellaneous - Collectible';
-items.I264.flavor = '"Despite it\'s eerie look, it makes you feel somewhat at ease."';
+items.I264.flavor = '"Despite its eerie look, it makes you feel somewhat at ease."';
 items.I264.quality = 'Collectible';
 items.I264.sell = 1; // out
 items.I264.max = 1;
@@ -3710,7 +3709,7 @@ items.I265.rarity = 1;
 items.I266 = {}; 
 items.I266.name = 'White Moth';
 items.I266.description = 'Miscellaneous - Collectible';
-items.I266.flavor = '"Characterized by it\'s predominantly white wings and known for their nocturnal habits."';
+items.I266.flavor = '"Characterized by its predominantly white wings and known for their nocturnal habits."';
 items.I266.quality = 'Collectible';
 items.I266.sell = 1; // out
 items.I266.max = 1;
@@ -3750,7 +3749,7 @@ items.I268.rarity = 2;
 items.I270 = {}; 
 items.I270.name = 'Purple Emperor Butterfly';
 items.I270.description = 'Miscellaneous - Collectible';
-items.I270.flavor = '"A striking butterfly species known for it\'s deep purple iridescent wings."';
+items.I270.flavor = '"A striking butterfly species known for its deep purple iridescent wings."';
 items.I270.quality = 'Collectible';
 items.I270.sell = 1; // out
 items.I270.max = 1;
@@ -3770,7 +3769,7 @@ items.I271.rarity = 2;
 items.I272 = {}; 
 items.I272.name = 'Hercules Beetle';
 items.I272.description = 'Miscellaneous - Collectible';
-items.I272.flavor = '"It can lift objects 850 times it\'s weight. Which sounds good but on paper he weights as much as a cookie."';
+items.I272.flavor = '"It can lift objects 850 times its weight. Which sounds good but on paper he weights as much as a cookie."';
 items.I272.quality = 'Collectible';
 items.I272.sell = 1; // out
 items.I272.max = 1;
@@ -3810,7 +3809,7 @@ items.I278.rarity = 2;
 items.I273 = {}; 
 items.I273.name = 'Alienithera Hypnotica';
 items.I273.description = 'Miscellaneous - Collectible';
-items.I273.flavor = '"A species so pretty you would wish it wasnt brainwashing you while admiring it\'s colors."';
+items.I273.flavor = '"A species so pretty you would wish it wasnt brainwashing you while admiring its colors."';
 items.I273.quality = 'Collectible';
 items.I273.sell = 1; // out
 items.I273.max = 1;
@@ -3879,7 +3878,7 @@ items.M1.max = 1;
 items.M2 = {}; 
 items.M2.name = 'Small Memo Note';
 items.M2.description = 'Miscellaneous';
-items.M2.flavor = '"Look at this thing! Hes eating it from my hand! What do you mean I shouldnt be doing it? Who tought that scorpions liked prawns so much? Huh? Whats this box?"';
+items.M2.flavor = '"Look at this thing! Hes eating it from my hand! What do you mean I shouldnt be doing it? Who tought that scorpions liked prawns so much? Huh? What\'s this box?"';
 items.M2.quality = 'Poor';
 items.M2.sell = 1;
 items.M2.max = 1;
@@ -4697,7 +4696,7 @@ var area1Loot = { I10:{P:150,A:1}, /*chest*/ I106:{P:180,A:1}, /*boss*/ I257:{P:
 areas.A1 = {};
 areas.A1.name = 'Cradle Hills';
 areas.A1.level = 1;
-areas.A1.description = '"The starting point of many turtle adventurers due to bugs and insects being the only residents arround here, which makes for an easy prey. Or at least it should be."';
+areas.A1.description = '"The starting point of many turtle adventurers due to bugs and insects being the only residents around here, which makes for an easy prey. Or at least it should be."';
 //areas.A1.unlocked = true;
 //areas.A1.visible = 1;
 areas.A1.boss = 'E4';
@@ -4731,7 +4730,7 @@ var area4Loot = { I43:{P:200,A:1}, /*chest*/ I164:{P:350,A:1}, /*boss*/ I263:{P:
 areas.A4 = {};
 areas.A4.name = 'Hallow Forest';
 areas.A4.level = 31;
-areas.A4.description = '"A land devoid of life. Death always finds it\'s way, and the ghostly remains of the undead torment the living in mortuary anger. I also heard there is a cute cat in here."';
+areas.A4.description = '"A land devoid of life. Death always finds its way, and the ghostly remains of the undead torment the living in mortuary anger. I also heard there is a cute cat in here."';
 areas.A4.boss = 'E27';
 areas.A4.bossKey = 'I164';
 areas.A4.unlockedPond = 0;
@@ -6298,7 +6297,7 @@ logs.L1P22.logic = 'stats.currentWeather==="bluemoon"';
 
 logs.L1P22A = {}
 logs.L1P22A.name = "Strong Guts";
-logs.L1P22A.description = "Survive With 1 HP Left in a Boss Fight";
+logs.L1P22A.description = "Survive With 1% HP Left in a Boss Fight";
 logs.L1P22A.hint = '"Threading inbetween life and death."';
 logs.L1P22A.insight = 5;
 logs.L1P22A.logic = '';
@@ -6320,7 +6319,7 @@ logs.P23.tag = 'upper';
 
 logs.P24 = {}
 logs.P24.name = "Nothing Like The Present";
-logs.P24.description = "Recieve a present from your turtle";
+logs.P24.description = "Receive a present from your turtle";
 logs.P24.hint = '"Repaying just a bit of all your kindness."';
 logs.P24.insight = 5;
 logs.P24.logic = 'stats.recievedPresents>0';
@@ -6328,7 +6327,7 @@ logs.P24.tag = 'upper';
 
 logs.P25 = {}
 logs.P25.name = "Grateful Representation";
-logs.P25.description = "Recieve 15 presents from your turtle";
+logs.P25.description = "Receive 15 presents from your turtle";
 logs.P25.hint = '"It seems she took a liking to you."';
 logs.P25.insight = 15;
 logs.P25.logic = 'stats.recievedPresents>15';

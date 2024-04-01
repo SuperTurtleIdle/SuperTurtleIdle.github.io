@@ -171,6 +171,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
       void did("rpgCanvas").offsetWidth;
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
       stats.currentArea = previousArea;
+      if (areas[previousArea].dungeon) stats.currentArea = "A1";
       stats.currentDifficulty = previousDifficulty;
       dungeonPoints = 0;
       dungeonStage=0
@@ -346,6 +347,7 @@ function playerUpdate(){ //updates player HP and checks if its dead
       void did("rpgCanvas").offsetWidth;
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
       stats.currentArea = previousArea;
+      if (areas[previousArea].dungeon) stats.currentArea = "A1";
       stats.currentDifficulty = previousDifficulty;
       dungeonPoints = 0;
       dungeonStage=0
@@ -428,7 +430,7 @@ function hpRegen() { //additionally manages death
     //if player alive
     if (rpgPlayer.hp < playerMaxHp && !bossTime && !dungeonTime && !showdownTime && !skirmishTime) rpgPlayer.hp += playerHpRegen/4;
     playerUpdate()
-    if (bossTime && rpgPlayer.hp===1) logs.L1P22A.unlocked=true
+    if (bossTime && rpgPlayer.hp<=playerMaxHp*0.01) logs.L1P22A.unlocked=true
     
   } else {
     //if player dead
@@ -767,7 +769,7 @@ function enemyNatureDamage(damage, type){
   currentHP -= damageDealt;
   enemyUpdate();
   damageText(beautify(damageDealt)+critMark(critChance-1), 'damageText', '#21b42d', icon, "enemyPanel");
-  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Nature Damage");
+  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Nature Damage");
     
   postDamageCheck(damageDealt)
 
@@ -795,7 +797,7 @@ function enemyMightDamage(damage, type){
   currentHP -= damageDealt;
   enemyUpdate();
   damageText(beautify(damageDealt)+critMark(critChance-1), 'damageText', '#217eb4', icon, "enemyPanel");
-  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Might Damage");
+  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Might Damage");
 
     
   postDamageCheck(damageDealt)
@@ -825,7 +827,7 @@ function enemyElementalDamage(damage, type){
   currentHP -= damageDealt;
   enemyUpdate();
   damageText(beautify(damageDealt)+critMark(critChance-1), 'damageText', '#f35933', icon, "enemyPanel");
-  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Elemental Damage");
+  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Elemental Damage");
 
     
   postDamageCheck(damageDealt)
@@ -856,7 +858,7 @@ function enemyOccultDamage(damage, type){
   currentHP -= damageDealt;
   enemyUpdate();
   damageText(beautify(damageDealt)+critMark(critChance-1), 'damageText', '#a936d6', icon, "enemyPanel");
-  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Occult Damage");
+  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Occult Damage");
 
     
   postDamageCheck(damageDealt)
@@ -882,7 +884,7 @@ function enemyDeificDamage(damage, type){
   currentHP -= damageDealt;
   enemyUpdate();
   damageText(beautify(damageDealt)+critMark(critChance-1), 'damageText', '#ec9900', icon, "enemyPanel");
-  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Deific Damage");
+  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Deific Damage");
 
     
   postDamageCheck(damageDealt)
@@ -894,7 +896,7 @@ function enemyBasicDamage(damage){
   currentHP -= damageDealt;
   enemyUpdate();
   damageText(beautify(damageDealt), 'damageText', '#818181', icon, "enemyPanel");
-  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Damage");
+  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Damage");
   postDamageCheck(damageDealt)
 }
 
@@ -905,7 +907,7 @@ function enemyHealingDamage(healing){
   if (currentHP > enemies[stats.currentEnemy].hp) currentHP = enemies[stats.currentEnemy].hp //prevents overhealing
   enemyUpdate();
   damageText(beautify(healingDealt), 'damageText', '#61b600', 'heal', "enemyPanel");
-  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " heals for <FONT COLOR='#e8643c'>" + Math.round(healingDealt) + " HP");
+  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " heals for <FONT COLOR='#e8643c'>" + beautify(healingDealt) + " HP");
 }
 
 
@@ -921,7 +923,7 @@ function playerNatureDamage(damage){
   }
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#21b42d', icon, "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Nature Damage");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" +beautify(damageDealt) + " Nature Damage");
 }
 
 function playerMightDamage(damage){
@@ -935,7 +937,7 @@ function playerMightDamage(damage){
   }
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#217eb4', icon, "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Might Damage");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Might Damage");
 }
 
 function playerElementalDamage(damage){
@@ -949,7 +951,7 @@ function playerElementalDamage(damage){
   }
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#f35933', icon, "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Elemental Damage");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Elemental Damage");
 }
 
 function playerOccultDamage(damage){
@@ -963,7 +965,7 @@ function playerOccultDamage(damage){
   }
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#a936d6', icon, "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Occult Damage");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Occult Damage");
 }
 
 function playerDeificDamage(damage){
@@ -977,7 +979,7 @@ function playerDeificDamage(damage){
   }
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#ec9900', icon, "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + Math.round(damageDealt) + " Deific Damage");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Deific Damage");
 }
 
 function playerHealingDamage(healing){
@@ -987,7 +989,7 @@ function playerHealingDamage(healing){
   if (rpgPlayer.hp > playerMaxHp) rpgPlayer.hp = playerMaxHp //prevents overhealing
   playerUpdate();
   damageText(beautify(healingDealt), 'damageText', '#61b600', 'heal', "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " heals for <FONT COLOR='#e8643c'>" + Math.round(healingDealt) + " HP");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " heals for <FONT COLOR='#e8643c'>" + beautify(healingDealt) + " HP");
 }
 
 //#endregion
@@ -1246,9 +1248,9 @@ if (enemies.E27.killCount>0) { materialTable2.I40.P = 15; materialTable2.I58.P =
 
         if ("R" in table[dt]){ //dynamic price adjuster
 
-          if (table[dt].R === "high") items[dt].sell = Math.max(1000, stats.totalCoins*0.1)
-          if (table[dt].R === "medium") items[dt].sell = Math.max(1000, stats.totalCoins*0.05)
-          if (table[dt].R === "low") items[dt].sell = Math.max(1000, stats.totalCoins*0.02)
+          if (table[dt].R === "high") items[dt].sell = Math.max(1000, stats.totalCoins*0.035)
+          if (table[dt].R === "medium") items[dt].sell = Math.max(1000, stats.totalCoins*0.025)
+          if (table[dt].R === "low") items[dt].sell = Math.max(1000, stats.totalCoins*0.01)
 
           
         }
@@ -1817,7 +1819,7 @@ function areaButton(id) {
 
         addItem();
         playSound("audio/button3.mp3");
-        previousArea = stats.currentArea;
+        previousArea = stats.currentArea; 
         previousDifficulty = stats.currentDifficulty;
         stats.currentArea = id;
         resetAreaButtonClass();
@@ -4486,9 +4488,9 @@ function openPresent(present) {
     if (present.startsWith("coin")) {
       let roll = rng(1,10);
       let amount = 0
-      if (roll <= 5) { amount = stats.totalCoins * 0.03}
-      else if (roll <= 9) { amount = stats.totalCoins * 0.05} 
-      else if (roll === 10) { amount = stats.totalCoins * 0.07}
+      if (roll <= 5) { amount = stats.totalCoins * 0.02}
+      else if (roll <= 9) { amount = stats.totalCoins * 0.03} 
+      else if (roll === 10) { amount = stats.totalCoins * 0.04}
 
       div.innerHTML = '<img src="img/src/icons/coin.png">'+beautify(amount)+' Turtle Coins'
       rpgPlayer.coins += amount
@@ -4498,9 +4500,9 @@ function openPresent(present) {
     if (present.startsWith("exp")) {
       let roll = rng(1,10);
       let amount = 0
-      if (roll <= 5) { amount = rpgClass[stats.currentClass].nextExp * 0.4}
-      else if (roll <= 9) { amount = rpgClass[stats.currentClass].nextExp * 0.6} 
-      else if (roll === 10) { amount = rpgClass[stats.currentClass].nextExp * 0.8}
+      if (roll <= 5) { amount = rpgClass[stats.currentClass].nextExp * 0.3}
+      else if (roll <= 9) { amount = rpgClass[stats.currentClass].nextExp * 0.4} 
+      else if (roll === 10) { amount = rpgClass[stats.currentClass].nextExp * 0.5}
 
       div.innerHTML = '<img src="img/src/icons/xp.png">'+beautify(amount)+' EXP'
       rpgClass[stats.currentClass].currentExp += amount
@@ -4708,7 +4710,6 @@ function rpgInitialization() {
   }
 
 
-save();
 
 
 

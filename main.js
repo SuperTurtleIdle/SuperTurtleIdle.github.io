@@ -774,6 +774,7 @@ function calculateInactiveTime() { //calculates idle time
             for (let i in research) { if (research[i].status === "researching" && research[i].timer>1) research[i].timer -= secondsInactive}
             for (let i in areas) { if ("dungeonTimer" in areas[i] && areas[i].dungeonTimer>0) areas[i].dungeonTimer -= secondsInactive; if (areas[i].dungeonTimer<0) areas[i].dungeonTimer=0;}
 
+            save();
         }
 
         localStorage.setItem('lastVisitTime', new Date().getTime());
@@ -847,7 +848,7 @@ tooltipPenguin()
 
 
 function offlineRewards(amount, concept){
-if (enemies[stats.currentEnemy].tag!=="areaBoss" && !dungeonTime && stats.currentEnemy!=="E20") {
+if (enemies[stats.currentEnemy].tag!=="areaBoss" && !dungeonTime) {
     let currentDrop = "";
 
     if (enemies[stats.currentEnemy].drop && enemies[stats.currentEnemy].drop.includes('dropItem')) {
@@ -859,7 +860,7 @@ if (enemies[stats.currentEnemy].tag!=="areaBoss" && !dungeonTime && stats.curren
     }
 
 
-    if (concept==='egg'){
+    if (concept==='egg' && enemies[stats.currentEnemy].difficulty !== "pond"){
 
         createPopup('&#9201; Time Skipped and gathered '+beautify(Math.round(amount))+'<img src="img/src/items/'+currentDrop+'.jpg">and '+beautify(enemies[stats.currentEnemy].exp/6 * Math.round(amount))+' EXP', '#4e9690')
 
@@ -871,13 +872,24 @@ if (stats.currentArea === "A3") rollTable(area3Loot, amount/7)
 if (stats.currentArea === "A4") rollTable(area4Loot, amount/7)
 
 
+if (stats.currentEnemy === "E20") rollTable(fishingEeriePond1, amount/7);
 
+
+if  (enemies[stats.currentEnemy].difficulty !== "pond"){
 items[currentDrop].count += Math.round(amount);
 rpgClass[stats.currentClass].currentExp += enemies[stats.currentEnemy].exp/6 * Math.round(amount);
 
+
 did("idleItem").innerHTML = beautify(Math.round(amount));
 did("idleItemImg").src = "img/src/items/"+currentDrop+".jpg";
+
+} else {
+    did("idleItem").innerHTML = "some fishes";
+    did("idleItemImg").src = "img/src/items/I171.jpg";
+}
+
 did("idleExp").innerHTML = beautify(enemies[stats.currentEnemy].exp * Math.round(amount));
+
 
 expBar();
 addItem();

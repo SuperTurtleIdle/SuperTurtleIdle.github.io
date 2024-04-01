@@ -392,14 +392,37 @@ function castTerrorscythe(){ //weapon skill
         playerBuffs();
     }, 700);}
 
+let wraithbladeCooldown = 0;
 function castWraithbladeScimitar(){ //weapon skill
-    animImageSplash("ghost", "enemyPanel", "float", 0);
-    animImageSplash("slash", "enemyPanel", "impact", 0);
-    animState(stats.currentEnemy+"enemy", "shake 0.4s 1");
-    animParticleBurst(5 , "particleFire", "enemyPanel", 130);
-    buffs.B33.time=15;
-    if (buffs.B33.stacks<10) buffs.B33.stacks++;
+
+    wraithbladeCooldown--
+    if (wraithbladeCooldown<=0) {
+        buffs.B33.time=10;
+        animState(stats.currentEnemy+"enemy", "shake 0.4s 1");
+        animParticleBurst(2 , "particleFire", "enemyPanel", 130);
+        if (buffs.B33.stacks<10) buffs.B33.stacks++;
+    }
+    if (buffs.B33.stacks>=10) {
+        castWraithbladeScimitar2();
+        buffs.B33.time=0;
+        wraithbladeCooldown = 7;
+        enemyOccultDamage(playerTotalOccultDamage*3, "noScale");
+    }
+
     playerBuffs(); 
+
+
+    function castWraithbladeScimitar2(){
+
+        animImageSplash("ghost", "enemyPanel", "float", 0);
+        animState(stats.currentEnemy+"enemy", "shake 0.4s 1");
+        animParticleBurst(8 , "particleFire", "enemyPanel", 130);
+        animImageSplash("soundWave", "enemyPanel", "wave", 200);
+
+
+
+
+    }
 }
 
 function castPlundergeist1(){ //weapon skill
