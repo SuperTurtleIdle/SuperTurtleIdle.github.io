@@ -664,7 +664,7 @@ settingsPanel ("botonSupport", "support");
 
 
 let patreonTier1 = ["tortulily"]
-let patreonTier2 = ["jefeDeLaR"]
+let patreonTier2 = ["jefeDeLaR", "penguin", "B1naryV1k1ng"]
 let patreonTier3 = ["froza"]
 
 
