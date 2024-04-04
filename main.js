@@ -749,7 +749,7 @@ settingsPanel ("turtleName", "turtleRename");
 var logTrackName = 'base';
 
 function enterName(event) {
-    if (event.key === "Enter" && did("namingBox").value.length >= 1) {stats.turtleName = did("namingBox").value; logTrackName = did("namingBox").value; displayTurtleName(); closePanels()}
+    if (event.key === "Enter" && did("namingBox").value.length >= 1) {stats.turtleName = did("namingBox").value; logTrackName = did("namingBox").value; displayTurtleName(); closePanels(); if (rng(1,30)===1) {items.I293.count++; addItem();}}
 }
 function displayTurtleName(){
 
@@ -999,7 +999,6 @@ setInterval(function() { if (!settings.disableAutosave) { autosave(); } }, 60000
 document.addEventListener("keydown", function (event) {
     var turtleRename = did("turtleRename");
     if (event.key === "s" && turtleRename.style.display === "none") autosave()
-    if (rng(1,100)===1) {items.I293.count++; addItem();}  
 });
 
 //----save and load----
