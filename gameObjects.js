@@ -1525,7 +1525,7 @@ items.I43.flavor = '"As reinforced as wood can be."';
 items.I43.quality = 'Uncommon';
 items.I43.sell = 4000;
 items.I43.use = 'if (items.I46.count>0){ items.I43.count--; items.I46.count--; rollTable(reinforcedChest, 1); rollTable(materialTable2, 1); rollTable(materialTable1, 1); removeTableItem() }';
-items.I43.autoOpenLocked = "I41"; 
+items.I43.autoOpenLocked = "I46"; 
 
 items.I46 = {};
 items.I46.name = 'Arcanite Blasting Charge';
