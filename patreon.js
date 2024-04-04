@@ -3,5 +3,5 @@ let patreonTier2 = ["jefeDeLaR", "penguin", "B1naryV1k1ng", "triplesixstorm"]
 let patreonTier3 = ["froza"]
 
 let patreonTier1Alt = ["Dragomura"]
-let patreonTier2Alt = []
+let patreonTier2Alt = ["kev4217"]
 let patreonTier3Alt = []
