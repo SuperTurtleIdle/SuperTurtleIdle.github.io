@@ -1521,7 +1521,7 @@ function itemUse(id, effect) { //right click functionality of items
       if(items[id].count<1) resetTooltip()
 
       if ("autoOpenLocked" in items[id] && items[id].count>1){
-      for (let i = 0; i < items[items[id].autoOpenLocked].count; i++) {
+      for (let i = 0; i < Math.min(items[items[id].autoOpenLocked].count, items[id].count); i++) {
         setTimeout(function() {
           effect()
           playSound("audio/thud.mp3")
