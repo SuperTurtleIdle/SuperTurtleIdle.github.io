@@ -466,7 +466,7 @@ function tooltipArmory(i) {
 did("armoryButton").addEventListener("mouseenter", function () {
   did("tooltip").style.display = "flex";
   did("upperTooltip").style.display = "none";
-  did("tooltipDescription").innerHTML ='<FONT COLOR="#edd585">View your Armory';
+  did("tooltipDescription").innerHTML ='<FONT COLOR="#edd585">View your Armory ('+totalArmory+'/'+totalArmoryGot+")";
   did("tooltipFlavor").textContent = "";
   did("tooltipDescription").style.textAlign = "center";
   did("tooltipImage").style.display = "none";
@@ -552,12 +552,15 @@ if (enemies[i].killCount>=1 || enemies[i].sawOnce){
 
   
 
-let bestiaryPercentage = ( ( bestiaryPointEntry + bestiaryPointBronze + bestiaryPointGold ) / (totalBestiaryPoints - 3) * 100 ) 
+bestiaryPercentage = ( ( bestiaryPointEntry + bestiaryPointBronze + bestiaryPointGold ) / (totalBestiaryPoints - 3) * 100 ) 
 did("bestiaryProgress").innerHTML = "<span>["+bestiaryPercentage.toFixed(1)+"%] Completion</span>";
 
 did("bestiaryProgress").style.background = "linear-gradient(90deg, rgba(249,169,16,1) " + bestiaryPercentage + "%, black " + bestiaryPercentage + "%)";
 
 }
+
+
+let bestiaryPercentage = ( ( bestiaryPointEntry + bestiaryPointBronze + bestiaryPointGold ) / (totalBestiaryPoints - 3) * 100 ) 
 
 
 function bestiaryEntry(i) {
@@ -642,7 +645,7 @@ did("bestiaryDrops").innerHTML = eval(enemies[i].bestiaryItem)
 did("bestiaryButton").addEventListener("mouseenter", function () {
   did("tooltip").style.display = "flex";
   did("upperTooltip").style.display = "none";
-  did("tooltipDescription").innerHTML ='<FONT COLOR="#edd585">Open the Bestiary';
+  did("tooltipDescription").innerHTML ='<FONT COLOR="#edd585">Open the Bestiary ('+beautify(bestiaryPercentage)+'%)';
   did("tooltipFlavor").textContent = "";
   did("tooltipDescription").style.textAlign = "center";
   did("tooltipImage").style.display = "none";

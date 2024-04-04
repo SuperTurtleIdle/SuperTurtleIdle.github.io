@@ -662,12 +662,6 @@ function deleteSavePrompt(){
 
 settingsPanel ("botonSupport", "support");
 
-
-let patreonTier1 = ["tortulily", "Dragomura"]
-let patreonTier2 = ["jefeDeLaR", "penguin", "B1naryV1k1ng", "triplesixstorm"]
-let patreonTier3 = ["froza"]
-
-
 setInterval(() => { if (did("support").style.display != "none") { patreonShine() } }, 2000);
 
 function patreonShine(){
@@ -756,9 +750,9 @@ function displayTurtleName(){
 
 
     did("turtleName").textContent = stats.turtleName; did('turtleName2').textContent = stats.turtleName;
-    if (patreonTier1.includes(stats.turtleName)) did("turtleName").style.color = "#C672FA";
-    else if (patreonTier2.includes(stats.turtleName)) did("turtleName").style.color = "#FF6B43";
-    else if (patreonTier3.includes(stats.turtleName)) did("turtleName").style.color = "#92DB76";
+    if (patreonTier1.includes(stats.turtleName) || patreonTier1Alt.includes(stats.turtleName)) did("turtleName").style.color = "#C672FA";
+    else if (patreonTier2.includes(stats.turtleName) || patreonTier2Alt.includes(stats.turtleName)) did("turtleName").style.color = "#FF6B43";
+    else if (patreonTier3.includes(stats.turtleName) || patreonTier3Alt.includes(stats.turtleName)) did("turtleName").style.color = "#92DB76";
     else did("turtleName").style.color = "white"
 
 }

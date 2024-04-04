@@ -571,7 +571,7 @@
                 </div>
             </div>
             <div class="recursosSuperior">
-                <div class="topWidget" id="bestiaryWidget" style="display: none;"><img src="img/src/items/I290.jpg"  id="bestiaryButton" onclick="createBestiary(); playSound('audio/book.mp3');"/><div class="widgetBg"></div></div>
+                <div class="topWidget" id="bestiaryWidget" style="display: none;"><img src="img/src/items/I290.jpg"  id="bestiaryButton" onclick=" bestiaryEntry(stats.currentEnemy); createBestiary(); playSound('audio/book.mp3');"/><div class="widgetBg"></div></div>
                 <div class="topWidget"><img src="img/src/icons/armory.jpg"  id="armoryButton" onclick="createArmory()"/><div class="widgetBg"></div></div>
                 <div class="topWidget"><img src="img/src/icons/collection.jpg"  id="collectionButton"/><div class="widgetBg"></div></div>
                 <div class="topWidget"><img id="currentWeather" src="img/src/projectiles/none.png"/><span id="rpgTime">00:00</span><div class="widgetBg"></div></div>
@@ -1159,6 +1159,7 @@
     </span>
     <script src="scripts/HackTimer.js"></script>
     <script type="text/javascript" src="scripts/fuse.js"></script>
+    <script src="patreon.js"></script>
     <script src="gameObjects.js"></script>
     <script src="spellList.js"></script>
     <script type="text/javascript" src="scripts/panzoom.js"></script>

@@ -1506,10 +1506,6 @@ function itemUse(id, effect) { //right click functionality of items
         itemCooldownTick();
         if (did(id+'itemCooldown')) setTimeout(() => {  if (did(id+'itemCooldown')) { did(id+'itemCooldown').style.transition = "1s all" } }, 100);
         
-          
-       
-        
-        
       }
 
     } else if (!sellMode) { //if no cd
@@ -1520,15 +1516,15 @@ function itemUse(id, effect) { //right click functionality of items
       effect();
       if(items[id].count<1) resetTooltip()
 
-      if ("autoOpenLocked" in items[id] && items[id].count>1){
-      for (let i = 0; i < Math.min(items[items[id].autoOpenLocked].count, items[id].count); i++) {
+      if ("autoOpenLocked" in items[id] && items[id].count>9){
+      for (let i = 0; i < Math.min(items[items[id].autoOpenLocked].count-1, items[id].count-1); i++) {
         setTimeout(function() {
           effect()
           playSound("audio/thud.mp3")
           addItem()
         }, i * 50); 
-      } } else if ("autoOpen" in items[id] && items[id].count>1){
-        for (let i = 0; i < items[id].count; i++) {
+      } } else if ("autoOpen" in items[id] && items[id].count>9){
+        for (let i = 0; i < items[id].count-1; i++) {
           setTimeout(function() {
             effect()
             playSound("audio/thud.mp3")
@@ -3022,6 +3018,8 @@ for (let i in talent) {
 
     classdiv.addEventListener("click", function () { //class change
 
+      if (!dungeonTime) {
+
       playSound("audio/retro1.mp3");
 
       if (stats.currentArea === "A7"){
@@ -3070,7 +3068,10 @@ for (let i in talent) {
 
     createAreaPanel();
 
-    });
+    }
+  }
+    
+    );
   
 
 
@@ -3889,7 +3890,6 @@ function tooltipEnemies() {
     did("tooltipRarity").style.color = "white";
     did("tooltipName").style.color = "white";
     did("tooltipArrow").style.display = "none";
-    did("tooltipArrowRight").style.display = "flex";
 
     let dropDesc = ""
 
@@ -3914,7 +3914,7 @@ function tooltipEnemies() {
     const newLeft = referenceRight - movingDiv.offsetWidth; // Cambiado
     const newTop = referenceTop - movingDiv.offsetHeight;
     movingDiv.style.left = newLeft + "px";
-    movingDiv.style.top = newTop + "px";
+    movingDiv.style.top = newTop + 20 + "px";
   });
 
   did("enemyAnimation").addEventListener("mouseleave", function () {
