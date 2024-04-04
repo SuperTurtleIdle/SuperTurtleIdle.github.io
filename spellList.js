@@ -576,7 +576,7 @@ let thiefCollectibles = {
 }
 
 stats.timesStolen = 0;
-
+let enemyLevel = 1;
 function castThief(){
     animState(stats.currentEnemy+"enemy", "gelatine 0.4s 1");
     animParticleProjectile("thief", "reverseThrow", 0, "particleSmoke", 0);
@@ -589,8 +589,8 @@ function castThief(){
 
         if (enemies[stats.currentEnemy].level !== ''){
         const cadena = enemies[stats.currentEnemy].level;
-        const enemyLevel = parseInt(cadena.match(/\d+/)[0]);
-        
+        enemyLevel = parseInt(cadena.match(/\d+/)[0]);
+        }
         
         if (enemyLevel<41){ //low level money
             if (rng(1,15)===1){
@@ -617,9 +617,7 @@ function castThief(){
         addItem();
         logPrint(`<FONT COLOR="#68FEBE"> You managed to steal a `+stolenItem+`!`)
 
-        } else{
-            logPrint(`<FONT COLOR="#68FEBE"> Failed to steal anything`)
-        }
+         
 
     }else logPrint(`<FONT COLOR="#68FEBE"> Failed to steal anything`)
 

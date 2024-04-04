@@ -215,6 +215,8 @@ function craftButton(count){
     if (isNaN(craftingQueue.value) || craftingQueue.value < 1 || craftingQueue.value > 99) {
         itemQueueValue = 1;
     }
+
+    if (count==="all") itemQueueValue = 1;
     
      let canCraft = true; //codigo marciano que me ha dado gpt, checks for ingredient number
      if (items[recipes[currentRecipe].reagent1].count< recipes[currentRecipe].amount1*itemQueueValue) { canCraft = false;}

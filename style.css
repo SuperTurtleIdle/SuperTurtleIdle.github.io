@@ -397,6 +397,373 @@
 
 }
 
+#support{
+    height: 70%;
+    width: 40%;
+    display: flex;
+}
+
+#patreonButton, #kofiButton{
+    position: absolute;
+    left: 2%;
+    top: 2%;
+    height: 10%;
+    overflow: visible;
+}
+
+#patreonButton img, #kofiButton img{
+    height: 100%;
+    width: 100%;
+}
+
+#kofiButton{
+    top: 14%;
+}
+
+#support .bannerTitle{
+    font-size: 160%;
+    margin-left: 10%;
+}
+
+.patreonList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1%;
+    margin-top: 2%;
+    background: transparent;
+    position: relative;
+    overflow: visible;
+}
+
+#patreonList1 span{
+    background: #e0b24f;
+    padding: 1 3%;
+    border-top: 0.1vh white solid;
+    border-bottom: 0.3vh #6d4d28 solid;
+    font-weight: 800;
+    font-size: 2.8vh;
+    color: #6d4d28;
+    position: relative;
+    overflow: hidden;
+}
+
+#patreonList1 span:after {
+
+    animation: shine 5s ease-in-out infinite;
+    animation-fill-mode: forwards;
+    content: "";
+    position: absolute;
+    top: -110%;
+    left: -210%;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transform: rotate(30deg);
+
+    background: rgba(252, 158, 35, 0.24);
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0.5) 0%,
+            rgba(255, 255, 255, 0.5) 77%,
+            rgba(255, 255, 255, 0.5) 92%,
+            rgba(255, 255, 255, 0.0) 100%);
+}
+
+#patreonList2 span{
+    background: #a8a8a8;
+    padding: 1 3%;
+    border-top: 0.1vh white solid;
+    border-bottom: 0.3vh #5e5b5b solid;
+    font-weight: 800;
+    font-size: 2.2vh;
+    color: #555555;
+    position: relative;
+    overflow: hidden;
+}
+
+#patreonList3 span{
+    background: #a37c5b;
+    padding: 1 3%;
+    border-top: 0.1vh white solid;
+    border-bottom: 0.3vh #855d3c solid;
+    font-weight: 800;
+    font-size: 1.8vh;
+    color: #f5d3b5;
+}
+
+#bestiary{
+    height: 80%;
+    width: 55%;
+    background:  #704732;
+    border-radius: 0.8vh;
+    border: none;
+    flex-direction: row;
+    gap: 0.5%;
+    justify-content: center;
+    align-items: center;
+    z-index: 13;
+}
+
+.bestiaryPage{
+    height: 97%;
+    width: 45%;
+    background: #BA9D73;
+    border-radius: 0.6vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bestiaryHeader{
+    height: 10%;
+    width: 100%;
+    background: #8B2B2D;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.bestiaryHeader img{
+    height: 6vh !important;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    border-radius: 0.6vh;
+    border: 0.1vh solid black;
+    left: 10%;
+}
+
+.bestiaryTitle{
+    width: 85%;
+    height: 3vh;
+    margin-top: 2%;
+    background: #E08939;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: fredoka;
+    font-weight: 400;
+    font-size: 1.9vh;
+    border-radius: 0.4vh;
+    box-shadow: 0px 3px 5px rgba(0,0,0,0.6);
+}
+
+.bestiaryText{
+    width: 85%;
+    height: auto;
+    background: #BBA273;
+    outline: 2px dashed #967D4E;
+    color: #726141;
+    font-size: 1.8vh;
+    display: flex;
+    justify-content: center;
+    border-radius: 0.4vh;
+    text-align: center;
+    margin-top: 3%;
+    padding: 2% 2%;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.bestiaryText img{
+    height: 2.2vh !important;
+    width: 1.2vw;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-right: 1%  !important;
+    border-radius: 0.3vh;
+    border: solid black 1px;
+    translate: -15% 20%;
+}
+
+#bestiaryDrops{
+    padding-bottom: 3%;
+}
+
+.bestiaryTag{
+    background:#516385 !important;
+    padding: 0 2%;
+    border-radius: 0.4vh;
+    font-family: fredoka;
+    font-weight: 400;
+    white-space: nowrap;
+    color: white !important;
+    margin-right: 3%;
+    translate: 0 9%;
+}
+
+#bestiaryProgress{
+    height: 1.5vh;
+    width: 70%;
+    margin-left: 10%;
+    background: linear-gradient(90deg, rgba(249,169,16,1) 50%, rgba(0,0,0,1) 50%);
+    border-radius: 20vh;
+    border: white solid 1px;
+}
+
+#bestiaryProgress span{
+    position: absolute;
+    bottom: 5%;
+    left: 24%;
+    font-size: 1.8vh;
+    color: orange;
+    font-family: fredoka;
+    font-weight: 400;
+}
+
+.bestiaryListing{
+    height: 85%;
+    width: 80%;
+    background: #704732;
+    margin-top: 4%;
+    border-radius: 0.6vh;
+    outline: 3px dashed #714B4B;
+    box-shadow: 0px 0px 9px 8px rgba(0, 0, 0, 0.2) inset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+    padding-bottom: 1%;
+}
+
+#bestiaryListing div{
+    height: 5%;
+    width: 97%;
+    background: #BA9D73;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: row;
+    border-radius: 0.3vh;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-top: 1.3%;
+    
+}
+
+#bestiaryBackground{
+    height: 90%;
+    width: 90%;
+    border-radius: 0.3vh;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.6);
+    background-image: url(img/src/areas/A1.png);
+    background-position: center;
+    background-size: 400%;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#bestiaryEnemy{
+    height: 110%;
+    width: auto;
+    position: absolute;
+    margin-left: 75%;
+    margin-bottom: 7%;
+}
+
+.bestiaryStat{
+    height: 2.5vh;
+    width: 6vw;
+    background: #4AC957;
+    top: 2%;
+    position: absolute;
+    z-index: 30;
+    border-radius: 0.3vh;
+    left: -3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.7vh;
+    
+}
+
+#bestiaryEnemyAlign{
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+    height: 20%;
+    border-radius: 0.5vh;
+    border: solid 0.1vh white;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+}
+
+#bestiaryBadge{
+    position: absolute;
+    height: 40%;
+    top: -4%;
+    right: -4%;
+    z-index: 30;
+}
+
+#bestiaryAttack{
+    top: 16%;
+    background: #F24D50;
+}
+
+#bestiaryExp{
+    top: 30%;
+    background: #5BBDF3;
+}
+
+#bestiaryKills{
+    top: 82%;
+    background: #454242;
+    width: 5.3vw;
+}
+
+#bestiaryImage{
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    position: relative;
+}
+
+#bestiaryListing div:hover{
+    scale: 1.01;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.4);
+}
+
+#bestiaryName{
+    height: 4%;
+    width: 80%;
+    background: #B49669;
+    border-radius: 0.3vh;
+    outline: 2px dashed #714B4B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vh;
+    color: #443232;
+    font-weight: 800;
+    margin-top: 5%;
+}
+
+#bestiaryListing div img{
+    height: 2.7vh;
+    padding: 0;
+    margin: 0;
+    margin-right: 2%;
+    border-radius: 0.5vh;
+    border: solid 1px #443232;;
+    
+}
+
+#bestiaryListing div span{
+    color: #443232;
+    font-weight: 800;
+    font-size: 1.9vh;
+    
+}
+
 #deleteData {
     height: 35%;
     width: 25%;
@@ -1182,6 +1549,7 @@ pointer-events: none;
     flex-direction: column;
     align-items: center;
     gap: 0.7%;
+    overflow: visible;
 
 
 }
@@ -1197,7 +1565,8 @@ pointer-events: none;
     justify-content: center;
     margin: -2% 0;
     background: transparent;
-    
+    white-space: nowrap;
+    overflow: visible;
 
 }
 
@@ -1212,6 +1581,8 @@ pointer-events: none;
 
 }
 
+
+
 .sinBoton p,
 .botonLateral p {
 
@@ -1221,7 +1592,7 @@ pointer-events: none;
     font-size: 1vw;
     font-weight: 300;
     transition: 0.15s;
-
+    overflow: visible;
 }
 
 
@@ -1784,16 +2155,33 @@ pointer-events: none;
     gap: 0.4%;
 }
 
-#achievementListing img{
+#achievementListing span img{
     height: 6vh;
     width: auto;
     flex-shrink: 0;
     transition: 0.1s;
     margin-top: 0.4%;
-    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.6);
 }
 
-#achievementListing img:hover{
+#achievementListing span{
+    transition: 0.1s;
+    margin-top: 0.3%;
+    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: visible;
+
+}
+
+#achievementListing span span{
+    position: absolute;
+    right: 6%;
+    bottom: 7%;
+    background: transparent;
+    pointer-events: none;
+    font-size: 1.9vh;
+}
+
+#achievementListing span:hover{
     scale: 1.2;
 }
 
@@ -2534,6 +2922,14 @@ background: transparent;
     position: absolute;
     right: 0;
     top: 0;
+    animation: useSkill 1 0.2s;
+}
+
+.itemCondition{
+    background: transparent;
+    position: absolute;
+    left: 0;
+    bottom: 0;
     animation: useSkill 1 0.2s;
 }
 
@@ -4159,6 +4555,8 @@ background: rgba(34, 32, 38, 0.77);
     
 }
 
+
+
 #combatLogTitle{
     border-bottom: 0.7px solid #564890;
     background: rgba(26, 22, 47, 0.77);
@@ -4166,8 +4564,9 @@ background: rgba(34, 32, 38, 0.77);
     bottom: 0%;
 }
     
-#combatLog{min-height: 21%; 
-    flex-direction: column; 
+#combatLog{
+    min-height: 21%; 
+    flex-direction: column-reverse; 
     overflow-y: scroll; 
     transition: all 0.5s}
 
@@ -4932,7 +5331,8 @@ box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25) inset;
     align-items: center;
     font-size: 0.9vw;
     color: gray;
-    padding-left: 1%
+    padding-left: 1%;
+    white-space: nowrap;
 }
 
 .recipe span, .recipeSelect span{background:transparent;}
@@ -4969,7 +5369,8 @@ box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25) inset;
     align-items: center;
     font-size: 0.9vw;
     color: gray;
-    padding-left: 1%
+    padding-left: 1%;
+    white-space: nowrap;
 }
 
 .recipePanel{

@@ -14,7 +14,7 @@ window.addEventListener("contextmenu", function (e) { //disables web right click
 
 
 document.addEventListener('keydown', function (event) { //disables spacebar
-    if (event.key === ' ' && did("skillMenu").style.display === "flex") {
+    if (event.key === ' ' && (did("skillMenu").style.display === "flex" || did("turtleRename").style.display === "flex")) {
       event.preventDefault();
     } });
 
@@ -273,6 +273,12 @@ function refreshItemOfTheDay(){
 
 stats.jesterTurtleClicks = 0;
 
+var jesterCollectibles = { 
+    I294:{P:100,A:1, R:"medium"}, 
+    I295:{P:100,A:1, R:"medium"},
+  }
+
+
 function spawnJesterTurtle(){
 
     const div = document.createElement("div");
@@ -286,6 +292,7 @@ function spawnJesterTurtle(){
     div.addEventListener("click", function clickHandler() {
         playSound("audio/button9.mp3"); 
         stats.jesterTurtleClicks++;
+        rollTable(jesterCollectibles, 1);
         cd.jesterCooldown = 1200;
         setTimeout(() => {did("jesterImage").style.opacity = 0;}, 100);
         setTimeout(() => {div.remove()}, 1000);
@@ -632,6 +639,8 @@ function closePanels(){
     did("mailLetter").style.display = "none";
     did("catalogue").style.display = "none";
     did("armory").style.display = "none";
+    did("bestiary").style.display = "none";
+    did("support").style.display = "none";
     did("skillMenu").style.display = "none";
     did("mailMenu").style.display = "none";
     did("turtleRename").style.display = "none";
@@ -650,6 +659,62 @@ function deleteSavePrompt(){
 }
 
 //-----statistics-------
+
+settingsPanel ("botonSupport", "support");
+
+
+let patreonTier1 = ["tortulily"]
+let patreonTier2 = ["jefeDeLaR"]
+let patreonTier3 = ["froza"]
+
+
+setInterval(() => { if (did("support").style.display != "none") { patreonShine() } }, 2000);
+
+function patreonShine(){
+    for (let i = 0; i < patreonTier2.length; i++) {
+    if (rng(1,3)===1) animParticleBurst(rng(1,3) , "particleSpark", patreonTier2[i] + "patreonTier2", 0);
+}
+
+for (let i = 0; i < patreonTier1.length; i++) {
+    if (rng(1,3)===1) animParticleBurst(rng(1,3) , "particleSpark", patreonTier1[i] + "patreonTier1", 0);
+}
+
+}
+
+
+for (let i = 0; i < patreonTier1.length; i++) {
+    if (!did(patreonTier1[i] + "patreonTier1")) {
+        const div = document.createElement("span");
+        div.id = patreonTier1[i] + "patreonTier1";
+        div.innerHTML = patreonTier1[i];
+        did('patreonList1').appendChild(div);
+    }
+}
+
+for (let i = 0; i < patreonTier2.length; i++) {
+    if (!did(patreonTier2[i] + "patreonTier2")) {
+        const div = document.createElement("span");
+        div.id = patreonTier2[i] + "patreonTier2";
+        div.innerHTML = patreonTier2[i];
+        did('patreonList2').appendChild(div);
+    }
+}
+
+for (let i = 0; i < patreonTier3.length; i++) {
+    if (!did(patreonTier3[i] + "patreonTier3")) {
+        const div = document.createElement("span");
+        div.id = patreonTier3[i] + "patreonTier3";
+        div.innerHTML = patreonTier3[i];
+        did('patreonList3').appendChild(div);
+    }
+}
+
+
+
+
+
+
+
 
 settingsPanel ("botonEstadisticas", "estadisticas");
 
@@ -686,7 +751,17 @@ var logTrackName = 'base';
 function enterName(event) {
     if (event.key === "Enter" && did("namingBox").value.length >= 1) {stats.turtleName = did("namingBox").value; logTrackName = did("namingBox").value; displayTurtleName(); closePanels()}
 }
-function displayTurtleName(){ did("turtleName").textContent = stats.turtleName; did('turtleName2').textContent = stats.turtleName;}
+function displayTurtleName(){
+
+
+
+    did("turtleName").textContent = stats.turtleName; did('turtleName2').textContent = stats.turtleName;
+    if (patreonTier1.includes(stats.turtleName)) did("turtleName").style.color = "#C672FA";
+    else if (patreonTier2.includes(stats.turtleName)) did("turtleName").style.color = "#FF6B43";
+    else if (patreonTier3.includes(stats.turtleName)) did("turtleName").style.color = "#92DB76";
+    else did("turtleName").style.color = "white"
+
+}
 
 //----bought upgrades---
 
@@ -923,7 +998,8 @@ setInterval(function() { if (!settings.disableAutosave) { autosave(); } }, 60000
 
 document.addEventListener("keydown", function (event) {
     var turtleRename = did("turtleRename");
-    if (event.key === "s" && turtleRename.style.display === "none") autosave()  
+    if (event.key === "s" && turtleRename.style.display === "none") autosave()
+    if (rng(1,100)===1) {items.I293.count++; addItem();}  
 });
 
 //----save and load----
@@ -1027,6 +1103,9 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
 
   saveData.savedItemQueue = {}; for (const i in recipes) { saveData.savedItemQueue[i] = recipes[i].craftingQueue;}
 
+  saveData.savedEnemiesSaw = {}; for (const i in enemies) { saveData.savedEnemiesSaw[i] = enemies[i].sawOnce;}
+
+
     
   const JSONData = JSON.stringify(saveData);
   localStorage.setItem('saveData', JSONData);
@@ -1036,6 +1115,8 @@ function load() {
   const datosGuardados = localStorage.getItem('saveData');
   if (datosGuardados) { //checks if savedata available
     const parsedData = JSON.parse(datosGuardados);
+
+    for (const i in parsedData.savedEnemiesSaw) { enemies[i].sawOnce = parsedData.savedEnemiesSaw[i];}
 
     for (const i in parsedData.savedItemQueue) { recipes[i].craftingQueue = parsedData.savedItemQueue[i];}
 
@@ -1209,6 +1290,7 @@ function unlocksReveal(){
     if (unlocks.garrison) did('campTab').style.display = "flex";
     if (unlocks.itemOfTheDay) did('itemOfTheDay').style.display = "flex";
     if (unlocks.journal) did('achievementsTab').style.display = "flex";
+    if (unlocks.bestiary) did('bestiaryWidget').style.display = "flex";
     if (unlocks.penguins) {did('disablePenguinRecapButton').style.display = "inline"; did('penguinIndicatorButton').style.display = "flex"; did('penguinIndicator').style.display = "flex"; }
     if (unlocks.inventorySorting) {
         did('inventorySorters2').style.display = "flex";
@@ -1254,7 +1336,7 @@ function retroactiveUpdate(){
     if (quests.A3Q6.state === "completed") shopItems.A3S16.unlocked = true;
 
 
-    if (stats.currentArea === 0) {
+    if (stats.currentArea === 0 && stats.currentArea === 1) { //si esto da mas problemas cambiar a si no empieza por A
         stats.currentArea="A1";
         switchArea();
         specialButtonUi();

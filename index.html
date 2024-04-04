@@ -136,6 +136,22 @@
             </div>
         </div>
 
+        <div id="support" class="panelOpciones estadisticas" style="display:none">
+            <div class="optionsWrapper">
+            <h1>Support The Game!</h1>
+            <p>(click outside this window to close)</p>
+            <a id="patreonButton" title="Support me on Patreon!" href="https://www.patreon.com/SuperTurtleIdle" target="_blank"> <img src="img/src/icons/patreon.jpg"></a>
+            <a id="kofiButton" title="Support me on Ko-Fi!" href="https://ko-fi.com/superturtleidle" target="_blank" src="img/src/icons/kofi.jpg"><img src="img/src/icons/kofi.jpg"></a>
+            <img src="img/src/icons/supportTurtle.png">
+            <div class="bannerTitle">Patreon Supporters</div>
+            <p>A big thank you for everyone willing to support the development of the game!</p>
+            <div id="patreonList1" class="patreonList"></div>
+            <div id="patreonList2" class="patreonList"></div>
+            <div id="patreonList3" class="patreonList"></div>
+
+            </div>
+        </div>
+
         <div id="changelog" class="panelOpciones" style="display:none">
             <div class="optionsWrapper">
             <h1>VERSION HISTORY</h1>
@@ -234,6 +250,52 @@
             <div class="bannerTitle2">Fishing<span id="fishingCatalogueCount">[0/0]</span></div>
             <div class="catalogueListing" id="fishingCatalogue"></div>
             <div class="catalogueListing" style="height: 10%; width: 10%; background: transparent;"></div>
+            </div>
+            
+        </div>
+
+
+        <div id="bestiary" class="panelOpciones" style="display:none">
+            <div class="bestiaryPage">
+                <div class="bestiaryHeader">
+                    
+                    <div id="bestiaryProgress"><span>[50%] Completion</span></div>
+                    <img src="img/src/items/I290.jpg">
+
+
+                </div>
+                <div class="bestiaryListing" id="bestiaryListing">
+                    
+
+                </div>
+
+            </div>
+            <div class="bestiaryPage">
+
+                <div id="bestiaryName">Caulislug</div>
+
+                <div class="bestiaryListing" id="bestiaryImage">
+
+                    <div id="bestiaryHealth" class="bestiaryStat">20 HP</div>
+                    <div id="bestiaryAttack" class="bestiaryStat">20 ATK</div>
+                    <div id="bestiaryExp" class="bestiaryStat">90 EXP</div>
+                    <div id="bestiaryKills" class="bestiaryStat">💀 12.2K</div>
+                    <img id="bestiaryBadge" src="img/src/icons/bestiaryBadge2.png">
+
+                    <div id="bestiaryBackground">
+                        <img id="bestiaryEnemy" src="img/src/enemies/E1.png">
+                        <img id="bestiaryEnemyAlign" src="img/src/icons/nature.png">
+                    </div> 
+
+                </div>
+
+                <div class="bestiaryTitle">DESCRIPTION</div>
+                <div class="bestiaryText" id="bestiaryDescription">A slug so passionate about vegetables that he raised one on its shell. Scientists are in absolute awe.</div>
+                <div class="bestiaryTitle" style="background: #56D179;" id="bestiarySkillsTitle">SKILLS</div>
+                <div class="bestiaryText" id="bestiarySkills">❖ Fleming Bite: Applies poison on attack.</div>
+                <div class="bestiaryTitle" style="background: #5C95EB;">DROPS</div>
+                <div class="bestiaryText" id="bestiaryDrops"></div>
+
             </div>
             
         </div>
@@ -363,12 +425,18 @@
             <div class=bannerLateral>
                 <h1 translate="no">Super Turtle Idle</h1>
             </div>
-            <h2>v 0.3.8 <strong id="botonChangelog">(Version History)</strong></h2>
+            <h2>v 0.3.9 <strong id="botonChangelog">(Version History)</strong></h2>
             <div class=listaLateral>
 
                 <div>
 
                 </div>
+
+                <div class=sinBoton id="botonSupport">
+
+                    <p>Support the game ❤️</p>
+                </div>
+
                 <div class=sinBoton id="botonOpciones">
 
 
@@ -379,6 +447,8 @@
 
                     <p>Statistics</p>
                 </div>
+
+                
 
                 <div class=separador></div>
                 
@@ -501,6 +571,7 @@
                 </div>
             </div>
             <div class="recursosSuperior">
+                <div class="topWidget" id="bestiaryWidget" style="display: none;"><img src="img/src/items/I290.jpg"  id="bestiaryButton" onclick="createBestiary(); playSound('audio/book.mp3');"/><div class="widgetBg"></div></div>
                 <div class="topWidget"><img src="img/src/icons/armory.jpg"  id="armoryButton" onclick="createArmory()"/><div class="widgetBg"></div></div>
                 <div class="topWidget"><img src="img/src/icons/collection.jpg"  id="collectionButton"/><div class="widgetBg"></div></div>
                 <div class="topWidget"><img id="currentWeather" src="img/src/projectiles/none.png"/><span id="rpgTime">00:00</span><div class="widgetBg"></div></div>
@@ -786,7 +857,7 @@
                     <div class="recipeBox" id="recipeReagents"><div class="itemSlot"></div><div class="itemSlot"></div></div>
                     <div class="recipeSeparator">Creates:</div>
                     <div class="recipeBox" id="recipeOutcome"><div class="itemSlot"></div><div class="itemSlot"></div></div>
-                    <div class="recipeButtonWrap"><input id="craftingQueue" type="text" placeholder="1" maxlength="2" onclick="craftingQueue.value=''"><div class="craftButton" id="craftButtonOne"><img src="img/src/icons/anvil.png">Craft</div><div id="craftButtonAll" class="craftButton" >All</div><div class="craftButton" id="craftButtonCancel" >X</div></div>
+                    <div class="recipeButtonWrap"><input id="craftingQueue" type="text" autocomplete="off" placeholder="1" maxlength="2" onclick="craftingQueue.value=''"><div class="craftButton" id="craftButtonOne"><img src="img/src/icons/anvil.png">Craft</div><div id="craftButtonAll" class="craftButton" >All</div><div class="craftButton" id="craftButtonCancel" >X</div></div>
                  
                     <div id="craftBarWrap"><div class="craftBarBg"><div id="craftBar"></div></div><div class="craftBar1"><div class="craftBarDiamond"></div></div><div class="craftBar2"><div class="craftBarDiamond"></div></div></div>
                  
@@ -910,7 +981,7 @@
                         <div id="sellModeText"> <span>⚠ Sell Mode ⚠</span> [Left Click] Sell One | [Right Click] Sell All</div>
                         <div id="lockModeText"><span>⚠ Lock Mode ⚠</span> [Left Click] to Prevent Items From Being Sold</div>
                         <div id="favoriteModeText"><span>⚠ Favorite Mode ⚠</span> [Left Click] to Add to the Favorite Tab</div>
-                        <input id="inventorySearch" type="text" placeholder="Search for an Item..." autocomplete="off" maxlength="30" onkeypress="if(event.key === 'Enter') this.blur(); addItem();" onclick="inventorySearch.value=''; emptySearchBar = true; addItem();">
+                        <input id="inventorySearch" type="text" placeholder="Search for an Item..." autocomplete="off" maxlength="30" onkeypress="if(event.key === 'Enter') {this.blur(); addItem();}if(event.key === 'Enter' && this.value === 'the secret') {logs.P61A.unlocked=true;}" onclick="inventorySearch.value=''; emptySearchBar = true; addItem();">
                             
                             <div id="inventorySorters3"><button onclick="toggleFavorite()" id="addFavoriteButton" style="display: none;"><img src="img/src/icons/favoritesAdd.png"></button><button onclick="toggleLock()"><img src="img/src/icons/lockButton.png"></button><button onclick="toggleSell()"><img src="img/src/icons/shopButton.png"></button></div><span class="helpingDuck" id="inventoryHelpingDuck">&#129414</span></div>       
            <div class="rpgPanel" id="inventory"></div>      
