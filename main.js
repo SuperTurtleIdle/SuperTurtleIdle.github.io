@@ -663,7 +663,7 @@ function deleteSavePrompt(){
 settingsPanel ("botonSupport", "support");
 
 
-let patreonTier1 = ["tortulily"]
+let patreonTier1 = ["tortulily", "invisibilia_draconis"]
 let patreonTier2 = ["jefeDeLaR", "penguin", "B1naryV1k1ng"]
 let patreonTier3 = ["froza"]
 
