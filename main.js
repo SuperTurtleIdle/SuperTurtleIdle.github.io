@@ -843,7 +843,6 @@ function calculateInactiveTime() { //calculates idle time
             for (let i in research) { if (research[i].status === "researching" && research[i].timer>1) research[i].timer -= secondsInactive}
             for (let i in areas) { if ("dungeonTimer" in areas[i] && areas[i].dungeonTimer>0) areas[i].dungeonTimer -= secondsInactive; if (areas[i].dungeonTimer<0) areas[i].dungeonTimer=0;}
 
-            save();
         }
 
         localStorage.setItem('lastVisitTime', new Date().getTime());
