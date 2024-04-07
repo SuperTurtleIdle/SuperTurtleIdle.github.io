@@ -1647,7 +1647,7 @@ items.I207.quality = 'Rare';
 items.I207.sell = 1000;
 items.I207.use = 'playSound("audio/monch.mp3"); animParticleBurst(7 , "particleHeart", "playerPanel", 0); playSound("audio/lily.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); buffs.B55.time=1800; playerBuffs(); items.I207.count--; ';
 
-var whiskersPresent = { I118:{P:3, A:1}, /*gamba*/ I98:{P:1, A:1}, I99:{P:1, A:1}, /*tokens*/ I26:{P:1, A:1}, /*dreamgamba*/ I177:{P:5, A:1}, I178:{P:5, A:1},I174:{P:1, A:1}, /*vouchers*/ I93:{P:3, A:1}, /*golden stamp*/ I96:{P:8, A:1}, I97:{P:8, A:1}, I207:{P:8, A:1}, I200:{P:8,A:1}, /*special gambas*/  I209:{P:10, A:1}, I210:{P:10, A:1}, /*time eggs*/ I208:{P:10, A:1}, /*jackinabox*/ }
+var whiskersPresent = { I118:{P:3, A:1}, /*gamba*/ I98:{P:1, A:1}, I99:{P:1, A:1}, /*tokens*/ I26:{P:1, A:1}, /*dreamgamba*/ I177:{P:5, A:1}, I178:{P:5, A:1},/*vouchers*/ I93:{P:3, A:1}, /*golden stamp*/ I96:{P:8, A:1}, I97:{P:8, A:1}, I207:{P:8, A:1}, I200:{P:8,A:1}, /*special gambas*/  I209:{P:10, A:1}, I210:{P:10, A:1}, /*time eggs*/ I208:{P:10, A:1}, /*jackinabox*/ }
 items.I119 = {}; 
 items.I119.name = 'Carefully Wrapped Present';
 items.I119.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Open it!<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="white">?????';
