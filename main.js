@@ -2,9 +2,11 @@
 
 const did = (id) => document.getElementById(id); 
 
-
 var rightClickX = 0;
 var rightClickY = 0;
+
+var leftClickX = 0;
+var leftClickY = 0;
 
 window.addEventListener("contextmenu", function (e) { //disables web right click
     e.preventDefault();
@@ -172,7 +174,6 @@ cd.jesterCooldown = 1200;
 
 cd.itemOfTheDay = 28800
 
-
 cd.shopRestock = 259200
 
 var itemOfTheDay = {}
@@ -200,6 +201,8 @@ did("itemOfTheDay").addEventListener("click", function () {
 
     }
   });
+
+
 
 
 setInterval(oneSecond, 1000);
@@ -842,7 +845,7 @@ function calculateInactiveTime() { //calculates idle time
             
             for (let i in research) { if (research[i].status === "researching" && research[i].timer>1) research[i].timer -= secondsInactive}
             for (let i in areas) { if ("dungeonTimer" in areas[i] && areas[i].dungeonTimer>0) areas[i].dungeonTimer -= secondsInactive; if (areas[i].dungeonTimer<0) areas[i].dungeonTimer=0;}
-             save();
+            save();
         }
 
         localStorage.setItem('lastVisitTime', new Date().getTime());
@@ -998,6 +1001,8 @@ document.addEventListener("keydown", function (event) {
 
 function save() {
 
+    
+
 localStorage.setItem('lastVisitTime', new Date().getTime());
     
   const saveData = {}
@@ -1056,6 +1061,7 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
   saveData.savedCdData = {}; for (const i in cd) { saveData.savedCdData[i] = cd[i];}  
   saveData.savedSettingsData = {}; for (const i in settings) { saveData.savedSettingsData[i] = settings[i];}
   saveData.savedStatsData = {}; for (const i in stats) { saveData.savedStatsData[i] = stats[i];}
+
   saveData.savedUnlocksData = {}; for (const i in unlocks) { saveData.savedUnlocksData[i] = unlocks[i];}
   saveData.savedClassData = {}; for (const i in rpgClass) { saveData.savedClassData[i] = rpgClass[i];}  
 
@@ -1097,8 +1103,6 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
 
   saveData.savedEnemiesSaw = {}; for (const i in enemies) { saveData.savedEnemiesSaw[i] = enemies[i].sawOnce;}
 
-
-    
   saveData.savedTotalSeconds = {}; saveData.savedTotalSeconds = stats.totalSeconds;
 
 
@@ -1116,6 +1120,7 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
     const JSONData = JSON.stringify(saveData);
     localStorage.setItem('saveData', JSONData); 
 }
+
 }
 
 function load() {
@@ -1232,7 +1237,18 @@ function deleteSave() {
     location.reload();
 };
 
+
+
 function exportJSON() {
+
+
+    if (cd.exportReminder>=0){
+        playSound("audio/retro2.mp3");
+        items.I296.count++;
+        addItem();
+        cd.exportReminder = 43200;
+        unlocksReveal();
+    }
 
     save();
 
@@ -1291,8 +1307,21 @@ function googleTranslateElementInit() {
     new google.translate.TranslateElement({ layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL }, 'google_translate_element');
 }
 
+
+
+
+cd.exportReminder = 0;
+
 function unlocksReveal(){
 
+    if (cd.exportReminder<=0){
+        did('botonOpciones').innerHTML = "<p>Settings ⚠️</p>";
+        did('exportSave').innerHTML = '<button onclick="exportJSON()">Export Save</button> &nbsp; ⚠️ Exports save in a JSON file ⚠️';
+    } 
+    else{
+        did('botonOpciones').innerHTML = "<p>Settings</p>";
+        did('exportSave').innerHTML = '<button onclick="exportJSON()">Export Save</button> &nbsp; Exports save in a JSON file';
+    } 
     if (unlocks.jobs) did('jobTab').style.display = "flex";
     if (unlocks.garrison) did('campTab').style.display = "flex";
     if (unlocks.itemOfTheDay) did('itemOfTheDay').style.display = "flex";
@@ -1417,6 +1446,7 @@ function randomTabName(){ //displays a random browser tab name
 
 
 }
+
 
 
 document.addEventListener('DOMContentLoaded', initialization);
