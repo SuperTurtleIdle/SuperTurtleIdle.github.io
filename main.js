@@ -842,7 +842,7 @@ function calculateInactiveTime() { //calculates idle time
             
             for (let i in research) { if (research[i].status === "researching" && research[i].timer>1) research[i].timer -= secondsInactive}
             for (let i in areas) { if ("dungeonTimer" in areas[i] && areas[i].dungeonTimer>0) areas[i].dungeonTimer -= secondsInactive; if (areas[i].dungeonTimer<0) areas[i].dungeonTimer=0;}
-
+             save();
         }
 
         localStorage.setItem('lastVisitTime', new Date().getTime());
@@ -1099,8 +1099,23 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
 
 
     
+  saveData.savedTotalSeconds = {}; saveData.savedTotalSeconds = stats.totalSeconds;
+
+
+  const datosGuardados = localStorage.getItem('saveData');
+  const parsedData = JSON.parse(datosGuardados);
+
+
+  if (datosGuardados && parsedData.savedTotalSeconds){
+  if (parsedData.savedTotalSeconds <= stats.totalSeconds){
+    
   const JSONData = JSON.stringify(saveData);
-  localStorage.setItem('saveData', JSONData);
+  localStorage.setItem('saveData', JSONData); 
+  }
+} else {
+    const JSONData = JSON.stringify(saveData);
+    localStorage.setItem('saveData', JSONData); 
+}
 }
 
 function load() {
