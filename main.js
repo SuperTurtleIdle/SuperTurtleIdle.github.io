@@ -1242,7 +1242,7 @@ function deleteSave() {
 function exportJSON() {
 
 
-    if (cd.exportReminder>=0){
+    if (cd.exportReminder<=0){
         playSound("audio/retro2.mp3");
         items.I296.count++;
         addItem();
