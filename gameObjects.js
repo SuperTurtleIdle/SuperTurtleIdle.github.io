@@ -1656,6 +1656,14 @@ items.I119.quality = 'Uncommon';
 items.I119.sell = 1;
 items.I119.use = 'playSound("audio/meow.mp3"); rollTable(whiskersPresent, 1); items.I119.count--; ';
 
+items.I296 = {}; 
+items.I296.name = 'Carefully Wrapped Exported Data';
+items.I296.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Open it!<FONT COLOR="#edd585"><br><br>[Possible Contents]<br><FONT COLOR="white">?????';
+items.I296.flavor = '"One export save a day keeps the data corruption away."';
+items.I296.quality = 'Uncommon';
+items.I296.sell = 1;
+items.I296.use = 'playSound("audio/button9.mp3"); items.I174.count++; items.I210.count++; items.I296.count--; ';
+
 items.I98 = {};
 items.I98.name = 'Friendly Cat Token';
 items.I98.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Increases EXP Gain by 300% for 30 minutes'
