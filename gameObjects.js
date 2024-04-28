@@ -432,7 +432,7 @@ var fishingCollectibles = {
     
   I255:{P:collectibleChance3,A:1, R:"high"}, //lava eel
   I250:{P:collectibleChance3,A:1, R:"high"}, //axolotl
-  I249:{P:collectibleChance3,A:1, R:"high"}, //goldfish
+  I246:{P:collectibleChance3,A:1, R:"high"}, //goldfish
   I252:{P:collectibleChance3,A:1, R:"high"}, //blobfish baby
 }
 
