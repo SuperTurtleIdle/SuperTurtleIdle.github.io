@@ -926,7 +926,7 @@ function enemyDamage(damage, align, icon, type){
     critMark = " !"
     crit = 2
     stats.criticalHitsDealt++;
-    if (talent.TA1C.active) rpgPlayer.mana += playerMaxMana*0.05
+    if (talent.TA1C.active) rpgPlayer.mana += playerMaxMana*0.02
   }
 
   damageDealt = damage * Math.pow(1.005, playerMastery) * enemyDefenseMultiplier * crit
@@ -5757,7 +5757,7 @@ function updateStampMenu(){
 
 statTips = [
 
-'<FONT COLOR="#edd585">Be sure to pay attention to alignments!<br><br><img id="chartImage" src="img/src/icons/alignChart.png"><div style=" text-align: center;background:#5A8C98; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">(1.3x Damage Multiplier)</div>',
+'<FONT COLOR="#edd585">Be sure to pay attention to alignments!<br><br><img id="chartImage" src="img/src/icons/alignChart.png">',
 
 ]
 

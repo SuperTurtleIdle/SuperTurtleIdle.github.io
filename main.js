@@ -71,10 +71,6 @@ window.addEventListener('keydown', function (event) { //disables alt key
 
 
 
-document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {closePanels(); }
-});
-
 
 function setCursor() {
 
@@ -1332,7 +1328,7 @@ setInterval(function() { if (!settings.disableAutosave) { autosave(); } }, 60000
 
 
 document.addEventListener("keydown", function (event) {
-    if (event.key === "s" && turtleRename.style.display === "none") autosave()
+    if (event.code === "KeyS" && turtleRename.style.display === "none") autosave()
 });
 
 

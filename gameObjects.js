@@ -628,7 +628,7 @@ playerCoinsPerClick = (10 + additiveCoinsPerClick) * multiplicativeCoinsPerClick
 
 playerClickRate = 100 / ( 1 + ( buffs.B27.statUp + buffs.B28.statUp ))
 
-additiveMaxMana = 100 + talent.TA0C.statUp + talent.TG2E.statUp + items.I375.statUp;
+additiveMaxMana = 100 + talent.TA0C.statUp + items.I375.statUp;
 multiplicativeMaxMana = 1 + talent.TA1G.statUp + talent.TI2B3.statUp + talent.TG2D1.statUp
 playerMaxMana = additiveMaxMana * multiplicativeMaxMana
 
@@ -2772,7 +2772,7 @@ items.I222.max = 10;
 
 items.I208 = {};
 items.I208.name = 'Jack-In-The-Box';
-items.I208.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Summons a Jester Turtle<FONT COLOR="gray"> (1 minute Cooldown)'
+items.I208.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Summons a Jester Turtle<FONT COLOR="gray"> (2 minute Cooldown)'
 items.I208.flavor = '"What\'s in the box?"';
 items.I208.quality = 'Rare';
 items.I208.sell = 20000;
@@ -8059,7 +8059,7 @@ unlocks.shop = false
 quests.A1Q7 = {};
 quests.A1Q7.name = 'Fateful Companion';
 quests.A1Q7.difficulty = 1;
-quests.A1Q7.description = 'Fun fact! Did you knew turtles LIKE to be pet? And did you know you should do it NOW?'+bestiaryTag("Tip: Spacebar also clicks the turtle","#E57D08");
+quests.A1Q7.description = 'Fun fact! Did you know turtles LIKE to be pet? And did you know you should do it NOW?'+bestiaryTag("Tip: Spacebar also clicks the turtle","#E57D08");
 quests.A1Q7.objective = `'Click the turtle on the bottom left 50 times <span class="questProgress">'+beautify(stats.clickCount)+'/50</span>'`;
 quests.A1Q7.logic = 'stats.clickCount>=50';
 quests.A1Q7.effect = 'items.I1.count+=100';
@@ -8295,7 +8295,7 @@ quests.A3Q5A = {};
 quests.A3Q5A.name = 'Victorious Bout';
 quests.A3Q5A.difficulty = 5;
 quests.A3Q5A.description = 'I see a star on the rise? Prove your might and I will spread the word about your deeds worldwide.<br>'+colorTag("Dont forget to check the exchange shop!", "darkorange", "nobr");
-quests.A3Q5A.objective = `'Adquire one Gold Medal in the Monster Arena'`;
+quests.A3Q5A.objective = `'Acquire one Gold Medal in the Monster Arena'`;
 quests.A3Q5A.reward = `itemIcon("I438")+'Deific Glitterstone x15'`; 
 quests.A3Q5A.logic = 'goldenMedalsGot>0';
 quests.A3Q5A.effect = ' items.I438.count+=15;';
@@ -8349,7 +8349,7 @@ quests.A4Q2.description = 'This depressing scenary is tooootaly making me unconf
 quests.A4Q2.objective = `'Hand over 10 Occult Flask <span class="questProgress">'+beautify(items.I156.count)+'/10</span>'`;
 quests.A4Q2.reward = `itemIcon("I162")+'Unlock Fishing Node'`;
 quests.A4Q2.logic = 'items.I156.count>9';
-quests.A4Q2.effect = 'items.I156.count-=10; areas.A4.unlockedPond = 1';
+quests.A4Q2.effect = 'items.I156.count-=10; areas.A4.unlockedPond = 1; gametipUnlock("gt16")';
 quests.A4Q2.icon = "img/src/areas/A4M.png";
 
 quests.A4Q2A = {};
@@ -10279,7 +10279,7 @@ logs.L1P22.tag = '🌙';
 logs.L1P22A = {}
 logs.L1P22A.name = "Strong Guts";
 logs.L1P22A.description = "Survive With 1% HP Left in a Boss Fight";
-logs.L1P22A.hint = '"Threading inbetween life and death."';
+logs.L1P22A.hint = '"Threading in between life and death."';
 logs.L1P22A.logic = '';
 logs.L1P22A.tag = '⚔️';
 
@@ -10310,7 +10310,7 @@ logs.P25 = {}
 logs.P25.name = "Grateful Representation";
 logs.P25.description = "Receive 15 presents from your turtle";
 logs.P25.hint = '"It seems she took a liking to you."';
-logs.P25.logic = 'stats.recievedPresents>15';
+logs.P25.logic = 'stats.recievedPresents>14';
 logs.P25.tag = 'upper';
 logs.P25.tag = '🎁';
 
@@ -10555,7 +10555,7 @@ logs.P45C.tag = '🥇';
 logs.P45B = {}
 logs.P45B.name = "Awww Man";
 logs.P45B.description = "Die from a Cubomite Explosion";
-logs.P45B.hint = '"Should had brought a cat."';
+logs.P45B.hint = '"Should have brought a cat."';
 logs.P45B.logic = 'rpgPlayer.alive===false && stats.currentEnemy === "E10"';
 logs.P45B.tag = '🧨';
 
@@ -10722,7 +10722,7 @@ logs.P54.tag = '❓';
 logs.P55 = {}
 logs.P55.name = "God of Hell Fire";
 logs.P55.description = "Defeat the Boss of the Hallow Forest";
-logs.P55.hint = '"Ill take you to burn."';
+logs.P55.hint = '"I\'ll take you to burn."';
 logs.P55.logic = 'enemies.E27.killCount>0';
 logs.P55.tag = '🔥';
 
@@ -10757,7 +10757,7 @@ logs.P56C.tag = '✨';
 logs.P57 = {}
 logs.P57.name = "Jack Of All Trades";
 logs.P57.description = "Unlock 3 Classes at the Same Time";
-logs.P57.hint = '"Your pityful average protagonist can only get one of these."';
+logs.P57.hint = '"Your pitiful average protagonist can only get one of these."';
 logs.P57.logic = 'talent.TI0.active === true && talent.TG0.active === true && talent.TA0.active === true';
 logs.P57.tag = '⚜️';
 
@@ -11035,8 +11035,8 @@ aRank.AR4.required = 19 //dungeons
 aRank.AR4.reward = 'bestiaryItem("I174","container", "Dungeon Exploration Permit")'
 
 aRank.AR5 = {}
-aRank.AR5.required = 25 //bestiary
-aRank.AR5.reward = 'bestiaryItem("I290","container")'
+aRank.AR5.required = 25 //bestiary medals
+aRank.AR5.reward = 'bestiaryItem("I315","container")'
 
 aRank.AR6 = {}
 aRank.AR6.required = 330 //33
@@ -11128,8 +11128,8 @@ talent.TA1B.parent = "TA1";
 talent.TA1B.parent2 = "TA0B"
 talent.TA1B.name = "Sleight of Hand";
 talent.TA1B.category = "Passive";
-talent.TA1B.description = `"Increases Pat Power by"+colorTag("x1.1","#E57D08")`
-talent.TA1B.effect = 'talent.TA1B.statUp = 0.1'
+talent.TA1B.description = `"Increases Pat Multiplier by"+colorTag("x1.5","#E57D08")`
+talent.TA1B.effect = 'talent.TA1B.statUp = 0.5'
 
 talent.TA1B1 = {};
 talent.TA1B1.position = '100px -120px'
@@ -11302,8 +11302,8 @@ talent.TA32B.cast = "castPolymorph()";
 talent.TA32B.cost = 10;
 talent.TA32B.cd = 50;
 talent.TA32B.locked = true;
-talent.TA32B.lockedCondition = "Allocate 15+ points into Apprentice";
-talent.TA32B.lockedLogic = "apprenticePoints>14";
+talent.TA32B.lockedCondition = "Allocate 10+ points into Apprentice";
+talent.TA32B.lockedLogic = "apprenticePoints>9";
 
 talent.TG0 = {};
 talent.TG0.position = '60px 60px'
@@ -11430,8 +11430,8 @@ talent.TG2C2.category = "Passive";
 talent.TG2C2.description = `"x% of your HP Regen is kept during boss fights and dungeons"`
 talent.TG2C2.category = "Passive";
 talent.TG2C2.locked = true;
-talent.TG2C2.lockedCondition = "Allocate 15+ points into Gambler";
-talent.TG2C2.lockedLogic = "gamblerPoints>14";
+talent.TG2C2.lockedCondition = "Allocate 10+ points into Gambler";
+talent.TG2C2.lockedLogic = "gamblerPoints>9";
 
 talent.TG2C3 = {};
 talent.TG2C3.position = '280px 240px'
@@ -11476,7 +11476,7 @@ talent.TG2D1.position = '290px 170px'
 talent.TG2D1.parent = "TG2D"
 talent.TG2D1.name = "Thrill of the Hunt";
 talent.TG2D1.category = "Passive";
-talent.TG2D1.description = `"Increase"+strIcon+"Strength by"+colorTag("x1.015","#E57D08")+"for every gold medal in the bestiary<FONT COLOR='gray'> (x"+(1+(goldMedalsGot * 0.015)).toFixed(2)+")"`;
+talent.TG2D1.description = `"Increase"+strIcon+"Strength by"+colorTag("x1.015","#E57D08")+"for every gold medal in the bestiary<FONT COLOR='gray'> (x"+(1+(goldMedalsGot * 0.03)).toFixed(2)+")"`;
 talent.TG2D1.logic = 'goldMedalsGot * 0.015';
 
 talent.TG2D4 = {};
@@ -11496,8 +11496,8 @@ talent.TG2E.parent = "TG1B"
 talent.TG2E.parent2 = "TG2"
 talent.TG2E.name = "Sly Thief";
 talent.TG2E.category = "Passive";
-talent.TG2E.description = `"Increase"+occultIcon+"Occult Bonus by"+colorTag("x1.005","#E57D08")+"for every collectible got<FONT COLOR='gray'> (x"+(1+(collectiblesGot * 0.005)).toFixed(2)+")"`;
-talent.TG2E.logic = 'collectiblesGot * 0.005';
+talent.TG2E.description = `"Increase"+occultIcon+"Occult Bonus by"+colorTag("x1.01","#E57D08")+"for every collectible got<FONT COLOR='gray'> (x"+(1+(collectiblesGot * 0.01)).toFixed(2)+")"`;
+talent.TG2E.logic = 'collectiblesGot * 0.01';
 
 talent.TG2E1 = {};
 talent.TG2E1.position = '280px 90px'
@@ -11568,8 +11568,8 @@ talent.TI0E.position = '-80px 210px'
 talent.TI0E.parent = "TI0D"
 talent.TI0E.name = "Archives of Ruina";
 talent.TI0E.category = "Passive";
-talent.TI0E.description = `"Increase"+deificIcon+"Deific Bonus by"+colorTag("x1.005","#E57D08")+"for every book collected<FONT COLOR='gray'> (x"+(1+(stats.logsGot * 0.005)).toFixed(2)+")"`;
-talent.TI0E.logic = 'stats.logsGot * 0.0025';
+talent.TI0E.description = `"Increase"+deificIcon+"Deific Bonus by"+colorTag("x1.07","#E57D08")+"for every book collected<FONT COLOR='gray'> (x"+(1+(stats.logsGot * 0.007)).toFixed(2)+")"`;
+talent.TI0E.logic = 'stats.logsGot * 0.007';
 talent.TI0E.locked = true;
 talent.TI0E.lockedCondition = "Complete 70+ Books";
 talent.TI0E.lockedLogic = "stats.logsGot>69"; //nice
@@ -11616,13 +11616,13 @@ talent.TI2B.position = '-210px 140px'
 talent.TI2B.parent = "TI2"
 talent.TI2B.name = "Perish Song";
 talent.TI2B.category = "Skill";
-talent.TI2B.description = `"Plays a requiem of death, inflicting a debuff lasting 20 seconds that deals<span style='color:orange'> "+(8*playerSpellpower*100).toFixed(0)+"% of your damage as "+occultIcon+"Occult Damage once it expires</span>"`; 
+talent.TI2B.description = `"Plays a requiem of death, inflicting a debuff lasting 20 seconds that deals<span style='color:orange'> "+(8*playerSpellpower*100).toFixed(0)+"% of your damage as"+occultIcon+"Occult Damage once it expires</span>"`; 
 talent.TI2B.cast = "castPerishSong()";
 talent.TI2B.cost = 15;
 talent.TI2B.cd = 30;
 talent.TI2B.locked = true;
-talent.TI2B.lockedCondition = "Allocate 15+ points into Instrumentalist";
-talent.TI2B.lockedLogic = "instrumentalistPoints>14";
+talent.TI2B.lockedCondition = "Allocate 10+ points into Instrumentalist";
+talent.TI2B.lockedLogic = "instrumentalistPoints>9";
 
 talent.TI2B1 = {};
 talent.TI2B1.position = '-260px 160px'
@@ -12680,7 +12680,7 @@ let gametip = {}
 
 gametip.gt1 = {}
 gametip.gt1.name = "Inventory";
-gametip.gt1.description = 'Inventory has no limit on the amount of diferent items you can have at once. However, some items like Potions can only be carried in specific quantities.<br><br>Items marked as'+colorTag("Unique", "#c28757")+'will only be able to be carried once. If an excess item is picked up, it will get automatically'+colorTag("deleted.", "#db4242")+'<br><br>The <img src="img/src/icons/shopButton.png"> button activates'+colorTag("Sell Mode", "#615ebf")+'while the <img src="img/src/icons/lockButton.png"> button activates'+colorTag("Lock Mode.", "gray")+'<br><br>Press <img src="img/src/icons/sortAll.png"> to sort your inventory.<br><br>You can see your current acquired upgrades inside the Statistics window.';
+gametip.gt1.description = 'Inventory has no limit on the amount of different items you can have at once. However, some items like Potions can only be carried in specific quantities.<br><br>Items marked as'+colorTag("Unique", "#c28757")+'will only be able to be carried once. If an excess item is picked up, it will get automatically'+colorTag("deleted.", "#db4242")+'<br><br>The <img src="img/src/icons/shopButton.png"> button activates'+colorTag("Sell Mode", "#615ebf")+'while the <img src="img/src/icons/lockButton.png"> button activates'+colorTag("Lock Mode.", "gray")+'<br><br>Press <img src="img/src/icons/sortAll.png"> to sort your inventory.<br><br>You can see your current acquired upgrades inside the Statistics window.';
 
 gametip.gt9 = {}
 gametip.gt9.name = "Inventory II";
@@ -12688,7 +12688,7 @@ gametip.gt9.description = bestiaryTag("New Inventory Functions")+'The <img src="
 
 gametip.gt2 = {}
 gametip.gt2.name = "Equipment Upgrading";
-gametip.gt2.description = 'Gear with a level on their description is eligible to upgrade. To upgrade gear, press the'+colorTag("Upgrade", "#db4242")+'button on your inventory, and select the piece you want to upgrade.<br><br>As gear upgrades, it will often adquire new skills and bonuses if the level requirement is met. Gear will always keep their level even if its sold.';
+gametip.gt2.description = 'Gear with a level on their description is eligible to upgrade. To upgrade gear, press the'+colorTag("Upgrade", "#db4242")+'button on your inventory, and select the piece you want to upgrade.<br><br>As gear upgrades, it will often acquire new skills and bonuses if the level requirement is met. Gear will always keep their level even if its sold.';
 
 gametip.gt6 = {}
 gametip.gt6.name = "Alignments";
@@ -12724,7 +12724,7 @@ gametip.gt5.description = 'Crafting is a good way to create items that will aid 
 
 gametip.gt7 = {}
 gametip.gt7.name = "The Armory";
-gametip.gt7.description = 'Gear automatically registers in the Armory once adquired. You can upgrade items directly from there.<br><br>Once you reach a level threshold dictated by the series of the item, you will recieve'+colorTag("Mastery", "#45a3a2");
+gametip.gt7.description = 'Gear automatically registers in the Armory once acquired. You can upgrade items directly from there.<br><br>Once you reach a level threshold dictated by the series of the item, you will recieve'+colorTag("Mastery", "#45a3a2");
 
 gametip.gt12 = {}
 gametip.gt12.name = "Dungeons";
@@ -12741,6 +12741,10 @@ gametip.gt11.description ='Access the'+colorTag("Planetarium", "#4C838B")+'in yo
 gametip.gt13 = {}
 gametip.gt13.name = "The Garden";
 gametip.gt13.description ='Plant and water seeds to make them grow. The seeds will only grow if they currently have water. Once the seed achives maturity, it will activate its bonuses, and slowly decay to death.<br><br>Each time you harvest any mature plant, you will get garden experince and one'+colorTag("Bloom Token,", "#3BA144")+'which you can spend in The Garden shop tab.<br><br>On rare ocasions, plants can mutate. Harvesting a mature mutation is the only way to get mutated seds.<br><br>If circumstances are right, plants can'+colorTag("crossbreed", "#45a3a2")+', and you might discover new seeds!';
+
+gametip.gt16 = {}
+gametip.gt16.name = "Fishing";
+gametip.gt16.description ='Fishing Power determines both the quality and quantity of your catches. Some more rare items require higher fishing power to be caught at all.';
 
 for (var i in gametip) {
   gametip[i].unlocked = false;
