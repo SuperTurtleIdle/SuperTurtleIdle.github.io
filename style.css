@@ -3879,8 +3879,9 @@ background: #B8413D;
     flex-wrap: wrap;
     align-content: flex-start;
     justify-content: center;
-    overflow: visible;
+    overflow: scroll;
     padding: 0 1rem;
+    padding-top: 3rem;
 }
 
 #shopListing .itemSlot{
@@ -6286,6 +6287,7 @@ width: 1.5rem;
     align-items: center;
     background: url(img/src/icons/bgPatternLog.png), #1A1A1B;
     animation: bgPatternDiagonal 600s infinite linear;
+    
 }
 
 .lockedPanel{
@@ -6313,6 +6315,7 @@ width: 1.5rem;
     background: transparent;
     margin-top: auto;
     margin-bottom: auto;
+    
 }
 
 
@@ -6326,6 +6329,7 @@ width: 1.5rem;
     border-radius: 0.4rem;
     background: transparent;
     outline: solid #404040 0.15rem;
+
 }
 
 #achievementListing span{
