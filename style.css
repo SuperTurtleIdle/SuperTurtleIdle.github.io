@@ -6311,7 +6311,8 @@ width: 1.5rem;
     flex-wrap: wrap;
     gap: 0.5rem;
     background: transparent;
-    margin-top: 5rem;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 
