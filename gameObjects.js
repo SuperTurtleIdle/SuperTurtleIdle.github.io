@@ -4794,8 +4794,8 @@ items.I11.quality = 'Common';
 items.I11.sell = 5000;
 items.I11.max = 1;
 items.I11.use = 'gearSwap(items.I11.id, rpgPlayer.trinketSlot, "rpgTrinketSlot", "trinket")'
-items.I11.stats = 'items.I11.statUp = 30;'
-items.I11.remove = 'items.I11.statUp = 0;'
+items.I11.stats = 'trinketAdditiveMaxHp = rUpgDmg("I11", 1); items.I11.statUp = 30;'
+items.I11.remove = 'trinketAdditiveMaxHp = 0; items.I11.statUp = 0;'
 items.I11.statUp = 0;
 items.I11.series = 'heirloom';
 items.I11.cap = 10;
