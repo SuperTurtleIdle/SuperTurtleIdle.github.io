@@ -12,7 +12,7 @@ function calculateInsight(){
 
   let insightFromLogs = 0
 
-  for (let i in logs) {  if (logs[i].unlocked) insightFromLogs += logs[i].insight  }
+  for (let i in logs) {  if (logs[i].unlocked) insightFromLogs += 10  }
 
 playerInsight = insightFromLogs
 
@@ -25,7 +25,6 @@ function createLog() {
     const div = document.createElement("span");
     div.innerHTML = '<span id="'+i+'tag"></span><img src="img/src/icons/pageLocked.jpg">'
     div.getElementsByTagName("img")[0].id = i+"log";
-    div.style.border = "black solid 1px";
     did('achievementListing').appendChild(div);
     div.src = "img/src/icons/pageLocked.jpg";   
     
@@ -59,6 +58,7 @@ function createLog() {
        
    if (logs[i].unlocked) {
     did(i+"log").src = "img/src/icons/pageCompleted.jpg";
+    did(i+"log").style.outline = "solid #db991f 0.15rem";
     calculateInsight();
     did(i+"tag").innerHTML = logs[i].tag
   }   
@@ -68,8 +68,8 @@ function createLog() {
 
 function tooltipLog(i) {
     if (did(i+"log")) {
-    did(i+"log").addEventListener('mouseenter', function () { //on mouseenter
-    did(i + "log").style.animation = "none";
+    did(i+"log").addEventListener('mouseenter', function (event) { //on mouseenter
+    did(i+"log").style.animation = "none";
     playSound("audio/page.mp3")
     did('tooltip').style.display = "flex";
     did("tooltipName").textContent = logs[i].name;
@@ -79,7 +79,7 @@ function tooltipLog(i) {
     did("tooltipRarity").textContent = 'Completed Book';
     did("tooltipRarity").style.color = "white";      
     did("tooltipName").style.color = "white";     
-    did("tooltipDescription").innerHTML = logs[i].description + '<br> <span class="logStat">[+'+logs[i].insight+' Insight]';
+    did("tooltipDescription").innerHTML = logs[i].description+'<br><span class="logStat">[ +5 Mastery]</span>';
     did('tooltipImage').src = "img/src/icons/pageCompleted.jpg";
         
     } else {
@@ -87,29 +87,55 @@ function tooltipLog(i) {
     did("tooltipRarity").style.color = "gray";
     did("tooltipName").style.color = "gray";
     did("tooltipDescription").innerHTML = "";
-    if (items.I222.count>0) did("tooltipDescription").innerHTML = '<span style="background:black; padding: 0 2%; border-radius: 0.6vh; color:gold">Right Click to use a Golden Magnifying Glass</span>';
+    if (items.I222.count>0) did("tooltipDescription").innerHTML = bestiaryTag(colorTag("Right Click to use a Golden Magnifying Glass", "#966c38"), "transparent");
     if (logs[i].revealed) did("tooltipDescription").innerHTML = logs[i].description;
     did('tooltipImage').src = "img/src/icons/pageLocked.jpg";     
     }
         
     did("tooltipFlavor").textContent = logs[i].hint;
+    did("tooltipArrowUp").style.display = 'flex';
+    did("tooltipArrow").style.display = 'none';
+
+
+
+
+
+
+
+    const hoveredElement = event.target;
+    const elementRect = hoveredElement.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+    const seventyPercentWidth = windowWidth * 0.5;
+
+
+  var movingDiv = did("tooltip");
+  var referenceDiv = did(i+"log");
+  var referenceRect = referenceDiv.getBoundingClientRect();
   
-    
-
-   
-
-      did("tooltipArrowUp").style.display = 'flex'
-      did("tooltipArrow").style.display = 'none'
+    if (elementRect.left < seventyPercentWidth) {
 
 
-    const movingDiv = did('tooltip');
-    const referenceDiv = did(i + "log");
-    const referenceRect = referenceDiv.getBoundingClientRect();
-    const newLeft = referenceRect.right - movingDiv.offsetWidth;
-    const newTop = referenceRect.bottom + 20;
-    movingDiv.style.left = newLeft +73+ 'px';
-    movingDiv.style.top = newTop + 'px';
-    did("tooltipArrowUp").style.right = '22%'
+ 
+    var newLeft = referenceRect.left;
+    var newTop = referenceRect.top - movingDiv.offsetHeight;
+    movingDiv.style.left = newLeft - 8+ "px";
+    movingDiv.style.top = newTop - 13+ "px";
+
+    } else {
+
+
+      const referenceLeft = referenceRect.left + 8;
+      const referenceTop = referenceRect.top - 13;
+      const newLeft = referenceLeft + referenceRect.width - movingDiv.offsetWidth;
+      const newTop = referenceTop  - movingDiv.offsetHeight;
+      movingDiv.style.left = newLeft + "px";
+      movingDiv.style.top = newTop + "px";
+
+
+
+    }
+
+
     
         
   });
@@ -127,25 +153,27 @@ function logCheck() {
         
       for (i in logs) {
 
-        if (!logs[i].unlocked) {
+        if (!logs[i].unlocked && "logic" in logs[i]) {
           if (eval(logs[i].logic)) logs[i].unlocked=true;
         }
 
         if (logs[i].unlocked && !logs[i].once) { //plays only once ever
-          did(i + "log").style.animation = "newItemGot 40s 1, levelUp 0.5s 1";
           stats.logsGot++;
           logs[i].once = true;
-          createPopup('&#128196 Log Acquired: '+logs[i].name, 'page')
+          createPopup('&#128196 Book Completed: '+logs[i].name, 'page')
           playSound("audio/achievement.mp3");
           createLog();
+          did(i+"log").style.animation = "logUnlock infinite 1s";
+          statsUpdate()
+          updateStatsUI()
         }
 
       }
     }
 
     //they have new names
-    did('logHeaderBooks').innerHTML = "Books Collected : " + stats.logsGot+'/'+totalLogs +' <strong>['+Math.round(stats.logsGot/totalLogs*100)+'%]</strong>';
-    did('logHeaderInsight').innerHTML = 'Insight Gained :<strong style="color: #6dcdde;">'+playerInsight+'</strong><img src="img/src/icons/insight.png"> </span>';
+    did('logHeaderBooks').innerHTML = 'Books Collected :<strong style="background:#4c5673">' + stats.logsGot+'/'+totalLogs +'</strong> <strong style="background:orange">['+Math.round(stats.logsGot/totalLogs*100)+'%]</strong>';
+    did('logHeaderInsight').innerHTML = 'Total Mastery: <strong style="background: #6eb1b8;">' + stats.logsGot*5+'</strong><img src="img/src/icons/insight.png">';
     
 }
 
@@ -154,14 +182,30 @@ function unlockAllLogs(){
 }
 
 
-let miningCollectiblesTotal = 0;
-let miningCollectiblesGot = 0;
-let fishingCollectiblesTotal = 0;
-let fishingCollectiblesGot = 0;
-let relicsCollectiblesTotal = 0;
-let relicsCollectiblesGot = 0;
-let foragingCollectiblesTotal = 0;
-let foragingCollectiblesGot = 0;
+
+let collectibles1Total = 0;
+let collectibles2Total = 0;
+let collectibles3Total = 0;
+let collectibles4Total = 0;
+let collectibles5Total = 0;
+let collectibles6Total = 0;
+let collectibles7Total = 0;
+let collectibles8Total = 0;
+let collectibles9Total = 0;
+let collectibles10Total = 0;
+let collectibles11Total = 0;
+
+let collectibles1Got = 0;
+let collectibles2Got = 0;
+let collectibles3Got = 0;
+let collectibles4Got = 0;
+let collectibles5Got = 0;
+let collectibles6Got = 0;
+let collectibles7Got = 0;
+let collectibles8Got = 0;
+let collectibles9Got = 0;
+let collectibles10Got = 0;
+let collectibles11Got = 0;
 
 let collectiblesTotal = 0;
 let collectiblesGot = 0;
@@ -187,7 +231,7 @@ const movingDiv = did("tooltip");
 const referenceDiv = did("collectionButton");
 const referenceRect = referenceDiv.getBoundingClientRect();
 const referenceRight = referenceRect.right; // Derecha de currentWeather
-const referenceBottom = referenceRect.bottom + 20; // Abajo de currentWeather
+const referenceBottom = referenceRect.bottom - 1; // Abajo de currentWeather
 const newLeft = referenceRight - movingDiv.offsetWidth;
 const newTop = referenceBottom;
 movingDiv.style.left = newLeft + "px";
@@ -202,15 +246,23 @@ function createCatalogue() {
   for (let i in items) {
 
   if ("collectible" in items[i] && !did(i+"catalogue")) {
-    let collection = items[i].collectible
+    //let collection = items[i].collectible
     const areadiv = document.createElement("div");
     areadiv.id = i + "catalogue";
     areadiv.innerHTML = '<img class="catalogueCasing3" id="'+i+'catalogueLight" src="img/src/icons/catalogueCasing3.png"><img class="catalogueCasing2" src="img/src/icons/catalogueCasing2.png"><img class="casingItem" id="'+i+'catalogueItem" src="img/src/items/I233.jpg"><img class="catalogueCasing1" src="img/src/icons/catalogueCasing1.png">';
     areadiv.className = "catalogueCasing";
 
+
+    eval("collectibles" + items[i].collectible + "Total += 1")
+    if (items[i].statUp === "got") eval("collectibles" + items[i].collectible + "Got += 1")
+
+    did("catalogue"+items[i].collectible).appendChild(areadiv)
+
+
+/*
     if (collection.startsWith("M")){
       did("miningCatalogue").appendChild(areadiv)
-      miningCollectiblesTotal++
+      
       if (items[i].statUp === "got") miningCollectiblesGot++
     } 
     if (collection.startsWith("F")) {
@@ -228,6 +280,8 @@ function createCatalogue() {
       foragingCollectiblesTotal++
       if (items[i].statUp === "got") foragingCollectiblesGot++
     }
+
+    */
     
     areadiv.addEventListener("mouseenter", function () {
       did(i+"catalogueLight").style.display = "flex"
@@ -249,8 +303,8 @@ function createCatalogue() {
   }
 
   
-  if ("collectible" in items[i] && items[i].statUp === "got")
-  {did(i+"catalogueItem").src = "img/src/items/"+i+".jpg";
+  if ("collectible" in items[i] && items[i].statUp === "got" && did(i+"catalogueItem")){
+  did(i+"catalogueItem").src = "img/src/items/"+i+".jpg";
   did(i+"catalogueItem").style.display = "flex"
 } else if (did(i+"catalogueItem")){
   did(i+"catalogueItem").style.display = "none";
@@ -258,14 +312,21 @@ function createCatalogue() {
 }
 
 
-collectiblesTotal = miningCollectiblesTotal+fishingCollectiblesTotal+relicsCollectiblesTotal+foragingCollectiblesTotal;
-collectiblesGot = miningCollectiblesGot+fishingCollectiblesGot+relicsCollectiblesGot+foragingCollectiblesGot
+collectiblesTotal = collectibles1Total+collectibles2Total+collectibles3Total+collectibles4Total+collectibles5Total+collectibles6Total+collectibles7Total+collectibles8Total+collectibles9Total+collectibles10Total+collectibles11Total;
+collectiblesGot = collectibles1Got+collectibles2Got+collectibles3Got+collectibles4Got+collectibles5Got+collectibles6Got+collectibles7Got+collectibles8Got+collectibles9Got+collectibles10Got+collectibles11Got;
 
 
-did("miningCatalogueCount").innerHTML = "["+miningCollectiblesGot+"/"+miningCollectiblesTotal+"]"
-did("fishingCatalogueCount").innerHTML = "["+fishingCollectiblesGot+"/"+fishingCollectiblesTotal+"]"
-did("relicsCatalogueCount").innerHTML = "["+relicsCollectiblesGot+"/"+relicsCollectiblesTotal+"]"
-did("foragingCatalogueCount").innerHTML = "["+foragingCollectiblesGot+"/"+foragingCollectiblesTotal+"]"
+did("catalogue1Count").innerHTML = "["+collectibles1Got+"/"+collectibles1Total+"]"
+did("catalogue2Count").innerHTML = "["+collectibles2Got+"/"+collectibles2Total+"]"
+did("catalogue3Count").innerHTML = "["+collectibles3Got+"/"+collectibles3Total+"]"
+did("catalogue4Count").innerHTML = "["+collectibles4Got+"/"+collectibles4Total+"]"
+did("catalogue5Count").innerHTML = "["+collectibles5Got+"/"+collectibles5Total+"]"
+did("catalogue6Count").innerHTML = "["+collectibles6Got+"/"+collectibles6Total+"]"
+did("catalogue7Count").innerHTML = "["+collectibles7Got+"/"+collectibles7Total+"]"
+did("catalogue8Count").innerHTML = "["+collectibles8Got+"/"+collectibles8Total+"]"
+did("catalogue9Count").innerHTML = "["+collectibles9Got+"/"+collectibles9Total+"]"
+did("catalogue10Count").innerHTML = "["+collectibles10Got+"/"+collectibles10Total+"]"
+did("catalogue11Count").innerHTML = "["+collectibles11Got+"/"+collectibles11Total+"]"
 
 
 
@@ -289,6 +350,9 @@ function catalogueShine(){
 function tooltipCatalogue(i) {
   if (did(i+"catalogue")) {
   did(i+"catalogue").addEventListener('mouseenter', function () { //on mouseenter
+
+    selectedRelic = i;
+    
     if ("collectible" in items[i] && items[i].statUp === "got") {
  
       let collection = items[i].collectible
@@ -304,20 +368,20 @@ function tooltipCatalogue(i) {
   did("tooltipArrow").style.display = "none";
   did('tooltip').style.backgroundImage = "url(img/sys/fondotooltipCollectible.jpg)"
 
-  if (collection.startsWith("M")) did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Max Health]</span>';
-  if (collection.startsWith("F")) did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Strength]</span>';
-  if (collection.startsWith("R")) did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Crit Chance]</span>';
-  if (collection.startsWith("B")) did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Drop Chance]</span>';;
+  did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5 Mastery]</span>';
 
  
-  var movingDiv = did("tooltip");
-  var referenceDiv = did(i + "catalogue");
-  var referenceRect = referenceDiv.getBoundingClientRect();
-  var newLeft = referenceRect.right + 10;
-  var newTop = referenceRect.top - 40;
-  
-  movingDiv.style.left = newLeft + "px";
-  movingDiv.style.top = newTop + "px";
+  const movingDiv = document.getElementById('tooltip');
+const referenceDiv = document.getElementById(i + "catalogue");
+
+const movingRect = movingDiv.getBoundingClientRect();
+const referenceRect = referenceDiv.getBoundingClientRect();
+
+const newLeft = referenceRect.left + (referenceRect.width / 2) - (movingRect.width / 2);
+const newTop = referenceRect.top - movingRect.height;
+
+movingDiv.style.left = newLeft + "px";
+movingDiv.style.top = newTop - 15 + "px";
 
 }
 
@@ -334,7 +398,7 @@ settingsPanel ("armoryButton", "armory");
 
 
 
-
+let returnToArmory = false;
 
 function createArmory() {
   for (let i in items) {
@@ -347,8 +411,20 @@ function createArmory() {
 
     const div = document.createElement("img");
     div.id = i+"armory";
-    div.style.border = returnQualityColor(items[i].quality)+" solid 1px";
-    div.src = "img/src/items/"+i+".jpg"; 
+    div.src = "img/src/items/"+i+".jpg";
+    div.className = "itemSlot";
+    div.style.outline = returnQualityColor(items[i].quality)+" solid 0.15";
+
+
+    div.addEventListener("click", function (event) {
+      closePanels();
+      upgradeItem = i;
+      upgradeMenu();
+      returnToArmory = true;
+    });
+
+    
+
 
     did(series+"Armory").appendChild(div)
 
@@ -362,16 +438,18 @@ function createArmory() {
   if ("series" in items[i] && items[i].armoryState === "unseen") {
     did(i+"armory").src = "img/src/items/I0.jpg"; 
     did(i+"armory").style.filter = "grayscale(1)";
-    did(i+"armory").style.border = "gray solid 1px";
+    did(i+"armory").style.outline = "gray solid 0.15rem";
   } 
   if ("series" in items[i] && items[i].armoryState === "partial"){
     did(i+"armory").src = "img/src/items/"+i+".jpg"; 
     did(i+"armory").style.filter = "grayscale(1)";
+    did(i+"armory").style.outline = returnQualityColor(items[i].quality)+" solid 0.15rem";
+
   }
   if ("series" in items[i] && items[i].armoryState === "complete") {
     did(i+"armory").src = "img/src/items/"+i+".jpg";
     did(i+"armory").style.filter = "grayscale(0)";
-    did(i+"armory").style.border = returnQualityColor(items[i].quality)+" solid 1px";
+    did(i+"armory").style.outline = returnQualityColor(items[i].quality)+" solid 0.15rem";
   }
 
   if ("series" in items[i]) {
@@ -383,6 +461,8 @@ function createArmory() {
 }
 
 
+let seriesCompleted
+
 setInterval(() => {armorycheck()}, 10000);
 
 
@@ -392,19 +472,30 @@ function armorycheck(){
     if ("series" in items[i]) {
       let series = items[i].series
 
-    if (!items[i].gotOnce && items[i].armoryState != "complete") {
+    if ( !items[i].gotOnce && items[i].armoryState != "complete" ) {
       items[i].armoryState = "unseen";
-    } else if (items[i].count !== items[i].max && items[i].armoryState != "complete"){
+    } else if ( items[i].level < items[i].cap && items[i].armoryState != "complete" ){
       items[i].armoryState = "partial";
     } else if (items[i].armoryState != "complete"){
       items[i].armoryState = "complete";
       eval("armory" + series + "Got += 1");
     }
 
+    if (rpgPlayer.debug && items[i].armoryState != "complete") items[i].armoryState = "partial";
+
 
   }
   }
 
+  seriesCompleted = 0;
+
+  if (armoryheirloomTotal=== armoryheirloomGot) seriesCompleted++
+  if (armorymillionaireTotal === armorymillionaireGot) seriesCompleted++
+  if (armoryforgottenTotal===armoryforgottenGot) seriesCompleted++
+  if (armorymasterworkTotal === armorymasterworkGot) seriesCompleted++
+  if (armorybeastfallenTotal=== armorybeastfallenGot) seriesCompleted++
+  if (armoryreveredTotal === armoryreveredGot) seriesCompleted++
+  if (armorysolsticeTotal ===armorysolsticeGot) seriesCompleted++
 
 
 
@@ -427,31 +518,30 @@ function tooltipArmory(i) {
   did("tooltipRarity").style.color = returnQualityColor(items[i].quality);  
   did("tooltipName").style.color = returnQualityColor(items[i].quality);  
   did("tooltipArrow").style.display = "none";
-  did("tooltipDescription").innerHTML = ""
+  did("tooltipDescription").innerHTML = "";
   did('tooltipImage').style.filter = "grayscale(0.6)"
 
-  if (items[i].armoryState==="partial") did("tooltipDescription").innerHTML = '<FONT COLOR="#d194cd">Fully upgrade this item to complete the entry and unlock its potential';
+  if (items[i].armoryState==="partial") did("tooltipDescription").innerHTML = '<FONT COLOR="gray">Upgrade this item to level '+items[i].cap+' to complete the entry and unlock its potential<br><br><FONT COLOR="#d194cd">Click to open the upgrade menu of this item<div class="separador"></div>';
 
   if (items[i].armoryState==="complete"){
     did('tooltipImage').style.filter = "grayscale(0)"
-    if (series === "heirloom") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 1% Charisma]</span>';
-    if (series === "millionaire") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 2% Item Sell Value]</span>';
-    if (series === "forgotten") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 10% Drop Chance]</span>';
-    if (series === "masterwork") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Max Health]</span>';
-    if (series === "beastfallen") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% EXP Rate]</span>';
-    if (series === "revered") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 5% Max SP]</span>';
-    if (series === "solstice") did("tooltipDescription").innerHTML = '<span class="logStat">[+ 4% Crit Chance]</span>';
+    did("tooltipDescription").innerHTML = '<span class="logStat">[+ 10 Mastery]</span>';
+
   }
 
  
-  var movingDiv = did("tooltip");
-  var referenceDiv = did(i + "armory");
-  var referenceRect = referenceDiv.getBoundingClientRect();
-  var newLeft = referenceRect.right + 10;
-  var newTop = referenceRect.top - 40;
+  const movingDiv = document.getElementById('tooltip');
+const referenceDiv = document.getElementById(i + "armory");
+
+const movingRect = movingDiv.getBoundingClientRect();
+const referenceRect = referenceDiv.getBoundingClientRect();
+
+const newLeft = referenceRect.left + (referenceRect.width / 2) - (movingRect.width / 2);
+const newTop = referenceRect.top - movingRect.height;
+
+movingDiv.style.left = newLeft + "px";
+movingDiv.style.top = newTop - 15 + "px";
   
-  movingDiv.style.left = newLeft + "px";
-  movingDiv.style.top = newTop + "px";
 
 }
       
@@ -466,18 +556,18 @@ function tooltipArmory(i) {
 did("armoryButton").addEventListener("mouseenter", function () {
   did("tooltip").style.display = "flex";
   did("upperTooltip").style.display = "none";
-  did("tooltipDescription").innerHTML ='<FONT COLOR="#edd585">View your Armory ('+totalArmory+'/'+totalArmoryGot+")";
+  did("tooltipDescription").innerHTML ='<FONT COLOR="#edd585">View your Armory ('+totalArmoryGot+'/'+totalArmory+")";
   did("tooltipFlavor").textContent = "";
   did("tooltipDescription").style.textAlign = "center";
   did("tooltipImage").style.display = "none";
-  did("tooltipArrowUp").style.display = 'flex'
-  did("tooltipArrow").style.display = 'none'
+  did("tooltipArrowUp").style.display = 'flex';
+  did("tooltipArrow").style.display = 'none';
 
 const movingDiv = did("tooltip");
 const referenceDiv = did("armoryButton");
 const referenceRect = referenceDiv.getBoundingClientRect();
 const referenceRight = referenceRect.right; // Derecha de currentWeather
-const referenceBottom = referenceRect.bottom + 20; // Abajo de currentWeather
+const referenceBottom = referenceRect.bottom -1; // Abajo de currentWeather
 const newLeft = referenceRight - movingDiv.offsetWidth;
 const newTop = referenceBottom;
 movingDiv.style.left = newLeft + "px";
@@ -495,18 +585,46 @@ settingsPanel ("bestiaryButton", "bestiary");
 let bestiaryPointEntry = 0;
 let bestiaryPointBronze = 0;
 let bestiaryPointGold = 0;
+let bestiaryPointPlatinum = 0;
 let totalBestiaryPoints = 0;
 
 
 let currentEntry = "E1";
 
+function completeBestiary(){
+
+  for (let i in enemies) {
+
+
+    if (!did(i+"bestiary") && i.startsWith("E") && !enemies[i].ignoreBestiary) {
+
+
+
+    }
+
+  }
+
+
+}
+
+
+let bronzeMedalsGot = 0;
+let goldMedalsGot = 0;
+let platinumMedalsGot = 0;
+
 function createBestiary() {
+
+  goldMedalsGot = 0;
+  platinumMedalsGot = 0;
+  bestiaryPointEntry = 0;
+  let elibileEnemies = 0;
+  totalBestiaryPoints = 0;
+
   for (let i in enemies) {
 
 
   if (!did(i+"bestiary") && i.startsWith("E") && !enemies[i].ignoreBestiary) {
 
-    
     const areadiv = document.createElement("div");
     areadiv.id = i + "bestiary";
     did("bestiaryListing").appendChild(areadiv);
@@ -518,22 +636,42 @@ function createBestiary() {
       currentEntry = i;
       } else playSound("audio/thud.mp3");
     });
-  
-    totalBestiaryPoints += 3;
 
+  }
+
+    if (!enemies[i].ignoreBestiaryPercentage){
+
+      totalBestiaryPoints++
+
+    
     if (enemies[i].killCount>=1 || enemies[i].sawOnce) bestiaryPointEntry++
 
- if (enemies[i].killCount>=1000 ||
-  enemies[i].tag === 'dungeonEnemy' && enemies[i].killCount>=200 ||
-   ( ( enemies[i].tag === 'areaBoss' || enemies[i].tag === 'stageBoss1' || enemies[i].tag === 'finalBoss' ) && enemies[i].killCount>=10) ||
-    (enemies[i].tag === 'showdownBoss' && enemies[i].killCount>=1) 
-    ) { bestiaryPointBronze++ }//bronze medal
 
-if (enemies[i].killCount>=1000*5 ||
-  enemies[i].tag === 'dungeonEnemy' && enemies[i].killCount>=200*3 ||
-   ( ( enemies[i].tag === 'areaBoss' || enemies[i].tag === 'stageBoss1' || enemies[i].tag === 'finalBoss' ) && enemies[i].killCount>=10*3) ||
-    (enemies[i].tag === 'showdownBoss' && enemies[i].killCount>=1*5) 
-    ) { bestiaryPointGold++ }//gold medal
+    if (enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'finalBoss')
+         { enemies[i].medal = "none"; }//eligible
+
+if (enemies[i].killCount>=10000
+  && enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'finalBoss')
+     { enemies[i].medal = "gold"; }//gold medal
+
+
+
+
+if (enemies[i].killCount>=100000
+  && enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'finalBoss')
+    { //platinum medal
+      
+      
+      enemies[i].medal = "platinum";
+
+  }
+
+
+  
+
+  if (enemies[i].medal === "gold") goldMedalsGot++
+  if (enemies[i].medal === "platinum") platinumMedalsGot++
+
 
 }
 
@@ -541,26 +679,30 @@ if (did(i+"bestiary")){
 if (enemies[i].killCount>=1 || enemies[i].sawOnce){
   did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+'</span>';
   if (enemies[i].tag==="areaBoss") did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+' 💀</span>';
+  if (enemies[i].ignoreBestiaryPercentage) did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+' ❌</span>';
 } else{
   did(i+"bestiary").innerHTML = '<span>?????</span>';
 }
+
 }
+
 
   }
 
  
+  for (i in enemies) if (enemies[i].medal==="none" && enemies[i].sawOnce) elibileEnemies++
 
-  
+bestiaryPercentage = ( ( bestiaryPointEntry + goldMedalsGot ) / (totalBestiaryPoints) * 100 ) 
+did("bestiaryProgress").innerHTML = bestiaryPercentage.toFixed(1)+"%";
+did("bestiaryMastery").innerHTML = "+"+goldMedalsGot*10+" Mastery";
+did("bestiaryProgress2").innerHTML = goldMedalsGot+"/"+elibileEnemies+" Medals";
 
-bestiaryPercentage = ( ( bestiaryPointEntry + bestiaryPointBronze + bestiaryPointGold ) / (totalBestiaryPoints - 3) * 100 ) 
-did("bestiaryProgress").innerHTML = "<span>["+bestiaryPercentage.toFixed(1)+"%] Completion</span>";
-
-did("bestiaryProgress").style.background = "linear-gradient(90deg, rgba(249,169,16,1) " + bestiaryPercentage + "%, black " + bestiaryPercentage + "%)";
+did("bestiaryProgressBar").style.width = bestiaryPercentage+'%';
 
 }
 
 
-let bestiaryPercentage = ( ( bestiaryPointEntry + bestiaryPointBronze + bestiaryPointGold ) / (totalBestiaryPoints - 3) * 100 ) 
+let bestiaryPercentage = ( ( bestiaryPointEntry + goldMedalsGot ) / (totalBestiaryPoints) * 100 ) 
 
 
 function bestiaryEntry(i) {
@@ -578,43 +720,19 @@ else { did("bestiaryEnemyAlign").src = "img/src/icons/"+enemies[i].align+".png";
 did("bestiaryBackground").style.backgroundImage = "url(img/src/areas/"+enemies[i].area+".png)";
 
 
-if (enemies[i].killCount>=1000 ||
-  enemies[i].tag === 'dungeonEnemy' && enemies[i].killCount>=200 ||
-   ( ( enemies[i].tag === 'areaBoss' || enemies[i].tag === 'stageBoss1' || enemies[i].tag === 'finalBoss' ) && enemies[i].killCount>=10) ||
-    (enemies[i].tag === 'showdownBoss' && enemies[i].killCount>=1) 
-    ) { //bronze medal
+//bronze medal
 did("bestiaryHealth").innerHTML = beautify(enemies[i].hp)+" HP"
 did("bestiaryAttack").innerHTML = beautify(enemies[i].attack)+" ATK"
 if (enemies[i].attack === undefined) did("bestiaryAttack").innerHTML = "0 ATK"
 did("bestiaryExp").innerHTML = beautify(enemies[i].exp)+" EXP";
-did("bestiaryBadge").src = "img/src/icons/bestiaryBadge1.png"
-} else{
-did("bestiaryHealth").innerHTML = "???? HP"
-did("bestiaryAttack").innerHTML = "???? ATK"
-if (enemies[i].attack === undefined) "???? ATK"
-did("bestiaryExp").innerHTML = "???? EXP";
-did("bestiaryBadge").src = "img/src/projectiles/none.png"
-}
 
-if (enemies[i].killCount>=1000*5 ||
-  enemies[i].tag === 'dungeonEnemy' && enemies[i].killCount>=200*3 ||
-   ( ( enemies[i].tag === 'areaBoss' || enemies[i].tag === 'stageBoss1' || enemies[i].tag === 'finalBoss' ) && enemies[i].killCount>=10*3) ||
-    (enemies[i].tag === 'showdownBoss' && enemies[i].killCount>=1*5) 
-    ) { //gold medal
+if (enemies[i].medal==="none" ){ did("bestiaryBadge").src = "img/src/icons/bestiaryBadge1.png" }
+else did("bestiaryBadge").src = "img/src/projectiles/none.png"
+
+if (enemies[i].medal==="gold" ){ did("bestiaryBadge").src = "img/src/icons/bestiaryBadge2.png" }
       
-      did("bestiaryBadge").src = "img/src/icons/bestiaryBadge2.png"
+if (enemies[i].medal==="platinum" ){ did("bestiaryBadge").src = "img/src/icons/bestiaryBadge3.png" }
 
-  }
-
-  if (enemies[i].killCount>=1000*20 ||
-    enemies[i].tag === 'dungeonEnemy' && enemies[i].killCount>=200*10 ||
-     ( ( enemies[i].tag === 'areaBoss' || enemies[i].tag === 'stageBoss1' || enemies[i].tag === 'finalBoss' ) && enemies[i].killCount>=10*10) ||
-      (enemies[i].tag === 'showdownBoss' && enemies[i].killCount>=1*10) 
-      ) { //platinum medal
-        
-        did("bestiaryBadge").src = "img/src/icons/bestiaryBadge3.png"
-  
-    }
 
 
 did("bestiaryKills").innerHTML = "💀 "+beautify(enemies[i].killCount)
@@ -623,7 +741,7 @@ did("bestiaryDescription").innerHTML = enemies[i].description
 
 if ("bestiarySkills" in enemies[i]){
   did("bestiarySkillsTitle").style.display = "flex";
-  did("bestiarySkills").style.display = "flex";
+  did("bestiarySkills").style.display = "inline";
   did("bestiarySkills").innerHTML = enemies[i].bestiarySkills
 } else{
   did("bestiarySkillsTitle").style.display = "none";
@@ -634,7 +752,16 @@ if ("bestiarySkills" in enemies[i]){
 
 
 
-did("bestiaryDrops").innerHTML = eval(enemies[i].bestiaryItem)
+if ("bestiaryItem" in (enemies[i])) {
+  did("bestiaryDrops").style.display = "inline";
+  did("bestiaryDropsTitle").style.display = "flex";
+  did("bestiaryDrops").innerHTML = eval(enemies[i].bestiaryItem)}
+  else{
+    did("bestiaryDrops").style.display = "none";
+    did("bestiaryDropsTitle").style.display = "none";
+
+  }
+
 
 
 
@@ -656,7 +783,7 @@ const movingDiv = did("tooltip");
 const referenceDiv = did("bestiaryButton");
 const referenceRect = referenceDiv.getBoundingClientRect();
 const referenceRight = referenceRect.right; // Derecha de currentWeather
-const referenceBottom = referenceRect.bottom + 20; // Abajo de currentWeather
+const referenceBottom = referenceRect.bottom - 1; // Abajo de currentWeather
 const newLeft = referenceRight - movingDiv.offsetWidth;
 const newTop = referenceBottom;
 movingDiv.style.left = newLeft + "px";
@@ -692,6 +819,7 @@ did("bestiaryDrops").addEventListener("mouseenter", function () {
   
 
   did("tooltipDescription").innerHTML = items[enemies[currentEntry].bestiaryLoot].description
+  if (items[enemies[currentEntry].bestiaryLoot].dynamic) did("tooltipDescription").innerHTML = eval(items[enemies[currentEntry].bestiaryLoot].description)
 
   did("tooltipFlavor").textContent = items[enemies[currentEntry].bestiaryLoot].flavor;
   did("tooltipImage").src = "img/src/items/" + enemies[currentEntry].bestiaryLoot + ".jpg";
@@ -747,9 +875,7 @@ document.addEventListener('DOMContentLoaded', logInitialization);
 function logInitialization(){
     createLog();
     logCheck();
-    createBestiary();
     bestiaryEntry("E1")
-
     
 }
 

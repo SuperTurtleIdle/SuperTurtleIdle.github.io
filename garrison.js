@@ -1,41 +1,71 @@
 
+function returnRoman(num) {
+  const numerosRomanos = [
+      { valor: 1000, simbolo: 'M' },
+      { valor: 900, simbolo: 'CM' },
+      { valor: 500, simbolo: 'D' },
+      { valor: 400, simbolo: 'CD' },
+      { valor: 100, simbolo: 'C' },
+      { valor: 90, simbolo: 'XC' },
+      { valor: 50, simbolo: 'L' },
+      { valor: 40, simbolo: 'XL' },
+      { valor: 10, simbolo: 'X' },
+      { valor: 9, simbolo: 'IX' },
+      { valor: 5, simbolo: 'V' },
+      { valor: 4, simbolo: 'IV' },
+      { valor: 1, simbolo: 'I' }
+  ];
+
+  return numerosRomanos.reduce((acc, { valor, simbolo }) => {
+      while (num >= valor) {
+          acc += simbolo;
+          num -= valor;
+      }
+      return acc;
+  }, '');
+}
+
+
+
+
 function createBuilding() {
     for (let i in buildings) {
       if (!did(i + "building") && buildings[i].unlocked) {
         const buildingdiv = document.createElement("div");
         buildingdiv.id = i + "building";
         buildingdiv.className = "building";
-        buildingdiv.innerHTML = ' <div class="building1"> <div class="buildingLeft"> <span id="'+i+'buildingLevel">14/20</span> <img id="'+i+'buildingImage" src="img/src/upgrades/R10.jpg"></div> <p> <strong id="'+i+'buildingName">Lumberjack Post</strong> <br> <span id="'+i+'buildingMoney">❖ 12K [Turtle Coins]</span> <br> <span id="'+i+'buildingItem1">❖ 310K [Spooky Wood]</span> <br> <span style="background: transparent; font-size: 1.5vh; padding: 0%;" id="'+i+'buildingDescription">Increases Max HP by 0.1% per level<br><br></span> <strong class="logStat" id="'+i+'buildingStat">[Current Bonus: 10%]</strong> </p> </div> <div class="building2">Left Click to <FONT COLOR="lawngreen">&nbsp;Buy</FONT></div>';
+        buildingdiv.innerHTML = ' <img src="img/src/upgrades/C10.jpg" id="'+i+'buildingImage"> <div class="buildingInfo"> <span style="background: #463126; height: 1.8rem; font-size: 1.4rem;" id="'+i+'buildingName">Lumberjack Post</span> <span style="background: #7c7055; width: auto; padding: 0 1rem; font-family: fredoka; font-weight: 500;" id="'+i+'buildingLevel">10 / 10</span> <span style="background: #627775; width: auto; margin-left: auto; padding: 0 1rem; font-family: fredoka; font-weight: 500;"  id="'+i+'buildingTier">Tier: I</span> </div><span style="font-size: 1.15rem;" id="'+i+'buildingMoney"><img src="img/sys/coin.png" >221.3M Shells</span><span style="font-size: 1.15rem;" id="'+i+'buildingItem1"><img src="img/src/items/"'+buildings[i].item1+'".jpg">19K Mossy Supply Box</span><span style="font-size: 1.15rem; height: 3.5rem; background: #1B1B21; border-radius: 0.3rem; display:inline" id="'+i+'buildingDescription">Increases Max HP by 5% per level and something else that i forgot</span><span style="background: transparent; font-family: fredoka; font-weight: 400; font-size: 1.15rem;" id="'+i+'buildingStat">Current Bonus: 30%</span>';
         did("buildingList").appendChild(buildingdiv);
 
-        did(i+'buildingImage').src = "img/src/upgrades/"+buildings[i].img+".jpg";
         did(i+'buildingName').innerHTML = buildings[i].name;
         did(i+'buildingDescription').innerHTML = buildings[i].description;
-        did(i+'buildingStat').innerHTML = '[Current Bonus: '+beautify((buildings[i].statUp)*100)+'%]'
-
-        buildings[i].price = Math.floor(500000 * Math.pow(1.3, buildings[i].level));
+        buildings[i].price = Math.floor(300000 * Math.pow(1.3, buildings[i].level));
         buildings[i].item1Amount = Math.floor(1+buildings[i].level*2);
+        //did(i+'buildingTier').innerHTML = "Tiere";
+
+
 
   
         buildingdiv.addEventListener("click", function () { 
-          if(rpgPlayer.coins>=buildings[i].price && buildings[i].level<buildings[i].maxLevel && items[buildings[i].item1].count>=buildings[i].item1Amount){ 
+          if(rpgPlayer.coins>=buildings[i].price && buildings[i].level<buildings[i].tier*10 && items[buildings[i].item1].count>=buildings[i].item1Amount){ 
             playSound("audio/craft.mp3")
             buildingdiv.style.animation = "";
         void buildingdiv.offsetWidth;
-        buildingdiv.style.animation = "gelatine 0.3s 1";
+        buildingdiv.style.animation = "areaClick 0.3s 1";
 
 
             rpgPlayer.coins-=buildings[i].price;
             buildings[i].level++;
             items[buildings[i].item1].count-=buildings[i].item1Amount
-            buildings[i].price = Math.floor(500000 * Math.pow(1.3, buildings[i].level));
+            buildings[i].price = Math.floor(300000 * Math.pow(1.3, buildings[i].level));
             buildings[i].item1Amount = Math.floor(1+buildings[i].level*2);
 
-            createBuilding();
             statsUpdate();
             updateStatsUI();
             updateCounters();
-            did(i+'buildingStat').innerHTML = '[Current Bonus: '+beautify((buildings[i].statUp)*100)+'%]'
+            createBuilding();
+
+            addItem();
 
 
           } else playSound("audio/thud.mp3")
@@ -46,9 +76,12 @@ function createBuilding() {
 
 
       if (did(i + "building")) {
-        did(i+'buildingLevel').innerHTML = buildings[i].level+"/"+buildings[i].maxLevel;
-        did(i+'buildingMoney').innerHTML = "❖ "+ beautify(buildings[i].price) +" [Turtle Coins]";
-        did(i+'buildingItem1').innerHTML = "❖ "+ beautify(buildings[i].item1Amount) +" ["+items[buildings[i].item1].name+"]";
+        did(i+'buildingTier').innerHTML = "Tier "+returnRoman(buildings[i].tier);
+        did(i+'buildingImage').src = "img/src/buildings/"+i+"U"+buildings[i].tier+".jpg";
+        did(i+'buildingStat').innerHTML = 'Current Bonus:  '+ colorTag("x"+(1+buildings[i].statUp).toFixed(2),"#E57D08")
+        did(i+'buildingLevel').innerHTML = buildings[i].level+"/"+buildings[i].tier*10;
+        did(i+'buildingMoney').innerHTML = '<img src="img/sys/coin.png">'+ beautify(buildings[i].price) +" Shells";
+        did(i+'buildingItem1').innerHTML = '<img src="img/src/items/'+buildings[i].item1+'.jpg">'+ beautify(buildings[i].item1Amount) +" "+items[buildings[i].item1].name+"";
       }
   
     
@@ -68,7 +101,7 @@ function createResearch() {
         did("researchList").appendChild(researchdiv);
 
         did(i+'researchName').innerHTML = research[i].name;
-        did(i+'researchImage').src = "img/src/upgrades/"+research[i].img+".jpg";
+        did(i+'researchImage').src = research[i].img;
         did(i+'researchPrice').innerHTML = beautify(research[i].price) + ' <img src="img/sys/coin.png" />';
         did(i+'researchTime').innerHTML = convertSecondsToHMS(research[i].timer)
         research[i].timerMax = research[i].timer;
@@ -125,7 +158,7 @@ if (research[i].status === "researching") {
 
   if (stats.currentCategory === "campContainer"){
     let percentageEXP = (research[i].timer / research[i].timerMax) * 100;
-    did(i+"researchBar").style.background = "linear-gradient(-90deg, black " + percentageEXP + "%, rgb(104, 237, 255) " + percentageEXP + "%)";
+    did(i+"researchBar").style.background = "linear-gradient(-90deg, black " + percentageEXP + "%, #319364 " + percentageEXP + "%)";
     did(i+'researchTime').innerHTML = convertSecondsToHMS(research[i].timer)
     }
 
@@ -140,7 +173,7 @@ if (research[i].timer<=0){
 }
 
 if (research[i].status === "ready") {
-  did(i+"researchBar").style.background = "linear-gradient(-90deg, rgb(104, 237, 255) 0%, rgb(104, 237, 255) 100%)";
+  did(i+"researchBar").style.background = "#3ec986";
 }
 
 
@@ -151,6 +184,14 @@ if (research[i].status === "ready") {
 
 
 }
+
+
+
+
+
+
+
+
 
 document.addEventListener('DOMContentLoaded', garrisonInitialization);
 
