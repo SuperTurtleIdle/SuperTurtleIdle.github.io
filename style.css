@@ -4825,6 +4825,7 @@ margin-left: 0.5rem;
     margin-top: 5%;
     font-size: 1.7vh;
     line-height: 1vw;
+    z-index: 3;
 }
 
 .npcHpBar{height: 10%; width: 90%; background: linear-gradient(90deg, rgba(144,238,111,1) 100%, rgba(255,119,119,1) 100%); border-radius: 2px;}
