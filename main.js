@@ -682,7 +682,7 @@ function tooltipWeather() {
       if (stats.currentWeather==="sakura"){
         did("tooltipName").textContent = "Sakura Fall";
         did("tooltipFlavor").textContent = '"Sakura petals drift, Whispering the springtimes end, Beautys gentle fall."';
-        did("tooltipDescription").innerHTML = '<span style="color:#1EFF0C">❖ Increased Drop chance by 100%</span>';
+        did("tooltipDescription").innerHTML = '<span style="color:gray">No special weather bonuses.</span>';
      }
 
      if (stats.currentWeather==="vortex"){

@@ -11016,7 +11016,7 @@ mail.MO2.cover = "I215"
 mail.MO3 = {};
 mail.MO3.title = 'A star in the making'
 mail.MO3.body = 'I will wait for thee once level 30 hath been reached'
-mail.MO3.effect = "items.I26.count++; unlocks.magic=true; unlocks.skills=true; unlocksReveal(); did('skillsButton').style.animation = 'newGameTip 1s infinite linear'"
+mail.MO3.effect = ""
 mail.MO3.sender = "?????"
 mail.MO3.cover = "I215"
 
