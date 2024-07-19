@@ -1499,7 +1499,18 @@ function dropItem(ID) { //dedicated drop rolls
 
 
 
-  if (did(stats.currentEnemy+"enemy") && did(stats.currentEnemy+"enemy").classList.contains('gilded')) {itemdrop = 300; stats.gildedKilled++}
+  if (did(stats.currentEnemy+"enemy") && did(stats.currentEnemy+"enemy").classList.contains('gilded')) {
+    itemdrop = 300;
+    stats.gildedKilled++;
+    if (enemies[stats.currentEnemy].align==="nature") rareItemDrop("I434",1)
+    if (enemies[stats.currentEnemy].align==="might") rareItemDrop("I435",1)
+    if (enemies[stats.currentEnemy].align==="elemental") rareItemDrop("I436",1)
+    if (enemies[stats.currentEnemy].align==="occult") rareItemDrop("I437",1)
+    if (enemies[stats.currentEnemy].align==="deific") rareItemDrop("I438",1)
+  
+  
+  
+  }
 
 
 
@@ -2278,8 +2289,13 @@ document.addEventListener('click', function(event) {
     if (upgradeMode && "skills" in items[itemID]){
       upgradeItem = itemID;
       upgradeMenu()
-
   }
+
+
+  if (!vaultMode && !sellMode && !favoriteMode && !lockMode && settings.disableFastUpgrade && "skills" in items[itemID]){
+    upgradeItem = itemID;
+    upgradeMenu()
+  } 
 
     //INVENTORY MANAGEMENT------------------------------------
     if (lockMode) {

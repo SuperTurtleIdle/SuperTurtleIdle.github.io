@@ -1044,7 +1044,7 @@ enemies.E29.tag = "showdownBoss";
 enemies.E29.attackChance = 'castRoyalPudding()'
 enemies.E29.showdown = "S1";
 enemies.E29.bestiaryItem = '"None"';
-enemies.E29.bestiarySkills = "❖ Gel Shot: Medium'+natureIcon+'Nature Damage and inflicts"+buffIcon("B36")+"Slow.";
+enemies.E29.bestiarySkills = "❖ Gel Shot: Medium"+natureIcon+"Nature Damage and inflicts"+buffIcon("B36")+"Slow.";
 
 enemies.E11 = {};
 enemies.E11.name = 'Granite Elemental';
@@ -2927,7 +2927,7 @@ items.I298.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Us
 items.I298.flavor = '"Please be Factory New."';
 items.I298.quality = 'Uncommon';
 items.I298.sell = 1000;
-items.I298.use = 'if (rpgPlayer.weaponSlot!=="none"){ items[rpgPlayer.weaponSlot].paint = rng(-365,365); weaponSwap(rpgPlayer.weaponSlot); playSound("audio/button8.mp3"); animState("playerWeapon", "gelatine 0.3s 1");  animParticleBurst(7 , "particleSpark", "playerPanel", 0);items.I298.count-- } ';
+items.I298.use = 'if (rpgPlayer.weaponSlot!=="none"){ items[rpgPlayer.weaponSlot].paint = rng(30,340); weaponSwap(rpgPlayer.weaponSlot); playSound("audio/button8.mp3"); animState("playerWeapon", "gelatine 0.3s 1");  animParticleBurst(7 , "particleSpark", "playerPanel", 0);items.I298.count-- } ';
 
 items.I299 = {};
 items.I299.name = 'Armament Lint Roller';
@@ -4718,8 +4718,8 @@ items.I184.quality = 'Epic';
 items.I184.sell = 300000;
 items.I184.max = 1;
 items.I184.use = 'gearSwap(items.I184.id, rpgPlayer.ringSlot, "rpgRingSlot", "ring")'
-items.I184.stats = 'if (items.I184.level>39) items.I184.statUp = 1; if (items.I184.level>49) items.I184.statUp = 2; if (items.I184.level>59) items.I184.statUp = 3;'
-items.I184.remove = 'items.I184.statUp = 0;'
+items.I184.stats = 'ringAdditiveMaxHp = rUpgDmg("I184", 1);if (items.I184.level>39) items.I184.statUp = 1; if (items.I184.level>49) items.I184.statUp = 2; if (items.I184.level>59) items.I184.statUp = 3;'
+items.I184.remove = 'ringAdditiveMaxHp = 0;items.I184.statUp = 0;'
 items.I184.statUp = 0;
 items.I184.cap = 70
 items.I184.series = "solstice"
@@ -4733,8 +4733,8 @@ items.I192.quality = 'Uncommon';
 items.I192.sell = 30000;
 items.I192.max = 1;
 items.I192.use = 'gearSwap(items.I192.id, rpgPlayer.ringSlot, "rpgRingSlot", "ring")'
-items.I192.stats = 'items.I192.statUp = 0.2; if (items.I192.level>29) items.I192.statUp = 0.4; if (items.I192.level>49) items.I192.statUp = 0.6'
-items.I192.remove = 'items.I192.statUp = 0;'
+items.I192.stats = 'ringAdditiveMaxHp = rUpgDmg("I192", 1); items.I192.statUp = 0.2; if (items.I192.level>29) items.I192.statUp = 0.4; if (items.I192.level>49) items.I192.statUp = 0.6'
+items.I192.remove = ' ringAdditiveMaxHp = 0; items.I192.statUp = 0;'
 items.I192.statUp = 0;
 items.I192.series = "forgotten"; 
 items.I192.cap = 40;
@@ -8195,7 +8195,7 @@ quests.A2Q4A = {};
 quests.A2Q4A.name = 'Pharmacist Assistance';
 quests.A2Q4A.difficulty = 1;
 quests.A2Q4A.description = 'I tried to get cocky with a giant world-champion cat and broke five bones. If I was a level 2 Alchemist I could turn the tables against him.';
-quests.A2Q4A.objective = `'Hand over 5 Healing Flasks <span class="questProgress">'+beautify(items.I122.count)+'/5</span>'`;
+quests.A2Q4A.objective = `'Hand over 5 Healing Flasks <span class="questProgress">'+beautify(items.I19.count)+'/5</span>'`;
 quests.A2Q4A.reward = `itemIcon("I209")+'Ephemeral Time Egg x2'`;
 quests.A2Q4A.logic = 'items.I19.count>4';
 quests.A2Q4A.effect = 'items.I19.count-=5; items.I209.count+=2;';
@@ -9688,6 +9688,16 @@ shopItems.A3S9A = {}
 shopItems.A3S9A.item = 'I55';
 shopItems.A3S9A.price = 400000;
 shopItems.A3S9A.stock = "∞";
+
+shopItems.A3S9B = {}
+shopItems.A3S9B.item = 'I438';
+shopItems.A3S9B.price = 50000;
+shopItems.A3S9B.stock = "3";
+
+shopItems.A3S9C = {}
+shopItems.A3S9C.item = 'I437';
+shopItems.A3S9C.price = 50000;
+shopItems.A3S9C.stock = "3";
 
 shopItems.A3S16 = {}
 shopItems.A3S16.item = 'I85';
