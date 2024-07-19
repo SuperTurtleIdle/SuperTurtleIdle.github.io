@@ -1263,7 +1263,7 @@ enemies.E25.bigEnemy = true;
 enemies.E25.bestiaryItem = 'bestiaryItem("I23","drop")+bestiaryItem("I467","drop")'
 enemies.E25.bestiarySkills = "❖ Booze Shot: Inflicts"+buffIcon("B1")+"Poison.<br>❖ Evil Stream: Inflicts"+buffIcon("B25")+"Hex.";
 
-var plunderDrop =  { I147:{P:uncommonDungeon,A:1}, I146:{P:uncommonDungeon,A:1}, I145:{P:uncommonDungeon,A:1}, I144:{P:uncommonDungeon,A:1}, I143:{P:uncommonDungeon,A:1},  /*armor*/  I167:{P:epicDungeon,A:1},  /*scimitar*/ I61:{P:rareDungeon,A:1},  /*card*/} 
+//var plunderDrop =  { I147:{P:uncommonDungeon,A:1}, I146:{P:uncommonDungeon,A:1}, I145:{P:uncommonDungeon,A:1}, I144:{P:uncommonDungeon,A:1}, I143:{P:uncommonDungeon,A:1},  /*armor*/  I167:{P:epicDungeon,A:1},  /*scimitar*/ I61:{P:rareDungeon,A:1},  /*card*/} 
 enemies.E26 = {};
 enemies.E26.name = 'Cap. Plundergeist';
 enemies.E26.level = '[lvl 40]';
@@ -1281,7 +1281,6 @@ enemies.E26.bestiaryItem = 'bestiaryItem("I147","container","Ghastly Pirate Set"
 enemies.E26.bestiarySkills = "❖ Cursed Rend: Inflicts one stack of"+buffIcon("B15")+"Curse.";
 //enemies.E26.bestiaryLoot = 'I206';
 
-var infernalusDrop = { I28:{P:rareDrop,A:1}, /*weapon*/ I175:{P:uncommonDrop,A:1}, /*ring*/ I100:{P:1,A:'rng(40,60)'}, /*material*/ I65:{P:rareDrop,A:1}, /*card*/ }
 enemies.E27 = {};
 enemies.E27.name = 'Infernalus';
 enemies.E27.level = '[lvl 40]';
@@ -1291,7 +1290,7 @@ enemies.E27.attack = 1000000;
 enemies.E27.area = 'A4';
 enemies.E27.exp = returnExp(40)/1800;
 enemies.E27.align = 'elemental';
-enemies.E27.drop =  "rollTable(infernalusDrop, 1)";
+enemies.E27.drop =  'rareItemDrop("I28",rareDrop)+rareItemDrop("I175",uncommonDrop)+rareItemDrop("I65",rareDrop)+rareItemDrop("I100",1,rng(40,60))';
 enemies.E27.attackChance = 'castInfernalus();';
 enemies.E27.tag = 'areaBoss';
 enemies.E27.bigEnemy = true;
@@ -2832,7 +2831,7 @@ items.I213.sell = 0;
 items.I213.use = 'if (items.I213.count>3) { playSound("audio/talent.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); items.I213.count-=4; items.I214.count++; }';
 
 items.I219 = {};
-items.I219.name = 'Busted Improbability Drive [WIP]';
+items.I219.name = 'Busted Improbability Drive';
 items.I219.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Attempts to materialise a drop you haven\'t gotten yet from the enemy you\'re currently facing. Doesn\'t work with epic items and above.<FONT COLOR="gray"> It doesn\'t seem very reliable, though...'
 items.I219.flavor = '"Time is an illusion. Lunchtime doubly so."';
 items.I219.quality = 'Rare';
@@ -9211,7 +9210,7 @@ recipes.EN3.amount1 = 2;
 
 recipes.EA1A = {};
 recipes.EA1A.level = 5;
-recipes.EA1A.exp = 1;
+recipes.EA1A.exp = 3;
 recipes.EA1A.timer = 15;
 recipes.EA1A.item = 'I21';
 recipes.EA1A.reagent1 = 'I48';
@@ -9444,7 +9443,7 @@ jobPanels.EA.category = 'engineeringRecipes';
 jobPanels.EA.icon = 'I382';
 
 jobPanels.EI = {}
-jobPanels.EI.name = 'Accesories';
+jobPanels.EI.name = 'Accessories';
 jobPanels.EI.hidden = false;
 jobPanels.EI.unlocked = true;
 jobPanels.EI.category = 'engineeringRecipes';
@@ -11013,6 +11012,13 @@ mail.MO2.item = 'I26'
 mail.MO2.effect = "items.I26.count++; unlocks.magic=true; unlocks.skills=true; unlocksReveal(); did('skillsButton').style.animation = 'newGameTip 1s infinite linear'"
 mail.MO2.sender = "Robertus Shellington"
 mail.MO2.cover = "I215"
+
+mail.MO3 = {};
+mail.MO3.title = 'A star in the making'
+mail.MO3.body = 'I will wait for thee once level 30 hath been reached'
+mail.MO3.effect = "items.I26.count++; unlocks.magic=true; unlocks.skills=true; unlocksReveal(); did('skillsButton').style.animation = 'newGameTip 1s infinite linear'"
+mail.MO3.sender = "?????"
+mail.MO3.cover = "I215"
 
 
 
@@ -12736,7 +12742,7 @@ gametip.gt7.description = 'Gear automatically registers in the Armory once acqui
 
 gametip.gt12 = {}
 gametip.gt12.name = "Dungeons";
-gametip.gt12.description = "Dungeons are perillious instances where healing and other menus are disabled. Bar the first one, they consist of multiple tough bosses to defeat. You will remain inside the dungeon until its fully completed.<br><br>You can enter dungeons up to three times at a time. Once one entrance is used up, you will need to wait one hour for the entrance to recharge.<br><br>However, if there is no entrance available, the timer will be brought back to 30 minutes maximum.<br><br>Additionally, if there are no entrances left, you can spend a"+colorTag("Dungeon Voucher", "darkorange")+"to enter a Dungeon, ignoring the timer."
+gametip.gt12.description = "Dungeons are perillious instances where passive health regeneration and other menus are disabled. Bar the first one, they consist of multiple tough bosses to defeat. You will remain inside the dungeon until its fully completed.<br><br>You can enter dungeons up to three times at a time. Once one entrance is used up, you will need to wait one hour for the entrance to recharge.<br><br>However, if there is no entrance available, the timer will be brought back to 30 minutes maximum.<br><br>Additionally, if there are no entrances left, you can spend a"+colorTag("Dungeon Voucher", "darkorange")+"to enter a Dungeon, ignoring the timer."
 
 gametip.gt10 = {}
 gametip.gt10.name = "Penguins Helpers";

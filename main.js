@@ -1798,6 +1798,7 @@ function unlocksReveal(){
     //other    
     if (enemies.E23.killCount>0) sendMail("MO1");
     if (rpgClass.noClass.level===30) sendMail("MO2");
+    if (stats.questsCompleted>=14) sendMail("MO3"); //rasmondius pre30
 
     
 }
