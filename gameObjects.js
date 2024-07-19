@@ -8199,7 +8199,7 @@ quests.A2Q4A.description = 'I tried to get cocky with a giant world-champion cat
 quests.A2Q4A.objective = `'Hand over 5 Healing Flasks <span class="questProgress">'+beautify(items.I122.count)+'/5</span>'`;
 quests.A2Q4A.reward = `itemIcon("I209")+'Ephemeral Time Egg x2'`;
 quests.A2Q4A.logic = 'items.I19.count>4';
-quests.A2Q4A.effect = 'items.I19.count-=5; items.I19.count+=2;';
+quests.A2Q4A.effect = 'items.I19.count-=5; items.I209.count+=2;';
 quests.A2Q4A.icon = "img/src/items/I19.jpg";
 
 quests.A2Q5 = {};
