@@ -307,7 +307,7 @@
             <div class="separatorHeader"><div class="separator"></div><div class="separator"></div></div>
             <span class="settingsFlex">
             <img src="img/sys/deleteData.png">
-            <p><br>With the release of 0.4, 0.3 saves became outdated, as the two versions are too fundamentally different from each other. It is <strong>very advised</strong> that you start over a new savefile.<br><br><strong style="color: #B5DD7B;">Soulbound</strong> items such as the completition medal and some extra goodies will carry over this new save automatically. For more information, check the game's Discord.<br><br>Sorry for the trouble.</p>
+            <p><br>With the release of 0.4, the game got overhauled and 0.3 saves became outdated, as the two versions are too fundamentally different from each other. It is <strong>very advised</strong> that you start over a new savefile by deleting the current data.<br><br><strong style="color: #B5DD7B;">Soulbound</strong> items such as the completition medal and some extra goodies will carry over this new save automatically. For more information, check the game's Discord.<br><br>Sorry for the trouble.</p>
             <button style="border: white solid 2px; color:white; background: red; font-weight: 400;" onclick="closePanels()">UNDERSTOOD</button>
             </span>
         </div>
@@ -794,7 +794,7 @@
                     <p>Grand Archive</p>
                 </div>
                 
-                <div class=botonLateral id="jobTab" style="display:none">
+                <div class=botonLateral id="jobTab" style="display:none" onclick="updateRecipeButton(currentRecipe)">
                     <img src="img/src/icons/job.png">
                     <p>Guildwork</p>
                 </div>

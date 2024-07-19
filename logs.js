@@ -417,10 +417,12 @@ function createArmory() {
 
 
     div.addEventListener("click", function (event) {
+      if (items[i].gotOnce){
       closePanels();
       upgradeItem = i;
       upgradeMenu();
       returnToArmory = true;
+    }
     });
 
     
@@ -521,11 +523,11 @@ function tooltipArmory(i) {
   did("tooltipDescription").innerHTML = "";
   did('tooltipImage').style.filter = "grayscale(0.6)"
 
-  if (items[i].armoryState==="partial") did("tooltipDescription").innerHTML = '<FONT COLOR="gray">Upgrade this item to level '+items[i].cap+' to complete the entry and unlock its potential<br><br><FONT COLOR="#d194cd">Click to open the upgrade menu of this item<div class="separador"></div>';
+  if (items[i].armoryState==="partial") did("tooltipDescription").innerHTML = rUpgLvl(i)+'<br><FONT COLOR="gray">Upgrade this item to level '+items[i].cap+' to complete the entry and unlock its potential<br><br><FONT COLOR="#d194cd">Click to open the upgrade menu of this item<div class="separador"></div>';
 
   if (items[i].armoryState==="complete"){
     did('tooltipImage').style.filter = "grayscale(0)"
-    did("tooltipDescription").innerHTML = '<span class="logStat">[+ 10 Mastery]</span>';
+    did("tooltipDescription").innerHTML = rUpgLvl(i)+'<br><span class="logStat">[+ 10 Mastery]</span>';
 
   }
 

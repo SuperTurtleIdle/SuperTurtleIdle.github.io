@@ -4395,7 +4395,7 @@ margin-left: 0.5rem;
     width: 95%;
     display: flex;
     border-radius: 0.1rem;
-    background-size: contain !important;
+    background-size: 100% !important;
     margin-bottom: 0.4rem;
     transition: 0.4s ;
     filter: brightness(0.75);

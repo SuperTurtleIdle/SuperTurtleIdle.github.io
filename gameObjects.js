@@ -863,10 +863,10 @@ enemies.E13.bestiaryItem = 'bestiaryTag("Requires: ⛏️ Gathering Level 1")+be
 enemies.E4 = {};
 enemies.E4.name = 'Hoopperoona';
 enemies.E4.level = '[lvl 10]';
-enemies.E4.hp = 5000;
+enemies.E4.hp = 8000;
 enemies.E4.area = 'A1';
 enemies.E4.description = 'An overgrown arachnid that doesn\'t seem too up for conversation.';
-enemies.E4.attack = 60;
+enemies.E4.attack = 70;
 enemies.E4.exp = returnExp(10)/200;
 enemies.E4.attackChance = 'castHoopperoona()';
 enemies.E4.drop = 'rareItemDrop("I83",uncommonDrop)+rareItemDrop("I192",uncommonDrop)+rareItemDrop("I47",1)+rareItemDrop("I57",1,rng(40,60))'; 
@@ -1087,7 +1087,6 @@ enemies.E22.align = 'nature';
 enemies.E22.bestiaryItem = 'bestiaryItem("I310","drop")';
 enemies.E22.tag = 'dungeonEnemy';
 
-var pringuLoot =  { I142:{P:uncommonDungeon,A:1}, I141:{P:uncommonDungeon,A:1}, I140:{P:uncommonDungeon,A:1}, I139:{P:uncommonDungeon,A:1}, I138:{P:uncommonDungeon,A:1},  /*armor*/ I60:{P:rareDungeon,A:1},/*weapon*/}
 enemies.E23 = {};
 enemies.E23.name = 'Pringu Emperor';
 enemies.E23.level = '[lvl 32]';
@@ -1097,14 +1096,13 @@ enemies.E23.attack = 50000;
 enemies.E23.exp = 0;
 enemies.E23.area = 'A5';
 enemies.E23.align = 'nature';
-enemies.E23.drop =  "rollTable(pringuLoot, 1); unlocksReveal(); shopItems.A3S22.unlocked = true; shopItems.A3S18.unlocked = true; shopItems.A3S19.unlocked = true;";
+enemies.E23.drop =  'rareItemDrop("I142",uncommonDungeon)+rareItemDrop("I141",uncommonDungeon)+rareItemDrop("I140",uncommonDungeon)+rareItemDrop("I139",uncommonDungeon)+rareItemDrop("I138",uncommonDungeon)+rareItemDrop("I60",rareDungeon)+                                      unlocksReveal(); shopItems.A3S22.unlocked = true; shopItems.A3S18.unlocked = true; shopItems.A3S19.unlocked = true;';
 enemies.E23.tag = "finalBoss";
 enemies.E23.attackChance = 'castPringuEmperor()';
 enemies.E23.bigEnemy = true;
 enemies.E23.bestiaryItem = 'bestiaryItem("I139","drop", "Pringu Armor Set")+bestiaryItem("I60","drop")';
 enemies.E23.bestiarySkills = "❖ Spit Fish: Inflicts"+buffIcon("B31")+"Seized.<br>❖ Royal Authority: Heals when low HP.";
 
-var terragosaDrop = { I27:{P:epicDrop,A:1}, /*weapon*/ I173:{P:uncommonDrop,A:1}, /*ring*/ I71:{P:1,A:'rng(40,60)'}, /*material*/ }
 enemies.E12 = {};
 enemies.E12.name = 'Terragosa';
 enemies.E12.level = '[lvl 35]';
@@ -1114,7 +1112,7 @@ enemies.E12.attack = 40000;
 enemies.E12.exp = returnExp(30)/1800;
 enemies.E12.area = 'A3';
 enemies.E12.align = 'elemental';
-enemies.E12.drop =  "rollTable(terragosaDrop, 1);"; 
+enemies.E12.drop =  'rareItemDrop("I27",epicDrop)+rareItemDrop("I173",uncommonDrop)+rareItemDrop("I71",1,rng(40,60))';
 enemies.E12.attackChance = 'castTerragosa()';
 enemies.E12.tag = 'areaBoss';
 enemies.E12.bigEnemy = true;
@@ -1258,7 +1256,7 @@ enemies.E25.description = 'A terrible mutation manifested by the evil deeds of p
 enemies.E25.attack = 500000;
 enemies.E25.exp = 0;
 enemies.E25.align = 'occult';
-enemies.E25.drop =  'rareItemDrop("I39",rareDungeon)+rareItemDrop("I39", 60)'
+enemies.E25.drop =  'rareItemDrop("I23",rareDungeon)+rareItemDrop("I467", 60)'
 enemies.E25.tag = "stageBoss1";
 enemies.E25.attackChance = 'castMalvarrel()';
 enemies.E25.bigEnemy = true;
@@ -1275,7 +1273,7 @@ enemies.E26.attack = 2500000;
 enemies.E26.exp = 0;
 enemies.E26.area = 'A6';
 enemies.E26.align = 'occult';
-enemies.E26.drop =  "rollTable(plunderDrop, 1); shopItems.A4S14.unlocked = true; shopItems.A4S15.unlocked = true;shopItems.A4S16.unlocked = true;shopItems.A4S20.unlocked = true;";
+enemies.E26.drop =  'rareItemDrop("I147",uncommonDungeon)+rareItemDrop("I146",uncommonDungeon)+rareItemDrop("I145",uncommonDungeon)+rareItemDrop("I144",uncommonDungeon)+rareItemDrop("I143",uncommonDungeon)+rareItemDrop("I167",epicDungeon)+rareItemDrop("I61",rareDungeon);                          shopItems.A4S14.unlocked = true; shopItems.A4S15.unlocked = true;shopItems.A4S16.unlocked = true;shopItems.A4S20.unlocked = true;';
 enemies.E26.tag = "finalBoss";
 enemies.E26.attackChance = 'castPlundergeist()';
 enemies.E26.bigEnemy = true;
@@ -2782,38 +2780,38 @@ items.I208.max = 10;
 
 items.I209 = {};
 items.I209.name = 'Ephemeral Time Egg';
-items.I209.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 1 hour of offline progress<br><FONT COLOR="gray"> (Only works if the current enemy has been defeated more than 100 times)'
+items.I209.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 1 hour of offline progress<br><FONT COLOR="gray"> (Doesnt work on bosses or if the current enemy has been defeated less than 100 times)'
 items.I209.flavor = '"...Time, the very essence of change and decay, which would hatch forth and the very heartbeat of existence, would find its genesis..."';
 items.I209.quality = 'Rare';
 items.I209.sell = 1000;
-items.I209.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((3600/60)*(playerPenguinPower/15),"egg"); items.I209.count--; }';
+items.I209.use = 'if (farmable && !bossTime) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((3600/60)*(playerPenguinPower/15),"egg"); items.I209.count--; }';
 items.I209.max = 50;
 
 items.I210 = {};
 items.I210.name = 'Perennial Time Egg';
-items.I210.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 6 hours of offline progress<br><FONT COLOR="gray"> (Only works if the current enemy has been defeated more than 100 times)'
+items.I210.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 6 hours of offline progress<br><FONT COLOR="gray"> (Doesnt work on bosses or if the current enemy has been defeated less than 100 times)'
 items.I210.flavor = '"...Encased within the shell of the cosmic ovum lay the potential for eternity, awaiting the pivotal moment of hatching, as within resided..."';
 items.I210.quality = 'Epic';
 items.I210.sell = 10000;
-items.I210.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((21600/60)*(playerPenguinPower/15),"egg"); items.I210.count--; }';
+items.I210.use = 'if (farmable && !bossTime) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((21600/60)*(playerPenguinPower/15),"egg"); items.I210.count--; }';
 items.I210.max = 20;
 
 items.I211 = {};
 items.I211.name = 'Everlasting Time Egg';
-items.I211.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 3 days of offline progress<br><FONT COLOR="gray"> (Only works if the current enemy has been defeated more than 100 times)'
+items.I211.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 3 days of offline progress<br><FONT COLOR="gray"> (Doesnt work on bosses or if the current enemy has been defeated less than 100 times)'
 items.I211.flavor = '"—In the depths of its ancient shell harbored the essence of creation itself. And so, in an epoch-shattering moment, amidst the swirling mists of eternity, it laid an egg..."';
 items.I211.quality = 'Mythic';
 items.I211.sell = 50000;
-items.I211.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((259200/60)*(playerPenguinPower/15),"egg"); items.I211.count--; }';
+items.I211.use = 'if (farmable && !bossTime) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((259200/60)*(playerPenguinPower/15),"egg"); items.I211.count--; }';
 items.I211.max = 10;
 
 items.I212 = {};
 items.I212.name = 'Timeless Time Egg';
-items.I212.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 2 weeks of offline progress<br><FONT COLOR="gray"> (Only works if the current enemy has been defeated more than 100 times)'
+items.I212.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 2 weeks of offline progress<br><FONT COLOR="gray"> (Doesnt work on bosses or if the current enemy has been defeated less than 100 times)'
 items.I212.flavor = '"...As it unfurled its wings, ages passed like fleeting shadows, civilizations rose and crumbled, and the land itself bore witness to the inexorable march of time."';
 items.I212.quality = 'Legendary';
 items.I212.sell = 200000;
-items.I212.use = 'if (farmable) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((1209600/60)*(playerPenguinPower/15),"egg"); items.I212.count--; }';
+items.I212.use = 'if (farmable && !bossTime) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((1209600/60)*(playerPenguinPower/15),"egg"); items.I212.count--; }';
 items.I212.max = 10;
 
 items.I291 = {};
@@ -3835,7 +3833,7 @@ items.I74.cap = 30;
 
 items.I75 = {};
 items.I75.name = 'Plated Explorer Gloves';
-items.I75.description =`'Equipable - Hands<br>'+rUpgLvl("I75")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I73", 1))+' Max Health'`
+items.I75.description =`'Equipable - Hands<br>'+rUpgLvl("I75")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I75", 1))+' Max Health'`
 items.I75.skills = 'rUpgSkill("I75", "Moss Print: +10%"+natureIcon+"Nature Resistance","passive",15)'
 items.I75.tier = 'Explorer Set';
 items.I75.flavor = '"Adventures await at every step."';
@@ -8160,7 +8158,7 @@ quests.A2Q1.difficulty = 2;
 quests.A2Q1.description = 'The animals punched the heck out of our workshops. We will let anyone who help us repair them into the Crafters Guild.';
 quests.A2Q1.objective = `'Hand over 50 copper ore <span class="questProgress">'+beautify(items.I32.count)+'/50</span><br>❖Hand over 100 rabbit hide <span class="questProgress">'+beautify(items.I114.count)+'/100</span>'`;
 quests.A2Q1.logic = 'items.I32.count>49 && items.I114.count>99';
-quests.A2Q1.effect = 'items.I32.count-=100; items.I114.count-=100; unlocks.jobs = true; gametipUnlock("gt5")';
+quests.A2Q1.effect = 'items.I32.count-=50; items.I114.count-=100; unlocks.jobs = true; gametipUnlock("gt5")';
 quests.A2Q1.reward = `itemIcon("I86")+'Access to the Guildwork Tab'`;
 quests.A2Q1.icon = "img/src/items/I69.jpg";
 
@@ -8193,6 +8191,16 @@ quests.A2Q4.reward = `itemIcon("I93")+'Ornated Stamper x3'`;
 quests.A2Q4.logic = 'items.I122.count>9';
 quests.A2Q4.effect = 'items.I122.count=0; items.I93.count+=3;';
 quests.A2Q4.icon = "img/src/items/I121.jpg";
+
+quests.A2Q4A = {};
+quests.A2Q4A.name = 'Pharmacist Assistance';
+quests.A2Q4A.difficulty = 1;
+quests.A2Q4A.description = 'I tried to get cocky with a giant world-champion cat and broke five bones. If I was a level 2 Alchemist I could turn the tables against him.';
+quests.A2Q4A.objective = `'Hand over 5 Healing Flasks <span class="questProgress">'+beautify(items.I122.count)+'/5</span>'`;
+quests.A2Q4A.reward = `itemIcon("I209")+'Ephemeral Time Egg x2'`;
+quests.A2Q4A.logic = 'items.I19.count>4';
+quests.A2Q4A.effect = 'items.I19.count-=5; items.I19.count+=2;';
+quests.A2Q4A.icon = "img/src/items/I19.jpg";
 
 quests.A2Q5 = {};
 quests.A2Q5.name = 'Sovereign Affairs';
@@ -12688,7 +12696,7 @@ gametip.gt9.description = bestiaryTag("New Inventory Functions")+'The <img src="
 
 gametip.gt2 = {}
 gametip.gt2.name = "Equipment Upgrading";
-gametip.gt2.description = 'Gear with a level on their description is eligible to upgrade. To upgrade gear, press the'+colorTag("Upgrade", "#db4242")+'button on your inventory, and select the piece you want to upgrade.<br><br>As gear upgrades, it will often acquire new skills and bonuses if the level requirement is met. Gear will always keep their level even if its sold.';
+gametip.gt2.description = 'Gear with a level on their description is eligible to upgrade. To upgrade gear, press the'+colorTag("Upgrade", "#db4242")+'button on your inventory, and select the piece you want to upgrade.<br><br>As gear upgrades, it will often acquire new skills and bonuses if the level requirement is met. Gear will always keep their level even if its sold.<br><br>Keep in mind that higher rarities of gear will demand higher quantities of resources and shells, so consider the costs before upgrading them.';
 
 gametip.gt6 = {}
 gametip.gt6.name = "Alignments";

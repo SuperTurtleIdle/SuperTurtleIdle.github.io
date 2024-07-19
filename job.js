@@ -136,88 +136,93 @@ function createRecipe() {
 var currentRecipe = 'SN1'
 function recipeButton(r) {
    if (did(r + 'recipe')) {
-       did(r + 'recipe').addEventListener('click', function () { 
-        if(recipes[r].level <= (jobs[rpgPlayer.currentJob].level)){ //clickable if the player has enough level
-            playSound("audio/button4.mp3")
-           currentRecipe = r
-            did("recipePanel").style.display = "flex";
-           //cleans the itemboxes
-           did('recipeOutcome').innerHTML = "";
-           did('recipeReagents').innerHTML = "";
-           //highlight of the recipe
-           var elements = document.querySelectorAll('.craftRecipeActive');
-           elements.forEach(function(element) {
-           element.classList.replace('craftRecipeActive', 'craftRecipe'); })
-           did(r + 'recipe').className  = 'craftRecipeActive';
-           //set the item uptop
-           did('recipeImage').style.border = returnQualityColor(items[recipes[r].item].quality) +' solid 0.15rem';
-           did('recipeTitle').style.color=returnQualityColor(items[recipes[r].item].quality);
-           
-           craftingBarUi();
-           
-           did('recipeImage').src = "img/src/items/"+recipes[r].item+".jpg";
-           //display quantity if its not an unique item
-           did('recipeTitle').innerHTML = items[recipes[r].item].name;
-
-           var minutes = Math.floor(recipes[r].timer / 60); 
-           var seconds = recipes[r].timer % 60;
-           did('recipeTimer').innerHTML = "⏱️ "+ minutes+"m "+seconds+"s";
-
-
-           let description1 = "";
-           if (r.startsWith("S")) description1 = "Blacksmith"
-           if (r.startsWith("A")) description1 = "Alchemy"
-           if (r.startsWith("C")) description1 = "Cooking"
-           if (r.startsWith("E")) description1 = "Engineering"
-
-           did('recipeDescription').innerHTML = 'Requires '+description1+' ['+recipes[r].level+']<br>Creates a '+items[recipes[r].item].name+'';
-           if ("description" in recipes[r]) did('recipeDescription').innerHTML = 'Requires '+description1+' ['+recipes[r].level+']<br>'+recipes[r].description+'';
-
-           
-    function addReagent(reagent, amount){       
-           
-    const itemdiv = document.createElement('div');
-    itemdiv.id = reagent + 'reagent';  
-    itemdiv.innerHTML = '<img src = "img/src/items/'+items[reagent].id+'.jpg"><div class="itemCount" id="'+items[reagent].id + "reagentCount"+'">'+beautify(amount)+'</div>';
-    itemdiv.className = 'craftBookRecipeReagent';
-    did('recipeReagents').appendChild(itemdiv);
-    if (items[reagent].count<amount) {itemdiv.style.outline = "#f54842 solid 0.15rem"}
-    else {
-    itemdiv.style.outline = returnQualityColor(items[reagent].quality) +' solid 0.15rem';}
-    tooltipReagent(reagent)    
-    if (items[reagent].upgradeable && did(items[reagent].id + "reagentCount")) did(items[reagent].id + "reagentCount").innerHTML = returnRoman(amount.toString())
-
-    }       
-
-
-           
-    addReagent(recipes[r].reagent1, recipes[r].amount1);       
-    if ('reagent2' in recipes[r]) addReagent(recipes[r].reagent2, recipes[r].amount2);
-    if ('reagent3' in recipes[r]) addReagent(recipes[r].reagent3, recipes[r].amount3); 
-    if ('reagent4' in recipes[r]) addReagent(recipes[r].reagent4, recipes[r].amount4);          
-           
-    function addOutcome(outcome){       
-           
-    const itemdiv = document.createElement('div');
-    itemdiv.id = outcome + 'outcome';  
-
-    itemdiv.innerHTML = '<img src = "img/src/items/'+items[outcome].id+'.jpg">';
-    if ("itemCount" in recipes[r]) itemdiv.innerHTML = '<img src = "img/src/items/'+items[outcome].id+'.jpg"><div class="itemCount">'+recipes[r].itemCount+'</div>';
-    itemdiv.className = 'craftBookRecipeReagent'; 
-    did('recipeOutcome').appendChild(itemdiv);
-    itemdiv.style.outline = returnQualityColor(items[outcome].quality) +' solid 0.15rem';
-    tooltipOutcome(outcome)   
-    
-    
-    }       
-           
-    addOutcome(recipes[r].item); 
-           
-      }     
-       });
+    did(r + 'recipe').addEventListener('click', function() {
+        updateRecipeButton(r);
+    });
+        
    }
     
 }
+
+function updateRecipeButton(r) {
+    if(recipes[r].level <= (jobs[rpgPlayer.currentJob].level)){ //clickable if the player has enough level
+        playSound("audio/button4.mp3")
+       currentRecipe = r
+        did("recipePanel").style.display = "flex";
+       //cleans the itemboxes
+       did('recipeOutcome').innerHTML = "";
+       did('recipeReagents').innerHTML = "";
+       //highlight of the recipe
+       var elements = document.querySelectorAll('.craftRecipeActive');
+       elements.forEach(function(element) {
+       element.classList.replace('craftRecipeActive', 'craftRecipe'); })
+       did(r + 'recipe').className  = 'craftRecipeActive';
+       //set the item uptop
+       did('recipeImage').style.border = returnQualityColor(items[recipes[r].item].quality) +' solid 0.15rem';
+       did('recipeTitle').style.color=returnQualityColor(items[recipes[r].item].quality);
+       
+       craftingBarUi();
+       
+       did('recipeImage').src = "img/src/items/"+recipes[r].item+".jpg";
+       //display quantity if its not an unique item
+       did('recipeTitle').innerHTML = items[recipes[r].item].name;
+
+       var minutes = Math.floor(recipes[r].timer / 60); 
+       var seconds = recipes[r].timer % 60;
+       did('recipeTimer').innerHTML = "⏱️ "+ minutes+"m "+seconds+"s";
+
+
+       let description1 = "";
+       if (r.startsWith("S")) description1 = "Blacksmith"
+       if (r.startsWith("A")) description1 = "Alchemy"
+       if (r.startsWith("C")) description1 = "Cooking"
+       if (r.startsWith("E")) description1 = "Engineering"
+
+       did('recipeDescription').innerHTML = 'Requires '+description1+' ['+recipes[r].level+']<br>Creates a '+items[recipes[r].item].name+'';
+       if ("description" in recipes[r]) did('recipeDescription').innerHTML = 'Requires '+description1+' ['+recipes[r].level+']<br>'+recipes[r].description+'';
+
+       
+function addReagent(reagent, amount){       
+       
+const itemdiv = document.createElement('div');
+itemdiv.id = reagent + 'reagent';  
+itemdiv.innerHTML = '<img src = "img/src/items/'+items[reagent].id+'.jpg"><div class="itemCount" id="'+items[reagent].id + "reagentCount"+'">'+beautify(amount)+'</div>';
+itemdiv.className = 'craftBookRecipeReagent';
+did('recipeReagents').appendChild(itemdiv);
+if (items[reagent].count<amount) {itemdiv.style.outline = "#f54842 solid 0.15rem"}
+else {
+itemdiv.style.outline = returnQualityColor(items[reagent].quality) +' solid 0.15rem';}
+tooltipReagent(reagent)    
+if (items[reagent].upgradeable && did(items[reagent].id + "reagentCount")) did(items[reagent].id + "reagentCount").innerHTML = returnRoman(amount.toString())
+
+}       
+
+
+       
+addReagent(recipes[r].reagent1, recipes[r].amount1);       
+if ('reagent2' in recipes[r]) addReagent(recipes[r].reagent2, recipes[r].amount2);
+if ('reagent3' in recipes[r]) addReagent(recipes[r].reagent3, recipes[r].amount3); 
+if ('reagent4' in recipes[r]) addReagent(recipes[r].reagent4, recipes[r].amount4);          
+       
+function addOutcome(outcome){       
+       
+const itemdiv = document.createElement('div');
+itemdiv.id = outcome + 'outcome';  
+
+itemdiv.innerHTML = '<img src = "img/src/items/'+items[outcome].id+'.jpg">';
+if ("itemCount" in recipes[r]) itemdiv.innerHTML = '<img src = "img/src/items/'+items[outcome].id+'.jpg"><div class="itemCount">'+recipes[r].itemCount+'</div>';
+itemdiv.className = 'craftBookRecipeReagent'; 
+did('recipeOutcome').appendChild(itemdiv);
+itemdiv.style.outline = returnQualityColor(items[outcome].quality) +' solid 0.15rem';
+tooltipOutcome(outcome)   
+
+
+}       
+       
+addOutcome(recipes[r].item); 
+       
+  }     
+   }
 
 did('craftButtonOne').addEventListener('click', function() { craftButton('once'); });
 did('craftButtonAll').addEventListener('click', function() { craftButton('all'); });
@@ -262,6 +267,7 @@ function craftButton(count){
          if ('reagent3' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent3].count -= recipes[currentRecipe].amount3*itemQueueValue;
          if ('reagent4' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent4].count -= recipes[currentRecipe].amount4*itemQueueValue;
          addItem()
+         updateRecipeButton(currentRecipe)
         }
 
         if (count === "all"){
@@ -270,6 +276,7 @@ function craftButton(count){
             if ('reagent3' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent3].count -= recipes[currentRecipe].amount3;
             if ('reagent4' in recipes[currentRecipe]) items[recipes[currentRecipe].reagent4].count -= recipes[currentRecipe].amount4;
             addItem()
+            updateRecipeButton(currentRecipe)
         }
 
 
@@ -354,12 +361,21 @@ function craftingProgress(){
 
     
     //gives exp if not gray
-    if(recipes[r].level > (jobs[rpgPlayer.currentJob].level - 10)) {
+    let profession = "blacksmith"
+    if (r.startsWith("A")) profession = "alchemy"
+    if (r.startsWith("E")) profession = "engineering"
+
+    if(recipes[r].level > (jobs[profession].level - 10)) {
 
     if (r.startsWith("S")) jobs.blacksmith.exp += recipes[r].exp;
     if (r.startsWith("C")) jobs.cooking.exp += recipes[r].exp;
     if (r.startsWith("A")) jobs.alchemy.exp += recipes[r].exp;
     if (r.startsWith("E")) jobs.engineering.exp += recipes[r].exp;
+
+   
+
+
+
     jobExp();
     }
     
@@ -369,6 +385,7 @@ function craftingProgress(){
     if ("itemCount" in recipes[r]) items[recipes[r].item].count += recipes[r].itemCount-1
     stats.craftedItems++;
     addItem()
+
     
 
     if (recipes[r].crafting === 'once' && recipes[r].craftingQueue === 1){

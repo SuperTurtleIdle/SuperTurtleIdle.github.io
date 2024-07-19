@@ -1668,7 +1668,7 @@ function castHoopperonasPhylactery(){
     animImageSplash("bite", "enemyPanel", "impact", 0);
     animParticleBurst(7 , "particlePoison", "enemyPanel", 0);
     animState(stats.currentEnemy+"enemy", "shake 0.4s 1");
-    buffs.B54.time=10;
+    buffs.B54.time+=10;
     if (items.I47.level>19) buffs.B107.time+=10;
     playerBuffs()
     }

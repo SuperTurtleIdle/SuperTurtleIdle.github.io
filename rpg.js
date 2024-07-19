@@ -3908,7 +3908,7 @@ function rUpgBaseMat(id, mode){
 
 
   } else if (mode==="display") {
-    return '<FONT COLOR='+returnQualityColor(items[rUpgBaseMat(id, "item")].quality)+'>▪ '+beautify(rUpgBaseMat(id))+'<img src="img/src/items/'+items[rUpgBaseMat(id, "item")].img+'.jpg" style="border: solid 1px '+returnQualityColor(items[rUpgBaseMat(id, "item")].quality)+'">'+items[rUpgBaseMat(id, "item")].name+"<br>"
+    return '<FONT COLOR='+returnQualityColor(items[rUpgBaseMat(id, "item")].quality)+'>▪ '+beautify(rUpgBaseMat(id))+'<img src="img/src/items/'+items[rUpgBaseMat(id, "item")].img+'.jpg" style="border: solid 1px '+returnQualityColor(items[rUpgBaseMat(id, "item")].quality)+'">'+items[rUpgBaseMat(id, "item")].name+" <FONT COLOR='gray'>("+beautify(items[rUpgBaseMat(id, "item")].count)+")<br>"
 
   } else {
 
@@ -3962,7 +3962,7 @@ function rUpgCapMat(id, mode){
 
   } else if (mode==="display") {
     if (rUpgCapMat(id)!==undefined){
-      return '<FONT COLOR='+returnQualityColor(items[rUpgCapMat(id, "item")].quality)+'>▪ '+beautify(rUpgCapMat(id))+'<img src="img/src/items/'+items[rUpgCapMat(id, "item")].img+'.jpg" style="border: solid 1px '+returnQualityColor(items[rUpgCapMat(id, "item")].quality)+'">'+items[rUpgCapMat(id, "item")].name+"<br>"
+      return '<FONT COLOR='+returnQualityColor(items[rUpgCapMat(id, "item")].quality)+'>▪ '+beautify(rUpgCapMat(id))+'<img src="img/src/items/'+items[rUpgCapMat(id, "item")].img+'.jpg" style="border: solid 1px '+returnQualityColor(items[rUpgCapMat(id, "item")].quality)+'">'+items[rUpgCapMat(id, "item")].name+" <FONT COLOR='gray'>("+beautify(items[rUpgCapMat(id, "item")].count)+")<br>"
     } else return ""
 
   } 
@@ -4011,7 +4011,7 @@ function rUpgShells(id, mode){
   if (items[id].quality==="Mythic") multiplier = 24;
 
   if (mode==="display"){
-    return '<FONT COLOR=White>▪ '+beautify(rUpgShells(id))+'<img src="img/src/icons/coin.png" style="border: solid 1px white">Shells <br>'
+    return '<FONT COLOR=White>▪ '+beautify(rUpgShells(id))+'<img src="img/src/icons/coin.png" style="border: solid 1px white">Shells <FONT COLOR=gray>('+beautify(rpgPlayer.coins)+')<br>'
   } else{
     return (500 * Math.pow(1.05, items[id].level)) * multiplier;
 
