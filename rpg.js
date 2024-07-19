@@ -3449,7 +3449,7 @@ function returnDifficulty(level){
 
 function questReward(q) { //generic rewards for quests
   if ("money" in quests[q]) stats.coins+=quests[q].money;
-  else rpgPlayer.coins+=Math.min(Math.max(500,stats.totalCoins*0.5), 250000)
+  else rpgPlayer.coins+=Math.min(Math.max(500,stats.totalCoins*0.25), 250000)
   rpgClass[stats.currentClass].currentExp += rpgClass[stats.currentClass].nextExp*0.4;
     
   
@@ -6158,7 +6158,7 @@ function tooltipQuests(id) {
         did("tooltipRarity").textContent = "Quest";
         did("tooltipRarity").style.color = "#FFD100";
         did("tooltipName").style.color = "#FFD100";
-        let questMoney = Math.min(Math.max(500,stats.totalCoins*0.5), 250000);
+        let questMoney = Math.min(Math.max(500,stats.totalCoins*0.25), 250000);
         if ("money" in quests[id]) questMoney=quests[id].money;
         did("tooltipDescription").innerHTML = '“ '+quests[id].description+' ”<br><br><span style="color:#FFD100; font-size:1vw"> Objective:</span><br><span style="color:#deaf6a">❖ '+eval(quests[id].objective)+'</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ '+eval(quests[id].reward)+'</span><br><span style="color:#ffbd54">★ '+beautify(questMoney)+coinIcon+'Shells</span><br><span style="color:#ae77f7">★ '+beautify(rpgClass[stats.currentClass].nextExp*0.4)+' '+expIcon+'Experience</span><br><span style="color:#464ACB">★ 10'+repIcon+'Mastery</span>'
         did("tooltipFlavor").textContent = "";

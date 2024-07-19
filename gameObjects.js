@@ -4987,32 +4987,32 @@ items.I378.series = 'runic';
 
 items.I113 = {}; 
 items.I113.name = 'Soft Leather Gloves';
-items.I113.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases Shells per pat by +40';
+items.I113.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases Shells per pat by +25';
 items.I113.flavor = '"Warm and fuzzy pats are guaranteed by the soft fur of the gloves"';
 items.I113.quality = 'Upgrade';
 items.I113.sell = 0;
 items.I113.max = 1;
-items.I113.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); items.I113.statUp = 40; statsUpdate(); items.I113.count--; ';
+items.I113.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); items.I113.statUp = 25; statsUpdate(); items.I113.count--; ';
 items.I113.statUp = 0;
 
 items.I124 = {}; 
 items.I124.name = 'Ironwork Gloves';
-items.I124.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases Shells per pat by +100';
+items.I124.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases Shells per pat by +35';
 items.I124.flavor = '"Maybe it doesn\'t give the warmest pats, but it gives the most secure and firm ones."';
 items.I124.quality = 'Upgrade';
 items.I124.sell = 0;
 items.I124.max = 1;
-items.I124.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); items.I124.statUp = 100; statsUpdate();  items.I124.count--; ';
+items.I124.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); items.I124.statUp = 35; statsUpdate();  items.I124.count--; ';
 items.I124.statUp = 0;
 
 items.I128 = {}; 
 items.I128.name = 'Midas Embrace';
-items.I128.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases Shells per pat by +250';
+items.I128.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently increases Shells per pat by +50';
 items.I128.flavor = '"The love they provide is way more valuable than gold can ever hope to be."';
 items.I128.quality = 'Upgrade';
 items.I128.sell = 0;
 items.I128.max = 1;
-items.I128.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); items.I128.statUp = 250; statsUpdate(); items.I128.count--; ';
+items.I128.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); items.I128.statUp = 50; statsUpdate(); items.I128.count--; ';
 items.I128.statUp = 0;
 
 items.I202 = {}; 
@@ -7146,8 +7146,8 @@ buffs.B25.img = 'img/src/buffs/B5.jpg';
 
 buffs.B26 = {};
 buffs.B26.name = 'Click Super Boost';
-buffs.B26.description = '<FONT COLOR="#8fbaff">Clicking Power increased by'+ colorTag("x6!","#E57D08");
-buffs.B26.effect = 'buffEffect(6, "B26")';
+buffs.B26.description = '<FONT COLOR="#8fbaff">Clicking Power increased by'+ colorTag("x4!","#E57D08");
+buffs.B26.effect = 'buffEffect(4, "B26")';
 buffs.B26.turtle = true;
 buffs.B26.buff = true;
 buffs.B26.img = 'img/src/buffs/B6.jpg';
