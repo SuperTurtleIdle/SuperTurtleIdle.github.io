@@ -51,7 +51,7 @@ function buffIcon(id){
 }
 
 function rUpgLvl(id){
-  return '<FONT COLOR="gray">Level '+ items[id].level
+  return '<FONT COLOR="gray">Level '+ items[id].level +' - Tier I'
 }
 
 function rUpgSkill(id,text,type,cap){
