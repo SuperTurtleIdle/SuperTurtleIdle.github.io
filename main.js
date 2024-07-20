@@ -1786,7 +1786,7 @@ function unlocksReveal(){
     if (stats.questsCompleted>=7) sendMail("MR1");
     if (stats.questsCompleted>=12) sendMail("MR2");
     if (stats.questsCompleted>=19) sendMail("MR3");
-    if (stats.questsCompleted>=25) sendMail("MR4");
+    if (stats.questsCompleted>=26) sendMail("MR4");
     if (stats.questsCompleted>=330) sendMail("MR5"); //33
 
     //flavor
