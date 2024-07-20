@@ -489,7 +489,7 @@ function tooltipReagent(reagent) {
     did('tooltip').style.display = "flex";
     did("tooltipName").textContent = items[reagent].name;
 
-    did("tooltipPrice").innerHTML = "You Have: "+ items[reagent].count;
+    did("tooltipPrice").innerHTML = "You Have: "+ beautify(items[reagent].count);
 
     did("tooltipRarity").textContent = items[reagent].quality;
         

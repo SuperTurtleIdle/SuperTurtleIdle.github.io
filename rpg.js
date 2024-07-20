@@ -2747,10 +2747,10 @@ function sellItem(id, amount){
 
   rpgPlayer.coins += (eval(items[id].sell)*multiplicativeSellValue) * amount ;
   if (!("collectible" in items[id])) stats.totalCoins += (eval(items[id].sell)*multiplicativeSellValue) * amount ;
+  stats.soldItems += amount;
 
   items[id].count -= amount;
 
-  stats.soldItems += amount;
   if (id==="I119") logs.P26.unlocked=true
 
   removeStamps(id)
@@ -2764,10 +2764,10 @@ function sellItem(id, amount){
 
     rpgPlayer.coins += (eval(items[id].sell)*multiplicativeSellValue) * items[id].count ;
     if (!("collectible" in items[id])) stats.totalCoins += (eval(items[id].sell)*multiplicativeSellValue) * items[id].count ;
-  
+    stats.soldItems += items[id].count;
+
     items[id].count -= items[id].count;
   
-    stats.soldItems += items[id].count;
     if (id==="I119") logs.P26.unlocked=true
   
     removeStamps(id)
@@ -6490,6 +6490,7 @@ function playerBuffsDecay() {
 
 
 function playerBuffs() { //only UI
+
   for (let b in buffs) {
     if (buffs[b].time > 0) { //if time more than 0
       
@@ -6563,6 +6564,11 @@ function playerBuffs() { //only UI
 
 function buffEffect(strength, id) {
   if (buffs[id].time>0) { buffs[id].statUp = strength; statsUpdate(); updateStatsUI();}
+
+  if (rpgPlayer.ringSlot === "I176" && items.I176.level>9) buffs.B3.statUp = 0; //poison
+
+
+
 }
 
 

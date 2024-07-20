@@ -656,7 +656,7 @@ function castDaiGoran(){
         setTimeout(() => {
             animState("rpgPlayerImg", "shake 0.4s 1");
             animParticleBurst(3 , "particleFire", "particlePoison", 0);
-            if (!buffs.B34.time>0) {buffs.B3.time=15; buffs.B3.stacks=6;}
+            buffs.B3.time=15; buffs.B3.stacks=6;
             playerBuffs();
         }, 600);
     }
@@ -666,7 +666,7 @@ function castDaiGoran(){
         animState(stats.currentEnemy+"enemy", "gelatineHigh 0.4s 1");
         animImageSplash("soundWave", "enemyPanel", "wave", 200, undefined ,'boss');
         animParticleBurst(10 , "particleFire", "playerPanel", 100);
-        if (!buffs.B34.time>0) {buffs.B85.time=15;}
+        buffs.B85.time=15;
         playerBuffs();
 
 
@@ -1662,6 +1662,7 @@ function castMagewoodStaff(){ //weapon skill
         playerAttackHit()
         playSound("audio/button4.mp3"); }, 700);}
 
+
 function castHoopperonasPhylactery(){
 
     if (rng(1,10)===1){
@@ -1881,7 +1882,7 @@ function castHoopperoona(){
         animImageSplash("bite", "playerPanel", "impact", 0);
         animParticleBurst(7 , "particlePoison", "playerPanel", 0);
         animState("rpgPlayerImg", "shake 0.4s 1");
-        if (!buffs.B34.time>0) {buffs.B3.time=15; buffs.B3.stacks=4;}
+        buffs.B3.time=15; buffs.B3.stacks=4;
         playerBuffs();
     }
 
@@ -1907,7 +1908,7 @@ function castHoopperoonaLucid(){
         animImageSplash("bite", "playerPanel", "impact", 0);
         animParticleBurst(7 , "particlePoison", "playerPanel", 0);
         animState("rpgPlayerImg", "shake 0.4s 1");
-        if (!buffs.B34.time>0) {buffs.B3.time=15; buffs.B3.stacks=5;}
+        buffs.B3.time=15; buffs.B3.stacks=5;
         playerBuffs();
     }
 
@@ -2015,7 +2016,7 @@ function castMalvarrel(){
         setTimeout(() => {
             animState("rpgPlayerImg", "shake 0.4s 1");
             animParticleBurst(7 , "particlePoison", "playerPanel", 140);
-            if (!buffs.B34.time>0) {buffs.B3.time=15; buffs.B3.stacks=5;}
+            buffs.B3.time=15; buffs.B3.stacks=5;
             playerBuffs();
         }, 600);
     }
@@ -2199,8 +2200,13 @@ function castCleanse(){
         animParticleBurst(7 , "particleSpark", "playerPanel", 100);
         playSound("audio/retro1.mp3");
         animImageSplash("soundWave", "playerPanel", "wave", 100);
-        animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
-        enemyDeificDamage(playerWeaponDamage*5, "sp");}
+        //animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
+        //enemyDeificDamage(playerWeaponDamage*5, "sp");
+    }
+
+
+
+
     }, 400);
     
     }
@@ -2248,13 +2254,15 @@ function castCardFan(){
 }
 
 function castHeartOfTheCards(){
- for (let i = 0; i < 10; i++) { setTimeout(loop, 100 * i);}
+timesfired = 10
+if (items.I56.level>59) timesfired = 15
+ for (let i = 0; i < timesfired; i++) { setTimeout(loop, 100 * i);}
  function loop() {
     playSound("audio/page.mp3");
     animState("rpgPlayerImg", "gelatine 0.3s 1");
     animParticleProjectile("card", "throwArrow", 0, "particleFire", 0);
     setTimeout(() => {
-        enemyDeificDamage(20000000, "noScale");
+        enemyDeificDamage(playerWeaponDamage);
         animState(stats.currentEnemy+"enemy", "gelatine 0.4s 1");
         playSound("audio/throw.mp3")}, 700);}}
 

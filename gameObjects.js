@@ -500,7 +500,7 @@ if (currentSet === "explorer") {exlorerTier = 200} else {exlorerTier = 0}
 multiplicativeHealingItems = 1 + items.I282.statUp;
 
 let bestiaryMastery = 0
-if (unlocks.bestiary) bestiaryMastery = goldMedalsGot*10
+if (unlocks.bestiary) bestiaryMastery = medalsGot*10
 
 playerMastery = stats.questsCompleted*10 + collectiblesGot*5 + totalArmoryGot*10 + bestiaryMastery + stats.logsGot*5
 if (rpgPlayer.debugMastery!=0) playerMastery = rpgPlayer.debugMastery
@@ -588,7 +588,7 @@ occultDamageAdditive = bluemoonDmgUp  + buffs.B20.statUp + buffs.B32.statUp + bu
 occultDamageMultiplicative =  (1+gardenOccultPower) * (1+talent.TG2E.statUp) * (1+talent.TI2C.statUp);
 occultDamageBonus = occultDamageAdditive * occultDamageMultiplicative
 
-deificDamageAdditive = buffs.B31.statUp + items.I175.statUp + buffs.B38.statUp + deificStampStatUp + buffs.B18.statUp + items.I175.statUp;
+deificDamageAdditive = buffs.B31.statUp + items.I175.statUp + buffs.B38.statUp + deificStampStatUp + buffs.B18.statUp + items.I175.statUp + items.I56.statUp;
 deificDamageMultiplicative =  (1+gardenDeificPower) * (1+talent.TA1G.statUp) * (1+talent.TG3.statUp) * (1+talent.TI0E.statUp);
 deificDamageBonus = deificDamageAdditive * deificDamageMultiplicative
 
@@ -1080,7 +1080,7 @@ enemies.E22.description = 'A fierce warrior of the Pringu Army. They are as knig
 enemies.E22.area = 'A5';
 enemies.E22.attack = 50000;
 enemies.E22.exp = 0;
-enemies.E22.drop =  "rareItemDrop('I310', 6)";
+enemies.E22.drop =  "rareItemDrop('I310', 1)";
 enemies.E22.difficulty = 'easy'; 
 enemies.E22.defenseChance = 'if (items[rpgPlayer.weaponSlot].tag==="rod" && rng(1,3)===1) rareItemDrop("I344", 1);'
 enemies.E22.align = 'nature';
@@ -1096,7 +1096,7 @@ enemies.E23.attack = 50000;
 enemies.E23.exp = 0;
 enemies.E23.area = 'A5';
 enemies.E23.align = 'nature';
-enemies.E23.drop =  'rareItemDrop("I142",uncommonDungeon)+rareItemDrop("I141",uncommonDungeon)+rareItemDrop("I140",uncommonDungeon)+rareItemDrop("I139",uncommonDungeon)+rareItemDrop("I138",uncommonDungeon)+rareItemDrop("I60",rareDungeon)+                                      unlocksReveal(); shopItems.A3S22.unlocked = true; shopItems.A3S18.unlocked = true; shopItems.A3S19.unlocked = true;';
+enemies.E23.drop =  'rareItemDrop("I310",1,10)+rareItemDrop("I142",uncommonDungeon)+rareItemDrop("I141",uncommonDungeon)+rareItemDrop("I140",uncommonDungeon)+rareItemDrop("I139",uncommonDungeon)+rareItemDrop("I138",uncommonDungeon)+rareItemDrop("I60",rareDungeon)+                                      unlocksReveal(); shopItems.A3S22.unlocked = true; shopItems.A3S18.unlocked = true; shopItems.A3S19.unlocked = true;';
 enemies.E23.tag = "finalBoss";
 enemies.E23.attackChance = 'castPringuEmperor()';
 enemies.E23.bigEnemy = true;
@@ -1240,7 +1240,7 @@ enemies.E24.hp = 15000000;
 enemies.E24.description = 'A chatty fellow tasked to guard the bar.'
 enemies.E24.area = 'A6';
 enemies.E24.attack = 400000;
-enemies.E24.drop =  "rareItemDrop('I39', 12)";
+enemies.E24.drop =  "rareItemDrop('I39', 1)";
 enemies.E24.exp = 0;
 enemies.E24.difficulty = 'easy';
 enemies.E24.align = 'might';
@@ -1256,7 +1256,7 @@ enemies.E25.description = 'A terrible mutation manifested by the evil deeds of p
 enemies.E25.attack = 500000;
 enemies.E25.exp = 0;
 enemies.E25.align = 'occult';
-enemies.E25.drop =  'rareItemDrop("I23",rareDungeon)+rareItemDrop("I467", 60)'
+enemies.E25.drop =  'rareItemDrop("I23",rareDungeon)+rareItemDrop("I467", 60)+rareItemDrop("I39",1, 10)'
 enemies.E25.tag = "stageBoss1";
 enemies.E25.attackChance = 'castMalvarrel()';
 enemies.E25.bigEnemy = true;
@@ -1273,7 +1273,7 @@ enemies.E26.attack = 2500000;
 enemies.E26.exp = 0;
 enemies.E26.area = 'A6';
 enemies.E26.align = 'occult';
-enemies.E26.drop =  'rareItemDrop("I147",uncommonDungeon)+rareItemDrop("I146",uncommonDungeon)+rareItemDrop("I145",uncommonDungeon)+rareItemDrop("I144",uncommonDungeon)+rareItemDrop("I143",uncommonDungeon)+rareItemDrop("I167",epicDungeon)+rareItemDrop("I61",rareDungeon);                          shopItems.A4S14.unlocked = true; shopItems.A4S15.unlocked = true;shopItems.A4S16.unlocked = true;shopItems.A4S20.unlocked = true;';
+enemies.E26.drop =  'rareItemDrop("I39",1, 10)+rareItemDrop("I147",uncommonDungeon)+rareItemDrop("I146",uncommonDungeon)+rareItemDrop("I145",uncommonDungeon)+rareItemDrop("I144",uncommonDungeon)+rareItemDrop("I143",uncommonDungeon)+rareItemDrop("I167",epicDungeon)+rareItemDrop("I61",rareDungeon);                          shopItems.A4S14.unlocked = true; shopItems.A4S15.unlocked = true;shopItems.A4S16.unlocked = true;shopItems.A4S20.unlocked = true;';
 enemies.E26.tag = "finalBoss";
 enemies.E26.attackChance = 'castPlundergeist()';
 enemies.E26.bigEnemy = true;
@@ -1807,22 +1807,6 @@ items.I431.quality = 'Rare';
 items.I431.sell = 20000;
 items.I431.use = ' if (stats.currentEnemy==="E12") {deleteEnemy("E55"); items.I431.count--; playSound("audio/hawk.mp3"); playSound("audio/explosion.mp3"); animParticleBurst(10 , "particleFire", "enemyPanel", 200); animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");} ;'
 
-items.I127 = {};
-items.I127.name = 'Black Belt';
-items.I127.description = `'Equipable - Legs<br>'+rUpgLvl("I127")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I127", 1))+' Max Health'`;
-items.I127.skills = 'rUpgSkill("I127", "Jujitsu  Stance: +15%"+mightIcon+"Might Resistance","passive",30)+"<br>"+rUpgSkill("I127", "Aikido  Stance: +15%"+strIcon+"Strength","passive",40)'
-items.I127.flavor = '"I fear not the man who has practiced 10000 kicks once, but the turtle who sat five hours headbutting a chicken 100000 times"';
-items.I127.quality = 'Rare';
-items.I127.sell = 10000;
-items.I127.max = 1;
-items.I127.use = 'gearSwap(items.I127.id, rpgPlayer.legsSlot, "rpgLegsSlot", "legs")'
-items.I127.stats = 'legsAdditiveMaxHp = rUpgDmg("I127", 1); items.I127.statUp = 0.15; if(items.I127.level>39) items.I127.statUp2=0.15'
-items.I127.remove = 'legsAdditiveMaxHp = 0; items.I127.statUp = 0;items.I127.statUp2 = 0;'
-items.I127.statUp = 0;
-items.I127.statUp2 = 0;
-items.I127.series = 'beastfallen';
-items.I127.cap = 50;
-
 items.I163 = {};
 items.I163.name = 'Crystalline Drakeling Egg';
 items.I163.description = 'Miscellaneous<br><FONT COLOR="#1EFF0C">Can be used to summon Terragosa'
@@ -1858,7 +1842,6 @@ items.I358.flavor = '"Nap time is over."';
 items.I358.quality = 'Rare';
 items.I358.sell = 15000;
 items.I358.use = ' if (stats.currentArea==="A8") {deleteEnemy("E54"); items.I358.count--; playSound("audio/hawk.mp3"); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");} ;'
-
 
 items.I386 = {};
 items.I386.name = 'Lake Orb';
@@ -2984,14 +2967,18 @@ items.I112.max = 10;
 items.I112.align = 'nature'
 
 items.I176 = {};
-items.I176.name = 'Antidote';
-items.I176.description = 'Consumable - Potion<br><FONT COLOR="#1EFF0C">Use: Prevents enemy-inflicted poisons for 10 minutes'
-items.I176.flavor = '"Might be useful in a pinch."';
+items.I176.name = 'Old Bandaid';
+items.I176.description =  `'Equipable - Ring<br>'+rUpgLvl("I176")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I176", 1))+' Max Health'`;
+items.I176.skills = 'rUpgSkill("I176", "Medicinal Balm: Prevents"+buffIcon("B1")+"Poison damage","passive",10)'
+items.I176.flavor = '"A discarded, second-hand bandaid. Nothing else but a bandaid fix."';
 items.I176.quality = 'Common';
-items.I176.sell = 500;
-items.I176.use = 'playSound("audio/potion.mp3"); buffs.B34.time=600; playerBuffs(); animParticleBurst(10 , "particleGlow", "playerPanel", 0); animState("rpgPlayerImg", "flash 0.5s 1"); items.I176.count--; ';
-items.I176.cd = 0;
-items.I176.max = 1;
+items.I176.sell = 1000;
+items.I176.max = 1; 
+items.I176.use = 'gearSwap(items.I176.id, rpgPlayer.ringSlot, "rpgRingSlot", "ring")'
+items.I176.stats = 'ringAdditiveMaxHp = rUpgDmg("I176", 1);'
+items.I176.remove = 'ringAdditiveMaxHp = 0;'
+items.I176.series = 'millionaire';
+items.I176.cap = 20;
 
 items.I30 = {};
 items.I30.name = 'Light Dynamite';
@@ -3128,7 +3115,7 @@ items.I183.use = 'removeBuffs("bait"); buffs.B22.time=1800; playerBuffs(); animP
 
 items.I8 = {};
 items.I8.name = 'Wooden Sword';
-items.I8.description = `bestiaryTag("Tip: You can equip gear by right-clicking it", "#436B9B")+'Equipable - Weapon<br>'+rUpgLvl("I8")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I8", 1))+' Might Damage'`;
+items.I8.description = `'Equipable - Weapon<br>'+rUpgLvl("I8")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I8", 1))+' Might Damage'`;
 items.I8.flavor = '"A wooden stick shaped like a sword, retaining all the properties of a wooden stick and none of a sword."';
 items.I8.skills = 'rUpgSkill("I8", "Splintered Hilt: +20%"+mightIcon+"Might Bonus","passive",10)'
 items.I8.quality = 'Common';
@@ -3636,6 +3623,22 @@ items.I59.statUp = 0;
 items.I59.series = 'masterwork';
 items.I59.cap = 30;
 
+items.I127 = {};
+items.I127.name = 'Black Belt';
+items.I127.description = `'Equipable - Legs<br>'+rUpgLvl("I127")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I127", 1))+' Max Health'`;
+items.I127.skills = 'rUpgSkill("I127", "Jujitsu  Stance: +15%"+mightIcon+"Might Resistance","passive",30)+"<br>"+rUpgSkill("I127", "Aikido  Stance: +15%"+strIcon+"Strength","passive",40)'
+items.I127.flavor = '"I fear not the man who has practiced 10000 kicks once, but the turtle who sat five hours headbutting a chicken 100000 times"';
+items.I127.quality = 'Rare';
+items.I127.sell = 10000;
+items.I127.max = 1;
+items.I127.use = 'gearSwap(items.I127.id, rpgPlayer.legsSlot, "rpgLegsSlot", "legs")'
+items.I127.stats = 'legsAdditiveMaxHp = rUpgDmg("I127", 1); items.I127.statUp = 0.15; if(items.I127.level>39) items.I127.statUp2=0.15'
+items.I127.remove = 'legsAdditiveMaxHp = 0; items.I127.statUp = 0;items.I127.statUp2 = 0;'
+items.I127.statUp = 0;
+items.I127.statUp2 = 0;
+items.I127.series = 'beastfallen';
+items.I127.cap = 50;
+
 items.I387 = {};
 items.I387.name = 'Ebonforge Gauntlets';
 items.I387.description = 'Equipable - Hands<br><FONT COLOR="#1EFF0C">Equip: Increases Gathering Level by +1';
@@ -4062,7 +4065,7 @@ items.I139.statUp2=0;
 items.I140 = {};
 items.I140.name = 'Pringu Gloves';
 items.I140.description =`'Equipable - Hands<br>'+rUpgLvl("I140")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I140", 1))+' Max Health'`
-items.I140.skills = 'rUpgSkill("I140", "Trinity: +15%"+expIcon+"Nature Bonus","passive",20)+"<br>"+rUpgSkill("I140", "Skilled Hands: +15%"+expIcon+"EXP Bonus","passive",40)'
+items.I140.skills = 'rUpgSkill("I140", "Trinity: +15%"+natureIcon+"Nature Bonus","passive",20)+"<br>"+rUpgSkill("I140", "Skilled Hands: +15%"+expIcon+"EXP Bonus","passive",40)'
 items.I140.tier = 'Pringu Set';
 items.I140.tierArmorBonus =  "★ Set bonus [5]: Your attacks rain down a tuna, dealing Low"+natureIcon+"Nature Damage";
 items.I140.stats = 'handsAdditiveMaxHp = rUpgDmg("I140", 1); if (items.I140.level>19) items.I140.statUp= 0.15; if (items.I140.level>39) items.I140.statUp2= 0.15'
@@ -4855,15 +4858,19 @@ items.I47.cap = 30;
 
 items.I56 = {};
 items.I56.name = 'Heart of the Cards';
-items.I56.description = 'Equipable - Trinket<br><FONT COLOR="#1EFF0C">Equip: Everytime you receive damage, gain one stack of Card Shuffle. Once Card Shuffle reaches 10 stacks, unleash a barrage of cards dealing 20M '+deificIcon+'Deific Damage 10 times';
+items.I56.description = `'Equipable - Trinket<br>'+rUpgLvl("I56")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I56", 1))+' Max Health'`;
 items.I56.flavor = '"A mystic deck with cards from all known card games. We are definitely getting kicked out of the casino with this one."';
+items.I56.skills = 'rUpgSkill("I56", "Willpower: Deal Medium"+deificIcon+"Deific Damage 10 times after getting hit 10 times","active",0)+"<br>"+rUpgSkill("I56", "Faith: +20%"+deificIcon+"Deific Damage","passive",50)+"<br>"+rUpgSkill("I56", "Trust: Willpower hits 5 additional times","passive",60)'
 items.I56.quality = 'Epic';
-items.I56.sell = 75000;
+items.I56.sell = 500000;
 items.I56.max = 1;
+items.I56.stats = 'trinketAdditiveMaxHp = rUpgDmg("I56", 1); if (items.I56.level>49) items.I56.statUp=0.2;'
+items.I56.remove = 'trinketAdditiveMaxHp = 0; items.I56.statUp=0'
 items.I56.use = 'gearSwap(items.I56.id, rpgPlayer.trinketSlot, "rpgTrinketSlot", "trinket")'
 items.I56.defenseChance = 'if (buffs.B28A.stacks>8) {buffs.B28A.time=0; buffs.B28A.stacks=0; playerBuffs(); castHeartOfTheCards()} else {buffs.B28A.time=10; buffs.B28A.stacks++; playerBuffs();} '
 items.I56.series = 'solstice';
 items.I56.cap = 70;
+items.I56.statUp=0;
 
 items.I116 = {}; 
 items.I116.name = 'Broccoli';
@@ -7751,7 +7758,6 @@ buffs.B79.name = 'Mirror';
 buffs.B79.description = '<FONT COLOR="#8fbaff">Spell damage is being reflected';
 buffs.B79.effect = '';
 buffs.B79.img = 'img/src/buffs/B28.jpg';
-buffs.B79.cleansable = true;
 buffs.B79.tag = 'clear';
 
 buffs.B80 = {};
@@ -8358,9 +8364,9 @@ quests.A4Q2A = {};
 quests.A4Q2A.name = 'Olympic Adventure';
 quests.A4Q2A.difficulty = 1;
 quests.A4Q2A.description = 'Achieve what no other turtle has achieved ever before, make me proud.';
-quests.A4Q2A.objective = `'Achieve 6 Gold Medals on the Bestiary <span class="questProgress">'+beautify(goldMedalsGot)+'/6</span>'`;
+quests.A4Q2A.objective = `'Achieve 6 Gold Medals on the Bestiary <span class="questProgress">'+beautify(medalsGot)+'/6</span>'`;
 quests.A4Q2A.reward = `itemIcon("I291")+'Threnody for 999999'`;
-quests.A4Q2A.logic = 'goldMedalsGot>5';
+quests.A4Q2A.logic = 'medalsGot>5';
 quests.A4Q2A.effect = 'items.I291.count++';
 quests.A4Q2A.icon = "img/src/items/I315.jpg";
 
@@ -9479,6 +9485,11 @@ shopItems.A1S1.stock = 20;
 shopItems.A1S1.restock = 20;
 //shopItems.A1S1.unlocked = false;
 
+shopItems.A1S2A = {}
+shopItems.A1S2A.item = 'I8';
+shopItems.A1S2A.price = 1000;
+shopItems.A1S2A.stock = "∞";
+
 shopItems.A1S2 = {}
 shopItems.A1S2.item = 'I9';
 shopItems.A1S2.price = 1000;
@@ -9523,7 +9534,7 @@ shopItems.A1S10.restock = 5;
 
 shopItems.A1S11 = {}
 shopItems.A1S11.item = 'I176';
-shopItems.A1S11.price = 'Math.max(500, stats.totalCoins*0.01)';
+shopItems.A1S11.price = 5000;
 shopItems.A1S11.stock = "∞";
 
 shopItems.A1S12 = {}
@@ -9703,7 +9714,7 @@ shopItems.A3S16.unlockDescription = bestiaryTag('Clear "Harder Than Rock" to unl
 
 shopItems.A3S22 = {}
 shopItems.A3S22.item = 'I166';
-shopItems.A3S22.price = 100;
+shopItems.A3S22.price = 1200;
 shopItems.A3S22.currency = "I310";
 shopItems.A3S22.stock = "∞";
 shopItems.A3S22.unlocked = false;
@@ -9711,7 +9722,7 @@ shopItems.A3S22.unlockDescription = bestiaryTag('Clear the Penguin Glacier dunge
 
 shopItems.A3S18 = {}
 shopItems.A3S18.item = 'I434';
-shopItems.A3S18.price = 3;
+shopItems.A3S18.price = 40;
 shopItems.A3S18.currency = "I310";
 shopItems.A3S18.stock = "∞";
 shopItems.A3S18.unlocked = false;
@@ -9719,7 +9730,7 @@ shopItems.A3S18.unlockDescription = bestiaryTag('Clear the Penguin Glacier dunge
 
 shopItems.A3S19 = {}
 shopItems.A3S19.item = 'I435';
-shopItems.A3S19.price = 3;
+shopItems.A3S19.price = 40;
 shopItems.A3S19.currency = "I310";
 shopItems.A3S19.stock = "∞";
 shopItems.A3S19.unlocked = false;
@@ -9792,7 +9803,7 @@ shopItems.A4S13.restock = 200;
 
 shopItems.A4S14 = {}
 shopItems.A4S14.item = 'I436';
-shopItems.A4S14.price = 3;
+shopItems.A4S14.price = 80;
 shopItems.A4S14.currency = "I39";
 shopItems.A4S14.stock = "∞";
 shopItems.A4S14.unlocked = false;
@@ -9800,7 +9811,7 @@ shopItems.A4S14.unlockDescription = bestiaryTag('Clear the Pirate Galleon dungeo
 
 shopItems.A4S15 = {}
 shopItems.A4S15.item = 'I437';
-shopItems.A4S15.price = 3;
+shopItems.A4S15.price = 80;
 shopItems.A4S15.currency = "I39";
 shopItems.A4S15.stock = "∞";
 shopItems.A4S15.unlocked = false;
@@ -9808,7 +9819,7 @@ shopItems.A4S15.unlockDescription = bestiaryTag('Clear the Pirate Galleon dungeo
 
 shopItems.A4S16 = {}
 shopItems.A4S16.item = 'I438';
-shopItems.A4S16.price = 3;
+shopItems.A4S16.price = 80;
 shopItems.A4S16.currency = "I39";
 shopItems.A4S16.stock = "∞";
 shopItems.A4S16.unlocked = false;
@@ -9816,7 +9827,7 @@ shopItems.A4S16.unlockDescription = bestiaryTag('Clear the Pirate Galleon dungeo
 
 shopItems.A4S20 = {}
 shopItems.A4S20.item = 'I168';
-shopItems.A4S20.price = 100;
+shopItems.A4S20.price = 2400;
 shopItems.A4S20.currency = "I39";
 shopItems.A4S20.stock = "∞";
 shopItems.A4S20.unlocked = false;
@@ -10503,16 +10514,16 @@ logs.P40.tag = '⚰️';
 
 logs.P41 = {}
 logs.P41.name = "Pawn Star";
-logs.P41.description = "Sell 10K items.";
+logs.P41.description = "Sell 100K items.";
 logs.P41.hint = '"Best I can do is 200 Coins."';
-logs.P41.logic = 'stats.soldItems>9999';
+logs.P41.logic = 'stats.soldItems>99999';
 logs.P41.tag = '📈';
 
 logs.P41A = {}
 logs.P41A.name = "Gang Star";
-logs.P41A.description = "Sell 100K items.";
+logs.P41A.description = "Sell 10M items.";
 logs.P41A.hint = '"Step 3: Profit."';
-logs.P41A.logic = 'stats.soldItems>99999';
+logs.P41A.logic = 'stats.soldItems>9999999';
 logs.P41A.tag = '📈';
 
 logs.P42 = {}
@@ -10616,35 +10627,35 @@ logs.P47B = {}
 logs.P47B.name = "Monster Foster";
 logs.P47B.description = "Complete Some Entries of the Bestiary";
 logs.P47B.hint = '"I feel so... Informed."';
-logs.P47B.logic = '(unlocks.bestiary && bestiaryPointEntry + bestiaryPointBronze + goldMedalsGot)>20';
+logs.P47B.logic = '(unlocks.bestiary && bestiaryPointEntry + bestiaryPointBronze + medalsGot)>20';
 logs.P47B.tag = '📒';
 
 logs.P47C = {} 
 logs.P47C.name = "Monster Obsession";
 logs.P47C.description = "Complete a Bunch of Entries of the Bestiary";
 logs.P47C.hint = '"Gotta study them all."';
-logs.P47C.logic = '(unlocks.bestiary && bestiaryPointEntry + bestiaryPointBronze + goldMedalsGot)>40';
+logs.P47C.logic = '(unlocks.bestiary && bestiaryPointEntry + bestiaryPointBronze + medalsGot)>40';
 logs.P47C.tag = '📒';
 
 logs.P47D = {} 
 logs.P47D.name = "Monster Degree";
 logs.P47D.description = "Complete a Lot of Entries of the Bestiary";
 logs.P47D.hint = '"I could tell you a thing or two..."';
-logs.P47D.logic = '(unlocks.bestiary && bestiaryPointEntry + bestiaryPointBronze + goldMedalsGot)>70';
+logs.P47D.logic = '(unlocks.bestiary && bestiaryPointEntry + bestiaryPointBronze + medalsGot)>70';
 logs.P47D.tag = '📒';
 
 logs.P47E = {} 
 logs.P47E.name = "Monster University";
 logs.P47E.description = "Complete a Whole Lot of Entries of the Bestiary";
 logs.P47E.hint = '"or three, or four..."';
-logs.P47E.logic = '(unlocks.bestiary && bestiaryPointEntry + bestiaryPointBronze + goldMedalsGot)>100';
+logs.P47E.logic = '(unlocks.bestiary && bestiaryPointEntry + bestiaryPointBronze + medalsGot)>100';
 logs.P47E.tag = '📒';
 
 logs.P47F = {} 
 logs.P47F.name = "Monster Inc";
 logs.P47F.description = "Complete quite the amount of Entries of the Bestiary";
 logs.P47F.hint = '"Scary feet, Scary feet, Scary feet."';
-logs.P47F.logic = '(unlocks.bestiary && bestiaryPointEntry + bestiaryPointBronze + goldMedalsGot)>120';
+logs.P47F.logic = '(unlocks.bestiary && bestiaryPointEntry + bestiaryPointBronze + medalsGot)>120';
 logs.P47F.tag = '📒';
 
 logs.P48 = {}
@@ -11054,7 +11065,7 @@ aRank.AR4.required = 19 //dungeons
 aRank.AR4.reward = 'bestiaryItem("I174","container", "Dungeon Exploration Permit")'
 
 aRank.AR5 = {}
-aRank.AR5.required = 26 //bestiary medals
+aRank.AR5.required = 25 //bestiary medals
 aRank.AR5.reward = 'bestiaryItem("I315","container")'
 
 aRank.AR6 = {}
@@ -11192,7 +11203,7 @@ talent.TA1D1.description = `"Obtain an extra drop for every power of 100 of the 
 talent.TA1D1.category = "Passive";
 talent.TA1D1.locked = true;
 talent.TA1D1.lockedCondition = "Achieve 40 gold medals on the bestiary";
-talent.TA1D1.lockedLogic = "goldMedalsGot>39";
+talent.TA1D1.lockedLogic = "medalsGot>39";
 
 talent.TA1D2 = {};
 talent.TA1D2.position = '70px -310px'
@@ -11260,10 +11271,10 @@ talent.TA1H.parent = "TA1E"
 talent.TA1H.parent2 = "TA1F"
 talent.TA1H.name = "Cleanse";
 talent.TA1H.category = "Skill";
-talent.TA1H.description = `"Purifies the body, <span style='color:orange'> removing one negative debuff from yourself, and dealing "+(5*playerSpellpower*100).toFixed(0)+"% of your damage as "+deificIcon+"Deific Damage.</span> Only deals damage if the purification succeeds"`; 
+talent.TA1H.description = `"Purifies the body, <span style='color:orange'> removing one negative debuff from yourself"`; 
 talent.TA1H.cast = "castCleanse()";
-talent.TA1H.cost = 15;
-talent.TA1H.cd = 30;
+talent.TA1H.cost = 20;
+talent.TA1H.cd = 50;
 
 talent.TA2 = {};
 talent.TA2.position = '-5px -190px'
@@ -11495,8 +11506,8 @@ talent.TG2D1.position = '290px 170px'
 talent.TG2D1.parent = "TG2D"
 talent.TG2D1.name = "Thrill of the Hunt";
 talent.TG2D1.category = "Passive";
-talent.TG2D1.description = `"Increase"+strIcon+"Strength by"+colorTag("x1.04","#E57D08")+"for every gold medal in the bestiary<FONT COLOR='gray'> (x"+(1+(goldMedalsGot * 0.04)).toFixed(2)+")"`;
-talent.TG2D1.logic = 'goldMedalsGot * 0.04';
+talent.TG2D1.description = `"Increase"+strIcon+"Strength by"+colorTag("x1.04","#E57D08")+"for every gold medal in the bestiary<FONT COLOR='gray'> (x"+(1+(medalsGot * 0.04)).toFixed(2)+")"`;
+talent.TG2D1.logic = 'medalsGot * 0.04';
 
 talent.TG2D4 = {};
 talent.TG2D4.position = '330px 200px'
@@ -12699,7 +12710,7 @@ let gametip = {}
 
 gametip.gt1 = {}
 gametip.gt1.name = "Inventory";
-gametip.gt1.description = 'Inventory has no limit on the amount of different items you can have at once. However, some items like Potions can only be carried in specific quantities.<br><br>Items marked as'+colorTag("Unique", "#c28757")+'will only be able to be carried once. If an excess item is picked up, it will get automatically'+colorTag("deleted.", "#db4242")+'<br><br>The <img src="img/src/icons/shopButton.png"> button activates'+colorTag("Sell Mode", "#615ebf")+'while the <img src="img/src/icons/lockButton.png"> button activates'+colorTag("Lock Mode.", "gray")+'<br><br>Press <img src="img/src/icons/sortAll.png"> to sort your inventory.<br><br>You can see your current acquired upgrades inside the Statistics window.';
+gametip.gt1.description = 'Inventory has no limit on the amount of different items you can have at once. However, some items like Potions can only be carried in specific quantities.<br><br>Right click equips gear. Items marked as'+colorTag("Unique", "#c28757")+'will only be able to be carried once. If an excess item is picked up, it will get automatically'+colorTag("deleted.", "#db4242")+'<br><br>The <img src="img/src/icons/shopButton.png"> button activates'+colorTag("Sell Mode", "#615ebf")+'while the <img src="img/src/icons/lockButton.png"> button activates'+colorTag("Lock Mode.", "gray")+'<br><br>Press <img src="img/src/icons/sortAll.png"> to sort your inventory.<br><br>You can see your current acquired upgrades inside the Statistics window.';
 
 gametip.gt9 = {}
 gametip.gt9.name = "Inventory II";

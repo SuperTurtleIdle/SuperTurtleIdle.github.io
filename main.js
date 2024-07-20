@@ -167,6 +167,8 @@ let clickAnimCooldown = false
 
 unlocks.present = false;
 
+stats.recievedPresents = 0;
+
 did("tortugaClick").onclick = turtleClick;
 
 function turtleClick(alt){

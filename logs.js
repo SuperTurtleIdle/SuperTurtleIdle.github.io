@@ -614,6 +614,8 @@ let bronzeMedalsGot = 0;
 let goldMedalsGot = 0;
 let platinumMedalsGot = 0;
 
+let medalsGot = 0;
+
 function createBestiary() {
 
   goldMedalsGot = 0;
@@ -621,6 +623,7 @@ function createBestiary() {
   bestiaryPointEntry = 0;
   let elibileEnemies = 0;
   totalBestiaryPoints = 0;
+  medalsGot = 0;
 
   for (let i in enemies) {
 
@@ -673,7 +676,7 @@ if (enemies[i].killCount>=100000
 
   if (enemies[i].medal === "gold") goldMedalsGot++
   if (enemies[i].medal === "platinum") platinumMedalsGot++
-
+  medalsGot = goldMedalsGot + platinumMedalsGot
 
 }
 
@@ -694,17 +697,17 @@ if (enemies[i].killCount>=1 || enemies[i].sawOnce){
  
   for (i in enemies) if (enemies[i].medal==="none" && enemies[i].sawOnce) elibileEnemies++
 
-bestiaryPercentage = ( ( bestiaryPointEntry + goldMedalsGot ) / (totalBestiaryPoints) * 100 ) 
+bestiaryPercentage = ( ( bestiaryPointEntry + medalsGot ) / (totalBestiaryPoints) * 100 ) 
 did("bestiaryProgress").innerHTML = bestiaryPercentage.toFixed(1)+"%";
-did("bestiaryMastery").innerHTML = "+"+goldMedalsGot*10+" Mastery";
-did("bestiaryProgress2").innerHTML = goldMedalsGot+"/"+elibileEnemies+" Medals";
+did("bestiaryMastery").innerHTML = "+"+medalsGot*10+" Mastery";
+did("bestiaryProgress2").innerHTML = medalsGot+"/"+elibileEnemies+" Medals";
 
 did("bestiaryProgressBar").style.width = bestiaryPercentage+'%';
 
 }
 
 
-let bestiaryPercentage = ( ( bestiaryPointEntry + goldMedalsGot ) / (totalBestiaryPoints) * 100 ) 
+let bestiaryPercentage = ( ( bestiaryPointEntry + medalsGot ) / (totalBestiaryPoints) * 100 ) 
 
 
 function bestiaryEntry(i) {
@@ -725,8 +728,12 @@ did("bestiaryBackground").style.backgroundImage = "url(img/src/areas/"+enemies[i
 //bronze medal
 did("bestiaryHealth").innerHTML = beautify(enemies[i].hp)+" HP"
 did("bestiaryAttack").innerHTML = beautify(enemies[i].attack)+" ATK"
+
 if (enemies[i].attack === undefined) did("bestiaryAttack").innerHTML = "0 ATK"
 did("bestiaryExp").innerHTML = beautify(enemies[i].exp)+" EXP";
+
+if (enemies[i].dynamic) {did("bestiaryHealth").innerHTML = "??? HP"; did("bestiaryAttack").innerHTML ="??? ATK"; did("bestiaryExp").innerHTML ="??? EXP"}
+
 
 if (enemies[i].medal==="none" ){ did("bestiaryBadge").src = "img/src/icons/bestiaryBadge1.png" }
 else did("bestiaryBadge").src = "img/src/projectiles/none.png"
