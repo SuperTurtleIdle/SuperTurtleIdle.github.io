@@ -248,8 +248,7 @@ rpgPlayer.coins += stats.totalCoins * gardenDragonGoldPower
 
     if (enemies[stats.currentEnemy].tag==="areaBoss"){
       if (togleAutoBoss) {
-        items[areas[stats.currentArea].bossKey].count--
-        addItem()
+
       } else bossTime = false;
 
     } else bossTime = false;
@@ -3299,8 +3298,7 @@ did("bossButton").addEventListener("click", summonAreaBoss);
 
 function summonAreaBoss(){
   
-    items[areas[stats.currentArea].bossKey].count--
-    addItem();
+
     playSound("audio/button3.mp3")
     bossTime = true;
     deleteEnemy();
