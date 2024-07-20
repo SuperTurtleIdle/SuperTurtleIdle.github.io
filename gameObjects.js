@@ -11054,7 +11054,7 @@ aRank.AR4.required = 19 //dungeons
 aRank.AR4.reward = 'bestiaryItem("I174","container", "Dungeon Exploration Permit")'
 
 aRank.AR5 = {}
-aRank.AR5.required = 25 //bestiary medals
+aRank.AR5.required = 26 //bestiary medals
 aRank.AR5.reward = 'bestiaryItem("I315","container")'
 
 aRank.AR6 = {}
