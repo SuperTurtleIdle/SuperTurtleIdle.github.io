@@ -8073,7 +8073,7 @@ quests.A1Q2.icon = "img/src/items/I94.jpg";
 quests.A1Q3 = {};
 quests.A1Q3.name = 'Greenhorn No More';
 quests.A1Q3.difficulty = 1;
-quests.A1Q3.description = 'We are screwed over here if you are our best bet exploring these lands. Could you at the very least not be totally naked?'+bestiaryTag('Tip: Gear levels up after getting multiple copies',"#E57D08");
+quests.A1Q3.description = 'We are screwed over here if you are our best bet exploring these lands. Could you at the very least not be totally naked?'+bestiaryTag('Tip: Upgrade gear by pressing the Upgrade button',"#E57D08");
 quests.A1Q3.objective = `'Upgrade a full set of'+colorTag("Cloth Armor", "#516385")+'from the shop to level 4'`;
 quests.A1Q3.logic = 'items.I2.level>3 && items.I3.level>3 && items.I4.level>3 && items.I5.level>3 && items.I6.level>3';
 quests.A1Q3.effect = 'items.I10.count+=3';
