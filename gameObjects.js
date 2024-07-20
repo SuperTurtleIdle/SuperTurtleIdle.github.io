@@ -528,7 +528,7 @@ multiplicativeMaxHp = 1 * items.I6.statUp * items.I80.statUp * (1+buffs.B12.stat
 playerMaxHp = ((25 + additiveMaxHp) * multiplicativeMaxHp) * Math.pow(1.005, playerMastery) 
 
 
-additiveStrength = strengthStampStatUp + items.I132.statUp + items.I135.statUp2 + items.I137.statUp + items.I15.statUp  + buffs.B45.statUp + items.I146.statUp2 + buffs.B61.statUp + items.I127.statUp2
+additiveStrength = strengthStampStatUp + items.I132.statUp + items.I135.statUp2 + items.I137.statUp + items.I15.statUp  + buffs.B45.statUp + items.I146.statUp2 + buffs.B61.statUp + items.I127.statUp2 + items.I134.statUp
 //multiplicativeStrength =  ( 1 + talent.TI1C.statUp + buffs.B45.statUp + buffs.B61.statUp + items.I15.statUp + talent.TI3E.statUp + buffs.B98.statUp )  * items.I317.statUp * (1+gardenStrengthPower) * (1+talent.TI3.statUp) * (1+buildings.B3.statUp) * (1+items.I376.statUp)
 multiplicativeStrength =  (1+talent.TG1E.statUp) * (1+talent.TG2D1.statUp) * (1+talent.TI3E.statUp)
 playerStrength = 1+(additiveStrength * multiplicativeStrength);
@@ -576,15 +576,15 @@ additiveDeificDamage = weaponDeificDamage
 playerTotalDeificDamage = (additiveDeificDamage) * multiplicativeDeificDamage;
 */
 
-natureDamageAdditive =  buffs.B4.statUp + buffs.B15.statUp + items.I44.statUp + buffs.B19.statUp + natureStampStatUp + buffs.B107.statUp + items.I59.statUp + items.I73.statUp + items.I76.statUp + items.I142.statUp;
+natureDamageAdditive =  buffs.B4.statUp + buffs.B15.statUp + items.I44.statUp + buffs.B19.statUp + natureStampStatUp + buffs.B107.statUp + items.I59.statUp + items.I73.statUp + items.I76.statUp + items.I142.statUp + items.I141.statUp2 + items.I140.statUp;
 natureDamageMultiplicative =   (1+gardenNaturePower) * (1+talent.TI1B.statUp) * (1+talent.TI3C1.statUp);
 natureDamageBonus = natureDamageAdditive * natureDamageMultiplicative
 
-mightDamageAdditive =  items.I8.statUp + buffs.B5.statUp + buffs.B13.statUp  + buffs.B21.statUp + items.I45.statUp + mightStampStatUp + items.I133.statUp + items.I7.statUp + items.I27.statUp  + items.I136.statUp;
+mightDamageAdditive =  items.I8.statUp + buffs.B5.statUp + buffs.B13.statUp  + buffs.B21.statUp + items.I45.statUp + mightStampStatUp + items.I133.statUp + items.I7.statUp + items.I27.statUp  + items.I136.statUp + items.I132.statUp;
 mightDamageMultiplicative =  (1+gardenMightPower) * (1+talent.TG2C.statUp) * (1+talent.TG2D4.statUp);
 mightDamageBonus = mightDamageAdditive * mightDamageMultiplicative
 
-occultDamageAdditive = bluemoonDmgUp  + buffs.B20.statUp + buffs.B32.statUp + buffs.B41.statUp + items.I192.statUp + buffs.B51.statUp + occultStampStatUp + items.I167.statUp + items.I143.statUp2 + items.I147.statUp + buffs.B63.statUp;
+occultDamageAdditive = bluemoonDmgUp  + buffs.B20.statUp + buffs.B32.statUp + buffs.B41.statUp + items.I192.statUp + occultStampStatUp + items.I167.statUp + items.I143.statUp2 + items.I147.statUp + buffs.B63.statUp;
 occultDamageMultiplicative =  (1+gardenOccultPower) * (1+talent.TG2E.statUp) * (1+talent.TI2C.statUp);
 occultDamageBonus = occultDamageAdditive * occultDamageMultiplicative
 
@@ -600,17 +600,17 @@ armorAdditiveRegen = headAdditiveRegen + chestAdditiveRegen + legsAdditiveRegen 
 playerHpRegen = (rpgPlayer.baseHpRegen + additiveRegen + armorAdditiveRegen) * (1+buildings.B2.statUp);
 
 
-natureResist = items.I4.statUp + items.I74.statUp + items.I75.statUp  + items.I77.statUp + items.I134.statUp + items.I131.statUp + items.I138.statUp + items.I139.statUp2 - natureDownStampStatUp + items.I72.statUp;
-mightResist = items.I5.statUp + items.I134.statUp2 - mightDownStampStatUp + items.I169.statUp + items.I127.statUp + items.I72.statUp;
-elementalResist = items.I141.statUp2  - elementalDownStampStatUp + items.I72.statUp;
+natureResist = items.I4.statUp + items.I74.statUp + items.I75.statUp  + items.I77.statUp + items.I131.statUp + items.I138.statUp + items.I139.statUp2 - natureDownStampStatUp + items.I72.statUp + items.I142.statUp;
+mightResist = items.I5.statUp + items.I134.statUp2 - mightDownStampStatUp + items.I169.statUp + items.I127.statUp + items.I72.statUp + items.I133.statUp + items.I135.statUp;
+elementalResist =  - elementalDownStampStatUp + items.I72.statUp;
 occultResist = 0 - occultDownStampStatUp + items.I143.statUp + items.I144.statUp2 + items.I146.statUp + items.I147.statUp2 + items.I72.statUp;
-deificResist = items.I135.statUp  - deificDownStampStatUp + items.I72.statUp;
+deificResist =  - deificDownStampStatUp + items.I72.statUp;
 
 
 
 
 //multiplicativeHaste = (1 - buffs.B7.statUp - buffs.B47.statUp - weaponHaste - buffs.B71.statUp - buffs.B72.statUp - buffs.B86.statUp - items.I2.statUp) * hasteStampStatUp
-playerHaste = Math.min(1 - items.I2.statUp - items.I81.statUp - items.I140.statUp - hasteStampStatUp + buffs.B86.statUp - buffs.B47.statUp + items.I23.statUp, 4)  
+playerHaste = Math.min(1 - items.I2.statUp - items.I81.statUp - hasteStampStatUp + buffs.B86.statUp - buffs.B47.statUp + items.I23.statUp, 4)  
 
 multiplicativeMiningDamage = 1
 additiveMiningDamage = buffs.B37.statUp + weaponMiningDamage ;
@@ -815,7 +815,7 @@ enemies.E1.area = 'A1';
 enemies.E1.attack = 3;
 enemies.E1.difficulty = 'easy';
 enemies.E1.exp = returnExp(1)/200;
-enemies.E1.drop = "dropItem('I1'); rollTable(area1Loot, 1);rareItemDrop('I464',64000);";
+enemies.E1.drop = "dropItem('I1'); rareItemDrop('I464',64000);";
 enemies.E1.align = 'nature';
 enemies.E1.bestiaryItem = 'bestiaryItem("I1", "drop")+bestiaryItem("I464", "drop")';
 
@@ -828,7 +828,7 @@ enemies.E3.area = 'A1';
 enemies.E3.attack = 30;
 enemies.E3.difficulty = 'medium';
 enemies.E3.exp = returnExp(4)/200;
-enemies.E3.drop =  "dropItem('I51'); rollTable(area1Loot, 1); rareItemDrop('I59',uncommonDrop);";
+enemies.E3.drop =  "dropItem('I51'); rareItemDrop('I59',uncommonDrop);";
 enemies.E3.align = 'might';
 enemies.E3.bestiaryItem = 'bestiaryItem("I51", "drop")+bestiaryItem("I59", "drop")';
 
@@ -841,7 +841,7 @@ enemies.E2.area = 'A1';
 enemies.E2.attack = 50; 
 enemies.E2.exp = returnExp(7)/200;
 enemies.E2.difficulty = 'hard';
-enemies.E2.drop = "dropItem('I37'); rollTable(area1Loot, 1)";
+enemies.E2.drop = "dropItem('I37');";
 enemies.E2.align = 'nature';
 enemies.E2.bestiaryItem = 'bestiaryItem("I37", "drop")';
 
@@ -853,7 +853,7 @@ enemies.E13.area = 'A1';
 enemies.E13.hp = 100;
 enemies.E13.description = 'A rich mineral deposit containing soft metals.'
 enemies.E13.exp = returnExp(4)/200;
-enemies.E13.drop = "dropItem('I32'); rollTable(area1Loot, 1); rollTable(copperCollectibles, 1)";
+enemies.E13.drop = "dropItem('I32'); rollTable(copperCollectibles, 1)";
 enemies.E13.dropDesc = '<FONT COLOR="white">[Copper Ore]';
 enemies.E13.tag = "ore"
 enemies.E13.gatheringLevel = 1;
@@ -902,7 +902,7 @@ enemies.E5.area = 'A2';
 enemies.E5.attack = 110;
 enemies.E5.exp = returnExp(11)/300;
 enemies.E5.difficulty = 'easy';
-enemies.E5.drop =  "dropItem('I114'); rollTable(area2Loot, 1); rareItemDrop('I69', uncommonDrop)";
+enemies.E5.drop =  "dropItem('I114'); rareItemDrop('I69', uncommonDrop)";
 enemies.E5.align = 'might';
 enemies.E5.bestiaryItem = 'bestiaryItem("I114","drop")+bestiaryItem("I69","drop")';
 
@@ -916,7 +916,7 @@ enemies.E6.attack = 400;
 enemies.E6.exp = returnExp(14)/300;
 enemies.E6.difficulty = 'medium';
 enemies.E6.align = 'nature';
-enemies.E6.drop =  "dropItem('I115'); rollTable(area2Loot, 1);";
+enemies.E6.drop =  "dropItem('I115');";
 enemies.E6.bestiaryItem = 'bestiaryItem("I115","drop")+bestiaryItem("I127","steal")';
 
 enemies.E7 = {};
@@ -929,7 +929,7 @@ enemies.E7.attack = 800;
 enemies.E7.exp = returnExp(17)/300;
 enemies.E7.difficulty = 'hard';
 enemies.E7.align = 'nature';
-enemies.E7.drop =  "dropItem('I25'); rollTable(area2Loot, 1);";
+enemies.E7.drop =  "dropItem('I25');";
 enemies.E7.bestiaryItem = 'bestiaryItem("I25","drop")';
 
 enemies.E14 = {};
@@ -940,7 +940,7 @@ enemies.E14.area = 'A2';
 enemies.E14.hp = 100;
 enemies.E14.description = 'A lush and bountiful briar containing many kinds of rare herbs with many applications.'
 enemies.E14.exp = returnExp(14)/300;
-enemies.E14.drop = "dropItem('I38'); rollTable(area2Loot, 1); rollTable(snapthornCollectibles, 1)";
+enemies.E14.drop = "dropItem('I38'); rollTable(snapthornCollectibles, 1)";
 enemies.E14.gatheringLevel = 1;
 enemies.E14.bestiaryItem = 'bestiaryTag("Requires: ⛏️ Gathering Level 1")+bestiaryItem("I38","drop")';
 
@@ -1015,7 +1015,7 @@ enemies.E9.attack = 1100;
 enemies.E9.exp = returnExp(21)/1800;
 enemies.E9.difficulty = 'easy';
 enemies.E9.align = 'deific';
-enemies.E9.drop =  "dropItem('I16'); rollTable(area3Loot, 1)";
+enemies.E9.drop =  "dropItem('I16');";
 enemies.E9.bestiaryItem = 'bestiaryItem("I16","drop")+bestiaryItem("I24","steal")';
 
 enemies.E10 = {};
@@ -1028,7 +1028,7 @@ enemies.E10.attack = 5000;
 enemies.E10.exp = returnExp(24)/1800;
 enemies.E10.difficulty = 'medium';
 enemies.E10.align = 'elemental';
-enemies.E10.drop =  "dropItem('I29'); rollTable(area3Loot, 1)";
+enemies.E10.drop =  "dropItem('I29');";
 enemies.E10.bestiaryItem = 'bestiaryItem("I29","drop")'
 
 enemies.E29 = {};
@@ -1056,7 +1056,7 @@ enemies.E11.attack = 9000;
 enemies.E11.exp = returnExp(27)/1800;
 enemies.E11.difficulty = 'hard';
 enemies.E11.align = 'elemental';
-enemies.E11.drop =  "dropItem('I17'); rollTable(area3Loot, 1);rareItemDrop('I468',64000);";
+enemies.E11.drop =  "dropItem('I17');rareItemDrop('I468',64000);";
 enemies.E11.bestiaryItem = 'bestiaryItem("I17","drop")+bestiaryItem("I468","drop")'
 
 enemies.E19 = {};
@@ -1067,7 +1067,7 @@ enemies.E19.area = 'A3';
 enemies.E19.hp = 100;
 enemies.E19.description = 'An ore pulsating with latent electromagnetic energy, coveted by mages and engineers alike.'
 enemies.E19.exp = returnExp(25)/1800;
-enemies.E19.drop = "dropItem('I36'); rollTable(area3Loot, 1);  rollTable(arcaniteCollectibles, 1)";
+enemies.E19.drop = "dropItem('I36');   rollTable(arcaniteCollectibles, 1)";
 enemies.E19.tag = "ore";
 enemies.E19.gatheringLevel = 2;
 enemies.E19.bestiaryItem = 'bestiaryTag("Requires: ⛏️ Gathering Level 2")+bestiaryItem("I36","drop")';
@@ -1100,7 +1100,7 @@ enemies.E23.drop =  'rareItemDrop("I142",uncommonDungeon)+rareItemDrop("I141",un
 enemies.E23.tag = "finalBoss";
 enemies.E23.attackChance = 'castPringuEmperor()';
 enemies.E23.bigEnemy = true;
-enemies.E23.bestiaryItem = 'bestiaryItem("I139","drop", "Pringu Armor Set")+bestiaryItem("I60","drop")';
+enemies.E23.bestiaryItem = 'bestiaryItem("I139","container", "Pringu Armor Set")+bestiaryItem("I60","drop")';
 enemies.E23.bestiarySkills = "❖ Spit Fish: Inflicts"+buffIcon("B31")+"Seized.<br>❖ Royal Authority: Heals when low HP.";
 
 enemies.E12 = {};
@@ -1170,7 +1170,7 @@ enemies.E16.attack = 100000;
 enemies.E16.exp = returnExp(31)/1800;
 enemies.E16.difficulty = 'easy';
 enemies.E16.align = 'occult';
-enemies.E16.drop =  "dropItem('I40'); rollTable(area4Loot, 1)";
+enemies.E16.drop =  "dropItem('I40'); ";
 enemies.E16.bestiaryItem = 'bestiaryItem("I40", "drop")+bestiaryItem("I72", "drop")';
 
 enemies.E17 = {};
@@ -1183,7 +1183,7 @@ enemies.E17.attack = 300000;
 enemies.E17.exp = returnExp(34)/1800;
 enemies.E17.difficulty = 'medium';
 enemies.E17.align = 'nature';
-enemies.E17.drop =  "dropItem('I58'); rollTable(area4Loot, 1)";
+enemies.E17.drop =  "dropItem('I58'); ";
 enemies.E17.bestiaryItem = 'bestiaryItem("I58", "drop")+bestiaryItem("I215", "steal")';
 
 enemies.E18 = {};
@@ -1196,7 +1196,7 @@ enemies.E18.attack = 250000;
 enemies.E18.exp = returnExp(37)/1800;
 enemies.E18.difficulty = 'hard';
 enemies.E18.align = 'deific';
-enemies.E18.drop =  "dropItem('I18'); rollTable(area4Loot, 1)";
+enemies.E18.drop =  "dropItem('I18');";
 enemies.E18.attackChance = 'if (enemyPhase===1){}';
 enemies.E18.bestiaryItem = 'bestiaryItem("I18", "drop")+bestiaryItem("I345", "steal")';
 
@@ -1227,7 +1227,7 @@ enemies.E20.area = 'A4';
 enemies.E20.hp = 20;
 enemies.E20.description = 'A shadow-laden pond cloaked in an eerie mist. Grab a fishing rod and don\'t get your hopes too high.'
 enemies.E20.exp = returnExp(34)/1800;
-enemies.E20.drop = "rollTable(area4Loot, 1); rollTable(fishingJunk, 4-playerFishingLevel);  rollTable(fishingEeriePond1, Math.min(playerFishingLevel,5)); rollTable(fishingEeriePond2, Math.min(-2+playerFishingLevel,2));  rollTable(eeriePondCollectibles, 1); removeTableItem()";
+enemies.E20.drop = " rollTable(fishingJunk, 4-playerFishingLevel);  rollTable(fishingEeriePond1, Math.min(playerFishingLevel,5)); rollTable(fishingEeriePond2, Math.min(-2+playerFishingLevel,2));  rollTable(eeriePondCollectibles, 1); removeTableItem()";
 //enemies.E20.bestiaryItem = 'bestiaryTag("Requires: 🎣 Fishing Level 1")+bestiaryItem("I161","drop")+bestiaryItem("I159","drop")+bestiaryTag("Requires: 🎣 Fishing Level 3")+ bestiaryItem("I169","drop")';
 enemies.E20.bestiaryItem = 'bestiaryItem("I161","drop")+bestiaryItem("I160","drop")+bestiaryItem("I159","drop")+ bestiaryItem("I169","drop")';
 
@@ -1306,7 +1306,7 @@ enemies.E33.area = 'A8';
 enemies.E33.attack = 1300000;
 enemies.E33.difficulty = 'easy';
 enemies.E33.exp = returnExp(41)/700;
-enemies.E33.drop = "dropItem('I346'); rollTable(area5Loot, 1)";
+enemies.E33.drop = "dropItem('I346');";
 enemies.E33.align = 'elemental';
 enemies.E33.bestiaryItem = 'bestiaryItem("I346")';
 
@@ -1319,7 +1319,7 @@ enemies.E34.area = 'A8';
 enemies.E34.attack = 3900000;
 enemies.E34.difficulty = 'medium';
 enemies.E34.exp = returnExp(44)/700;
-enemies.E34.drop =  "dropItem('I347'); rollTable(area5Loot, 1);";
+enemies.E34.drop =  "dropItem('I347');";
 enemies.E34.align = 'nature';
 enemies.E34.defenseChance = 'if (["mattock"].includes(items[rpgPlayer.weaponSlot].tag) && playerGatheringLevel>2) { rareItemDrop("I398",30)  }';
 enemies.E34.bestiaryItem = 'bestiaryItem("I347")';
@@ -1332,7 +1332,7 @@ enemies.E37.area = 'A8';
 enemies.E37.hp = 100;
 enemies.E37.description = 'A rich cluster of fossilised remains waiting to be uncovered by brave tortugas.'
 enemies.E37.exp = returnExp(42)/900;
-enemies.E37.drop = "dropItem('I417'); rollTable(area5Loot, 1);  rollTable(fossilCollectibles, 1)";
+enemies.E37.drop = "dropItem('I417'); rollTable(fossilCollectibles, 1)";
 enemies.E37.tag = "ore";
 enemies.E37.gatheringLevel = 4;
 enemies.E37.bestiaryItem = 'bestiaryTag("Requires: ⛏️ Gathering Level 4")+bestiaryItem("I417")';
@@ -1362,7 +1362,7 @@ enemies.E35.area = 'A8';
 enemies.E35.attack = 13000000; 
 enemies.E35.exp = returnExp(47)/900;
 enemies.E35.difficulty = 'hard';
-enemies.E35.drop = "dropItem('I348'); rollTable(area5Loot, 1); rareItemDrop('I321',1000);";
+enemies.E35.drop = "dropItem('I348'); rareItemDrop('I321',1000);";
 enemies.E35.align = 'occult';
 enemies.E35.bestiaryItem = 'bestiaryItem("I348")+"<br>"+bestiaryItem("I321","rare")';
 
@@ -1454,7 +1454,7 @@ enemies.E38.area = 'A9';
 enemies.E38.attack = 40000000;
 enemies.E38.difficulty = 'easy';
 enemies.E38.exp = returnExp(51)/1500;
-enemies.E38.drop = "dropItem('I351'); rollTable(area6Loot, 1)";
+enemies.E38.drop = "dropItem('I351');";
 enemies.E38.align = 'nature';
 enemies.E38.bestiaryItem = 'bestiaryItem("I351")';
 
@@ -1467,7 +1467,7 @@ enemies.E39.area = 'A9';
 enemies.E39.attack = 90000000;
 enemies.E39.difficulty = 'medium';
 enemies.E39.exp = returnExp(54)/1500;
-enemies.E39.drop =  "dropItem('I352'); rollTable(area6Loot, 1); rollTable(ribullRareDrop, 1)";
+enemies.E39.drop =  "dropItem('I352'); rollTable(ribullRareDrop, 1)";
 enemies.E39.align = 'nature';
 enemies.E39.bestiaryItem = 'bestiaryItem("I352")';
 
@@ -1481,7 +1481,7 @@ enemies.E40.attack = 160000000;
 enemies.E40.exp = returnExp(57)/1500;
 enemies.E40.difficulty = 'hard';
 enemies.E40.attackChance = 'castArcaniteTower();';
-enemies.E40.drop = "dropItem('I353'); rollTable(area6Loot, 1)";
+enemies.E40.drop = "dropItem('I353');";
 enemies.E40.align = 'elemental';
 enemies.E40.bestiaryItem = 'bestiaryItem("I353")';
 enemies.E40.bigEnemy = true;
@@ -1512,7 +1512,7 @@ enemies.E42.area = 'A9';
 enemies.E42.hp = 100;
 enemies.E42.description = 'A botanical specimen thought to be lost long ago, somehow brought to life by sheer magic. It seems this specific strain has assimilated the magical particles in the air.'
 enemies.E42.exp = 620;
-enemies.E42.drop = "dropItem('I38'); rollTable(area2Loot, 1); rollTable(foragingCollectibles, 1)";
+enemies.E42.drop = "dropItem('I38'); rollTable(foragingCollectibles, 1)";
 enemies.E42.gatheringLevel = 1;
 enemies.E42.bestiaryItem = 'bestiaryTag("Requires: ⛏️ Gathering Level 2")+bestiaryItem("I38")';
 
@@ -3022,7 +3022,7 @@ items.I370.sell = 'artisanBonus("EA4")';
 
 items.I215 = {};
 items.I215.name = 'Hex Tag';
-items.I215.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Applies a damaging curse that deals 90K '+occultIcon+'Occult Damage every second over 5 minutes<FONT COLOR="gray"> (2 minute Cooldown)';
+items.I215.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Inflicts'+buffIcon("B25")+'Hex over 30 seconds<FONT COLOR="gray"> (2 minute Cooldown)';
 items.I215.flavor = '"Something might happen if you eat this."';
 items.I215.quality = 'Common';
 items.I215.sell = 1300;
@@ -3901,11 +3901,11 @@ items.I77.cap = 30;
 items.I132 = {};
 items.I132.name = 'Jungle King Paws';
 items.I132.description =`'Equipable - Hands<br>'+rUpgLvl("I132")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I132", 1))+' Max Health'`
-items.I132.skills = 'rUpgSkill("I132", "Strong Claws: +15%"+strIcon+"Strength","passive",20)+"<br>"+rUpgSkill("I132", "Stronger Claws: +15%"+strIcon+"Strength","passive",35)'
+items.I132.skills = 'rUpgSkill("I132", "Strong Claws: +15%"+strIcon+"Strength","passive",20)+"<br>"+rUpgSkill("I132", "Mighty Claws: +15%"+mightIcon+"Might Bonus","passive",35)'
 items.I132.tier = 'Jungle King Set';
 items.I132.tierArmorBonus = "★ Set bonus [5]: Your attacks have a high chance to lacerate the enemy, dealing medium"+mightIcon+"Might Damage";
-items.I132.stats = 'feetAdditiveMaxHp = rUpgDmg("I132", 1); if (items.I132.level>19) items.I132.statUp= 0.15; if (items.I132.level>34) items.I132.statUp= 0.3;'
-items.I132.remove = 'feetAdditiveMaxHp = 0; items.I132.statUp=0'
+items.I132.stats = 'feetAdditiveMaxHp = rUpgDmg("I132", 1); if (items.I132.level>19) items.I132.statUp= 0.15; if (items.I132.level>34) items.I132.statUp2= 0.15;'
+items.I132.remove = 'feetAdditiveMaxHp = 0; items.I132.statUp=0; items.I132.statUp2= 0'
 items.I132.max = 1;
 items.I132.flavor = '"Pawsitively adorable."';
 items.I132.tierDesc1 = "I133";
@@ -3919,15 +3919,16 @@ items.I132.use = 'gearSwap(items.I132.id, rpgPlayer.feetSlot, "rpgFeetSlot", "fe
 items.I132.series = "forgotten"; 
 items.I132.statUp = 0;
 items.I132.cap = 40;
+items.I132.statUp2= 0
 
 items.I133 = {};
 items.I133.name = 'Jungle King Helm';
 items.I133.description =`'Equipable - Head<br>'+rUpgLvl("I133")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I133", 1))+' Max Health'`
-items.I133.skills = 'rUpgSkill("I133", "Sensitive Ears: +15%"+mightIcon+"Might Bonus","passive",20)+"<br>"+rUpgSkill("I133", "Spatial Awareness: +15%"+mightIcon+"Might Bonus","passive",35)'
+items.I133.skills = 'rUpgSkill("I133", "Sensitive Ears: +15%"+mightIcon+"Might Bonus","passive",20)+"<br>"+rUpgSkill("I133", "Spatial Awareness: +15%"+mightIcon+"Might Resistance","passive",35)'
 items.I133.tier = 'Jungle King Set';
 items.I133.tierArmorBonus = "★ Set bonus [5]: Your attacks have a high chance to lacerate the enemy, dealing medium"+mightIcon+"Might Damage";
-items.I133.stats = 'headAdditiveMaxHp = rUpgDmg("I133", 1); if (items.I133.level>19) items.I133.statUp= 0.15; if (items.I133.level>34) items.I133.statUp= 0.3;'
-items.I133.remove = 'headAdditiveMaxHp = 0; items.I133.statUp=0'
+items.I133.stats = 'headAdditiveMaxHp = rUpgDmg("I133", 1); if (items.I133.level>19) items.I133.statUp= 0.15; if (items.I133.level>34) items.I133.statUp2= 0.15;'
+items.I133.remove = 'headAdditiveMaxHp = 0; items.I133.statUp=0; items.I133.statUp2= 0'
 items.I133.max = 1;
 items.I133.flavor = '"It\'s hard to look mighty with those fluffy ears looking at me."';
 items.I133.quality = 'Uncommon';
@@ -3940,12 +3941,13 @@ items.I133.sell = 1000;
 items.I133.use = 'gearSwap(items.I133.id, rpgPlayer.headSlot, "rpgHeadSlot", "head")'
 items.I133.series = "forgotten"; 
 items.I133.statUp = 0;
+items.I133.statUp2 = 0;
 items.I133.cap = 40;
 
 items.I134 = {};
 items.I134.name = 'Jungle King Mittens';
 items.I134.description =`'Equipable - Feet<br>'+rUpgLvl("I134")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I134", 1))+' Max Health'`
-items.I134.skills = 'rUpgSkill("I134", "Law of the Jungle: +10%"+natureIcon+"Nature Resistance","passive",20)+"<br>"+rUpgSkill("I134", "Guts: +15%"+mightIcon+"Might Resistance","passive",35)'
+items.I134.skills = 'rUpgSkill("I134", "Law of the Jungle: +10%"+strIcon+"Strength","passive",20)+"<br>"+rUpgSkill("I134", "Guts: +15%"+mightIcon+"Might Resistance","passive",35)'
 items.I134.tier = 'Jungle King Set';
 items.I134.tierArmorBonus = "★ Set bonus [5]: Your attacks have a high chance to lacerate the enemy, dealing medium"+mightIcon+"Might Damage";
 items.I134.stats = 'feetAdditiveMaxHp = rUpgDmg("I134", 1); if (items.I134.level>19) items.I134.statUp=0.10; if (items.I134.level>34) items.I134.statUp2=0.15;'
@@ -3968,7 +3970,7 @@ items.I134.cap = 40;
 items.I135 = {};
 items.I135.name = 'Jungle King Chestplate';
 items.I135.description =`'Equipable - Chest<br>'+rUpgLvl("I135")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I135", 1))+' Max Health'`
-items.I135.skills = 'rUpgSkill("I135", "Auric Plating: +10%"+strIcon+"Strength","passive",20)+"<br>"+rUpgSkill("I135", "Divine Beast: +15%"+deificIcon+"Deific Resistance","passive",35)'
+items.I135.skills = 'rUpgSkill("I135", "Auric Plating: +10%"+strIcon+"Strength","passive",20)+"<br>"+rUpgSkill("I135", "Divine Beast: +15%"+mightIcon+"Might Resistance","passive",35)'
 items.I135.tier = 'Jungle King Set';
 items.I135.tierArmorBonus = "★ Set bonus [5]: Your attacks have a high chance to lacerate the enemy, dealing medium"+mightIcon+"Might Damage";
 items.I135.stats = 'chestAdditiveMaxHp = rUpgDmg("I135", 1); if (items.I135.level>19) items.I135.statUp2= 0.1; if (items.I135.level>34) items.I135.statUp= 0.15;'
@@ -4060,10 +4062,10 @@ items.I139.statUp2=0;
 items.I140 = {};
 items.I140.name = 'Pringu Gloves';
 items.I140.description =`'Equipable - Hands<br>'+rUpgLvl("I140")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I140", 1))+' Max Health'`
-items.I140.skills = 'rUpgSkill("I140", "Fast Hands: +5% Attack Speed","passive",20)+"<br>"+rUpgSkill("I140", "Skilled Hands: +16%"+expIcon+"EXP Bonus","passive",40)'
+items.I140.skills = 'rUpgSkill("I140", "Trinity: +15%"+expIcon+"Nature Bonus","passive",20)+"<br>"+rUpgSkill("I140", "Skilled Hands: +15%"+expIcon+"EXP Bonus","passive",40)'
 items.I140.tier = 'Pringu Set';
 items.I140.tierArmorBonus =  "★ Set bonus [5]: Your attacks rain down a tuna, dealing Low"+natureIcon+"Nature Damage";
-items.I140.stats = 'handsAdditiveMaxHp = rUpgDmg("I140", 1); if (items.I140.level>19) items.I140.statUp= 0.05; if (items.I140.level>39) items.I140.statUp2= 0.15'
+items.I140.stats = 'handsAdditiveMaxHp = rUpgDmg("I140", 1); if (items.I140.level>19) items.I140.statUp= 0.15; if (items.I140.level>39) items.I140.statUp2= 0.15'
 items.I140.remove = 'handsAdditiveMaxHp = 0; items.I140.statUp=0; items.I140.statUp2=0'
 items.I140.max = 1;
 items.I140.cap = 50;
@@ -4083,10 +4085,10 @@ items.I140.statUp2=0;
 items.I141 = {};
 items.I141.name = 'Pringu Cape';
 items.I141.description =`'Equipable - Chest<br>'+rUpgLvl("I141")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I141", 1))+' Max Health'`
-items.I141.skills = 'rUpgSkill("I141", "Magic Threads: +15%"+spIcon+"Spellpower","passive",20)+"<br>"+rUpgSkill("I141", "Fireproof Threads: +20%"+elementalIcon+"Elemental Resistance","passive",40)'
+items.I141.skills = 'rUpgSkill("I141", "Magic Threads: +15%"+spIcon+"Spellpower","passive",20)+"<br>"+rUpgSkill("I141", "Artic Threads: +15%"+natureIcon+"Nature Bonus","passive",40)'
 items.I141.tier = 'Pringu Set';
 items.I141.tierArmorBonus =  "★ Set bonus [5]: Your attacks rain down a tuna, dealing Low"+natureIcon+"Nature Damage";
-items.I141.stats = 'chestAdditiveMaxHp = rUpgDmg("I141", 1); if (items.I141.level>19) items.I141.statUp= 0.15; if (items.I141.level>39) items.I141.statUp2= 0.2'
+items.I141.stats = 'chestAdditiveMaxHp = rUpgDmg("I141", 1); if (items.I141.level>19) items.I141.statUp= 0.15; if (items.I141.level>39) items.I141.statUp2= 0.15'
 items.I141.remove = 'chestAdditiveMaxHp = 0; items.I141.statUp=0; items.I141.statUp2= 0'
 items.I141.max = 1;
 items.I141.cap = 50;
@@ -4106,11 +4108,11 @@ items.I141.statUp2=0;
 items.I142 = {};
 items.I142.name = 'Pringu Pants';
 items.I142.description =`'Equipable - Legs<br>'+rUpgLvl("I142")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I142", 1))+' Max Health'`
-items.I142.skills = 'rUpgSkill("I142", "Green Pockets: +15%"+natureIcon+"Nature Bonus","passive",20)+"<br>"+rUpgSkill("I142", "Lush Pockets: +20%"+natureIcon+"Nature Bonus","passive",40)'
+items.I142.skills = 'rUpgSkill("I142", "Green Pockets: +15%"+natureIcon+"Nature Bonus","passive",20)+"<br>"+rUpgSkill("I142", "Lush Pockets: +15%"+natureIcon+"Nature Resistance","passive",40)'
 items.I142.tier = 'Pringu Set';
 items.I142.tierArmorBonus =  "★ Set bonus [5]: Your attacks rain down a tuna, dealing Low"+natureIcon+"Nature Damage";
-items.I142.stats = 'legsAdditiveMaxHp = rUpgDmg("I142", 1); if (items.I142.level>19) items.I142.statUp= 0.15; if (items.I142.level>39) items.I142.statUp= 0.35'
-items.I142.remove = 'legsAdditiveMaxHp = 0; items.I142.statUp=0'
+items.I142.stats = 'legsAdditiveMaxHp = rUpgDmg("I142", 1); if (items.I142.level>19) items.I142.statUp= 0.15; if (items.I142.level>39) items.I142.statUp2= 0.35'
+items.I142.remove = 'legsAdditiveMaxHp = 0; items.I142.statUp=0; items.I142.statUp2= 0'
 items.I142.max = 1;
 items.I142.cap = 50;
 items.I142.flavor = '"Tuxedoed mystique."';
@@ -4124,6 +4126,7 @@ items.I142.sell = 80000;
 items.I142.use = 'gearSwap(items.I142.id, rpgPlayer.legsSlot, "rpgLegsSlot", "legs")'
 items.I142.series = "beastfallen"; 
 items.I142.statUp=0;
+items.I142.statUp2= 0;
 
 items.I143 = {};
 items.I143.name = 'Captain Peg Leg';
@@ -7358,14 +7361,6 @@ buffs.B50.description = '<FONT COLOR="#8fbaff">Slowly Losing Life';
 buffs.B50.effect = 'buffEffect(90000, "B50")';
 buffs.B50.img = 'img/src/items/I215.jpg';
 
-buffs.B51 = {};
-buffs.B51.name = 'Harpsichaos';
-buffs.B51.description = '<FONT COLOR="#8fbaff">Occult Damage increased by 60%';
-buffs.B51.effect = 'buffEffect(0.6, "B51")';
-buffs.B51.player = true;
-buffs.B51.buff = true;
-buffs.B51.img = 'img/src/talents/TI2.jpg';
-
 buffs.B52 = {};
 buffs.B52.name = 'Perish Song';
 buffs.B52.description = '<FONT COLOR="coral">You\'ve met with a terrible fate, haven\'t you?';
@@ -7448,13 +7443,13 @@ buffs.B67.description = '<FONT COLOR="#8fbaff">Dealing damage on spawn';
 buffs.B67.effect = '';
 buffs.B67.img = 'img/src/talents/TA1D2.jpg';
 
-buffs.B68 = {};
-buffs.B68.name = 'Rhythm Hell';
-buffs.B68.description = '<FONT COLOR="#8fbaff">Click on the enemy circles!';
-buffs.B68.effect = '';
-buffs.B68.img = 'img/src/talents/TA1D2.jpg';
-buffs.B68.player = true;
-buffs.B68.buff = true;
+buffs.B51 = {};
+buffs.B51.name = 'Rhythm Hell';
+buffs.B51.description = '<FONT COLOR="#8fbaff">Click on the enemy circles!';
+buffs.B51.effect = '';
+buffs.B51.img = 'img/src/talents/TI2.jpg';
+buffs.B51.player = true;
+buffs.B51.buff = true;
 
 buffs.B69 = {};
 buffs.B69.name = 'Workforce Poem';
@@ -7895,7 +7890,7 @@ var materialTable2 = { I16:{P:0,A:'rng(20,40)*materialStage'}, I29:{P:0,A:'rng(2
 var materialStage = 1;
 
 
-var area1Loot = { I10:{P:200,A:1}, /*chest*/ I257:{P:100000,A:1}, I258:{P:100000,A:1} /*relics*/}
+var A1Loot = { I10:{P:200,A:1}, /*chest*/ I257:{P:100000,A:1}, I258:{P:100000,A:1} /*relics*/}
 areas.A1 = {};
 areas.A1.name = 'Cradle Hills';
 areas.A1.level = 1;
@@ -7908,7 +7903,7 @@ areas.A1.unlockedOre = 0;
 areas.A1.color1 = "#59662d";
 areas.A1.color2 = "#50473e";
 
-var area2Loot = { I10:{P:200,A:1}, /*chest*/ I259:{P:100000,A:1}, I260:{P:100000,A:1} /*relics*/}
+var A2Loot = { I10:{P:200,A:1}, /*chest*/ I259:{P:100000,A:1}, I260:{P:100000,A:1} /*relics*/}
 areas.A2 = {};
 areas.A2.name = 'Lost Dojo';
 areas.A2.level = 10;
@@ -7919,7 +7914,7 @@ areas.A2.unlockedHerb = 0;
 areas.A2.color1 = "#485640";
 areas.A2.color2 = "#35443f";
 
-var area3Loot = { I43:{P:200,A:1}, /*chest*/ I261:{P:100000,A:1}, I262:{P:100000,A:1} /*relics*/}
+var A3Loot = { I43:{P:200,A:1}, /*chest*/ I261:{P:100000,A:1}, I262:{P:100000,A:1} /*relics*/}
 areas.A3 = {};
 areas.A3.name = 'Granite Grotto';
 areas.A3.level = 20;
@@ -7938,7 +7933,7 @@ areas.A7.description = '"Welcoming all brave turtles, this thunderdome is a plac
 areas.A7.color1 = "#69584e";
 areas.A7.color2 = "#524238";
 
-var area4Loot = { I43:{P:200,A:1}, /*chest*/ I263:{P:100000,A:1}, I264:{P:100000,A:1} /*relics*/}
+var A4Loot = { I43:{P:200,A:1}, /*chest*/ I263:{P:100000,A:1}, I264:{P:100000,A:1} /*relics*/}
 areas.A4 = {};
 areas.A4.name = 'Hallow Forest';
 areas.A4.level = 30;
@@ -7977,7 +7972,7 @@ areas.A6.color1 = "#3d3d3d";
 areas.A6.color2 = "#5c4440";
 areas.A6.charges = 3;
 
-var area5Loot = { I399:{P:200,A:1}, /*chest*/I380:{P:200,A:1}, /*shroom*/ I413:{P:100000,A:1}, I414:{P:100000,A:1}, /*relics*/}
+var A8Loot = { I399:{P:200,A:1}, /*chest*/I380:{P:200,A:1}, /*shroom*/ I413:{P:100000,A:1}, I414:{P:100000,A:1}, /*relics*/}
 areas.A8 = {};
 areas.A8.name = 'Spirited Valley';
 areas.A8.level = 40;
@@ -7990,7 +7985,7 @@ areas.A8.color2 = "#38492f";
 areas.A8.areaEffect = true;
 areas.A8.mastery = 1000000; //1000
 
-var area6Loot = { I399:{P:200,A:1}, /*chest*/ I415:{P:100000,A:1}, I416:{P:100000,A:1}, /*relics*/}
+var A9Loot = { I399:{P:200,A:1}, /*chest*/ I415:{P:100000,A:1}, I416:{P:100000,A:1}, /*relics*/}
 areas.A9 = {};
 areas.A9.name = 'Ruined Laboratory';
 areas.A9.level = 50;
@@ -8186,7 +8181,7 @@ quests.A2Q4.name = 'Husbandry Issues';
 quests.A2Q4.difficulty = 1;
 quests.A2Q4.description = 'My chickens escaped from my coop and learnt full body combat. Help me bring them back.';
 quests.A2Q4.objective = `'Capture 10 Roostrikas <span class="questProgress">'+beautify(items.I122.count)+'/10</span>'`;
-quests.A2Q4.reward = `itemIcon("I93")+'Ornated Stamper x3'`;
+quests.A2Q4.reward = `itemIcon("I93")+'Ornate Stamper x3'`;
 quests.A2Q4.logic = 'items.I122.count>9';
 quests.A2Q4.effect = 'items.I122.count=0; items.I93.count+=3;';
 quests.A2Q4.icon = "img/src/items/I121.jpg";
@@ -8691,7 +8686,7 @@ recipes.SN3.amount3 = 100;
 
 recipes.SA1 = {};
 recipes.SA1.level = 10;
-recipes.SA1.exp = 60;
+recipes.SA1.exp = 70;
 recipes.SA1.timer = 600;
 recipes.SA1.item = 'I80';
 recipes.SA1.reagent1 = 'I66';
@@ -8738,7 +8733,7 @@ recipes.SA3.amount3 = 1;
 recipes.SG1 = {};
 recipes.SG1.description = 'Creates a piece of gear of the Plated Explorer Set';
 recipes.SG1.level = 2;
-recipes.SG1.exp = 30;
+recipes.SG1.exp = 50;
 recipes.SG1.timer = 300;
 recipes.SG1.item = 'I73';
 recipes.SG1.reagent1 = 'I66';
@@ -8751,7 +8746,7 @@ recipes.SG1.amount3 = 100;
 recipes.SG2 = {};
 recipes.SG2.description = 'Creates a piece of gear of the Plated Explorer Set';
 recipes.SG2.level = 3;
-recipes.SG2.exp = 30;
+recipes.SG2.exp = 50;
 recipes.SG2.timer = 300;
 recipes.SG2.item = 'I74';
 recipes.SG2.reagent1 = 'I66';
@@ -8764,7 +8759,7 @@ recipes.SG2.amount3 = 100;
 recipes.SG3 = {};
 recipes.SG3.description = 'Creates a piece of gear of the Plated Explorer Set';
 recipes.SG3.level = 4;
-recipes.SG3.exp = 30;
+recipes.SG3.exp = 50;
 recipes.SG3.timer = 300;
 recipes.SG3.item = 'I75';
 recipes.SG3.reagent1 = 'I66';
@@ -8777,7 +8772,7 @@ recipes.SG3.amount3 = 100;
 recipes.SG4 = {};
 recipes.SG4.description = 'Creates a piece of gear of the Plated Explorer Set';
 recipes.SG4.level = 5;
-recipes.SG4.exp = 30;
+recipes.SG4.exp = 50;
 recipes.SG4.timer = 300;
 recipes.SG4.item = 'I76';
 recipes.SG4.reagent1 = 'I66';
@@ -8790,7 +8785,7 @@ recipes.SG4.amount3 = 100;
 recipes.SG5 = {};
 recipes.SG5.description = 'Creates a piece of gear of the Plated Explorer Set';
 recipes.SG5.level = 6;
-recipes.SG5.exp = 30;
+recipes.SG5.exp = 50;
 recipes.SG5.timer = 300;
 recipes.SG5.item = 'I77';
 recipes.SG5.reagent1 = 'I66';
@@ -11182,7 +11177,7 @@ talent.TA1D.parent = "TA1B"
 talent.TA1D.parent2 = "TA3"
 talent.TA1D.name = "Wizhard Shell";
 talent.TA1D.category = "Skill";
-talent.TA1D.description = `"Creates a magic barrier, <span style='color:orange'> absorbing damage worth "+(15*playerSpellpower*100).toFixed(0)+"% of your damage</span>"`; 
+talent.TA1D.description = `"Creates a magic barrier, <span style='color:orange'> absorbing damage worth "+(1*playerSpellpower*100).toFixed(0)+"% of your damage</span>"`; 
 talent.TA1D.cast = "castWizhardShield()";
 talent.TA1D.cost = 10;
 talent.TA1D.cd = 30;
@@ -11451,7 +11446,7 @@ talent.TG2C2.position = '230px 240px'
 talent.TG2C2.parent = "TG2C"
 talent.TG2C2.name = "Cheating Death";
 talent.TG2C2.category = "Passive";
-talent.TG2C2.description = `"x% of your HP Regen is kept during boss fights and dungeons"`
+talent.TG2C2.description = `"A small portion of your HP Regen is kept during boss fights and dungeons"`
 talent.TG2C2.category = "Passive";
 talent.TG2C2.locked = true;
 talent.TG2C2.lockedCondition = "Allocate 10+ points into Gambler";
@@ -11500,8 +11495,8 @@ talent.TG2D1.position = '290px 170px'
 talent.TG2D1.parent = "TG2D"
 talent.TG2D1.name = "Thrill of the Hunt";
 talent.TG2D1.category = "Passive";
-talent.TG2D1.description = `"Increase"+strIcon+"Strength by"+colorTag("x1.015","#E57D08")+"for every gold medal in the bestiary<FONT COLOR='gray'> (x"+(1+(goldMedalsGot * 0.03)).toFixed(2)+")"`;
-talent.TG2D1.logic = 'goldMedalsGot * 0.015';
+talent.TG2D1.description = `"Increase"+strIcon+"Strength by"+colorTag("x1.04","#E57D08")+"for every gold medal in the bestiary<FONT COLOR='gray'> (x"+(1+(goldMedalsGot * 0.04)).toFixed(2)+")"`;
+talent.TG2D1.logic = 'goldMedalsGot * 0.04';
 
 talent.TG2D4 = {};
 talent.TG2D4.position = '330px 200px'
@@ -11640,7 +11635,7 @@ talent.TI2B.position = '-210px 140px'
 talent.TI2B.parent = "TI2"
 talent.TI2B.name = "Perish Song";
 talent.TI2B.category = "Skill";
-talent.TI2B.description = `"Plays a requiem of death, inflicting a debuff lasting 20 seconds that deals<span style='color:orange'> "+(8*playerSpellpower*100).toFixed(0)+"% of your damage as"+occultIcon+"Occult Damage once it expires</span>"`; 
+talent.TI2B.description = `"Plays a requiem of death, <span style='color:orange'>interrupting their Casting</span> and inflicting a debuff lasting 20 seconds that deals<span style='color:orange'> "+(8*playerSpellpower*100).toFixed(0)+"% of your damage as"+occultIcon+"Occult Damage once it expires</span>"`; 
 talent.TI2B.cast = "castPerishSong()";
 talent.TI2B.cost = 15;
 talent.TI2B.cd = 30;

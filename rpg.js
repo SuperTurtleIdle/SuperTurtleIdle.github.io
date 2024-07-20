@@ -195,7 +195,7 @@ rpgPlayer.coins += stats.totalCoins * gardenDragonGoldPower
         } 
 
 
-
+        const loottable = window[stats.currentArea + 'Loot']; if (loottable) {rollTable(eval(stats.currentArea+"Loot"), 1) }
 
         
 
@@ -555,15 +555,11 @@ setInterval(hpRegen, 1000);
 function hpRegen() { //additionally manages death
   if (rpgPlayer.alive) {
     //if player alive
-    if (rpgPlayer.hp < playerMaxHp && (!bossTime && !dungeonTime && !showdownTime && !skirmishTime ) || talent.TG2C2.active ) {
-      
+    if (rpgPlayer.hp < playerMaxHp && (!bossTime && !dungeonTime && !showdownTime && !skirmishTime )) {
 
-      if (talent.TG2C2.active) rpgPlayer.hp += playerMaxHp/10;
-      else rpgPlayer.hp += playerMaxHp/20;
-    
-    
-    
-    }
+    rpgPlayer.hp += playerMaxHp/20;
+
+    } else if (talent.TG2C2.active) rpgPlayer.hp += playerMaxHp/100;
     playerUpdate()
     if (bossTime && rpgPlayer.hp<=playerMaxHp*0.01) logs.L1P22A.unlocked=true
     
@@ -1441,6 +1437,7 @@ function statusParticleCheck() { //checks if buffs is active, and asigns status 
   //enemy
   if (buffs.B110.time>0) { statusParticle("particleFire",0)};
   if (buffs.B54.time>0) statusParticle("particlePoison",0); 
+  if (buffs.B109.time>0) statusParticle("particlePoison",150); 
 
 
 
@@ -2261,9 +2258,7 @@ for (let i in items) { //bullshit gpt code but hey as long as it works
   
     }
 
-    if (event.key === 'l')  {
-      console.log(artisanBonus(currentRecipe))
-    }
+    
 
       
 
@@ -2375,7 +2370,6 @@ function removeTableItem() {
 
  
 
-  if (items.BR7.gotOnce) coolCooler.BR7.P = 0;
 
   if (items.I286.gotOnce) fishingEeriePond2.I286.P = 0;
 
@@ -2808,8 +2802,8 @@ while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
 }
 
 
-  console.log('Rare Drop IDs:', rareDropIds);
-  console.log('Uncommon Drop IDs:', uncommonDropIds);
+  //console.log('Rare Drop IDs:', rareDropIds);
+  //console.log('Uncommon Drop IDs:', uncommonDropIds);
 
   itemGot = "none"
 
@@ -2820,7 +2814,7 @@ while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
   if (itemGot!=="none") valid()
 
   function invalid(){
-
+S
     if (!did('popupmaterialiser')) createPopup('&#10060; Invalid Target!', '#913c3c', "popupmaterialiser");
 
   }
@@ -5385,7 +5379,7 @@ function updateLoadout(number){
     gearSwap(items[rpgPlayer["L" + currentLoadout + "weaponSlot"]].id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon") 
   }
 
-  if (rpgPlayer["L" + currentLoadout + "headSlot"] !== "none" && items[rpgPlayer["L" + currentLoadout + "weaponSlot"]].count>0) { 
+  if (rpgPlayer["L" + currentLoadout + "headSlot"] !== "none" && items[rpgPlayer["L" + currentLoadout + "headSlot"]].count>0) { 
     if (!did(items[rpgPlayer["L" + currentLoadout + "headSlot"]].id+"ItemImage")){createItem(items[rpgPlayer["L" + currentLoadout + "headSlot"]].id)}; 
     gearSwap(items[rpgPlayer["L" + currentLoadout + "headSlot"]].id, rpgPlayer.headSlot, "rpgHeadSlot", "head") }
     
@@ -6845,18 +6839,18 @@ function updateStatsUI() {
   if (rpgPlayer.weaponSlot!=="none" && "align" in items[rpgPlayer.weaponSlot]) did("statsNatureDamage").style.display="inline"; else did("statsNatureDamage").style.display="none";
   
 
-  did("statsNatureBonus").innerHTML = "❖&nbsp;Nature Bonus: " + beautify((natureDamageBonus) * 100) + "%";
-  did("statsElementalBonus").innerHTML = "❖&nbsp;Elemental Bonus: " + beautify((elementalDamageBonus) * 100) + "%";
-  did("statsMightBonus").innerHTML = "❖&nbsp;Might Bonus: " + beautify((mightDamageBonus) * 100) + "%";
-  did("statsDeificBonus").innerHTML = "❖&nbsp;Deific Bonus: " + beautify((deificDamageBonus) * 100) + "%";
-  did("statsOccultBonus").innerHTML = "❖&nbsp;Occult Bonus: " + beautify((occultDamageBonus) * 100) + "%";
+  did("statsNatureBonus").innerHTML = "❖&nbsp;Nature Bonus: " + beautify((natureDamageBonus).toFixed(2) * 100) + "%";
+  did("statsElementalBonus").innerHTML = "❖&nbsp;Elemental Bonus: " + beautify((elementalDamageBonus).toFixed(2) * 100) + "%";
+  did("statsMightBonus").innerHTML = "❖&nbsp;Might Bonus: " + beautify((mightDamageBonus).toFixed(2) * 100) + "%";
+  did("statsDeificBonus").innerHTML = "❖&nbsp;Deific Bonus: " + beautify((deificDamageBonus).toFixed(2) * 100) + "%";
+  did("statsOccultBonus").innerHTML = "❖&nbsp;Occult Bonus: " + beautify((occultDamageBonus).toFixed(2) * 100) + "%";
 
 
-  did("statsNatureResist").innerHTML = "❖&nbsp;Nature Resistance: " + beautify((natureResist) * 100) + "%";
-  did("statsElementalResist").innerHTML = "❖&nbsp;Elemental Resistance: " + beautify((elementalResist) * 100) + "%";
-  did("statsMightResist").innerHTML = "❖&nbsp;Might Resistance: " + beautify((mightResist) * 100) + "%";
-  did("statsDeificResist").innerHTML = "❖&nbsp;Deific Resistance: " + beautify((deificResist) * 100) + "%";
-  did("statsOccultResist").innerHTML = "❖&nbsp;Occult Resistance: " + beautify((occultResist) * 100) + "%";
+  did("statsNatureResist").innerHTML = "❖&nbsp;Nature Resistance: " + beautify((natureResist).toFixed(2) * 100) + "%";
+  did("statsElementalResist").innerHTML = "❖&nbsp;Elemental Resistance: " + beautify((elementalResist).toFixed(2) * 100) + "%";
+  did("statsMightResist").innerHTML = "❖&nbsp;Might Resistance: " + beautify((mightResist).toFixed(2) * 100) + "%";
+  did("statsDeificResist").innerHTML = "❖&nbsp;Deific Resistance: " + beautify((deificResist).toFixed(2) * 100) + "%";
+  did("statsOccultResist").innerHTML = "❖&nbsp;Occult Resistance: " + beautify((occultResist).toFixed(2) * 100) + "%";
 
   did("statsHaste").innerHTML = "❖&nbsp;Attack Speed: " + -((playerHaste-1)*100).toFixed(0) + "%";
   did("statsStrength").innerHTML = "❖&nbsp;Strength: " + beautify((playerStrength-1).toFixed(2) * 100) + "%";

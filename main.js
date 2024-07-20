@@ -1620,8 +1620,8 @@ function load() {
     for (const i in parsedData.savedItemArmory) { if (items[i]) items[i].armoryState = parsedData.savedItemArmory[i];}
 
 
-    for (const i in parsedData.savedBuffTime) { buffs[i].time = parsedData.savedBuffTime[i];}
-    for (const i in parsedData.savedBuffStacks) { buffs[i].stacks = parsedData.savedBuffStacks[i];}
+    for (const i in parsedData.savedBuffTime) { if (buffs[i]) buffs[i].time = parsedData.savedBuffTime[i];}
+    for (const i in parsedData.savedBuffStacks) { if (buffs[i]) buffs[i].stacks = parsedData.savedBuffStacks[i];}
     
     for (const i in parsedData.savedEnemyKills) { enemies[i].killCount = parsedData.savedEnemyKills[i];}
     for (const i in parsedData.savedEnemyNerf) { enemies[i].nerfed = parsedData.savedEnemyNerf[i];}

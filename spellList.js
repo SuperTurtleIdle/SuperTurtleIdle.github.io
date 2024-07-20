@@ -941,7 +941,7 @@ function castHexTag(){
     animParticleBurst(7 , "particlePoison", "enemyPanel", 200);
     animState(stats.currentEnemy+"enemy", "flash 0.4s 1");
     animState("rpgPlayerImg", "gelatineHigh 0.3s 1");
-    buffs.B50.time=300;
+    buffs.B109.time+=30;
     playerBuffs(); 
     }
 
@@ -2211,7 +2211,7 @@ function castWizhardShield(){
     animState("rpgPlayerImg", "flash 0.5s 1");
     animImageSplash("magishield", "playerPanel", "hold", 0, 15);
     animParticleBurst(7 , "particleExp", "playerPanel", 0);
-    let shield =playerWeaponDamage*15*playerSpellpower
+    let shield =expectedPlayerDamage*1*playerSpellpower
     playerShield += shield
     setTimeout(() => {
         animState("rpgPlayerImg", "gelatineHigh 0.4s 1");
