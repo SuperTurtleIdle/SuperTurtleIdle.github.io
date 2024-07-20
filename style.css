@@ -4908,7 +4908,7 @@ margin-left: 0.5rem;
     
 }
 
-#enemyAnimation{animation: enemyAttacke 0.5s infinite ease-out; position: relative; height: 20vh; width: 20vh;}
+#enemyAnimation{animation: enemyAttacke 0.5s infinite ease-out; position: relative; height: 16vh; width: 16vh;}
 
 #rpgPlayerImg {
     width: auto;
