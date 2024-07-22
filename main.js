@@ -1833,8 +1833,13 @@ function retroactiveUpdate(){
     
     
 
-
+    sanityCheck()
     stats.currentVersion = 0.41;
+}
+
+
+function sanityCheck(){
+for (i in items){ if (!(equipCheck(i)) && items[i].sort==="equipable") {eval(items[i].remove)} }
 }
 
 function upgradesReveal(){
