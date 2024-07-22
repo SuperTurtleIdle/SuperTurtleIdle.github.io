@@ -167,6 +167,8 @@ let clickAnimCooldown = false
 
 unlocks.present = false;
 
+stats.recievedPresents = 0;
+
 did("tortugaClick").onclick = turtleClick;
 
 function turtleClick(alt){
@@ -682,7 +684,7 @@ function tooltipWeather() {
       if (stats.currentWeather==="sakura"){
         did("tooltipName").textContent = "Sakura Fall";
         did("tooltipFlavor").textContent = '"Sakura petals drift, Whispering the springtimes end, Beautys gentle fall."';
-        did("tooltipDescription").innerHTML = '<span style="color:#1EFF0C">❖ Increased Drop chance by 100%</span>';
+        did("tooltipDescription").innerHTML = '<span style="color:gray">No special weather bonuses.</span>';
      }
 
      if (stats.currentWeather==="vortex"){
@@ -1525,7 +1527,7 @@ function load() {
 
     for (const i in parsedData.savedSeedHarvested) { plants[i].harvested = parsedData.savedSeedHarvested[i];}
 
-    for (const i in parsedData.savedItemVaulted) { items[i].vaulted = parsedData.savedItemVaulted[i];}
+    for (const i in parsedData.savedItemVaulted) { if (items[i]) items[i].vaulted = parsedData.savedItemVaulted[i];}
 
     for (const i in parsedData.savedSeedCount) { plants[i].count = parsedData.savedSeedCount[i];}
 
@@ -1620,8 +1622,8 @@ function load() {
     for (const i in parsedData.savedItemArmory) { if (items[i]) items[i].armoryState = parsedData.savedItemArmory[i];}
 
 
-    for (const i in parsedData.savedBuffTime) { buffs[i].time = parsedData.savedBuffTime[i];}
-    for (const i in parsedData.savedBuffStacks) { buffs[i].stacks = parsedData.savedBuffStacks[i];}
+    for (const i in parsedData.savedBuffTime) { if (buffs[i]) buffs[i].time = parsedData.savedBuffTime[i];}
+    for (const i in parsedData.savedBuffStacks) { if (buffs[i]) buffs[i].stacks = parsedData.savedBuffStacks[i];}
     
     for (const i in parsedData.savedEnemyKills) { enemies[i].killCount = parsedData.savedEnemyKills[i];}
     for (const i in parsedData.savedEnemyNerf) { enemies[i].nerfed = parsedData.savedEnemyNerf[i];}
@@ -1786,7 +1788,7 @@ function unlocksReveal(){
     if (stats.questsCompleted>=7) sendMail("MR1");
     if (stats.questsCompleted>=12) sendMail("MR2");
     if (stats.questsCompleted>=19) sendMail("MR3");
-    if (stats.questsCompleted>=25) sendMail("MR4");
+    if (stats.questsCompleted>=26) sendMail("MR4");
     if (stats.questsCompleted>=330) sendMail("MR5"); //33
 
     //flavor
@@ -1798,21 +1800,46 @@ function unlocksReveal(){
     //other    
     if (enemies.E23.killCount>0) sendMail("MO1");
     if (rpgClass.noClass.level===30) sendMail("MO2");
+    if (stats.questsCompleted>=14) sendMail("MO3"); //rasmondius pre30
 
     
 }
 
 
-stats.currentVersion = 0;
+stats.currentVersion = undefined;
 
 function retroactiveUpdate(){
 
-    if (stats.currentVersion === 0 && enemies.E1.killCount>3) { did("outdatedData").style.display = "flex"; did("bodyCover").style.display = "flex"; items.I317.count++}
+    if (stats.currentVersion === undefined && enemies.E1.killCount>3) { did("outdatedData").style.display = "flex"; did("bodyCover").style.display = "flex"; items.I317.count++}
+
+    if (items.I113.statUp!==0) items.I113.statUp = 25 
+    if (items.I124.statUp!==0) items.I124.statUp = 35
+    if (items.I128.statUp!==0) items.I128.statUp = 50
 
 
+    if (stats.currentVersion<0.41){
 
 
-    stats.currentVersion = 0.40;
+        strip()
+
+        items.I57.count = Math.ceil(items.I57.count / 55);
+        items.I165.count = Math.ceil(items.I165.count / 55);
+        items.I71.count = Math.ceil(items.I71.count / 55);
+        items.I100.count = Math.ceil(items.I100.count / 55);
+        sendMail("MS1")
+        
+    }
+
+    
+    
+
+    sanityCheck()
+    stats.currentVersion = 0.41;
+}
+
+
+function sanityCheck(){
+for (i in items){ if (!(equipCheck(i)) && items[i].sort==="equipable") {eval(items[i].remove)} }
 }
 
 function upgradesReveal(){
@@ -1828,7 +1855,72 @@ function upgradesReveal(){
 }
 
 
-
+function strip(){
+    rpgPlayer.feetSlot = 'none'
+rpgPlayer.headSlot = 'none'
+rpgPlayer.legsSlot = 'none'
+rpgPlayer.handsSlot = 'none'
+rpgPlayer.chestSlot = 'none'
+rpgPlayer.ringSlot = 'none'
+rpgPlayer.weaponSlot = 'none'
+rpgPlayer.trinketSlot = 'none'
+rpgPlayer.L1feetSlot = 'none'
+rpgPlayer.L1headSlot = 'none'
+rpgPlayer.L1legsSlot = 'none'
+rpgPlayer.L1handsSlot = 'none'
+rpgPlayer.L1chestSlot = 'none'
+rpgPlayer.L1ringSlot = 'none'
+rpgPlayer.L1weaponSlot = 'none'
+rpgPlayer.L1trinketSlot = 'none'
+rpgPlayer.L2feetSlot = 'none'
+rpgPlayer.L2headSlot = 'none'
+rpgPlayer.L2legsSlot = 'none'
+rpgPlayer.L2handsSlot = 'none'
+rpgPlayer.L2chestSlot = 'none'
+rpgPlayer.L2ringSlot = 'none'
+rpgPlayer.L2weaponSlot = 'none'
+rpgPlayer.L2trinketSlot = 'none'
+rpgPlayer.L3feetSlot = 'none'
+rpgPlayer.L3headSlot = 'none'
+rpgPlayer.L3legsSlot = 'none'
+rpgPlayer.L3handsSlot = 'none'
+rpgPlayer.L3chestSlot = 'none'
+rpgPlayer.L3ringSlot = 'none'
+rpgPlayer.L3weaponSlot = 'none'
+rpgPlayer.L3trinketSlot = 'none'
+rpgPlayer.L4feetSlot = 'none'
+rpgPlayer.L4headSlot = 'none'
+rpgPlayer.L4legsSlot = 'none'
+rpgPlayer.L4handsSlot = 'none'
+rpgPlayer.L4chestSlot = 'none'
+rpgPlayer.L4ringSlot = 'none'
+rpgPlayer.L4weaponSlot = 'none'
+rpgPlayer.L4trinketSlot = 'none'
+rpgPlayer.L5feetSlot = 'none'
+rpgPlayer.L5headSlot = 'none'
+rpgPlayer.L5legsSlot = 'none'
+rpgPlayer.L5handsSlot = 'none'
+rpgPlayer.L5chestSlot = 'none'
+rpgPlayer.L5ringSlot = 'none'
+rpgPlayer.L5weaponSlot = 'none'
+rpgPlayer.L5trinketSlot = 'none'
+rpgPlayer.L6feetSlot = 'none'
+rpgPlayer.L6headSlot = 'none'
+rpgPlayer.L6legsSlot = 'none'
+rpgPlayer.L6handsSlot = 'none'
+rpgPlayer.L6chestSlot = 'none'
+rpgPlayer.L6ringSlot = 'none'
+rpgPlayer.L6weaponSlot = 'none'
+rpgPlayer.L6trinketSlot = 'none'
+rpgPlayer.L7feetSlot = 'none'
+rpgPlayer.L7headSlot = 'none'
+rpgPlayer.L7legsSlot = 'none'
+rpgPlayer.L7handsSlot = 'none'
+rpgPlayer.L7chestSlot = 'none'
+rpgPlayer.L7ringSlot = 'none'
+rpgPlayer.L7weaponSlot = 'none'
+rpgPlayer.L7trinketSlot = 'none'
+}
 
 function tooltipUpgrades(i) {
     if (did(i+"upgrades")) {
