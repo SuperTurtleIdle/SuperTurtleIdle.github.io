@@ -9222,7 +9222,7 @@ recipes.EA3.item = 'I187';
 recipes.EA3.reagent1 = 'I198';
 recipes.EA3.amount1 = 3;
 recipes.EA3.reagent2 = 'I100';
-recipes.EA3.amount2 = 100;
+recipes.EA3.amount2 = 1;
 recipes.EA3.reagent3 = 'I66';
 recipes.EA3.amount3 = 5;
 
