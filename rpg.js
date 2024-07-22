@@ -80,6 +80,11 @@ function simulateTime(hits, minutes){ //hits = how many hits it takes to kill an
 
 function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area, to spawn custom enemy, use deleteEnemy
 
+  enemyDamageMultiplier = 1;
+  enemyDefenseMultiplier = 1;
+  enemyPhase = 1;
+  enemyTurn = 0;
+
   for (let i in enemies) if (enemies[i].difficulty===stats.currentDifficulty&&enemies[i].area===stats.currentArea) var currentEnemy=i 
 
   if (bossTime) currentEnemy=areas[stats.currentArea].boss
@@ -109,9 +114,9 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
   currentHP = enemies[currentEnemy].hp;
   stats.currentEnemy = currentEnemy;
 
-  if (enemies[stats.currentEnemy].dynamic){
-    currentHP = eval(enemies[stats.currentEnemy].hp);
-  } 
+  //if (enemies[stats.currentEnemy].dynamic){
+  //  currentHP = eval(enemies[stats.currentEnemy].hp);
+  //} 
 
   if (enemies[stats.currentEnemy].nerfed){
     currentHP = enemies[currentEnemy].hp/5;
@@ -130,7 +135,7 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
     cd.gildedCooldown=1200;
     div.className = "enemy gilded";
     did("enemyLevel").textContent = "[lvl "+rpgClass[stats.currentClass].level +"]";
-    currentHP = eval(expectedPlayerDamage*25)
+    currentHP = 15000
 
 
 
@@ -185,9 +190,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
       if (stats.currentArea==="A9" && rng(1,10)===1) {castArea9Explosion()}
 
 
-        enemies[stats.currentEnemy].killCount++;
-        stats.totalKills++;
-        if (bossTime) {stats.totalBossKills++;};
+        
 
 
         if (gardenDragonGoldPower>0){
@@ -253,6 +256,10 @@ rpgPlayer.coins += stats.totalCoins * gardenDragonGoldPower
 
     } else bossTime = false;
 
+
+
+    if (enemies[stats.currentEnemy].firstTimeReward && enemies[stats.currentEnemy].killCount===0) improbabilityDrive("guaranteed")
+
         
     if (dungeonTime) {
       dungeonPoints++;
@@ -266,14 +273,14 @@ rpgPlayer.coins += stats.totalCoins * gardenDragonGoldPower
       did("rpgCanvas").style.animation = "";
       void did("rpgCanvas").offsetWidth;
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
-      stats.currentArea = previousArea;
+      if (rpgClass[stats.currentClass].level < areas[stats.currentArea].level) {stats.currentArea = previousArea;} else {stats.currentArea = "A1";}
       if (areas[previousArea].dungeon) stats.currentArea = "A1";
       stats.currentDifficulty = previousDifficulty;
       dungeonPoints = 0;
       dungeonStage=0
       stats.dungeonsCleared++;
-      if (rng(1,5)===1) items[rareItems[rng(0,(rareItems.length-1))]].count++;
-      if (rng(1,15)===1) items[rareItems2[rng(0,(rareItems2.length-1))]].count++;
+      if (rng(1,5)===1) rareItemDrop(rareItems[rng(0,(rareItems.length-1))],1)
+      if (rng(1,15)===1) rareItemDrop(rareItems2[rng(0,(rareItems2.length-1))],1)
       updateDungeonPoints();
       switchArea();
       updateBGColor();
@@ -316,12 +323,11 @@ rpgPlayer.coins += stats.totalCoins * gardenDragonGoldPower
 
     if (stats.currentEnemy === "E18" && enemyPhase===2) stats.purifiedMorgatosDefeated++
   
-
+    enemies[stats.currentEnemy].killCount++;
+    stats.totalKills++;
+    if (bossTime) {stats.totalBossKills++;};
     
-    enemyDamageMultiplier = 1;
-    enemyDefenseMultiplier = 1;
-    enemyPhase = 1;
-    enemyTurn = 0;
+    
     removeBuffs("clear");
     playerBuffs();
 
@@ -334,9 +340,7 @@ rpgPlayer.coins += stats.totalCoins * gardenDragonGoldPower
 
   var percentageHP = (currentHP / enemies[stats.currentEnemy].hp) * 100;
 
-  if (enemies[stats.currentEnemy].dynamic) percentageHP = (currentHP / eval(enemies[stats.currentEnemy].hp)) * 100;
-
-  if (did(stats.currentEnemy+"enemy") && did(stats.currentEnemy+"enemy").classList.contains('gilded')) percentageHP = (currentHP / eval(expectedPlayerDamage*25)) * 100;
+  if (did(stats.currentEnemy+"enemy") && did(stats.currentEnemy+"enemy").classList.contains('gilded')) percentageHP = (currentHP / 15000) * 100;
 
   did("enemyHpBar").style.background = "linear-gradient(90deg, rgb(144,238,111)" + percentageHP + "%, rgb(255,119,119) " + percentageHP + "%)";
 
@@ -430,7 +434,8 @@ function playerAttackHit(){ //a regular player attack
 
 function playerAttackCheck(){
 
-  if ('defenseChance' in enemies[stats.currentEnemy]) eval(enemies[stats.currentEnemy].defenseChance)
+
+if ('defenseChance' in enemies[stats.currentEnemy]) eval(enemies[stats.currentEnemy].defenseChance)
 
 if (rpgPlayer.trinketSlot!=='none' && items[rpgPlayer.trinketSlot].attackChance) eval(items[rpgPlayer.trinketSlot].attackChance)
 if (rpgPlayer.weaponSlot!=='none' && items[rpgPlayer.weaponSlot].attackChance) eval(items[rpgPlayer.weaponSlot].attackChance)
@@ -451,10 +456,7 @@ function playerUpdate(){ //updates player HP and checks if its dead
     rpgPlayer.hp = 0;
     if ((enemies[stats.currentEnemy].tag==="areaBoss") && buffs.B64.time<=0) { //if a boss kills the turtle
       bossTime = false;
-      enemyDamageMultiplier = 1;
-      enemyDefenseMultiplier = 1;
-      enemyPhase = 1;
-      enemyTurn = 0;
+      
       deleteEnemy();
       did("rpgCanvas").style.animation = "";
       void did("rpgCanvas").offsetWidth;
@@ -921,7 +923,7 @@ function enemyDamage(damage, align, icon, type){
     critMark = " !"
     crit = 2
     stats.criticalHitsDealt++;
-    if (talent.TA1C.active) rpgPlayer.mana += playerMaxMana*0.02
+    if (talent.TA1C.active && rpgPlayer.mana<playerMaxMana) rpgPlayer.mana += playerMaxMana*0.02
   }
 
   damageDealt = damage * Math.pow(1.005, playerMastery) * enemyDefenseMultiplier * crit
@@ -929,13 +931,28 @@ function enemyDamage(damage, align, icon, type){
 
   if (gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)) damageDealt = 0
 
+  ///dynamic enemies///
+  let dynamicCalc = 1;
+  let weaponDamage = playerWeaponDamage * (1+eval(items[rpgPlayer.weaponSlot].align+"DamageBonus")) * (playerStrength) * Math.pow(1.005, playerMastery) + flatWeaponDamage
+
+  if (type!=="str") {
+    dynamicCalc =  1-Math.abs(((damageDealt - weaponDamage) / weaponDamage));
+    if (dynamicCalc < 0) dynamicCalc = Math.abs(dynamicCalc);
+      
+    //console.log(dynamicCalc)
+  }
+
+  if (enemies[stats.currentEnemy].dynamic || did(stats.currentEnemy+"enemy").classList.contains('gilded')) damageDealt = 1000 * dynamicCalc * enemyDefenseMultiplier * crit;
+  if (icon==="weak" && (enemies[stats.currentEnemy].dynamic || did(stats.currentEnemy+"enemy").classList.contains('gilded')) ) damageDealt = 1000 * dynamicCalc * typeResist * enemyDefenseMultiplier * crit;
+  if (icon==="strong" && (enemies[stats.currentEnemy].dynamic || did(stats.currentEnemy+"enemy").classList.contains('gilded')) ) damageDealt = 1000 * dynamicCalc * typestrength * enemyDefenseMultiplier * crit;
+
   let finalDamage = rng(damageDealt*0.9, damageDealt*1.1)
 
   if (buffs.B113.time>0) finalDamage = 999999
 
   if (buffs.B83.time>0) finalDamage = 0; //invul buff
 
-  if (buffs.B79.time>0 && type==="skillDmg"){ //mirror buff
+  if (buffs.B79.time>0 && type==="sp"){ //mirror buff
     playerDeificDamage(finalDamage)
   }
 
@@ -957,7 +974,8 @@ function enemyDamage(damage, align, icon, type){
   if (finalDamage > 999) logs.P35.unlocked = true;
   if (finalDamage > 99999) logs.P35A.unlocked = true;
   if (finalDamage > 999999) logs.P35B.unlocked = true;
-  if (finalDamage > 19999999) logs.P35BA.unlocked = true;
+  if (finalDamage > 9999999) logs.P35BA.unlocked = true;
+  if (finalDamage > 99999999) logs.P35BB.unlocked = true;
 
 
 
@@ -1089,10 +1107,11 @@ function playerNatureDamage(damage){
 }
 
 function playerMightDamage(damage){
+  let icon;
+
   let damageDealt = damage - (damage * mightResist);
   if (mightResist>0.49) {icon='weak';}
   if (mightResist<-0.49) {icon='strong';}
-  let icon;
   if (rpgPlayer.align === 'nature') {damageDealt *= typeResist; icon='weak';}
   if (buffs.B89.time>0 && buffs.B89.stacks>0) { damageDealt=0; buffs.B89.stacks--; playerBuffs();}
   if (playerShield<=0) rpgPlayer.hp -= damageDealt;
@@ -1106,10 +1125,11 @@ function playerMightDamage(damage){
 }
 
 function playerElementalDamage(damage){
+  let icon;
+
   let damageDealt = damage - (damage * elementalResist);
   if (elementalResist>0.49) {icon='weak';}
   if (elementalResist<-0.49) {icon='strong';}
-  let icon;
   if (rpgPlayer.align === 'might') {damageDealt *= typeResist; icon='weak';}
   if (buffs.B89.time>0 && buffs.B89.stacks>0) { damageDealt=0; buffs.B89.stacks--; playerBuffs();}
   if (playerShield<=0) rpgPlayer.hp -= damageDealt;
@@ -1123,10 +1143,11 @@ function playerElementalDamage(damage){
 }
 
 function playerOccultDamage(damage){
+  let icon;
+
   let damageDealt = damage - (damage * occultResist);
   if (occultResist>0.49) {icon='weak';}
   if (occultResist<-0.49) {icon='strong';}
-  let icon;
   if (rpgPlayer.align ===  'occult') {damageDealt *= typeResist; icon='weak';}
   if (buffs.B89.time>0 && buffs.B89.stacks>0) { damageDealt=0; buffs.B89.stacks--; playerBuffs();}
   if (playerShield<=0) rpgPlayer.hp -= damageDealt;
@@ -1140,10 +1161,11 @@ function playerOccultDamage(damage){
 }
 
 function playerDeificDamage(damage){
+  let icon;
+
   let damageDealt = damage - (damage * deificResist);
   if (deificResist>0.49) {icon='weak';}
   if (deificResist<-0.49) {icon='strong';}
-  let icon;
   if (rpgPlayer.align ===  'deific') {damageDealt *= typeResist; icon='weak';}
   if (buffs.B89.time>0 && buffs.B89.stacks>0) { damageDealt=0; buffs.B89.stacks--; playerBuffs();}
   if (playerShield<=0) rpgPlayer.hp -= damageDealt;
@@ -1504,8 +1526,6 @@ function dropItem(ID) { //dedicated drop rolls
     if (enemies[stats.currentEnemy].align==="occult") rareItemDrop("I437",1)
     if (enemies[stats.currentEnemy].align==="deific") rareItemDrop("I438",1)
   
-  
-  
   }
 
 
@@ -1583,24 +1603,101 @@ function rollTable(table, rolls) { //droptable rolls
 
 
 
+function pityDrop(id){
+
+  const regex = /rareItemDrop\(['"]([^'"]+)['"],\s*(rareDrop|uncommonDrop|uncommonDungeon|rareDungeon|epicDrop|epicDungeon)\s*\)/g;
+  let match;
+const rareDropIds = [];
+const uncommonDropIds = [];
+const epicDropIds = [];
+
+while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
+    const id = match[1];
+    const dropType = match[2];
+    if ((dropType === 'rareDrop' || dropType === 'rareDungeon') && items[id].count===0) {
+        rareDropIds.push(id);
+    }
+    
+    if ((dropType === 'uncommonDrop' || dropType === 'uncommonDungeon') && items[id].count===0) {
+        uncommonDropIds.push(id);
+    }
+
+    if ((dropType === 'epicDrop' || dropType === 'epicDungeon') && items[id].count===0) {
+      epicDropIds.push(id);
+  }
+
+}
+
+
+
+  //console.log('Rare Drop IDs:', rareDropIds);
+  //console.log('Uncommon Drop IDs:', uncommonDropIds);
+  //console.log('Epic Drop IDs:', epicDropIds);
+
+
+
+  itemGot = "none";
+
+  if (uncommonDropIds.length>0 && items[id].quality === "Uncommon") itemGot = uncommonDropIds[rng(0,(uncommonDropIds.length-1))]
+  if (rareDropIds.length>0 && items[id].quality === "Rare") itemGot = rareDropIds[rng(0,(rareDropIds.length-1))]
+  if (epicDropIds.length>0 && items[id].quality === "Epic") itemGot = epicDropIds[rng(0,(epicDropIds.length-1))]
+
+
+  if (itemGot !== "none") {
+
+
+
+    rareItemDrop(itemGot,1)
+
+    if (did(itemGot + "ItemOverlay")){
+      did(itemGot + "ItemOverlay").style.animation = "";
+      void did(itemGot + "ItemOverlay").offsetWidth;
+      did(itemGot + "ItemOverlay").style.animation = "newItemGot 50s 1, useSkill 0.5s 1";
+    }
+
+    console.log('PITY TRIGGERED! YOU WOULD HAD GOTTEN '+items[id].name+' BUT GOT INSTEAD '+items[itemGot].name)
+
+  } 
+
+
+
+}
+
+
+
 function rareItemDrop(dt, chance, amount){
 
+  
 
 if (rng(1,chance)===1){
+
+
+  
 
   let toAdd = 1
   if (amount!==undefined) toAdd = amount
 
+  if (items[dt].max===1 && items[dt].count>0){
+    pityDrop(dt)
+
+
+  } else {
   items[dt].count += toAdd;
   items[dt].timesGot += toAdd;
 
+  }
+
   addItem();
 
- if (did(dt + "ItemOverlay")){
-  did(dt + "ItemOverlay").style.animation = "";
-  void did(dt + "ItemOverlay").offsetWidth;
-  did(dt + "ItemOverlay").style.animation = "newItemGot 50s 1, useSkill 0.5s 1";
-}
+
+
+  if (did(dt + "ItemOverlay")){
+    did(dt + "ItemOverlay").style.animation = "";
+    void did(dt + "ItemOverlay").offsetWidth;
+    did(dt + "ItemOverlay").style.animation = "newItemGot 50s 1, useSkill 0.5s 1";
+  }
+
+ 
 
 if (!settings.disableDropsLog) logPrint("<FONT COLOR='#8fba77'>You obtain <FONT COLOR="+returnQualityColor(items[dt].quality)+">" + itemIcon(dt) + items[dt].name + " x " + toAdd +"!");
 
@@ -2782,7 +2879,7 @@ function sellItem(id, amount){
 }
 
 
-function improbabilityDrive(){
+function improbabilityDrive(mode){
 
   const regex = /rareItemDrop\(['"]([^'"]+)['"],\s*(rareDrop|uncommonDrop|uncommonDungeon|rareDungeon)\s*\)/g;
   let match;
@@ -2808,13 +2905,13 @@ while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
   itemGot = "none"
 
   if (uncommonDropIds.length>0) itemGot = uncommonDropIds[rng(0,(uncommonDropIds.length-1))]
-  if (rng(1,3)===1 && rareDropIds.length>0 || rareDropIds.length>0 && uncommonDropIds.length===0) itemGot = rareDropIds[rng(0,(rareDropIds.length-1))]
+  if (rng(1,4)===1 && rareDropIds.length>0 || rareDropIds.length>0 && uncommonDropIds.length===0) itemGot = rareDropIds[rng(0,(rareDropIds.length-1))]
 
   if (uncommonDropIds.length===0 && rareDropIds.length===0) invalid()
   if (itemGot!=="none") valid()
 
   function invalid(){
-S
+
     if (!did('popupmaterialiser')) createPopup('&#10060; Invalid Target!', '#913c3c', "popupmaterialiser");
 
   }
@@ -2822,11 +2919,17 @@ S
 
   function valid (){
 
+  if (mode==="guaranteed"){
+    if (items[itemGot].quality==="Uncommon") {createPopup('💠 First time reward: '+items[itemGot].name+' !', '#994687'); items[itemGot].count++}
+    else if (items[itemGot].quality==="Rare") {createPopup('💠 First time reward: '+items[itemGot].name+' !', '#994687'); items[itemGot].count++}
 
-  if (items[itemGot].quality==="Uncommon" && rng(1,5)===1) {createPopup('💠 '+items[itemGot].name+' has materialised!', '#994687'); items[itemGot].count++}
-  else if (items[itemGot].quality==="Rare" && rng(1,10)===1) {createPopup('💠 '+items[itemGot].name+' has materialised!', '#994687'); items[itemGot].count++}
-  else createPopup('&#10060; Failed to materialise '+items[itemGot].name, '#913c3c');
-
+  } else {
+    if (items[itemGot].quality==="Uncommon" && rng(1,5)===1) {createPopup('💠 '+items[itemGot].name+' has materialised!', '#994687'); items[itemGot].count++}
+    else if (items[itemGot].quality==="Rare" && rng(1,10)===1) {createPopup('💠 '+items[itemGot].name+' has materialised!', '#994687'); items[itemGot].count++}
+    else createPopup('&#10060; Failed to materialise '+items[itemGot].name, '#913c3c');
+  }
+  
+  playSound("audio/button9.mp3");
   items.I219.count--
   addItem();
 
@@ -3219,10 +3322,7 @@ function switchArea() {
       dungeonStage=0;
       updateDungeonPoints();
 
-      enemyDamageMultiplier = 1;
-      enemyDefenseMultiplier = 1;
-    enemyPhase = 1;
-    enemyTurn = 0;
+      
 
       did("areaName").innerHTML = areas[stats.currentArea].name;
       did("areaLevel").innerHTML = "LVL " + areas[stats.currentArea].level;
@@ -3324,10 +3424,7 @@ function difficultyButton(div, difficulty){
     playSound("audio/button4.mp3")
     stats.currentDifficulty = difficulty;
 
-    enemyDamageMultiplier = 1;
-    enemyDefenseMultiplier = 1;
-    enemyPhase = 1;
-    enemyTurn = 0;
+    
 
 
     bossTime = false;
@@ -3431,7 +3528,7 @@ function createQuest() {
     }
 
     if(quests[q].state==='pending' || quests[q].state==='complete'){
-    if (eval(quests[q].logic)) {quests[q].state = "complete"} else {quests[q].state = "pending"}  
+    if (quests[q].unlocked!==false && eval(quests[q].logic)) {quests[q].state = "complete"} else {quests[q].state = "pending"}  
     }
 
     if(quests[q].unlocked===false){ did(q + "quest").style.display = "none"} else did(q + "quest").style.display = "flex"
@@ -3938,17 +4035,17 @@ function rUpgBaseMat(id, mode){
 
     let multiplier = 1
     /*
-    if (items[id].quality==="Uncommon") multiplier = 5;
-    if (items[id].quality==="Rare") multiplier = 10;
-    if (items[id].quality==="Epic") multiplier = 15;
-    if (items[id].quality==="Mythic") multiplier = 20;
-    */
-    if (items[id].quality==="Uncommon") multiplier = 3;
+     if (items[id].quality==="Uncommon") multiplier = 3;
     if (items[id].quality==="Rare") multiplier = 6;
     if (items[id].quality==="Epic") multiplier = 9;
     if (items[id].quality==="Mythic") multiplier = 20;
+    */
+    if (items[id].quality==="Uncommon") multiplier = 2;
+    if (items[id].quality==="Rare") multiplier = 3;
+    if (items[id].quality==="Epic") multiplier = 4;
+    if (items[id].quality==="Mythic") multiplier = 5;
 
-    if (ender===0) return 10 * multiplier;
+    if (ender===0) return 1;
     if (ender===1 || ender===4 || ender===7) return 20 * multiplier;
     if (ender===2 || ender===5 || ender===8) return 30 * multiplier;
     if (ender===3 || ender===6 || ender===9) return 40 * multiplier;
@@ -4012,11 +4109,19 @@ function rUpgCapMat(id, mode){
 
 function rUpgShells(id, mode){
 
+  /*
   let multiplier = 1
   if (items[id].quality==="Uncommon") multiplier = 6;
   if (items[id].quality==="Rare") multiplier = 12;
   if (items[id].quality==="Epic") multiplier = 18;
   if (items[id].quality==="Mythic") multiplier = 24;
+  */
+
+  let multiplier = 3
+  if (items[id].quality==="Uncommon") multiplier = 4;
+  if (items[id].quality==="Rare") multiplier = 5;
+  if (items[id].quality==="Epic") multiplier = 6;
+  if (items[id].quality==="Mythic") multiplier = 7;
 
   if (mode==="display"){
     return '<FONT COLOR=White>▪ '+beautify(rUpgShells(id))+'<img src="img/src/icons/coin.png" style="border: solid 1px white">Shells <FONT COLOR=gray>('+beautify(rpgPlayer.coins)+')<br>'
@@ -5355,8 +5460,11 @@ function initGearAll() { //Assign all pieces to all slots, also resets Haste
 
 
 currentLoadout = 1;
+stats.lastLoadout = 1
 
 function updateLoadout(number){
+
+  
 
 
   playSound("audio/button1.mp3")
@@ -5372,6 +5480,8 @@ function updateLoadout(number){
   removeGearLoadout("trinketSlot");
 
   currentLoadout = number
+
+  stats.lastLoadout = number
 
 
   if (rpgPlayer["L" + currentLoadout + "weaponSlot"] !== "none" && items[rpgPlayer["L" + currentLoadout + "weaponSlot"]].count>0) {
@@ -5443,8 +5553,11 @@ function removeGearLoadout(slot){
 
   //if (rpgPlayer["L" + currentLoadout + slot] !== "none") {
   if (rpgPlayer["L" + currentLoadout + slot] !== "none") { did("inventory").appendChild(did("rpg"+slot.charAt(0).toUpperCase() + slot.slice(1)).firstChild) ; }
+
   did("rpg"+slot.charAt(0).toUpperCase() + slot.slice(1)).innerHTML = '<div class="equipmentSlot"><img src="img/sys/'+slot+'.png"></div>';
+
   if (rpgPlayer["L" + currentLoadout + slot] !== "none") eval(items[rpgPlayer["L" + currentLoadout + slot]].remove);
+  
   rpgPlayer[slot] = "none";
   //}
   
@@ -6566,6 +6679,7 @@ function buffEffect(strength, id) {
   if (buffs[id].time>0) { buffs[id].statUp = strength; statsUpdate(); updateStatsUI();}
 
   if (rpgPlayer.ringSlot === "I176" && items.I176.level>9) buffs.B3.statUp = 0; //poison
+  if (rpgPlayer.ringSlot === "I282" && items.I282.level>29) buffs.B59.statUp = 0; //burning
 
 
 
@@ -6685,7 +6799,9 @@ function openPresent(present) {
 
 
       let itemGot = rareItems[rng(0,(rareItems.length-1))]
-      div.innerHTML = '<img src="img/src/items/'+itemGot+'.jpg">x1 '+ items[itemGot].name; items[itemGot].count+=1
+      div.innerHTML = '<img src="img/src/items/'+itemGot+'.jpg">x1 '+ items[itemGot].name;
+      
+      rareItemDrop(itemGot,1)
 
 
       animParticleBurst(5 , "particlePoison", present, 200)
@@ -6719,12 +6835,12 @@ function openPresent(present) {
 
     if (present.startsWith("commonitem")) {
       let itemGot = rareItems[rng(0,(rareItems.length-1))]
-      div.innerHTML = '<img src="img/src/items/'+itemGot+'.jpg">x1 '+ items[itemGot].name; items[itemGot].count+=1
+      div.innerHTML = '<img src="img/src/items/'+itemGot+'.jpg">x1 '+ items[itemGot].name; rareItemDrop(itemGot,1)
     }
 
     if (present.startsWith("rareitem")) {
       let itemGot = rareItems2[rng(0,(rareItems2.length-1))]
-      div.innerHTML = '<img src="img/src/items/'+itemGot+'.jpg">x1 '+ items[itemGot].name; items[itemGot].count+=1
+      div.innerHTML = '<img src="img/src/items/'+itemGot+'.jpg">x1 '+ items[itemGot].name; rareItemDrop(itemGot,1)
       logs.P32.unlocked = true;
     }
 
@@ -6923,7 +7039,7 @@ if (areas[stats.currentArea].dungeon) stats.currentArea = "A1"; //prevents loadi
   createAreaPanel();
 
 
-  //updateLoadout();
+  updateLoadout(stats.lastLoadout);
 
   if (stats.currentArea==="A7"){ //if the player loads in arena, dont show the quest tab
       did("showdownTab").style.display = "flex";

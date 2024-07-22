@@ -173,7 +173,7 @@ function logCheck() {
 
     //they have new names
     did('logHeaderBooks').innerHTML = 'Books Collected :<strong style="background:#4c5673">' + stats.logsGot+'/'+totalLogs +'</strong> <strong style="background:orange">['+Math.round(stats.logsGot/totalLogs*100)+'%]</strong>';
-    did('logHeaderInsight').innerHTML = 'Total Mastery: <strong style="background: #6eb1b8;">' + stats.logsGot*5+'</strong><img src="img/src/icons/insight.png">';
+    did('logHeaderInsight').innerHTML = 'Archive Mastery: <strong style="background: #6eb1b8;">' + stats.logsGot*5+'</strong><img src="img/src/icons/insight.png">';
     
 }
 
@@ -700,7 +700,7 @@ if (enemies[i].killCount>=1 || enemies[i].sawOnce){
 bestiaryPercentage = ( ( bestiaryPointEntry + medalsGot ) / (totalBestiaryPoints) * 100 ) 
 did("bestiaryProgress").innerHTML = bestiaryPercentage.toFixed(1)+"%";
 did("bestiaryMastery").innerHTML = "+"+medalsGot*10+" Mastery";
-did("bestiaryProgress2").innerHTML = medalsGot+"/"+elibileEnemies+" Medals";
+did("bestiaryProgress2").innerHTML = medalsGot+"/"+(elibileEnemies+medalsGot)+" Medals";
 
 did("bestiaryProgressBar").style.width = bestiaryPercentage+'%';
 

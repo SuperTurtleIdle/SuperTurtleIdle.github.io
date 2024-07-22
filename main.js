@@ -1806,7 +1806,7 @@ function unlocksReveal(){
 }
 
 
-stats.currentVersion = 0;
+stats.currentVersion = undefined;
 
 function retroactiveUpdate(){
 
@@ -1817,7 +1817,24 @@ function retroactiveUpdate(){
     if (items.I128.statUp!==0) items.I128.statUp = 50
 
 
-    stats.currentVersion = 0.40;
+    if (stats.currentVersion<0.41){
+
+
+        strip()
+
+        items.I57.count = Math.ceil(items.I57.count / 55);
+        items.I165.count = Math.ceil(items.I165.count / 55);
+        items.I71.count = Math.ceil(items.I71.count / 55);
+        items.I100.count = Math.ceil(items.I100.count / 55);
+        sendMail("MS1")
+        
+    }
+
+    
+    
+
+
+    stats.currentVersion = 0.41;
 }
 
 function upgradesReveal(){
@@ -1833,7 +1850,72 @@ function upgradesReveal(){
 }
 
 
-
+function strip(){
+    rpgPlayer.feetSlot = 'none'
+rpgPlayer.headSlot = 'none'
+rpgPlayer.legsSlot = 'none'
+rpgPlayer.handsSlot = 'none'
+rpgPlayer.chestSlot = 'none'
+rpgPlayer.ringSlot = 'none'
+rpgPlayer.weaponSlot = 'none'
+rpgPlayer.trinketSlot = 'none'
+rpgPlayer.L1feetSlot = 'none'
+rpgPlayer.L1headSlot = 'none'
+rpgPlayer.L1legsSlot = 'none'
+rpgPlayer.L1handsSlot = 'none'
+rpgPlayer.L1chestSlot = 'none'
+rpgPlayer.L1ringSlot = 'none'
+rpgPlayer.L1weaponSlot = 'none'
+rpgPlayer.L1trinketSlot = 'none'
+rpgPlayer.L2feetSlot = 'none'
+rpgPlayer.L2headSlot = 'none'
+rpgPlayer.L2legsSlot = 'none'
+rpgPlayer.L2handsSlot = 'none'
+rpgPlayer.L2chestSlot = 'none'
+rpgPlayer.L2ringSlot = 'none'
+rpgPlayer.L2weaponSlot = 'none'
+rpgPlayer.L2trinketSlot = 'none'
+rpgPlayer.L3feetSlot = 'none'
+rpgPlayer.L3headSlot = 'none'
+rpgPlayer.L3legsSlot = 'none'
+rpgPlayer.L3handsSlot = 'none'
+rpgPlayer.L3chestSlot = 'none'
+rpgPlayer.L3ringSlot = 'none'
+rpgPlayer.L3weaponSlot = 'none'
+rpgPlayer.L3trinketSlot = 'none'
+rpgPlayer.L4feetSlot = 'none'
+rpgPlayer.L4headSlot = 'none'
+rpgPlayer.L4legsSlot = 'none'
+rpgPlayer.L4handsSlot = 'none'
+rpgPlayer.L4chestSlot = 'none'
+rpgPlayer.L4ringSlot = 'none'
+rpgPlayer.L4weaponSlot = 'none'
+rpgPlayer.L4trinketSlot = 'none'
+rpgPlayer.L5feetSlot = 'none'
+rpgPlayer.L5headSlot = 'none'
+rpgPlayer.L5legsSlot = 'none'
+rpgPlayer.L5handsSlot = 'none'
+rpgPlayer.L5chestSlot = 'none'
+rpgPlayer.L5ringSlot = 'none'
+rpgPlayer.L5weaponSlot = 'none'
+rpgPlayer.L5trinketSlot = 'none'
+rpgPlayer.L6feetSlot = 'none'
+rpgPlayer.L6headSlot = 'none'
+rpgPlayer.L6legsSlot = 'none'
+rpgPlayer.L6handsSlot = 'none'
+rpgPlayer.L6chestSlot = 'none'
+rpgPlayer.L6ringSlot = 'none'
+rpgPlayer.L6weaponSlot = 'none'
+rpgPlayer.L6trinketSlot = 'none'
+rpgPlayer.L7feetSlot = 'none'
+rpgPlayer.L7headSlot = 'none'
+rpgPlayer.L7legsSlot = 'none'
+rpgPlayer.L7handsSlot = 'none'
+rpgPlayer.L7chestSlot = 'none'
+rpgPlayer.L7ringSlot = 'none'
+rpgPlayer.L7weaponSlot = 'none'
+rpgPlayer.L7trinketSlot = 'none'
+}
 
 function tooltipUpgrades(i) {
     if (did(i+"upgrades")) {

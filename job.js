@@ -112,7 +112,7 @@ function createRecipe() {
            
      if (recipes[r].level >= (jobs[rpgPlayer.currentJob].level+5)) {did(r+"recipe").style.display = "none"} else did(r+"recipe").style.display = "flex"; 
 
-     if (recipes[r].unlocked === false) {did(r+"recipe").style.display = "none"; console.log(r)} 
+     if (recipes[r].unlocked === false) {did(r+"recipe").style.display = "none";} 
 
 
      if (recipes[r].level <= (jobs[rpgPlayer.currentJob].level)) did(r+"recipeLevel").style.background = "#FF993B"; 
@@ -379,7 +379,7 @@ function craftingProgress(){
     jobExp();
     }
     
-
+    if (items[recipes[r].item].max===1 && items[recipes[r].item].count>0) { rpgPlayer.coins+=eval(items[recipes[r].item].sell)*0.35; stats.totalCoins +=eval(items[recipes[r].item].sell)*0.35; }
     items[recipes[r].item].count += 1;
     rollTable(craftingCollectibles, 1)
     if ("itemCount" in recipes[r]) items[recipes[r].item].count += recipes[r].itemCount-1
@@ -543,9 +543,12 @@ function tooltipOutcome(outcome) {
     if ("skills" in items[outcome]) { 
       itemSkills = "<br>"+eval(items[outcome].skills)
     }
-          
-    did("tooltipDescription").innerHTML = items[outcome].description +itemSkills+ '<br><div class="separador"></div><div style=" text-align: center;background:transparent"><FONT COLOR="white"> Sell value: <FONT COLOR="#ffbd54">'+beautify(eval(items[outcome].sell)*multiplicativeSellValue)+coinIcon+'Shells<br></div>';
-    if (items[outcome].upgradeable || items[outcome].dynamic) did("tooltipDescription").innerHTML = eval(items[outcome].description) +itemSkills+ '<br><div class="separador"></div><div style=" text-align: center;background:transparent"><FONT COLOR="white"> Sell value: <FONT COLOR="#ffbd54">'+beautify(eval(items[outcome].sell)*multiplicativeSellValue)+coinIcon+'Shells<br></div>';
+
+    let priceText = '<FONT COLOR="white"> Sell value: <FONT COLOR="#ffbd54">'+beautify(eval(items[outcome].sell)*multiplicativeSellValue)+coinIcon+'Shells'
+    if (items[outcome].max===1) priceText = '<FONT COLOR="white"> Sell value: <FONT COLOR="#ffbd54">'+beautify(eval(items[outcome].sell)*multiplicativeSellValue)+coinIcon+'Shells <FONT COLOR="pink">[ Autosell: '+beautify(eval(items[outcome].sell)*0.35)+' ]'
+
+    did("tooltipDescription").innerHTML = items[outcome].description +itemSkills+ '<br><div class="separador"></div><div style=" text-align: center;background:transparent"><FONT COLOR="white">'+priceText+'<br></div>';
+    if (items[outcome].upgradeable || items[outcome].dynamic) did("tooltipDescription").innerHTML = eval(items[outcome].description) +itemSkills+ '<br><div class="separador"></div><div style=" text-align: center;background:transparent">'+priceText+'<br></div>';
     
     did("tooltipFlavor").textContent = items[outcome].flavor;
     did('tooltipImage').src = "img/src/items/"+items[outcome].id+".jpg";             
