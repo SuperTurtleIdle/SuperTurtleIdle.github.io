@@ -273,7 +273,7 @@ rpgPlayer.coins += stats.totalCoins * gardenDragonGoldPower
       did("rpgCanvas").style.animation = "";
       void did("rpgCanvas").offsetWidth;
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
-      if (rpgClass[stats.currentClass].level < areas[stats.currentArea].level) {stats.currentArea = previousArea;} else {stats.currentArea = "A1";}
+      if (rpgClass[stats.currentClass].level > areas[stats.currentArea].level) {stats.currentArea = previousArea;} else {stats.currentArea = "A1";}
       if (areas[previousArea].dungeon) stats.currentArea = "A1";
       stats.currentDifficulty = previousDifficulty;
       dungeonPoints = 0;
@@ -1630,9 +1630,9 @@ while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
 
 
 
-  //console.log('Rare Drop IDs:', rareDropIds);
-  //console.log('Uncommon Drop IDs:', uncommonDropIds);
-  //console.log('Epic Drop IDs:', epicDropIds);
+  console.log('Rare Drop IDs:', rareDropIds);
+  console.log('Uncommon Drop IDs:', uncommonDropIds);
+  console.log('Epic Drop IDs:', epicDropIds);
 
 
 
@@ -1657,6 +1657,7 @@ while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
 
     console.log('PITY TRIGGERED! YOU WOULD HAD GOTTEN '+items[id].name+' BUT GOT INSTEAD '+items[itemGot].name)
 
+
   } 
 
 
@@ -1677,13 +1678,14 @@ if (rng(1,chance)===1){
   let toAdd = 1
   if (amount!==undefined) toAdd = amount
 
-  if (items[dt].max===1 && items[dt].count>0){
+  if (items[dt].max==1 && items[dt].count>0){
     pityDrop(dt)
 
 
   } else {
   items[dt].count += toAdd;
   items[dt].timesGot += toAdd;
+  if (!settings.disableDropsLog) logPrint("<FONT COLOR='#8fba77'>You obtain <FONT COLOR="+returnQualityColor(items[dt].quality)+">" + itemIcon(dt) + items[dt].name + " x " + toAdd +"!");
 
   }
 
@@ -1699,7 +1701,6 @@ if (rng(1,chance)===1){
 
  
 
-if (!settings.disableDropsLog) logPrint("<FONT COLOR='#8fba77'>You obtain <FONT COLOR="+returnQualityColor(items[dt].quality)+">" + itemIcon(dt) + items[dt].name + " x " + toAdd +"!");
 
 
 

@@ -618,8 +618,8 @@ playerMiningDamage = additiveMiningDamage * multiplicativeMiningDamage;
 
 playerGatheringLevel = 0 + weaponGatheringLevel + buffs.B37.statUp + items.I117.statUp + buffs.B69.statUp; 
 
-additiveFishingLevel = 0 + items.I182.statUp + buffs.B22.statUp + buffs.B14.statUp + buffs.B69.statUp + buffs.B45.statUp ;
-playerFishingLevel = baseFishingLevel + additiveFishingLevel + rainFishingUp + items.I344.statUp;
+additiveFishingLevel = 0 + items.I182.statUp + buffs.B22.statUp + buffs.B14.statUp + buffs.B69.statUp + buffs.B45.statUp + items.I162.statUp ;
+playerFishingLevel = additiveFishingLevel + rainFishingUp + items.I344.statUp;
 
 additiveCoinsPerClick = items.I113.statUp + items.I124.statUp + items.I128.statUp + items.I202.statUp + items.I426.statUp + items.I401.statUp
 //multiplicativeCoinsPerClick = 1 + buffs.B8.statUp + buffs.B25.statUp + buffs.B26.statUp + talent.TA1B.statUp + talent.TG1.statUp * (1+gardenPatPower);
@@ -3051,10 +3051,11 @@ items.I162.quality = 'Common';
 items.I162.sell = 1000;
 items.I162.max = 1;
 items.I162.use = 'gearSwap(items.I162.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")'
-items.I162.stats = 'baseFishingLevel += 1; weaponSwap("W24")'
-items.I162.remove = 'baseFishingLevel -= 1; weaponSwap("W0")';
+items.I162.stats = 'items.I162.statUp=1; weaponSwap("W24")'
+items.I162.remove = 'items.I162.statUp=0; weaponSwap("W0")';
 items.I162.tag = "rod"
 items.I162.animation = 'ranged';
+items.I162.statUp=0;
 
 items.I171 = {};
 items.I171.name = 'Good Fishing Rod';
