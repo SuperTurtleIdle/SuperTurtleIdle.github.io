@@ -1810,7 +1810,7 @@ stats.currentVersion = undefined;
 
 function retroactiveUpdate(){
 
-    if (stats.currentVersion === 0 && enemies.E1.killCount>3) { did("outdatedData").style.display = "flex"; did("bodyCover").style.display = "flex"; items.I317.count++}
+    if (stats.currentVersion === undefined && enemies.E1.killCount>3) { did("outdatedData").style.display = "flex"; did("bodyCover").style.display = "flex"; items.I317.count++}
 
     if (items.I113.statUp!==0) items.I113.statUp = 25 
     if (items.I124.statUp!==0) items.I124.statUp = 35
