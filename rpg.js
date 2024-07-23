@@ -126,7 +126,7 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
   
 
 
-  if (document.hasFocus() && cd.gildedCooldown<=0 && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)  && !skirmishTime && !showdownTime && !dungeonTime && !bossTime && stats.currentArea!=="A7" && rng(1,1)===1){ //gilding
+  if (document.hasFocus() && cd.gildedCooldown<=0 && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)  && !skirmishTime && !showdownTime && !dungeonTime && !bossTime && stats.currentArea!=="A7" && rng(1,50)===1){ //gilding
     cd.gildedCooldown=1200;
     div.className = "enemy gilded";
     did("enemyLevel").textContent = "[lvl "+rpgClass[stats.currentClass].level +"]";
