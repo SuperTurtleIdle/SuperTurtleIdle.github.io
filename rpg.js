@@ -2927,10 +2927,11 @@ while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
     if (items[itemGot].quality==="Uncommon" && rng(1,5)===1) {createPopup('💠 '+items[itemGot].name+' has materialised!', '#994687'); items[itemGot].count++}
     else if (items[itemGot].quality==="Rare" && rng(1,10)===1) {createPopup('💠 '+items[itemGot].name+' has materialised!', '#994687'); items[itemGot].count++}
     else createPopup('&#10060; Failed to materialise '+items[itemGot].name, '#913c3c');
+    items.I219.count--
   }
   
   playSound("audio/button9.mp3");
-  items.I219.count--
+  
   addItem();
 
 
