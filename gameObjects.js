@@ -588,7 +588,7 @@ occultDamageAdditive = bluemoonDmgUp  + buffs.B20.statUp + buffs.B32.statUp + bu
 occultDamageMultiplicative =  (1+gardenOccultPower) * (1+talent.TG2E.statUp) * (1+talent.TI2C.statUp);
 occultDamageBonus = occultDamageAdditive * occultDamageMultiplicative
 
-deificDamageAdditive = buffs.B31.statUp + items.I175.statUp + buffs.B38.statUp + deificStampStatUp + buffs.B18.statUp + items.I175.statUp + items.I56.statUp;
+deificDamageAdditive = buffs.B31.statUp + items.I175.statUp + buffs.B38.statUp + deificStampStatUp + buffs.B18.statUp + items.I56.statUp;
 deificDamageMultiplicative =  (1+gardenDeificPower) * (1+talent.TA1G.statUp) * (1+talent.TG3.statUp) * (1+talent.TI0E.statUp);
 deificDamageBonus = deificDamageAdditive * deificDamageMultiplicative
 
@@ -2555,7 +2555,7 @@ var dungeonBonus1 = { I93:{P:10, A:1},I92:{P:5, A:'rng(1,3)'},I91:{P:2, A:'rng(1
 
 items.I205 = {};
 items.I205.name = 'Kid\'s Meal';
-items.I205.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Open it!'+bestiaryTag("⚜️ Dedicated Content: Kidsmeal ⚜️", "#A351AB", "nobr")+'<br>'
+items.I205.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: Open it!'+bestiaryTag("⚜️ Dedicated Content: Kidsmeal ⚜️", "#A351AB")
 items.I205.flavor = '"If a toy happened to be inside, it would be healthier to eat than the food served."';
 items.I205.quality = 'Rare';
 items.I205.sell = 15000;
@@ -3569,7 +3569,7 @@ items.I328.animation = 'ranged';
 
 items.I371 = {};
 items.I371.name = 'Vice\'s Retribution';
-items.I371.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+358.3M Might Damage<br>On Attack: Summon a jeweled creature to fight alongside you<br>'+bestiaryTag("⚜️ Dedicated Content: pikacheecks ⚜️", "#A351AB", "nobr")+"<br>";
+items.I371.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">+358.3M Might Damage<br>On Attack: Summon a jeweled creature to fight alongside you<br>'+bestiaryTag("⚜️ Dedicated Content: pikacheecks ⚜️", "#A351AB");
 items.I371.flavor = '"Sorry, but I wont hold back."';
 items.I371.quality = 'Epic';
 items.I371.sell = 100000;
@@ -4511,7 +4511,7 @@ items.I343.series = 'chosen';
 items.I344 = {};
 items.I344.name = 'Marketable Mud Monster Hat';
 items.I344.description = `'Equipable - Head<br>'+rUpgLvl("I344")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I344", 1))+' Max Health'`;
-items.I344.skills = 'rUpgSkill("I344", "Torrent: +1 Fishing Level","passive",30)+bestiaryTag("⚜️ Dedicated Content: huskymudkipper56 ⚜️", "#A351AB", "nobr")+"<br>"'
+items.I344.skills = 'rUpgSkill("I344", "Torrent: +1 Fishing Level","passive",30)+bestiaryTag("⚜️ Dedicated Content: huskymudkipper56 ⚜️", "#A351AB")'
 items.I344.flavor = '"I herd you liek these."';
 items.I344.quality = 'Uncommon';
 items.I344.sell = 258;
@@ -4767,7 +4767,7 @@ items.I193.cap = 60;
 
 items.I345 = {};
 items.I345.name = 'Cat Burglar Ring';
-items.I345.description = 'Equipable - Ring<br><FONT COLOR="#1EFF0C">Equip: Increases Thief success chance<br>'+bestiaryTag("⚜️ Dedicated Content: Neko ⚜️", "#A351AB", "nobr")
+items.I345.description = 'Equipable - Ring<br><FONT COLOR="#1EFF0C">Equip: Increases Thief success chance<br>'+bestiaryTag("⚜️ Dedicated Content: Neko ⚜️", "#A351AB")
 items.I345.flavor = '"The gemstone resembling a cat\'s eye imbues one\'s perception with heightened acuity, facilitating the art of pocket-picking."';
 items.I345.quality = 'Rare';
 items.I345.sell = 20000;
@@ -4910,8 +4910,8 @@ items.I168.name = 'Desert In a Jar';
 items.I168.description = `'Equipable - Trinket<br>'+rUpgLvl("I168")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I168", 1))+' Max Health'`;
 items.I168.skills = 'rUpgSkill("I168", "Stirring Sands: Low chance to gain +40%"+spIcon+"Spellpower","active",0)+"<br>"+rUpgSkill("I168", "Mirage Dust: +20%"+spIcon+"Spellpower","passive",50)'
 items.I168.flavor = '"Not quite as valuable as the one with the dirt."';
-items.I168.quality = 'Uncommon';
-items.I168.sell = 50000;
+items.I168.quality = 'Rare';
+items.I168.sell = 200000;
 items.I168.max = 1;
 items.I168.use = 'gearSwap(items.I168.id, rpgPlayer.trinketSlot, "rpgTrinketSlot", "trinket")'
 items.I168.attackChance = 'castDesertInAJar()';
@@ -5384,7 +5384,7 @@ items.I393.max = 1;
 
 items.I396 = {};
 items.I396.name = 'Monster Sampler';
-items.I396.description = `'Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Take a sample of Hoopperoona'+bestiaryTag("Status: "+items.I396.statUp, "coral", "nobr")+"<br>"`;
+items.I396.description = `'Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Take a sample of Hoopperoona'+bestiaryTag("Status: "+items.I396.statUp, "coral")`;
 items.I396.flavor = '"A device capable of extracting fluids of a monster via injection."';
 items.I396.quality = 'Quest';
 items.I396.sell = 0;
@@ -6129,7 +6129,7 @@ items.I448.description = 'Miscellaneous - Collectible';
 items.I448.flavor = '"Can\'t have shoot in the dungeon."';
 items.I448.quality = 'Collectible';
 items.I448.collectible = 6;
-items.I448.rarity = 5;
+items.I448.rarity = 1;
 
 items.I450 = {}; 
 items.I450.name = 'The Fatemaker';
@@ -6137,7 +6137,7 @@ items.I450.description = 'Miscellaneous - Collectible';
 items.I450.flavor = '"For glory."';
 items.I450.quality = 'Collectible';
 items.I450.collectible = 6;
-items.I450.rarity = 5;
+items.I450.rarity = 1;
 
 items.I452 = {}; 
 items.I452.name = 'Spike Death Trap';
@@ -6145,7 +6145,7 @@ items.I452.description = 'Miscellaneous - Collectible';
 items.I452.flavor = '"You are not supposed to take that home."';
 items.I452.quality = 'Collectible';
 items.I452.collectible = 6;
-items.I452.rarity = 5;
+items.I452.rarity = 2;
 
 items.I453 = {}; 
 items.I453.name = 'Motivational Dungeon Poster';
@@ -6153,7 +6153,7 @@ items.I453.description = 'Miscellaneous - Collectible';
 items.I453.flavor = '"Just a few more pieces of gold buddy."';
 items.I453.quality = 'Collectible';
 items.I453.collectible = 6;
-items.I453.rarity = 5;
+items.I453.rarity = 2;
 
 items.I454 = {}; 
 items.I454.name = 'Overlord Lich\'s Cursed Crystal';
@@ -6161,7 +6161,7 @@ items.I454.description = 'Miscellaneous - Collectible';
 items.I454.flavor = '"They call him that but he is just Matt."';
 items.I454.quality = 'Collectible';
 items.I454.collectible = 6;
-items.I454.rarity = 5;
+items.I454.rarity = 3;
 
 items.I449 = {}; 
 items.I449.name = 'Dungeon Fashion Magazine';
@@ -6169,7 +6169,7 @@ items.I449.description = 'Miscellaneous - Collectible';
 items.I449.flavor = '"Discussing topics too hot for Rogue or the New Orc Times."';
 items.I449.quality = 'Collectible';
 items.I449.collectible = 6;
-items.I449.rarity = 5;
+items.I449.rarity = 3;
 
 items.I451 = {}; 
 items.I451.name = 'Glimbo\'s Attire';
@@ -6177,7 +6177,7 @@ items.I451.description = 'Miscellaneous - Collectible';
 items.I451.flavor = '"Now you can be Glimbo too."';
 items.I451.quality = 'Collectible';
 items.I451.collectible = 6;
-items.I451.rarity = 5;
+items.I451.rarity = 4;
 
 items.I447 = {}; 
 items.I447.name = 'Mimic Plushie';
@@ -6269,7 +6269,7 @@ items.I455.description = 'Miscellaneous - Collectible';
 items.I455.flavor = '"A strip of plastic used for measuring items in turtle feet, which is three thirds of a turtle tail, which in turn is a quarter of a turtle shell. I\'m sure there\'s a better way to do this."';
 items.I455.quality = 'Collectible';
 items.I455.collectible = 8;
-items.I455.rarity = 5;
+items.I455.rarity = 1;
 
 items.I462 = {}; 
 items.I462.name = 'Yarn Ball';
@@ -6277,7 +6277,7 @@ items.I462.description = 'Miscellaneous - Collectible';
 items.I462.flavor = '"A soft ball of blue yarn, used for sewing."';
 items.I462.quality = 'Collectible';
 items.I462.collectible = 8;
-items.I462.rarity = 5;
+items.I462.rarity = 1;
 
 items.I458 = {}; 
 items.I458.name = 'Box of Crayons';
@@ -6285,7 +6285,7 @@ items.I458.description = 'Miscellaneous - Collectible';
 items.I458.flavor = '"All of them are snaped in half..."';
 items.I458.quality = 'Collectible';
 items.I458.collectible = 8;
-items.I458.rarity = 5;
+items.I458.rarity = 2;
 
 items.I460 = {}; 
 items.I460.name = 'Modeling Clay';
@@ -6293,7 +6293,7 @@ items.I460.description = 'Miscellaneous - Collectible';
 items.I460.flavor = '"Technically edible, but not up your palate alley."';
 items.I460.quality = 'Collectible';
 items.I460.collectible = 8;
-items.I460.rarity = 5;
+items.I460.rarity = 2;
 
 items.I456 = {}; 
 items.I456.name = 'Cubic Chest';
@@ -6301,7 +6301,7 @@ items.I456.description = 'Miscellaneous - Collectible';
 items.I456.flavor = '"Ideal for storing crafted items."';
 items.I456.quality = 'Collectible';
 items.I456.collectible = 8;
-items.I456.rarity = 5;
+items.I456.rarity = 3;
 
 items.I461 = {}; 
 items.I461.name = 'Wooden Popsicle Sticks';
@@ -6309,7 +6309,7 @@ items.I461.description = 'Miscellaneous - Collectible';
 items.I461.flavor = '"The building blocks of architecture."';
 items.I461.quality = 'Collectible';
 items.I461.collectible = 8;
-items.I461.rarity = 5;
+items.I461.rarity = 3;
 
 items.I463 = {}; 
 items.I463.name = 'Heartfelt Postal';
@@ -6317,7 +6317,7 @@ items.I463.description = 'Miscellaneous - Collectible';
 items.I463.flavor = '"What counts is the effort behind it. And you bought this on a store."';
 items.I463.quality = 'Collectible';
 items.I463.collectible = 8;
-items.I463.rarity = 5;
+items.I463.rarity = 4;
 
 items.I459 = {}; 
 items.I459.name = 'BOX of Crayons';
@@ -8275,7 +8275,7 @@ quests.A3Q5.icon = "img/src/items/I35.jpg";
 quests.A3Q5A = {};
 quests.A3Q5A.name = 'Victorious Bout';
 quests.A3Q5A.difficulty = 5;
-quests.A3Q5A.description = 'I see a star on the rise? Prove your might and I will spread the word about your deeds worldwide.<br>'+colorTag("Dont forget to check the exchange shop!", "darkorange", "nobr");
+quests.A3Q5A.description = 'I see a star on the rise? Prove your might and I will spread the word about your deeds worldwide.<br>'+colorTag("Dont forget to check the exchange shop!", "darkorange");
 quests.A3Q5A.objective = `'Acquire one Gold Medal in the Monster Arena'`;
 quests.A3Q5A.reward = `itemIcon("I438")+'Deific Glitterstone x15'`; 
 quests.A3Q5A.logic = 'goldenMedalsGot>0';
@@ -11352,7 +11352,7 @@ talent.TG1B.position = '190px 40px'
 talent.TG1B.parent = "TG1"
 talent.TG1B.name = "Thief";
 talent.TG1B.category = "Skill";
-talent.TG1B.description = `"Attempts to steal an item from the enemy, <span style='color:orange'> some enemies might have special items to steal</span>. Always uses 10% of your Max Magic"`; 
+talent.TG1B.description = `"Attempts to steal an item from the enemy, <span style='color:orange'> some enemies might have special items to steal</span>. Always uses 10% of your Max Magic. Some items might increase Steal chance."`; 
 talent.TG1B.cast = "castThief()"
 talent.TG1B.cost = 'beautify(playerMaxMana*0.1)';
 talent.TG1B.cd = 0;
@@ -11616,7 +11616,7 @@ talent.TI2.parent = "TI1"
 talent.TI2.parent2 = "TI3"
 talent.TI2.name = "Rhythm Hell";
 talent.TI2.category = "Skill";
-talent.TI2.description = `"Enters a state of heightened focus for 15 seconds, during this time, <span style='color:orange'> click the enemy on-beat to deal "+(0.5*playerSpellpower*100).toFixed(0)+"% of your damage as "+natureIcon+"Nature Damage. Missing the beat will break the focus</span>"+bestiaryTag("⚜️ Dedicated Content: Kasey ⚜️", "#A351AB", "nobr")`; 
+talent.TI2.description = `"Enters a state of heightened focus for 15 seconds, during this time, <span style='color:orange'> click the enemy on-beat to deal "+(0.5*playerSpellpower*100).toFixed(0)+"% of your damage as "+natureIcon+"Nature Damage. Missing the beat will break the focus</span>"+bestiaryTag("⚜️ Dedicated Content: Kasey ⚜️", "#A351AB")`; 
 talent.TI2.cast = "castRhythmHell()";
 talent.TI2.cost = 10;
 talent.TI2.cd = 30;

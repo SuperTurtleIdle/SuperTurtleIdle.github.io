@@ -118,10 +118,6 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
   //  currentHP = eval(enemies[stats.currentEnemy].hp);
   //} 
 
-  if (enemies[stats.currentEnemy].nerfed){
-    currentHP = enemies[currentEnemy].hp/5;
-  }
-
   if (enemies[stats.currentEnemy].killCount>=100 && stats.currentArea!=="A7"){ farmable = true} else {farmable = false};
     if (farmable) {did('penguinIndicator').innerHTML='Active'; did('penguinIndicator').style.color='lawngreen';}
     else {did('penguinIndicator').innerHTML='Inactive';did('penguinIndicator').style.color='coral';}
@@ -130,16 +126,12 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
   
 
 
-  if (document.hasFocus() && cd.gildedCooldown<=0 && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)  && !skirmishTime && !showdownTime && !dungeonTime && !bossTime && stats.currentArea!=="A7" && rng(1,50)===1){ //gilding
-
+  if (document.hasFocus() && cd.gildedCooldown<=0 && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)  && !skirmishTime && !showdownTime && !dungeonTime && !bossTime && stats.currentArea!=="A7" && rng(1,1)===1){ //gilding
     cd.gildedCooldown=1200;
     div.className = "enemy gilded";
     did("enemyLevel").textContent = "[lvl "+rpgClass[stats.currentClass].level +"]";
+    buffs.B83.time=2;
     currentHP = 15000
-
-
-
-
   }
 
 
@@ -169,14 +161,18 @@ stats.dungeonsCleared = 0;
 stats.purifiedMorgatosDefeated = 0;
 
 var dungeonCollectibles = { 
-  I447:{P:200, A:1}, 
-  I448:{P:200, A:1}, 
-  I449:{P:200, A:1},
-  I450:{P:200, A:1}, 
-  I451:{P:200, A:1},
+  I448:{P:100, A:1}, 
+  I450:{P:100, A:1}, 
+
   I452:{P:200, A:1}, 
   I453:{P:200, A:1}, 
-  I454:{P:200, A:1}, 
+
+  I454:{P:400, A:1}, 
+  I449:{P:400, A:1},
+
+  I451:{P:600, A:1},
+
+  I447:{P:700, A:1}, 
 }
 
 function enemyUpdate() { //updates enemy HP and checks if enemy is dead
@@ -463,12 +459,12 @@ function playerUpdate(){ //updates player HP and checks if its dead
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
       
     }
-    if (dungeonTime && buffs.B64.time<=0){
+    if (dungeonTime && buffs.B64.time<=0){ //dies on a dungeon
       dungeonTime=false;
       did("rpgCanvas").style.animation = "";
       void did("rpgCanvas").offsetWidth;
       did("rpgCanvas").style.animation = "rpgFade 1s 1";
-      stats.currentArea = previousArea;
+      if (rpgClass[stats.currentClass].level > areas[stats.currentArea].level) {stats.currentArea = previousArea;} else {stats.currentArea = "A1";}
       if (areas[previousArea].dungeon) stats.currentArea = "A1";
       stats.currentDifficulty = previousDifficulty;
       dungeonPoints = 0;
@@ -932,6 +928,7 @@ function enemyDamage(damage, align, icon, type){
   if (gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)) damageDealt = 0
 
   ///dynamic enemies///
+  if (enemies[stats.currentEnemy].dynamic || did(stats.currentEnemy+"enemy").classList.contains('gilded')) {
   let dynamicCalc = 1;
   let weaponDamage = playerWeaponDamage * (1+eval(items[rpgPlayer.weaponSlot].align+"DamageBonus")) * (playerStrength) * Math.pow(1.005, playerMastery) + flatWeaponDamage
 
@@ -945,6 +942,8 @@ function enemyDamage(damage, align, icon, type){
   if (enemies[stats.currentEnemy].dynamic || did(stats.currentEnemy+"enemy").classList.contains('gilded')) damageDealt = 1000 * dynamicCalc * enemyDefenseMultiplier * crit;
   if (icon==="weak" && (enemies[stats.currentEnemy].dynamic || did(stats.currentEnemy+"enemy").classList.contains('gilded')) ) damageDealt = 1000 * dynamicCalc * typeResist * enemyDefenseMultiplier * crit;
   if (icon==="strong" && (enemies[stats.currentEnemy].dynamic || did(stats.currentEnemy+"enemy").classList.contains('gilded')) ) damageDealt = 1000 * dynamicCalc * typestrength * enemyDefenseMultiplier * crit;
+
+  }
 
   let finalDamage = rng(damageDealt*0.9, damageDealt*1.1)
 
@@ -4917,7 +4916,7 @@ panzoom(zoomelement, {
   zoomDoubleClickSpeed: 1,
 });
 
-function  createTalent() {
+function createTalent() {
   for (let i in talent) {
     if (!did(i + "talent")) {
       const star = document.createElement("img");
@@ -4958,11 +4957,13 @@ function  createTalent() {
     }
 
 
-    if (eval(talent[i].lockedLogic)) {talent[i].locked = false;} else if (eval(talent[i].lockedLogic)===false) {talent[i].locked = true;}
+    if (eval(talent[i].lockedLogic)) {talent[i].locked = false;} else if (eval(talent[i].lockedLogic)==false) {talent[i].locked = true;}
 
     if (talent[i].locked===true) did(i + "talent").src = "img/src/icons/talentStarLocked.png";
+
     else if (talent[i].category === "Class") did(i + "talent").src = "img/src/icons/talentStarClass.png";
     else if (talent[i].category === "Skill") did(i + "talent").src = "img/src/icons/talentStarSkill.png";
+    else if (talent[i].category === "Passive") did(i + "talent").src = "img/src/icons/talentStar.png";
 
     
 

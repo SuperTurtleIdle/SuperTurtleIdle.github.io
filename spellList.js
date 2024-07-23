@@ -17,7 +17,7 @@ function castLightDynamite(){
             const endIndex = enemies[stats.currentEnemy].drop.indexOf("')", startIndex);
             if (startIndex !== -1 && endIndex !== -1) {
                 currentDrop = enemies[stats.currentEnemy].drop.substring(startIndex, endIndex);
-                items[currentDrop].count+= rng(30,50)
+                rareItemDrop(currentDrop,1, rng(30,50))
                 addItem()
             }
         }
@@ -1929,14 +1929,21 @@ function castHoopperoonaLucid(){
 
 
 let thiefCollectibles = {
-  I439:{P:800,A:1}, 
-  I440:{P:800,A:1},
-  I441:{P:800,A:1}, 
-  I442:{P:800,A:1},
-  I443:{P:800,A:1}, 
-  I444:{P:800,A:1},
-  I445:{P:800,A:1}, 
-  I446:{P:800,A:1},
+
+    I444:{P:700,A:1},
+    I439:{P:700,A:1}, 
+
+    I442:{P:900,A:1},
+    I440:{P:900,A:1},
+
+    I441:{P:1500,A:1}, 
+    I445:{P:1500,A:1}, 
+
+    I443:{P:2000,A:1}, 
+
+    I446:{P:2500,A:1},
+    I473:{P:2500,A:1},
+
 }
 
 stats.timesStolen = 0;
