@@ -190,7 +190,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
 
 
         if (gardenDragonGoldPower>0){
-rpgPlayer.coins += stats.totalCoins * gardenDragonGoldPower
+      rpgPlayer.coins += gardenDragonGoldPower
         } 
 
 
@@ -966,7 +966,7 @@ function enemyDamage(damage, align, icon, type){
   if (align==="Occult") damageColor = "#a936d6"
 
   damageText(beautify(finalDamage)+critMark, 'damageText', damageColor, icon, "enemyPanel");
-  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + beautify(finalDamage) +" "+ align+" Damage");
+  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " receives <FONT COLOR='#e8643c'>" + beautify(finalDamage) +" "+ align+" Damage");
 
 
   if (finalDamage.toFixed(0) == 69) logs.L1P4.unlocked = true;
@@ -1074,7 +1074,7 @@ function enemyBasicDamage(damage){
   currentHP -= damageDealt;
   enemyUpdate();
   damageText(beautify(damageDealt), 'damageText', '#818181', icon, "enemyPanel");
-  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Damage");
+  if (!settings.disableDamageLog) logPrint( enemies[stats.currentEnemy].name + " receives <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Damage");
 }
 
 function enemyHealingDamage(healing){
@@ -1102,7 +1102,7 @@ function playerNatureDamage(damage){
   }
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#21b42d', icon, "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" +beautify(damageDealt) + " Nature Damage");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " receives <FONT COLOR='#e8643c'>" +beautify(damageDealt) + " Nature Damage");
 }
 
 function playerMightDamage(damage){
@@ -1120,7 +1120,7 @@ function playerMightDamage(damage){
   }
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#217eb4', icon, "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Might Damage");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " receives <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Might Damage");
 }
 
 function playerElementalDamage(damage){
@@ -1138,7 +1138,7 @@ function playerElementalDamage(damage){
   }
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#f35933', icon, "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Elemental Damage");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " receives <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Elemental Damage");
 }
 
 function playerOccultDamage(damage){
@@ -1156,7 +1156,7 @@ function playerOccultDamage(damage){
   }
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#a936d6', icon, "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Occult Damage");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " receives <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Occult Damage");
 }
 
 function playerDeificDamage(damage){
@@ -1174,7 +1174,7 @@ function playerDeificDamage(damage){
   }
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#ec9900', icon, "playerPanel");
-  if (!settings.disableDamageLog) logPrint( stats.turtleName + " recieves <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Deific Damage");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " receives <FONT COLOR='#e8643c'>" + beautify(damageDealt) + " Deific Damage");
 }
 
 function playerHealingDamage(healing){
@@ -2928,11 +2928,11 @@ while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
     else if (items[itemGot].quality==="Rare" && rng(1,10)===1) {createPopup('💠 '+items[itemGot].name+' has materialised!', '#994687'); items[itemGot].count++}
     else createPopup('&#10060; Failed to materialise '+items[itemGot].name, '#913c3c');
     items.I219.count--
+    addItem();
   }
   
   playSound("audio/button9.mp3");
   
-  addItem();
 
 
 
@@ -5928,7 +5928,7 @@ inventoryTips = [
   '<FONT COLOR="#edd585">Gear marked as "Unique" will level up with multiple copies of itself, but only if they have a roman numeral at the side of their name.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Drops marked with a ★ are rare and wont be increased by the Drop Bonus stat.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Is the enemy too hard? Be sure to check its description and skills to fight accordingly.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
-  '<FONT COLOR="#edd585">Complete missions to recieve useful rewards in the mail.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
+  '<FONT COLOR="#edd585">Complete missions to receive useful rewards in the mail.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">You can buy multiple items at once in the shop by pressing Control.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Defeating low-level enemies can yield more materials and money at the expense of experience.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',
   '<FONT COLOR="#edd585">Area bosses are a great source of experience.<br><div class="separador"></div><FONT COLOR="gray"><br>Click to cycle through tips',

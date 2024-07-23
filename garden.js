@@ -36,11 +36,14 @@ function calculateGardenStats(){
   gardenStrengthPower = ((plants.g8.planted)*1 + (plants.g8a.planted*6))/100*(1+gardenFlowerPower/100);
   gardenSpellpower = ((plants.g9.planted)*1 + (plants.g9a.planted*6))/100*(1+gardenFlowerPower/100);
   gardenDropChancePower = ((plants.g11.planted)*2 + (plants.g11a.planted*10))/100*(1+gardenFlowerPower/100);
-  gardenExpGainPower = (plants.g13.planted)*3 + (plants.g13a.planted*10);
+  gardenExpGainPower = ((plants.g13.planted)*2 + (plants.g13a.planted*10))/100*(1+gardenFlowerPower/100);
   gardenHealthPower = ((plants.g14.planted)*1 + (plants.g14a.planted*6))/100*(1+gardenFlowerPower/100);
   gardenMutationPower = ((plants.g15.planted)*4 + (plants.g15a.planted*15))*(1+(gardenFlowerPower/3)/100);
-  gardenDragonGoldPower = ((plants.g19.planted)*2 + (plants.g19a.planted*10))/10000*(1+(gardenFlowerPower)/100);
-  gardenMagicRegenPower = ((plants.g18.planted)*0. + (plants.g18a.planted*1))/100*(1+gardenFlowerPower/100);
+  gardenMagicRegenPower = ((plants.g18.planted)*1 + (plants.g18a.planted*5))/100*(1+gardenFlowerPower/100);
+  gardenDragonGoldPower = ((plants.g19.planted)*30 + (plants.g19a.planted*300))*(1+(gardenFlowerPower)/100);
+
+  statsUpdate();
+  updateStatsUI();
 
 
 }
@@ -196,7 +199,7 @@ function createGardenPlots() {
 
           let tokensGained = 1;
           if (talent.TG2D2.active && rng(1,3)===1) tokensGained += 1
-          if (rpgPlayer.currentFertiliser==="f1" && rng(1,2)===1)  tokensGained += 1;
+          if (rpgPlayer.currentFertiliser==="f1" && rng(1,4)===1)  tokensGained += 1;
 
           rpgPlayer.gardenTokens += tokensGained;
           
@@ -229,7 +232,7 @@ function createGardenPlots() {
             void div.offsetWidth;
             div.style.animation = "gelatineHigh 0.3s 1";
 
-    
+            did("jobTab").innerHTML = '<img src="img/src/icons/job.png"><p>Guildwork</p>';
             plot[i].age = 0;
             plot[i].water = 0;
             plot[i].mature=false;
@@ -315,7 +318,7 @@ function createGardenPlots() {
 
   setInterval(plantTick, 10000); //default 10000
 
-  function plantTick(){
+  function plantTick(mode){
   
     for (let i in plot) {
         if (plot[i].slot !== "none"){
@@ -331,9 +334,14 @@ function createGardenPlots() {
               if (plants[plot[i].slot].age === plantLifespanMedium) plot[i].age+= plants[plot[i].slot].age / matureTime //30 mins
               if (plants[plot[i].slot].age === plantLifespanLong) plot[i].age+= plants[plot[i].slot].age / (matureTime*2) //1h
 
+              let baseMutationChance = 5000
+              if (plants[plot[i].slot].exp === plantTier2exp) baseMutationChance = 9000
+              if (plants[plot[i].slot].exp === plantTier3exp) baseMutationChance = 14000
+              if (plants[plot[i].slot].exp === plantTier4exp) baseMutationChance = 20000
 
-              let mutationChance = 5000 * (100-Math.min(gardenMutationPower,99)) / 100
-              if (rpgPlayer.currentFertiliser === "f2") mutationChance = 5000*2
+
+              let mutationChance = baseMutationChance * (100-Math.min(gardenMutationPower,99)) / 100
+              if (rpgPlayer.currentFertiliser === "f2") mutationChance = baseMutationChance*2
 
               if (plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,mutationChance)===1){ //mutation
                 if (plot[i].mature) plants[plot[i].slot].planted--
@@ -352,12 +360,13 @@ function createGardenPlots() {
             if (plot[i].age > plants[plot[i].slot].age && !plot[i].mature){
               plants[plot[i].slot].planted++;
               plot[i].mature=true;
+              did("jobTab").innerHTML = '<img src="img/src/icons/job.png"><p>Guildwork 🌱</p>';
               calculateGardenStats()
               
             } 
 
 
-            if(rng(1,600000)===1){ //corruption
+            if(rng(1,800000)===1){ //corruption
               if (plot[i].mature) plants[plot[i].slot].planted--;
               plot[i].age = 0;
               plot[i].water = 100;
@@ -372,7 +381,7 @@ function createGardenPlots() {
 
             if (plot[i].mature){
               if (rng(1,crossbreedChance)===1) crossBreeding();
-              plot[i].age-=10 // multiplied by 10 since it ticks every 10 seconds
+              if (mode!=="offline") plot[i].age-=10 // multiplied by 10 since it ticks every 10 seconds
             } 
 
             if (plot[i].mature && plot[i].age<0){ //plant death
@@ -438,18 +447,18 @@ function plantGrow(){ //purely visual stuff
 //t2
 if (plants.g1a.planted>0 && plants.g6.planted>0) createNewPlant("g12", 170-((plants.g1a.planted+plants.g6.planted)*8)) //cactus m y piña
 if (plants.g6a.planted>0 && plants.g7.planted>0) createNewPlant("g14", 170-((plants.g6a.planted+plants.g7.planted)*8)) //piña m y rosa
-if (plants.g7a.planted>0 && plants.g6.planted>0) createNewPlant("g13", 170-((plants.g7a.planted+plants.g6.planted)*8)) //rosa m y piña
+if (plants.g7a.planted>0 && plants.g6.planted>0) createNewPlant("g13", 170-((plants.g7a.planted+plants.g6.planted)*8)) //c rosa m y piña
 if (plants.g5a.planted>0 && plants.g4.planted>0) createNewPlant("g15", 170-((plants.g5a.planted+plants.g4.planted)*8)) //arandano m y chile
 if (plants.g2a.planted>0 && plants.g4a.planted>0) createNewPlant("g8", 170-((plants.g2a.planted+plants.g4a.planted)*8)) //sprout m y chile m
 
 //t3
-if (plants.g2a.planted>0 && plants.g12.planted>0) createNewPlant("g19", 170-((plants.g2a.planted+plants.g12.planted)*8)) //sprout m y cactuspiña
-if (plants.g3a.planted>0 && plants.g15.planted>0) createNewPlant("g9", 170-((plants.g3a.planted+plants.g15.planted)*8)) //sunflower m y cloudchili
-if (plants.g16.planted>0 && plants.g12.planted>0) createNewPlant("g18", 170-((plants.g16.planted+plants.g12.planted)*8)) //glitch y cactuspiña
+if (plants.g2a.planted>0 && plants.g12.planted>0) createNewPlant("g19", 500-((plants.g2a.planted+plants.g12.planted)*8)) //sprout m y cactuspiña
+if (plants.g3a.planted>0 && plants.g15.planted>0) createNewPlant("g9", 500-((plants.g3a.planted+plants.g15.planted)*8)) //sunflower m y cloudchili
+if (plants.g16.planted>0 && plants.g12.planted>0) createNewPlant("g18", 500-((plants.g16.planted+plants.g12.planted)*8)) //glitch y cactuspiña
 
 //t4
-if (plants.g19a.planted>0 && plants.g14a.planted>0) createNewPlant("g11", 170-((plants.g19a.planted+plants.g14a.planted)*8)) //dragonfruit m y woodflower
-if (plants.g16.planted>0 && plants.g9a.planted>0) createNewPlant("g17", 170-((plants.g16.planted+plants.g9a.planted)*8)) //glitch y blacklotus
+if (plants.g19a.planted>0 && plants.g14a.planted>0) createNewPlant("g11", 800-((plants.g19a.planted+plants.g14a.planted)*8)) //dragonfruit m y woodflower
+if (plants.g16.planted>0 && plants.g9a.planted>0) createNewPlant("g17", 800-((plants.g16.planted+plants.g9a.planted)*8)) //glitch y blacklotus
 
 }
 
@@ -678,10 +687,10 @@ function createNewPlant(seed, chance){
     if (gardenDropChancePower>0) gardenDropChancePowerDisplay = '<br>'+colorTag("x"+(1+gardenDropChancePower).toFixed(2),"#E57D08")+' Drop Bonus';
 
     let gardenExpGainPowerDisplay = "";
-    if (gardenExpGainPower>0) gardenExpGainPowerDisplay = '<br>+' + gardenExpGainPower +"% EXP Gain Bonus";
+    if (gardenExpGainPower>0) gardenExpGainPowerDisplay = '<br>'+colorTag("x"+(1+gardenExpGainPower).toFixed(2),"#E57D08")+" EXP Gain Bonus";
 
     let gardenHealthPowerDisplay = "";
-    if (gardenHealthPower>0) gardenHealthPowerDisplay = '<br>-' + gardenHealthPower +"% Plant Water Consumption";
+    if (gardenHealthPower>0) gardenHealthPowerDisplay = '<br>'+colorTag("x"+(1+gardenHealthPower).toFixed(2),"#E57D08")+" Max Health";
 
     let gardenFlowerPowerDisplay = "";
     if (gardenFlowerPower>0) gardenFlowerPowerDisplay = '<br>+' + gardenFlowerPower +"% Flower Power";
@@ -693,7 +702,7 @@ function createNewPlant(seed, chance){
     if (gardenMagicRegenPower>0) gardenMagicRegenPowerDisplay = '<br>+' + gardenMagicRegenPower +" Magic Regeneration";
 
     let gardenDragonGoldPowerDisplay = "";
-    if (gardenDragonGoldPower>0) gardenDragonGoldPowerDisplay = '<br>Enemies Drop ' + gardenDragonGoldPower.toFixed(4) +"% of your Total Shells";
+    if (gardenDragonGoldPower>0) gardenDragonGoldPowerDisplay = '<br>Enemies Drop ' + beautify(gardenDragonGoldPower) +" Shells";
 
 
     did("tooltip").style.display = "flex";

@@ -1155,7 +1155,7 @@ function calculateInactiveTime() { //calculates idle time
             did('idleTime').innerHTML = convertSecondsToHMS(secondsInactive);
             if (farmable && unlocks.penguins) offlineRewards((secondsInactive/60)*(playerPenguinPower/15));
             if (!settings.disablePenguinRecap && unlocks.penguins && farmable) { did("penguinRecap").style.display = "flex"; }
-            if (unlocks.garden){ for (let i = 0; i < Math.min(secondsInactive/10, 3000); i++) { plantTick();} }
+            if (unlocks.garden){ for (let i = 0; i < Math.min(secondsInactive/10, 3000); i++) { plantTick("offline");} }
 
             
             
@@ -1789,7 +1789,7 @@ function unlocksReveal(){
     if (stats.questsCompleted>=12) sendMail("MR2");
     if (stats.questsCompleted>=19) sendMail("MR3");
     if (stats.questsCompleted>=26) sendMail("MR4");
-    if (stats.questsCompleted>=330) sendMail("MR5"); //33
+    if (stats.questsCompleted>=35) sendMail("MR5"); //garden
 
     //flavor
     if (stats.questsCompleted>=4) sendMail("MF1"); //mom
