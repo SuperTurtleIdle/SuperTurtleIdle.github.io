@@ -1677,7 +1677,7 @@ if (rng(1,chance)===1){
   let toAdd = 1
   if (amount!==undefined) toAdd = amount
 
-  if (items[dt].max==1 && items[dt].count>0){
+  if (items[dt].max==1 && items[dt].count>0 && (chance===uncommonDrop || chance===uncommonDungeon || chance===rareDrop || chance===uncommonDungeon || chance===epicDrop || chance===epicDungeon)){
     pityDrop(dt)
 
 

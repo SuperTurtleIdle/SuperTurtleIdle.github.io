@@ -128,7 +128,7 @@ function createGardenPlots() {
     if (!did(i+"plot")) {
     
       const div = document.createElement("div");
-      div.innerHTML = '<span><img src="img/src/icons/mound.png"></span><img id="'+i+'plotPlant" src="img/src/garden/g1.png" style="height:0">';
+      div.innerHTML = '<span><img id="'+i+'mound" src="img/src/icons/mound.png"></span><img id="'+i+'plotPlant" src="img/src/garden/g1.png" style="height:0">';
       div.id = i+"plot";
 
       if (i.startsWith("r1")) did("gardenRow1").appendChild(div)
@@ -140,119 +140,139 @@ function createGardenPlots() {
       tooltipGarden(i);
 
 
+      function mainClick(){
 
-      div.addEventListener('mousemove', function(event) {
-        if (event.buttons === 1) {
-
-
-            if (plot[i].slot!=="none"){ //water the plant
-            plot[i].water = 100;
-            div.style.animation = "";
-            void div.offsetWidth;
-            div.style.animation = "gelatineHigh 0.3s 1";
-            leftClickX = event.clientX;
-             leftClickY = event.clientY;
-            if (rng(1,3)===1)animParticleBurst(1 , "particleWaterGarden", "cursor2", 0);
-        } 
+        if (plot[i].slot!=="none"){ //water the plant
+          plot[i].water = 100;
+          div.style.animation = "";
+          void div.offsetWidth;
+          div.style.animation = "gelatineHigh 0.3s 1";
+          leftClickX = event.clientX;
+           leftClickY = event.clientY;
+          if (rng(1,3)===1)animParticleBurst(1 , "particleWaterGarden", "cursor2", 0);
+      } 
 
 
-        if (plot[i].slot==="none" && selectedSeed != "none"){ //plant when empty
+      if (plot[i].slot==="none" && selectedSeed != "none"){ //plant when empty
 
-            if (rng(1,4)===1)playSound("audio/plant.mp3");
-            else playSound("audio/plant2.mp3");
+          if (rng(1,4)===1)playSound("audio/plant.mp3");
+          else playSound("audio/plant2.mp3");
 
-            if (selectedSeed!=="g2") plants[selectedSeed].count--
-            plot[i].water = 100;
-            plot[i].slot = selectedSeed
-            div.style.animation = "";
-            void div.offsetWidth;
-            div.style.animation = "gelatineHigh 0.3s 1";
-            leftClickX = event.clientX;
-             leftClickY = event.clientY;
-            animParticleBurst(2 , "particleSpark", "cursor2", 0);
-            createGardenPlots()
+          if (selectedSeed!=="g2") plants[selectedSeed].count--
+          plot[i].water = 100;
+          plot[i].slot = selectedSeed
+          div.style.animation = "";
+          void div.offsetWidth;
+          div.style.animation = "gelatineHigh 0.3s 1";
+          leftClickX = event.clientX;
+           leftClickY = event.clientY;
+          animParticleBurst(2 , "particleSpark", "cursor2", 0);
+          createGardenPlots()
 
-            
-            if (plants[selectedSeed].count<=0) selectedSeed = "none"
-            createPlants()
-        } 
+          
+          if (plants[selectedSeed].count<=0) selectedSeed = "none"
+          createPlants()
+      } 
 
-
-        }
-
-        if (event.buttons === 2) { //right click harvest
+      }
 
 
-          if (plot[i].mature && plot[i].renewable && !("harvest" in plants[plot[i].slot])){ //if renewable
+
+      function secondClick(){
+
+        if (plot[i].mature && plot[i].renewable && !("harvest" in plants[plot[i].slot])){ //if renewable
 
             
           
-            createFloatingText('<p>' + 'Seed Recovered!') 
-            plants[plot[i].slot].count++
-            createPlants()
-            
+          createFloatingText('<p>' + 'Seed Recovered!') 
+          plants[plot[i].slot].count++
+          createPlants()
+          
+        }
+
+      if (plot[i].mature) { //if mature
+        stats.plantsHarvested++
+
+
+        let tokensGained = 1;
+        if (talent.TG2D2.active && rng(1,3)===1) tokensGained += 1
+        if (rpgPlayer.currentFertiliser==="f1" && rng(1,4)===1)  tokensGained += 1;
+
+        rpgPlayer.gardenTokens += tokensGained;
+        
+
+        if (rpgPlayer.gardenLevel<=6) rpgPlayer.gardenExp+=plants[plot[i].slot].exp
+        plants[plot[i].slot].planted--;
+        if ("harvest" in plants[plot[i].slot]) eval(plants[plot[i].slot].harvest)
+        updateGardenUi()
+
+      
+      }
+
+        if (plot[i].slot!=="none") { //if plant
+
+          playSound("audio/button6.mp3")
+
+
+          if (plants[plot[i].slot].harvested===0) { //if new plant
+            playSound("audio/talent.mp3")
+            createFloatingText('<p>' + 'Seed Discovered!') 
+            did("gardenShipButton").style.animation = "";
+            void did("gardenShipButton").offsetWidth;
+            did("gardenShipButton").style.animation = "gelatineHigh 0.3s 1";
+          }
+      
+          plants[plot[i].slot].harvested++
+
+          did(i+'plotPlant').classList.remove('moundMature');
+
+          plot[i].slot = "none"
+          div.style.animation = "";
+          void div.offsetWidth;
+          div.style.animation = "gelatineHigh 0.3s 1";
+          randomTabName()
+          did("jobTab").innerHTML = '<img src="img/src/icons/job.png"><p>Guildwork</p>';
+          plot[i].age = 0;
+          plot[i].water = 0;
+          plot[i].mature=false;
+          plot[i].renewable = false;
+          did(i+'plotPlant').style.filter = "saturate(0.9)";
+          did(i+'plotPlant').style.height = "0%"
+          calculateGardenStats()
+          createGardenPlots()
+          plantGrow()
+  
           }
 
-        if (plot[i].mature) { //if mature
-          stats.plantsHarvested++
 
 
-          let tokensGained = 1;
-          if (talent.TG2D2.active && rng(1,3)===1) tokensGained += 1
-          if (rpgPlayer.currentFertiliser==="f1" && rng(1,4)===1)  tokensGained += 1;
-
-          rpgPlayer.gardenTokens += tokensGained;
-          
-
-          if (rpgPlayer.gardenLevel<=6) rpgPlayer.gardenExp+=plants[plot[i].slot].exp
-          plants[plot[i].slot].planted--;
-          if ("harvest" in plants[plot[i].slot]) eval(plants[plot[i].slot].harvest)
-          updateGardenUi()
-
-        
-        }
-
-          if (plot[i].slot!=="none") { //if plant
-
-            playSound("audio/button6.mp3")
 
 
-            if (plants[plot[i].slot].harvested===0) { //if new plant
-              playSound("audio/talent.mp3")
-              createFloatingText('<p>' + 'Seed Discovered!') 
-              did("gardenShipButton").style.animation = "";
-              void did("gardenShipButton").offsetWidth;
-              did("gardenShipButton").style.animation = "gelatineHigh 0.3s 1";
-            }
-        
-            plants[plot[i].slot].harvested++
 
-            plot[i].slot = "none"
-            div.style.animation = "";
-            void div.offsetWidth;
-            div.style.animation = "gelatineHigh 0.3s 1";
-
-            did("jobTab").innerHTML = '<img src="img/src/icons/job.png"><p>Guildwork</p>';
-            plot[i].age = 0;
-            plot[i].water = 0;
-            plot[i].mature=false;
-            plot[i].renewable = false;
-            did(i+'plotPlant').style.filter = "saturate(0.9)";
-            did(i+'plotPlant').style.height = "0%"
-            calculateGardenStats()
-            createGardenPlots()
-    
-            }
 
 
       }
 
 
 
+      div.addEventListener('mousemove', function(event) {
+        if (event.buttons === 1) {
+            mainClick()
+        }
 
-
-
+        if (event.buttons === 2) { //right click harvest
+         secondClick()
+        }
     });
+
+    div.addEventListener('click', function(event) {  mainClick() });
+         
+    div.addEventListener('contextmenu', function(event) {  secondClick() });
+
+
+
+
+
 
 /*
     div.addEventListener("contextmenu", function () { //right click
@@ -321,6 +341,8 @@ function createGardenPlots() {
   function plantTick(mode){
   
     for (let i in plot) {
+
+
         if (plot[i].slot !== "none"){
             if (plot[i].water>0 && !plot[i].mature) {  
 
@@ -358,6 +380,7 @@ function createGardenPlots() {
             
 
             if (plot[i].age > plants[plot[i].slot].age && !plot[i].mature){
+              randomTabName("plant")
               plants[plot[i].slot].planted++;
               plot[i].mature=true;
               did("jobTab").innerHTML = '<img src="img/src/icons/job.png"><p>Guildwork 🌱</p>';
@@ -409,6 +432,12 @@ function createGardenPlots() {
 function plantGrow(){ //purely visual stuff
 
   for (let i in plot) {
+
+    //if (plot[i].slot !== "none") {did(i+'mound').style.visibility = "visible";} else did(i+'mound').style.visibility = "hidden";
+    if (plot[i].slot !== "none") {did(i+'mound').style.display = "flex";} else did(i+'mound').style.display = "none";
+
+
+    
     if (plot[i].slot !== "none"){
 
 
@@ -421,7 +450,7 @@ function plantGrow(){ //purely visual stuff
 
     } else if (did(i+'plotPlant') && plot[i].mature) {
 
-
+    did(i+'plotPlant').classList.add('moundMature');
     did(i+'plotPlant').style.height = "100%"
     //let sepiaPercentage = 1 - (plot[i].age / plants[plot[i].slot].age); //extremely laggy do not use
     //did(i+'plotPlant').style.filter += "sepia("+ Math.min(sepiaPercentage, 0.1) +")";

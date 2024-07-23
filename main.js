@@ -1955,20 +1955,25 @@ function tooltipUpgrades(i) {
   }
 }
 
+let randomTab = rng(1,11)
 
-function randomTabName(){ //displays a random browser tab name
-    let random = rng(1,11);
-    if (random===1) document.title = "Your Turtle Is Working Hard"; 
-    if (random===2) document.title = "Where Is My Day Off?";
-    if (random===3) document.title = "They Shall Rise Again";
-    if (random===4) document.title = "Slaying Beasts";
-    if (random===5) document.title = "Exploring Uncharted Lands";
-    if (random===6) document.title = "Adventuring In Progress";
-    if (random===7) document.title = "Pat Pat Pat Pat Pat Pat Pat Pat";
-    if (random===8) document.title = "Grinding Materials";
-    if (random===9) document.title = "Super Turtle Idle";
-    if (random===10) document.title = "You Can Leave It To Me";
-    if (random===11) document.title = "Have You Seen Whiskers?";
+function randomTabName(icon){ //displays a random browser tab name
+    let random = randomTab;
+    let reminder = ""
+
+    if (icon==="plant") reminder = "[🌱!]";
+
+    if (random===1) document.title = reminder+" Your Turtle Is Working Hard"; 
+    if (random===2) document.title = reminder+" Where Is My Day Off?";
+    if (random===3) document.title = reminder+" They Shall Rise Again";
+    if (random===4) document.title = reminder+" Slaying Beasts";
+    if (random===5) document.title = reminder+" Exploring Uncharted Lands";
+    if (random===6) document.title = reminder+" Adventuring In Progress";
+    if (random===7) document.title = reminder+" Pat Pat Pat Pat Pat Pat Pat Pat";
+    if (random===8) document.title = reminder+" Grinding Materials";
+    if (random===9) document.title = reminder+" Super Turtle Idle";
+    if (random===10) document.title = reminder+" You Can Leave It To Me";
+    if (random===11) document.title = reminder+" Have You Seen Whiskers?";
 
 
 }

@@ -1362,6 +1362,10 @@
     width: 25%;
 }
 
+.moundMature{
+    filter: hue-rotate(-30deg) !important;
+}
+
 #plantCatalogue .bestiaryPage{
     width: 95%;
 }

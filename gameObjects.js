@@ -10945,7 +10945,7 @@ mail.MR4.cover = "I108"
 
 mail.MR5 = {};
 mail.MR5.title = 'Up for a green thumb?'
-mail.MR5.body = 'The Super Turtle Program is pleased with your accomplishments and has chosen to issue you with your own Garden Plot!<br><br>Our R&D concluded that taking care of plant lifeform severely increases the chancess of success of missions, and can aid in honing your Mastery!<br><br>We will be very vigilant about your future accomplishments.'
+mail.MR5.body = 'The Super Turtle Program is pleased with your accomplishments and has chosen to issue you with your own Garden Plot!<br><br>Our R&D concluded that taking care of plant lifeform severely increases the chances of success of missions, and can aid in honing your Mastery!<br><br>We will be very vigilant about your future accomplishments.'
 mail.MR5.item = 'I287'
 mail.MR5.effect = "items.I287.count++"
 mail.MR5.sender = "Super Turtle Inc"
@@ -12753,7 +12753,7 @@ gametip.gt11.description ='Access the'+colorTag("Planetarium", "#4C838B")+'in yo
 
 gametip.gt13 = {}
 gametip.gt13.name = "The Garden";
-gametip.gt13.description ='Plant and water seeds to make them grow. The seeds will only grow if they currently have water. Once the seed achives maturity, it will activate its bonuses, and slowly decay to death.<br><br>Each time you harvest any mature plant, you will get garden experince and one'+colorTag("Bloom Token,", "#3BA144")+'which you can spend in The Garden shop tab.<br><br>On rare ocasions, plants can mutate. Harvesting a mature mutation is the only way to get mutated seds.<br><br>If circumstances are right, plants can'+colorTag("crossbreed", "#45a3a2")+', and you might discover new seeds!';
+gametip.gt13.description ='Plant and water seeds to make them grow. The seeds will only grow if they currently have water. Once the seed achives maturity, it will activate its bonuses, and slowly decay to death.<br><br>Each time you harvest any mature plant, you will get garden experince and one'+colorTag("Bloom Token,", "#3BA144")+'which you can spend in The Garden shop tab.<br><br>On rare ocasions, plants can mutate. Harvesting a mature mutation is the only way to get mutated seeds.<br><br>If circumstances are right, plants can'+colorTag("crossbreed", "#45a3a2")+', and you might discover new seeds!';
 
 gametip.gt16 = {}
 gametip.gt16.name = "Fishing";
