@@ -966,8 +966,8 @@ window.addEventListener('load', function () { //gets date started
 
 
 cd.presentCooldown = 0;
-cd.presentCanSpawn = 0;
-cd.gildedCooldown = 0;
+cd.presentCanSpawn = 5000;
+cd.gildedCooldown = 10000;
 
 function timeCounters() {
 
