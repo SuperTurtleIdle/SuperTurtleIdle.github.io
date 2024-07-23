@@ -173,7 +173,7 @@ function createGardenPlots() {
           if (plants[selectedSeed].count<=0) selectedSeed = "none"
           createPlants()
       } 
-
+plantGrow()
       }
 
 
