@@ -2783,7 +2783,7 @@ document.addEventListener("contextmenu", function (event) { //sell all
   if (sellMode && event.target.id && event.target.id.endsWith('ItemImage')) {
     let itemID = event.target.id.replace('ItemImage', '');
 
-    sellItem(itemID, items[itemID].count)
+    if (equipCheck(itemID)===false) sellItem(itemID, items[itemID].count)
 
   }
 });

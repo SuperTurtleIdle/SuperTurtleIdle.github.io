@@ -341,9 +341,7 @@ function createGardenPlots() {
   setInterval(plantTick, 10000); //default 10000
 
   let matureTime = 120 //120 ticks === 1h
-
   let secondsPassed = 0
-
   let matureSeconds = 0
 
 
@@ -391,6 +389,7 @@ function createGardenPlots() {
                 plot[i].slot = plot[i].slot+"a";
                 plot[i].renewable = true;
                 plot[i].age = 0;
+                plot[i].water = 100;
                 plot[i].mature=false;
                 did(i+'plotPlant').classList.remove('moundMature');
                 createGardenPlots();
@@ -450,6 +449,7 @@ function createGardenPlots() {
                 plot[i].slot = plot[i].slot+"a";
                 plot[i].renewable = true;
                 plot[i].age = 0;
+                plot[i].water = 100;
                 plot[i].mature=false;
                 did(i+'plotPlant').classList.remove('moundMature');
                 createGardenPlots();

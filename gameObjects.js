@@ -10438,10 +10438,10 @@ logs.P33.tag = '🎁';
 
 logs.P31A = {}
 logs.P31A.name = "Christmas Is Cancelled";
-logs.P31A.description = "Destroy 100 Mysterious Presents";
+logs.P31A.description = "Destroy 10 Mysterious Presents";
 logs.P31A.hint = '"If I can\'t get them, no one will."';
 logs.P31A.insight = 5;
-logs.P31A.logic = 'enemies.E15.killCount>99';
+logs.P31A.logic = 'enemies.E15.killCount>9';
 logs.P31A.tag = '🎁';
 
 logs.P32 = {}
