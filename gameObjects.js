@@ -42,6 +42,67 @@ let rareThief = 20
 let epicThief = 60
 let mythicThief = 70
 
+function returnQualityColor(quality){
+
+  if (quality === "Poor") return "gray"
+  if (quality === "Common") return "white"
+  if (quality === "Uncommon") return "#1eff00"
+  if (quality === "Rare") return "#0070dd"
+  if (quality === "Epic") return "#a335ee" 
+  if (quality === "Mythic") return "#E44661"
+  if (quality === "Legendary") return "#ff8000"
+
+  if (quality === "Collectible") return "#e6cc80"
+  if (quality === "Quest") return "yellow"
+  if (quality === "Upgrade") return "#00FFCA"
+  if (quality === "Soulbound") return "#B5DD7B"
+
+  if (quality.startsWith("TA")) return rpgClass.TA0.color;
+  if (quality.startsWith("TG")) return rpgClass.TG0.color;
+  if (quality.startsWith("TI")) return rpgClass.TI0.color;
+
+  if (quality === "Very Easy") return "#579DA6"
+  if (quality === "Easy") return "#539D62"
+  if (quality === "Medium") return "#A78E50"
+  if (quality === "Hard") return "#AB525A"
+  if (quality === "Very Hard") return "#A04674"
+  if (quality === "Nightmare") return "#8B569F"
+  if (quality === "Impossible") return "#38293E"
+
+  if (quality === '0') return ""
+  if (quality === '1') return " <span class='itemLevel'>I</span>"
+  if (quality === '2') return " <span class='itemLevel' style='color: #abffbd'>II</span>"
+  if (quality === '3') return " <span class='itemLevel' style='color: #9cd9ff'>III</span>"
+  if (quality === '4') return " <span class='itemLevel' style='color: #EED490'>IV</span>"
+  if (quality === '5') return " <span class='itemLevel' style='color: #3486F1'>V</span>"
+  if (quality === '6') return " <span class='itemLevel' style='color: #5BDBBD'>VI</span>"
+  if (quality === '7') return " <span class='itemLevel' style='color: #FF6536'>VII</span>"
+  if (quality === '8') return " <span class='itemLevel' style='color: #FF21DE'>VIII</span>"
+  if (quality === '9') return " <span class='itemLevel' style='color: #AC37FF'>IX</span>"
+  if (quality === '10') return " <span class='itemLevel' style='color: #FF2121'>X</span>"
+  if (quality === '11') return " <span class='itemLevel' style='color: #FF2121'>X</span>" //some annoying bugs like description of job item
+
+  if (quality === "heirloom")  return '<div style=" text-align: center;background:#6D6D6D; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Heirloom Series</div>'
+  if (quality === "masterwork")  return '<div style=" text-align: center;background:#957256; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Masterwork Series</div>'
+  if (quality === "forgotten")  return '<div style=" text-align: center;background:#886386; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Forgotten Series</div>'
+  if (quality === "millionaire")  return '<div style=" text-align: center;background:#9E8244; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Millionaire Series</div>'
+  if (quality === "beastfallen")  return '<div style=" text-align: center;background:#8E4D60; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Beastfallen Series</div>'
+  if (quality === "revered")  return '<div style=" text-align: center;background:#5A8C98; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Revered Series</div>'
+  if (quality === "solstice")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(240, 71, 5, 1) 0%, rgba(240, 169, 10, 1)  100%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Solstice Series</div>'
+  
+  if (quality === "ancient")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(193,121,17,1) 0%, rgba(56,126,53,1) 100%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Ancient Series</div>'
+  if (quality === "malevolent")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(54,55,77,1) 0%, rgba(126,53,117,1) 100%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Malevolent Series</div>'
+  if (quality === "chosen")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(210,171,17,1) 0%, rgba(41,159,112,1) 100%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Chosen Series</div>'
+  if (quality === "toybox")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(255,151,19,1) 0%, rgba(187,154,48,1) 19%, rgba(41,159,112,1) 19%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Toybox Series</div>'
+  if (quality === "runic")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(77,54,128,1) 0%, rgba(187,48,159,1) 52%, rgba(77,54,128,1) 100%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Runic Series</div>'
+  if (quality === "omega")  return '<div style=" text-align: center;background-image: url(img/sys/omegaBg.jpg); background-size:cover; outline:#215de0 solid 0.1rem; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Omega Series</div>'
+
+
+
+  if (quality === "difficulty1") return "#579DA6"
+
+}
+
 function itemIcon(id){
   return '<img style="border-color: '+returnQualityColor(items[id].quality)+' " src="img/src/items/'+id+'.jpg">'
 }
@@ -1389,7 +1450,7 @@ enemies.E36.bestiarySkills = "❖ Soulfire: Inflicts"+buffIcon("B24")+"Burning.<
 enemies.E44 = {};
 enemies.E44.name = 'Primarder';
 enemies.E44.level = '[lvl 45]';
-enemies.E44.hp = 30000022222222220000;
+enemies.E44.hp = 300000123123123210000;
 enemies.E44.description = 'An unknown vagabond of darkness on an unknown quest of its own. Appearing on full moon and wielding a sword, the rest is history.'
 enemies.E44.attack = 2000000000020000000000;
 enemies.E44.exp = 0;
@@ -1523,7 +1584,7 @@ enemies.E42.bestiaryItem = 'bestiaryTag("Requires: ⛏️ Gathering Level 2")+be
 enemies.E45 = {};
 enemies.E45.name = 'T.U.R.T.L.E';
 enemies.E45.level = '[lvl 58]';
-enemies.E45.hp = 340002222000000;
+enemies.E45.hp = 34000001231231230000;
 enemies.E45.description = 'Tactical unmanned robotic turtle lifeform exterminator, or T.U.R.T.L.E for short. A machine created by the scions of mankind, the enemies of turtles.'
 enemies.E45.attack = 3000000200000000002000000000000;
 enemies.E45.exp = 0;
@@ -5477,7 +5538,7 @@ items.I304.max = 1;
 
 items.I379 = {};
 items.I379.name = 'Water-Retaining Fertiliser';
-items.I379.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently unlocks Water-Retaining Fertiliser, requiring to water the plants just once at the expense of doubling their growth time.'
+items.I379.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently unlocks Water-Retaining Fertiliser'
 items.I379.flavor = '"I just realised that the players dont really read this text ever so why bother."';
 items.I379.quality = 'Upgrade';
 items.I379.sell = 0;
@@ -8335,7 +8396,7 @@ quests.A4Q2.icon = "img/src/areas/A4M.png";
 quests.A4Q2A = {};
 quests.A4Q2A.name = 'Olympic Adventure';
 quests.A4Q2A.difficulty = 1;
-quests.A4Q2A.description = 'Achieve what no other turtle has achieved ever before, make me proud.';
+quests.A4Q2A.description = 'Achieve what no other turtle has achieved ever before, make me proud. You will need a Medal Case for this one.';
 quests.A4Q2A.objective = `'Achieve 6 Gold Medals on the Bestiary <span class="questProgress">'+beautify(medalsGot)+'/6</span>'`;
 quests.A4Q2A.reward = `itemIcon("I291")+'Threnody for 999999'`;
 quests.A4Q2A.logic = 'medalsGot>5';
@@ -12245,6 +12306,7 @@ plants.g2.description = 'Harvest to obtain +1 Bloom Tokens';
 plants.g2.harvest = '';
 plants.g2.age = plantLifespanShort;
 plants.g2.exp = 1;
+plants.g2.tier = 0;
 
 plants.g2a = {}
 plants.g2a.name = "Star Sprout";
@@ -12255,6 +12317,7 @@ plants.g2a.age = plantLifespanMedium;
 plants.g2a.exp = plantTier2exp;
 plants.g2a.catalogue = 'returnPlantCatalogue("g2a")+ " + " +returnPlantCatalogue("g12")+ " = " +returnPlantCatalogue("g19")';
 plants.g2a.catalogue2 = 'returnPlantCatalogue("g2a")+ " + " +returnPlantCatalogue("g4a")+ " = " +returnPlantCatalogue("g8")'
+plants.g2a.tier = 0;
 
 plants.g1 = {}
 plants.g1.name = "Cactus";
@@ -12263,6 +12326,7 @@ plants.g1.description = 'Reflects 3% of damage as Nature Damage';
 plants.g1.age = plantLifespanShort;
 plants.g1.exp = plantTier1exp;
 plants.g1.price = 2;
+plants.g1.tier = 1;
 
 plants.g1a = {}
 plants.g1a.name = "Flowering Cactus";
@@ -12271,6 +12335,7 @@ plants.g1a.description = 'Reflects 10% of damage as Nature Damage';
 plants.g1a.age = plantLifespanMedium;
 plants.g1a.exp = plantTier2exp;
 plants.g1a.catalogue = 'returnPlantCatalogue("g1a")+ " + " +returnPlantCatalogue("g6")+ " = " +returnPlantCatalogue("g12")';
+plants.g1a.tier = 1;
 
 plants.g3 = {}
 plants.g3.name = "Sunflower";
@@ -12279,6 +12344,7 @@ plants.g3.description = 'Increases Deific Damage by'+colorTag("x1.02","#E57D08")
 plants.g3.age = plantLifespanShort;
 plants.g3.exp = plantTier1exp;
 plants.g3.price = 2;
+plants.g3.tier = 1;
 
 plants.g3a = {}
 plants.g3a.name = "Astroflower";
@@ -12287,6 +12353,7 @@ plants.g3a.description = 'Increases Deific Damage by'+colorTag("x1.1","#E57D08")
 plants.g3a.age = plantLifespanMedium;
 plants.g3a.exp = plantTier2exp;
 plants.g3a.catalogue = 'returnPlantCatalogue("g3a")+ " + " +returnPlantCatalogue("g15")+ " = " +returnPlantCatalogue("g9")';
+plants.g3a.tier = 1;
 
 plants.g4 = {}
 plants.g4.name = "Red Chili";
@@ -12296,6 +12363,7 @@ plants.g4.age = plantLifespanShort;
 plants.g4.exp = plantTier1exp;
 plants.g4.catalogue = 'returnPlantCatalogue("g4")+ " + " +returnPlantCatalogue("g5a")+ " = " +returnPlantCatalogue("g15")';
 plants.g4.price = 2;
+plants.g4.tier = 1;
 
 plants.g4a = {}
 plants.g4a.name = "Sweet Chili";
@@ -12304,6 +12372,7 @@ plants.g4a.description = 'Increases Elemental Damage by'+colorTag("x1.1","#E57D0
 plants.g4a.age = plantLifespanMedium;
 plants.g4a.exp = plantTier2exp;
 plants.g4a.catalogue = 'returnPlantCatalogue("g4a")+ " + " +returnPlantCatalogue("g2a")+ " = " +returnPlantCatalogue("g8")';
+plants.g4a.tier = 1;
 
 plants.g5 = {}
 plants.g5.name = "Blueberry";
@@ -12312,6 +12381,7 @@ plants.g5.description = 'Increases Occult Damage by'+colorTag("x1.02","#E57D08")
 plants.g5.age = plantLifespanShort;
 plants.g5.exp = plantTier1exp;
 plants.g5.price = 2;
+plants.g5.tier = 1;
 
 plants.g5a = {}
 plants.g5a.name = "Cloudberry";
@@ -12320,6 +12390,7 @@ plants.g5a.description = 'Increases Occult Damage by'+colorTag("x1.1","#E57D08")
 plants.g5a.age = plantLifespanMedium;
 plants.g5a.exp = plantTier2exp;
 plants.g5a.catalogue = 'returnPlantCatalogue("g5a")+ " + " +returnPlantCatalogue("g4")+ " = " +returnPlantCatalogue("g15")';
+plants.g5a.tier = 1;
 
 plants.g6 = {}
 plants.g6.name = "Pineapple";
@@ -12328,7 +12399,9 @@ plants.g6.description = 'Increases Might Damage by'+colorTag("x1.02","#E57D08");
 plants.g6.age = plantLifespanShort;
 plants.g6.exp = plantTier1exp;
 plants.g6.catalogue = 'returnPlantCatalogue("g6")+ " + " +returnPlantCatalogue("g1a")+ " = " +returnPlantCatalogue("g12")';
+plants.g6.catalogue2 = 'returnPlantCatalogue("g6")+ " + " +returnPlantCatalogue("g7a")+ " = " +returnPlantCatalogue("g13")';
 plants.g6.price = 2;
+plants.g6.tier = 1;
 
 plants.g6a = {}
 plants.g6a.name = "Carved Pineapple";
@@ -12337,6 +12410,7 @@ plants.g6a.description = 'Increases Might Damage by'+colorTag("x1.1","#E57D08");
 plants.g6a.age = plantLifespanMedium;
 plants.g6a.exp = plantTier2exp;
 plants.g6a.catalogue = 'returnPlantCatalogue("g6a")+ " + " +returnPlantCatalogue("g7")+ " = " +returnPlantCatalogue("g14")';
+plants.g6a.tier = 1;
 
 plants.g7 = {}
 plants.g7.name = "Red Rose";
@@ -12346,14 +12420,33 @@ plants.g7.age = plantLifespanShort;
 plants.g7.exp = plantTier1exp;
 plants.g7.catalogue = 'returnPlantCatalogue("g7")+ " + " +returnPlantCatalogue("g6a")+ " = " +returnPlantCatalogue("g14")';
 plants.g7.price = 2;
+plants.g7.tier = 1;
 
 plants.g7a = {}
-plants.g7a.name = "Cristal Rose";
+plants.g7a.name = "Crystal Rose";
 plants.g7a.color = "#629496";
 plants.g7a.description = 'Increases Nature Damage by'+colorTag("x1.1","#E57D08");
 plants.g7a.age = plantLifespanMedium;
 plants.g7a.exp = plantTier2exp;
 plants.g7a.catalogue = 'returnPlantCatalogue("g7a")+ " + " +returnPlantCatalogue("g6")+ " = " +returnPlantCatalogue("g13")';
+plants.g7a.tier = 1;
+
+plants.g10 = {}
+plants.g10.name = "Chocobloom";
+plants.g10.color = "#57A157";
+plants.g10.description = 'Harvest to get +1 cookie';
+plants.g10.age = plantLifespanShort;
+plants.g10.exp = plantTier1exp;
+plants.g10.price = 1;
+plants.g10.tier = 1;
+
+plants.g10a = {}
+plants.g10a.name = "Butterscorch";
+plants.g10a.color = "#629496";
+plants.g10a.description = 'Harvest to get +15 cookies';
+plants.g10a.age = plantLifespanShort;
+plants.g10a.exp = plantTier2exp;
+plants.g10a.tier = 1;
 
 plants.g8 = {}
 plants.g8.name = "Starmelo";
@@ -12362,6 +12455,7 @@ plants.g8.description = 'Increases Strength by'+colorTag("x1.01","#E57D08");
 plants.g8.age = plantLifespanMedium;
 plants.g8.exp = plantTier2exp;
 plants.g8.price = 3;
+plants.g8.tier = 2;
 
 plants.g8a = {}
 plants.g8a.name = "Flametreat";
@@ -12369,6 +12463,7 @@ plants.g8a.color = "#629496";
 plants.g8a.description = 'Increases Strength by'+colorTag("x1.06","#E57D08");
 plants.g8a.age = plantLifespanMedium;
 plants.g8a.exp = plantTier3exp;
+plants.g8a.tier = 2;
 
 plants.g9 = {}
 plants.g9.name = "Pink Lotus";
@@ -12377,6 +12472,7 @@ plants.g9.description = 'Increases Spellpower by'+colorTag("x1.01","#E57D08");
 plants.g9.age = plantLifespanMedium;
 plants.g9.exp = plantTier3exp;
 plants.g9.price = 5;
+plants.g9.tier = 2;
 
 plants.g9a = {}
 plants.g9a.name = "Black Lotus";
@@ -12386,36 +12482,7 @@ plants.g9a.age = 7200;
 plants.g9a.catalogue = 'returnPlantCatalogue("g9a")+ " + " +returnPlantCatalogue("g16")+ " = " +returnPlantCatalogue("g17")';
 plants.g9a.age = plantLifespanMedium;
 plants.g9a.exp = plantTier4exp;
-
-plants.g10 = {}
-plants.g10.name = "Chocobloom";
-plants.g10.color = "#57A157";
-plants.g10.description = 'Harvest to get +1 cookie';
-plants.g10.age = plantLifespanShort;
-plants.g10.exp = plantTier1exp;
-plants.g10.price = 1;
-
-plants.g10a = {}
-plants.g10a.name = "Butterscorch";
-plants.g10a.color = "#629496";
-plants.g10a.description = 'Harvest to get +15 cookies';
-plants.g10a.age = plantLifespanMedium;
-plants.g10a.exp = plantTier2exp;
-
-plants.g11 = {}
-plants.g11.name = "Pine Tree";
-plants.g11.color = "#57A157";
-plants.g11.description = 'Increases Drop Bonus by'+colorTag("x1.02","#E57D08");
-plants.g11.age = plantLifespanMedium;
-plants.g11.exp = plantTier4exp;
-plants.g11.price = 9;
-
-plants.g11a = {}
-plants.g11a.name = "Christmas Tree";
-plants.g11a.color = "#629496";
-plants.g11a.description = 'Increases Drop Bonus by'+colorTag("x1.1","#E57D08");
-plants.g11a.age = plantLifespanMedium;
-plants.g11a.exp = plantTier5exp;
+plants.g9a.tier = 2;
 
 plants.g12 = {}
 plants.g12.name = "Pricklypine";
@@ -12426,6 +12493,7 @@ plants.g12.exp = plantTier2exp;
 plants.g12.catalogue = 'returnPlantCatalogue("g12")+ " + " +returnPlantCatalogue("g2a")+ " = " +returnPlantCatalogue("g19")';
 plants.g12.catalogue2 = 'returnPlantCatalogue("g12")+ " + " +returnPlantCatalogue("g16")+ " = " +returnPlantCatalogue("g18")';
 plants.g12.price = 3;
+plants.g12.tier = 2;
 
 plants.g12a = {}
 plants.g12a.name = "Piñata";
@@ -12433,6 +12501,7 @@ plants.g12a.color = "#629496";
 plants.g12a.description = 'Increases Pat Power by'+colorTag("x1.1","#E57D08");
 plants.g12a.age = plantLifespanMedium;
 plants.g12a.exp = plantTier3exp;
+plants.g12a.tier = 2;
 
 plants.g13 = {}
 plants.g13.name = "Glacierfruit";
@@ -12441,6 +12510,7 @@ plants.g13.description = 'Increases EXP Bonus by'+colorTag("x1.02","#E57D08");
 plants.g13.age = plantLifespanMedium;
 plants.g13.exp = plantTier2exp;
 plants.g13.price = 3;
+plants.g13.tier = 2;
 
 plants.g13a = {}
 plants.g13a.name = "Frozen Jizo";
@@ -12448,6 +12518,7 @@ plants.g13a.color = "#629496";
 plants.g13a.description = 'Increases EXP Bonus by'+colorTag("x1.1","#E57D08");
 plants.g13a.age = plantLifespanMedium;
 plants.g13a.exp = plantTier3exp;
+plants.g13a.tier = 2;
 
 plants.g14 = {}
 plants.g14.name = "Cedarose";
@@ -12456,6 +12527,7 @@ plants.g14.description = 'Increases Max Health by'+colorTag("x1.01","#E57D08");
 plants.g14.age = plantLifespanMedium;
 plants.g14.exp = plantTier2exp;
 plants.g14.price = 3;
+plants.g14.tier = 2;
 
 plants.g14a = {}
 plants.g14a.name = "Maplebloom";
@@ -12465,6 +12537,7 @@ plants.g14a.age = plantLifespanMedium;
 plants.g14a.exp = plantTier3exp;
 plants.g14a.catalogue = 'returnPlantCatalogue("g14a")+ " + " +returnPlantCatalogue("g19a")+ " = " +returnPlantCatalogue("g11")';
 plants.g14a.price = 3;
+plants.g14a.tier = 2;
 
 plants.g15 = {}
 plants.g15.name = "Peperuvola";
@@ -12474,6 +12547,7 @@ plants.g15.age = plantLifespanMedium;
 plants.g15.exp = plantTier2exp;
 plants.g15.catalogue = 'returnPlantCatalogue("g15")+ " + " +returnPlantCatalogue("g3a")+ " = " +returnPlantCatalogue("g9")';
 plants.g15.price = 3;
+plants.g15.tier = 2;
 
 plants.g15a = {}
 plants.g15a.name = "Tortube";
@@ -12482,6 +12556,7 @@ plants.g15a.description = 'Increases mutation chance by 15%';
 plants.g15a.age = plantLifespanMedium;
 plants.g15a.exp = plantTier3exp;
 plants.g15a.price = 3;
+plants.g15a.tier = 2;
 
 plants.g16 = {}
 plants.g16.name = "ERR?OR";
@@ -12492,21 +12567,8 @@ plants.g16.exp = plantTier3exp;
 plants.g16.catalogue = 'returnPlantCatalogue("g16")+ " + " +returnPlantCatalogue("g12")+ " = " +returnPlantCatalogue("g18")';
 plants.g16.catalogue2 = 'returnPlantCatalogue("g16")+ " + " +returnPlantCatalogue("g9a")+ " = " +returnPlantCatalogue("g17")';
 plants.g16.price = 40;
+plants.g16.tier = 2;
 
-plants.g17 = {}
-plants.g17.name = "ARCH R?SE";
-plants.g17.color = "#57A157";
-plants.g17.description = 'Increases Flower Power by 10%';
-plants.g17.age = plantLifespanMedium;
-plants.g17.exp = plantTier4exp;
-plants.g17.price = 9;
-
-plants.g17a = {}
-plants.g17a.name = "AR?H ROSE CLUS!ER";
-plants.g17a.color = "#629496";
-plants.g17a.description = 'Increases Flower Power by 30%';
-plants.g17a.age = plantLifespanMedium;
-plants.g17a.exp = plantTier5exp;
 
 plants.g18 = {}
 plants.g18.name = "N?URAL CACT?S";
@@ -12515,6 +12577,7 @@ plants.g18.description = 'Increases Magic regeneration by 0.01';
 plants.g18.age = plantLifespanMedium;
 plants.g18.exp = plantTier3exp;
 plants.g18.price = 5;
+plants.g18.tier = 3;
 
 plants.g18a = {}
 plants.g18a.name = "F!ROG?";
@@ -12522,6 +12585,7 @@ plants.g18a.color = "#629496";
 plants.g18a.description = 'Increases Magic regeneration by 0.05';
 plants.g18a.age = plantLifespanMedium;
 plants.g18a.exp = plantTier4exp;
+plants.g18a.tier = 3;
 
 plants.g19 = {}
 plants.g19.name = "Invidragius";
@@ -12530,6 +12594,7 @@ plants.g19.description = 'Enemies drop 30 Shells when defeated'+bestiaryTag("⚜
 plants.g19.age = plantLifespanMedium;
 plants.g19.exp = plantTier3exp;
 plants.g19.price = 5;
+plants.g19.tier = 3;
 
 plants.g19a = {}
 plants.g19a.name = "Invidragius Avaritia";
@@ -12538,6 +12603,41 @@ plants.g19a.description = 'Enemies drop 300 Shells when defeated when defeated'+
 plants.g19a.age = plantLifespanMedium;
 plants.g19a.exp = plantTier4exp;
 plants.g19a.catalogue = 'returnPlantCatalogue("g19a")+ " + " +returnPlantCatalogue("g14a")+ " = " +returnPlantCatalogue("g11")';
+plants.g19a.tier = 3;
+
+plants.g11 = {}
+plants.g11.name = "Pine Tree";
+plants.g11.color = "#57A157";
+plants.g11.description = 'Increases Drop Bonus by'+colorTag("x1.02","#E57D08");
+plants.g11.age = plantLifespanMedium;
+plants.g11.exp = plantTier4exp;
+plants.g11.price = 9;
+plants.g11.tier = 4;
+
+plants.g11a = {}
+plants.g11a.name = "Christmas Tree";
+plants.g11a.color = "#629496";
+plants.g11a.description = 'Increases Drop Bonus by'+colorTag("x1.1","#E57D08");
+plants.g11a.age = plantLifespanMedium;
+plants.g11a.exp = plantTier5exp;
+plants.g11a.tier = 4;
+
+plants.g17 = {}
+plants.g17.name = "ARCH R?SE";
+plants.g17.color = "#57A157";
+plants.g17.description = 'Increases Flower Power by 10%';
+plants.g17.age = plantLifespanMedium;
+plants.g17.exp = plantTier4exp;
+plants.g17.price = 9;
+plants.g17.tier = 4;
+
+plants.g17a = {}
+plants.g17a.name = "AR?H ROSE CLUS!ER";
+plants.g17a.color = "#629496";
+plants.g17a.description = 'Increases Flower Power by 30%';
+plants.g17a.age = plantLifespanMedium;
+plants.g17a.exp = plantTier5exp;
+plants.g17a.tier = 4;
 
 
 for (var i in plants) {
@@ -12566,11 +12666,11 @@ let fertiliser = {}
 
 fertiliser.f1 = {}
 fertiliser.f1.name = "Quality Fertiliser";
-fertiliser.f1.description = 'Plants have a chance to drop an extra <img src="img/src/garden/gardenToken.jpg">Bloom Token when harvested';
+fertiliser.f1.description = 'Plants have a chance to drop an extra<img src="img/src/garden/gardenToken.jpg">Bloom Token when harvested';
 
 fertiliser.f2 = {}
 fertiliser.f2.name = "Water-Retaining Fertiliser";
-fertiliser.f2.description = "Plants no longer consume water but take twice to mature";
+fertiliser.f2.description = "Water takes longer to dry";
 
 for (var i in fertiliser) {
   fertiliser[i].unlocked = false;
@@ -12614,7 +12714,7 @@ gardenShop.GS2I3.effect = 'playSound("audio/retro2.mp3"); unlocks.seedShipping=t
 
 gardenShop.GS2I1 = {}
 gardenShop.GS2I1.item = 'I301';
-gardenShop.GS2I1.price = 60;
+gardenShop.GS2I1.price = 90;
 gardenShop.GS2I1.stock = 1;
 gardenShop.GS2I1.parent = 'gardenShopListing3';
 gardenShop.GS2I1.effect = 'playSound("audio/retro2.mp3"); unlocks.gardenUpgrade1=true; items.I305.gotOnce=true; unlocksReveal();';
@@ -12629,7 +12729,7 @@ gardenShop.GS3I1.parent = 'gardenShopListing3'; */
 
 gardenShop.GS5I2 = {}
 gardenShop.GS5I2.item = 'I304';
-gardenShop.GS5I2.price = 90;
+gardenShop.GS5I2.price = 200;
 gardenShop.GS5I2.stock = 1;
 gardenShop.GS5I2.parent = 'gardenShopListing4'; //esto level 5
 gardenShop.GS5I2.effect = 'playSound("audio/retro2.mp3"); unlocks.fertiliser=true; items.I304.gotOnce=true ; unlocksReveal(); rpgPlayer.currentFertiliser = "f1"';
@@ -12644,7 +12744,7 @@ gardenShop.GS5I1.parent = 'gardenShopListing5'; */
 
 gardenShop.GS5I1 = {}
 gardenShop.GS5I1.item = 'I379';
-gardenShop.GS5I1.price = 130;
+gardenShop.GS5I1.price = 200;
 gardenShop.GS5I1.stock = 1;
 gardenShop.GS5I1.parent = 'gardenShopListing5'; 
 gardenShop.GS5I1.effect = 'playSound("audio/retro2.mp3"); items.I379.gotOnce=true ; unlocksReveal(); fertiliser.f2.unlocked = true;';
@@ -12697,7 +12797,7 @@ gametip.gt9.description = bestiaryTag("New Inventory Functions")+'The <img src="
 
 gametip.gt17 = {}
 gametip.gt17.name = "Item Rarities";
-gametip.gt17.description = 'All items are classified based on their rarity. Higher rarity gear will inherently have better stats, but will also be much more difficult to obtain.<br><br>Consider only trying to obtain such gear if your means of defeating the enemy are fast enough.';
+gametip.gt17.description = 'All items are classified based on their rarity. Higher rarity gear will inherently have better stats, but will also be much more difficult to obtain.<br><br>Consider only trying to obtain such gear if your means of defeating the enemy are fast enough.<br><br>The regular rarities are the following: Common'+colorTag("Uncommon", returnQualityColor("Uncommon"))+colorTag("Rare", returnQualityColor("Rare"))+colorTag("Epic", returnQualityColor("Epic"))+colorTag("Mythic", returnQualityColor("Mythic"))+'<br>and'+colorTag("Legendary", returnQualityColor("Legendary"))+', each one more rare and powerful than the last.';
 
 gametip.gt2 = {}
 gametip.gt2.name = "Equipment Upgrading";
@@ -12753,7 +12853,7 @@ gametip.gt11.description ='Access the'+colorTag("Planetarium", "#4C838B")+'in yo
 
 gametip.gt13 = {}
 gametip.gt13.name = "The Garden";
-gametip.gt13.description ='Plant and water seeds to make them grow. The seeds will only grow if they currently have water. Once the seed achives maturity, it will activate its bonuses, and slowly decay to death.<br><br>Each time you harvest any mature plant, you will get garden experince and one'+colorTag("Bloom Token,", "#3BA144")+'which you can spend in The Garden shop tab.<br><br>On rare ocasions, plants can mutate. Harvesting a mature mutation is the only way to get mutated seeds.<br><br>If circumstances are right, plants can'+colorTag("crossbreed", "#45a3a2")+', and you might discover new seeds!';
+gametip.gt13.description ='Select a seed on the left and click or drag on an empty plot to plant it. Click on it again to water them. While plants are hydrated, they will grow faster.<br><br>Once the seed achives maturity, it will activate its bonuses, and slowly decay to death.<br><br>Each time you harvest any mature plant, you will discover said seed, get garden experince and one'+colorTag("Bloom Token,", "#3BA144")+'which you can spend in The Garden shop tab. If the plant dies of old age, it will still gain experience and tokens, but you wont discover that seed<br><br>On rare ocasions while mature, plants can mutate. Harvesting a mature mutation is the only way to get mutated seeds.<br><br>If circumstances are right, plants can'+colorTag("crossbreed", "#45a3a2")+', and you might discover new seeds. To crossbreed, plant two compatible parents somewhere on the garden and empty plots for their child to grow. The more parents of a plant are present, the higher the chances of crossbreeding.';
 
 gametip.gt16 = {}
 gametip.gt16.name = "Fishing";

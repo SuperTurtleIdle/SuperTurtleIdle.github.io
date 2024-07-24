@@ -3870,66 +3870,7 @@ function contractMenu() {
 
 
 
-function returnQualityColor(quality){
 
-  if (quality === "Poor") return "gray"
-  if (quality === "Common") return "white"
-  if (quality === "Uncommon") return "#1eff00"
-  if (quality === "Rare") return "#0070dd"
-  if (quality === "Epic") return "#a335ee" 
-  if (quality === "Mythic") return "#E44661"
-  if (quality === "Legendary") return "#ff8000"
-
-  if (quality === "Collectible") return "#e6cc80"
-  if (quality === "Quest") return "yellow"
-  if (quality === "Upgrade") return "#00FFCA"
-  if (quality === "Soulbound") return "#B5DD7B"
-
-  if (quality.startsWith("TA")) return rpgClass.TA0.color;
-  if (quality.startsWith("TG")) return rpgClass.TG0.color;
-  if (quality.startsWith("TI")) return rpgClass.TI0.color;
-
-  if (quality === "Very Easy") return "#579DA6"
-  if (quality === "Easy") return "#539D62"
-  if (quality === "Medium") return "#A78E50"
-  if (quality === "Hard") return "#AB525A"
-  if (quality === "Very Hard") return "#A04674"
-  if (quality === "Nightmare") return "#8B569F"
-  if (quality === "Impossible") return "#38293E"
-
-  if (quality === '0') return ""
-  if (quality === '1') return " <span class='itemLevel'>I</span>"
-  if (quality === '2') return " <span class='itemLevel' style='color: #abffbd'>II</span>"
-  if (quality === '3') return " <span class='itemLevel' style='color: #9cd9ff'>III</span>"
-  if (quality === '4') return " <span class='itemLevel' style='color: #EED490'>IV</span>"
-  if (quality === '5') return " <span class='itemLevel' style='color: #3486F1'>V</span>"
-  if (quality === '6') return " <span class='itemLevel' style='color: #5BDBBD'>VI</span>"
-  if (quality === '7') return " <span class='itemLevel' style='color: #FF6536'>VII</span>"
-  if (quality === '8') return " <span class='itemLevel' style='color: #FF21DE'>VIII</span>"
-  if (quality === '9') return " <span class='itemLevel' style='color: #AC37FF'>IX</span>"
-  if (quality === '10') return " <span class='itemLevel' style='color: #FF2121'>X</span>"
-  if (quality === '11') return " <span class='itemLevel' style='color: #FF2121'>X</span>" //some annoying bugs like description of job item
-
-  if (quality === "heirloom")  return '<div style=" text-align: center;background:#6D6D6D; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Heirloom Series</div>'
-  if (quality === "masterwork")  return '<div style=" text-align: center;background:#957256; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Masterwork Series</div>'
-  if (quality === "forgotten")  return '<div style=" text-align: center;background:#886386; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Forgotten Series</div>'
-  if (quality === "millionaire")  return '<div style=" text-align: center;background:#9E8244; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Millionaire Series</div>'
-  if (quality === "beastfallen")  return '<div style=" text-align: center;background:#8E4D60; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Beastfallen Series</div>'
-  if (quality === "revered")  return '<div style=" text-align: center;background:#5A8C98; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Revered Series</div>'
-  if (quality === "solstice")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(240, 71, 5, 1) 0%, rgba(240, 169, 10, 1)  100%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Solstice Series</div>'
-  
-  if (quality === "ancient")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(193,121,17,1) 0%, rgba(56,126,53,1) 100%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Ancient Series</div>'
-  if (quality === "malevolent")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(54,55,77,1) 0%, rgba(126,53,117,1) 100%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Malevolent Series</div>'
-  if (quality === "chosen")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(210,171,17,1) 0%, rgba(41,159,112,1) 100%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Chosen Series</div>'
-  if (quality === "toybox")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(255,151,19,1) 0%, rgba(187,154,48,1) 19%, rgba(41,159,112,1) 19%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Toybox Series</div>'
-  if (quality === "runic")  return '<div style=" text-align: center;background:linear-gradient(90deg, rgba(77,54,128,1) 0%, rgba(187,48,159,1) 52%, rgba(77,54,128,1) 100%); padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Runic Series</div>'
-  if (quality === "omega")  return '<div style=" text-align: center;background-image: url(img/sys/omegaBg.jpg); background-size:cover; outline:#215de0 solid 0.1rem; padding: 0 2%; border-radius: 0.4vh; color:white; font-family: fredoka; font-weight: 450">Omega Series</div>'
-
-
-
-  if (quality === "difficulty1") return "#579DA6"
-
-}
 
 function returnStampName(stamp){
   if (stamp === "nature1") return "Nature Force I";

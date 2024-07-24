@@ -652,8 +652,14 @@ function createBestiary() {
     if (enemies[i].killCount>=1 || enemies[i].sawOnce) bestiaryPointEntry++
 
 
+    
+
+
     if (enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'finalBoss')
          { enemies[i].medal = "none"; }//eligible
+
+
+    if (unlocks.bestiary){
 
 if (enemies[i].killCount>=10000
   && enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'finalBoss')
@@ -670,6 +676,8 @@ if (enemies[i].killCount>=100000
       enemies[i].medal = "platinum";
 
   }
+
+}
 
 
   

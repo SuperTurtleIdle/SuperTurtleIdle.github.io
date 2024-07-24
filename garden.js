@@ -173,7 +173,10 @@ function createGardenPlots() {
           if (plants[selectedSeed].count<=0) selectedSeed = "none"
           createPlants()
       } 
-plantGrow()
+
+
+      plantGrow()
+
       }
 
 
@@ -195,13 +198,14 @@ plantGrow()
 
 
         let tokensGained = 1;
-        if (talent.TG2D2.active && rng(1,3)===1) tokensGained += 1
-        if (rpgPlayer.currentFertiliser==="f1" && rng(1,4)===1)  tokensGained += 1;
+        if (talent.TG2D2.active && rng(1,4)===1) tokensGained += 1
 
+        if (talent.TG2D2.active && rng(1,4)===1) tokensGained += 1
+        if (rpgPlayer.currentFertiliser==="f1" && rng(1,4)===1) tokensGained += 1
         rpgPlayer.gardenTokens += tokensGained;
         
 
-        if (rpgPlayer.gardenLevel<=6) rpgPlayer.gardenExp+=plants[plot[i].slot].exp
+        if (rpgPlayer.gardenLevel<=6) rpgPlayer.gardenExp+=returnPlantExp(plot[i].slot)
         plants[plot[i].slot].planted--;
         if ("harvest" in plants[plot[i].slot]) eval(plants[plot[i].slot].harvest)
         updateGardenUi()
@@ -223,7 +227,6 @@ plantGrow()
           }
       
           plants[plot[i].slot].harvested++
-
           did(i+'plotPlant').classList.remove('moundMature');
 
           plot[i].slot = "none"
@@ -236,7 +239,6 @@ plantGrow()
           plot[i].water = 0;
           plot[i].mature=false;
           plot[i].renewable = false;
-          did(i+'plotPlant').style.filter = "saturate(0.9)";
           did(i+'plotPlant').style.height = "0%"
           calculateGardenStats()
           createGardenPlots()
@@ -338,58 +340,82 @@ plantGrow()
 
   setInterval(plantTick, 10000); //default 10000
 
+  let matureTime = 120 //120 ticks === 1h
+
+  let secondsPassed = 0
+
+  let matureSeconds = 0
+
+
   function plantTick(mode){
   
     for (let i in plot) {
 
 
         if (plot[i].slot !== "none"){
-            if (plot[i].water>0 && !plot[i].mature) {  
+            if (!plot[i].mature) {  
+
+              //secondsPassed+=10
+              //console.log(secondsPassed/60)
+              //if (rpgPlayer.currentFertiliser === "f2") matureTime = 180*2
+
+               
+              if (rpgPlayer.currentFertiliser==="f2"){ //water retaining fertiliser
+              plot[i].water-=rng(0,1)
+              } else plot[i].water-=rng(0,2) //water will run out in 17 minutes avg
+
+              let water = 1;
+              if (plot[i].water>0){ water = 3;} else water = 1
 
 
-              let matureTime = 180
-              if (rpgPlayer.currentFertiliser === "f2") matureTime = 180*2
-
-              plot[i].water-=rng(0,2) //water will run out in 16.6 minutes avg
-
-              if (plants[plot[i].slot].age === plantLifespanShort) plot[i].age+= plants[plot[i].slot].age / (matureTime/2) //15 mins
-              if (plants[plot[i].slot].age === plantLifespanMedium) plot[i].age+= plants[plot[i].slot].age / matureTime //30 mins
-              if (plants[plot[i].slot].age === plantLifespanLong) plot[i].age+= plants[plot[i].slot].age / (matureTime*2) //1h
-
-              let baseMutationChance = 5000
-              if (plants[plot[i].slot].exp === plantTier2exp) baseMutationChance = 9000
-              if (plants[plot[i].slot].exp === plantTier3exp) baseMutationChance = 14000
-              if (plants[plot[i].slot].exp === plantTier4exp) baseMutationChance = 20000
-
-
-              let mutationChance = baseMutationChance * (100-Math.min(gardenMutationPower,99)) / 100
-              if (rpgPlayer.currentFertiliser === "f2") mutationChance = baseMutationChance*2
-
-              if (plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,mutationChance)===1){ //mutation
-                if (plot[i].mature) plants[plot[i].slot].planted--
-                plot[i].slot = plot[i].slot+"a";
-                plot[i].renewable = true;
-                createGardenPlots();
-                calculateGardenStats()
-
-              }
-
+              if (plants[plot[i].slot].growth === "short") plot[i].age+= 1.8*water //30 mins
+              else if (plants[plot[i].slot].growth === "long") plot[i].age+= 0.44*water //2h
+              else plot[i].age+= 0.22*water //60 mins without watering, 30 with watering after 17 mins, default
 
             } 
 
             
 
-            if (plot[i].age > plants[plot[i].slot].age && !plot[i].mature){
-              randomTabName("plant")
-              plants[plot[i].slot].planted++;
-              plot[i].mature=true;
-              did("jobTab").innerHTML = '<img src="img/src/icons/job.png"><p>Guildwork 🌱</p>';
-              calculateGardenStats()
+            if (plot[i].age >= matureTime && !plot[i].mature){
+              
+
+
+
+
+
+
+
+              if (plot[i].water>0 && plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,20)===1){ // bonus mutation
+                //if (plot[i].mature) plants[plot[i].slot].planted--
+                plants[plot[i].slot].planted--
+                plot[i].slot = plot[i].slot+"a";
+                plot[i].renewable = true;
+                plot[i].age = 0;
+                plot[i].mature=false;
+                did(i+'plotPlant').classList.remove('moundMature');
+                createGardenPlots();
+                calculateGardenStats()
+              } else{
+                randomTabName("plant")
+                plants[plot[i].slot].planted++;
+                plot[i].mature=true;
+                did("jobTab").innerHTML = '<img src="img/src/icons/job.png"><p>Guildwork 🌱</p>';
+                calculateGardenStats()
+              }
+
+
+
+
+
+
+
+
+              
               
             } 
 
 
-            if(rng(1,800000)===1){ //corruption
+            if(rng(1,1000000)===1){ //corruption
               if (plot[i].mature) plants[plot[i].slot].planted--;
               plot[i].age = 0;
               plot[i].water = 100;
@@ -400,16 +426,77 @@ plantGrow()
             }
 
             let crossbreedChance = 300
-            if (rpgPlayer.currentFertiliser === "f2") crossbreedChance = 300*2
 
-            if (plot[i].mature){
+            if (plot[i].mature){ //when plant mature
               if (rng(1,crossbreedChance)===1) crossBreeding();
-              if (mode!=="offline") plot[i].age-=10 // multiplied by 10 since it ticks every 10 seconds
+              plot[i].age-=0.17 // 2h of maturity, default
+
+              //matureSeconds+=10
+              //console.log(matureSeconds/60)
+
+
+
+
+              let baseMutationChance = 6000
+              if (plants[plot[i].slot].tier === 2) baseMutationChance = 10000
+              if (plants[plot[i].slot].tier === 3) baseMutationChance = 19000
+              if (plants[plot[i].slot].tier === 4) baseMutationChance = 24000
+              let mutationChance = baseMutationChance * (100-Math.min(gardenMutationPower,99)) / 100
+              //if (rpgPlayer.currentFertiliser === "f2") mutationChance = baseMutationChance*2
+
+              if (plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,mutationChance)===1){ //mutation
+                //if (plot[i].mature) plants[plot[i].slot].planted--
+                plants[plot[i].slot].planted--
+                plot[i].slot = plot[i].slot+"a";
+                plot[i].renewable = true;
+                plot[i].age = 0;
+                plot[i].mature=false;
+                did(i+'plotPlant').classList.remove('moundMature');
+                createGardenPlots();
+                calculateGardenStats()
+              }
+
+
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             } 
 
             if (plot[i].mature && plot[i].age<0){ //plant death
-                 plants[plot[i].slot].planted--;
+                
+
+
+                let tokensGained = 2;
+                if (talent.TG2D2.active && rng(1,4)===1) tokensGained += 1
+                rpgPlayer.gardenTokens += tokensGained;
+                if (rpgPlayer.gardenLevel<=6) rpgPlayer.gardenExp+=returnPlantExp(plot[i].slot)*2
+                if (i!=="g2" && "harvest" in plants[plot[i].slot]) eval(plants[plot[i].slot].harvest)
+                updateGardenUi()
+
+                plants[plot[i].slot].harvested++
+                did(i+'plotPlant').classList.remove('moundMature');
+
+
+                plants[plot[i].slot].planted--;
                 plot[i].slot = "none"; 
+
                 createGardenPlots();
                 plot[i].age = 0;
                 plot[i].water = 0;
@@ -417,8 +504,8 @@ plantGrow()
                 plot[i].renewable = false;
                 calculateGardenStats()
                 
-                did(i+'plotPlant').style.filter = "saturate(0.9)";
                 did(i+'plotPlant').style.height = "0%"
+                
             } 
 
             plantGrow();
@@ -428,6 +515,21 @@ plantGrow()
     }
 
   }
+
+
+
+function returnPlantExp(id){
+
+  mutation = 1;
+  if (i.slice(-1) !== 'a') mutation = 2
+
+  if (plants[id].tier===0) return 1*mutation
+  if (plants[id].tier===1) return 2*mutation 
+  if (plants[id].tier===2) return 4*mutation
+  if (plants[id].tier===3) return 8*mutation
+
+
+}
 
 function plantGrow(){ //purely visual stuff
 
@@ -445,7 +547,7 @@ function plantGrow(){ //purely visual stuff
 
     if (did(i+'plotPlant') && !plot[i].mature) {
     
-    let agePercentage = ( plot[i].age / plants[plot[i].slot].age * 100 ) 
+    let agePercentage = ( plot[i].age / matureTime * 100 ) 
     did(i+'plotPlant').style.height = Math.min(100, (agePercentage*1.5))+"%"
 
     } else if (did(i+'plotPlant') && plot[i].mature) {
@@ -474,28 +576,34 @@ function plantGrow(){ //purely visual stuff
 //if youre trying to datamine this, dont even try. theres a file on \img\src\garden called plantguide detailing all of this
 
 //t2
-if (plants.g1a.planted>0 && plants.g6.planted>0) createNewPlant("g12", 170-((plants.g1a.planted+plants.g6.planted)*8)) //cactus m y piña
-if (plants.g6a.planted>0 && plants.g7.planted>0) createNewPlant("g14", 170-((plants.g6a.planted+plants.g7.planted)*8)) //piña m y rosa
-if (plants.g7a.planted>0 && plants.g6.planted>0) createNewPlant("g13", 170-((plants.g7a.planted+plants.g6.planted)*8)) //c rosa m y piña
-if (plants.g5a.planted>0 && plants.g4.planted>0) createNewPlant("g15", 170-((plants.g5a.planted+plants.g4.planted)*8)) //arandano m y chile
-if (plants.g2a.planted>0 && plants.g4a.planted>0) createNewPlant("g8", 170-((plants.g2a.planted+plants.g4a.planted)*8)) //sprout m y chile m
+if (plants.g1a.planted>0 && plants.g6.planted>0) createNewPlant("g12", (plants.g1a.planted+plants.g6.planted)) //cactus m y piña
+if (plants.g6a.planted>0 && plants.g7.planted>0) createNewPlant("g14", (plants.g6a.planted+plants.g7.planted)) //piña m y rosa
+if (plants.g7a.planted>0 && plants.g6.planted>0) createNewPlant("g13", (plants.g7a.planted+plants.g6.planted)) //c rosa m y piña
+if (plants.g5a.planted>0 && plants.g4.planted>0) createNewPlant("g15", (plants.g5a.planted+plants.g4.planted)) //arandano m y chile
+if (plants.g2a.planted>0 && plants.g4a.planted>0) createNewPlant("g8", (plants.g2a.planted+plants.g4a.planted)) //sprout m y chile m
 
 //t3
-if (plants.g2a.planted>0 && plants.g12.planted>0) createNewPlant("g19", 500-((plants.g2a.planted+plants.g12.planted)*8)) //sprout m y cactuspiña
-if (plants.g3a.planted>0 && plants.g15.planted>0) createNewPlant("g9", 500-((plants.g3a.planted+plants.g15.planted)*8)) //sunflower m y cloudchili
-if (plants.g16.planted>0 && plants.g12.planted>0) createNewPlant("g18", 500-((plants.g16.planted+plants.g12.planted)*8)) //glitch y cactuspiña
+if (plants.g2a.planted>0 && plants.g12.planted>0) createNewPlant("g19", (plants.g2a.planted+plants.g12.planted)) //sprout m y cactuspiña
+if (plants.g3a.planted>0 && plants.g15.planted>0) createNewPlant("g9", (plants.g3a.planted+plants.g15.planted)) //sunflower m y cloudchili
+if (plants.g16.planted>0 && plants.g12.planted>0) createNewPlant("g18", (plants.g16.planted+plants.g12.planted)) //glitch y cactuspiña
 
 //t4
-if (plants.g19a.planted>0 && plants.g14a.planted>0) createNewPlant("g11", 800-((plants.g19a.planted+plants.g14a.planted)*8)) //dragonfruit m y woodflower
-if (plants.g16.planted>0 && plants.g9a.planted>0) createNewPlant("g17", 800-((plants.g16.planted+plants.g9a.planted)*8)) //glitch y blacklotus
+if (plants.g19a.planted>0 && plants.g14a.planted>0) createNewPlant("g11", (plants.g19a.planted+plants.g14a.planted)) //dragonfruit m y woodflower
+if (plants.g16.planted>0 && plants.g9a.planted>0) createNewPlant("g17", (plants.g16.planted+plants.g9a.planted)) //glitch y blacklotus
 
 }
 
-function createNewPlant(seed, chance){
+function createNewPlant(seed, parents){
+  
 
   for (i in plot){
 
-    if (did(i+"plot").parentNode.style.display !== "none" && plot[i].slot === "none" && rng(1,Math.max(1,chance))===1){
+
+    let baseCrossbreed = 150
+    if (plants[plot[i].slot].tier === 3) baseCrossbreed = 400
+    if (plants[plot[i].slot].tier === 4) baseCrossbreed = 600
+
+    if (did(i+"plot").parentNode.style.display !== "none" && plot[i].slot === "none" && rng(1,Math.max(1,baseCrossbreed-parents))===1){
 
       plot[i].slot = seed;
       createGardenPlots();
@@ -585,7 +693,7 @@ function createNewPlant(seed, chance){
     did("tooltipFlavor").textContent = "";
     did("tooltipArrow").style.display = "none";
 
-    let agePercentage = ( plot[i].age / plants[plot[i].slot].age * 100 ) 
+    let agePercentage = ( plot[i].age / matureTime * 100 ) 
 
     let waterPercentage = ( plot[i].water / 100 * 100 ) 
 
@@ -644,11 +752,11 @@ function createNewPlant(seed, chance){
     did("tooltipFlavor").textContent = "";
     did("tooltipArrow").style.display = "none";
 
-    let lifespan = "Short"
-    if (plants[i].age === plantLifespanMedium) lifespan = "Medium"
+    let lifespan = "Medium"
+    //if (plants[i].growth === plantLifespanMedium) lifespan = "Medium"
 
 
-    did("tooltipDescription").innerHTML = bestiaryTag(plants[i].name, plants[i].color) + bestiaryTag(colorTag("🌱 When Mature 🌱", "#997151"), "transparent") +
+    did("tooltipDescription").innerHTML = bestiaryTag(plants[i].name+" - Tier "+returnRoman(plants[i].tier), plants[i].color) + bestiaryTag(colorTag("🌱 When Mature 🌱", "#997151"), "transparent") +
     '<div style="text-align: center; background:transparent; margin-top:0.2vw; color:white;">'+plants[i].description+'</div>'  +
     '<div class="separador"></div>' + bestiaryTag(colorTag('⏱️ Lifespan: '+lifespan, "#9B4F65"), "transparent")
     /*
@@ -864,6 +972,18 @@ let plantCompletionProgress = 0
 let plantCompletionProgressTotal = 0
 
 
+function returnPlantPrice(id){
+
+  let plantPrice = 0;
+  if (plants[id].tier===1) return 3;
+  if (plants[id].tier===2) return 6;
+  if (plants[id].tier===3) return 10;
+  if (plants[id].tier===4) return 16;
+
+
+}
+
+
 function createPlantCatalogue() {
   for (let i in plants) {
 
@@ -884,22 +1004,14 @@ function createPlantCatalogue() {
       plantCompletionProgress++}
 
 
-
-
-
-
-
-
-
-
       areadiv.addEventListener('click', function(event) { 
 
-        if (plants[i].harvested>0 && unlocks.seedShipping && i.slice(-1) !== 'a' && i !== "g2" && rpgPlayer.gardenTokens>=plants[i].price){
+        if (plants[i].harvested>0 && unlocks.seedShipping && i.slice(-1) !== 'a' && i !== "g2" && rpgPlayer.gardenTokens>=returnPlantPrice(i)){
 
           playSound("audio/button8.mp3");
           
          plants[i].count++
-         rpgPlayer.gardenTokens-=plants[i].price
+         rpgPlayer.gardenTokens-=returnPlantPrice(i)
 
          tooltipSeedCatalogue(i);
          createPlantCatalogue();
@@ -988,19 +1100,19 @@ if (plants[i].harvested>0){
   did("tooltipFlavor").textContent = "";
   did("tooltipArrow").style.display = "none";
 
-  let lifespan = "Short";
-  if (plants[i].age === plantLifespanMedium) lifespan = "Medium"
+  let lifespan = "Medium"
+    //if (plants[i].growth === plantLifespanMedium) lifespan = "Medium"
 
   let buyInfo = "";
   if (unlocks.seedShipping && i.slice(-1) !== 'a' && i !== "g2") buyInfo = '<div class="separador"></div>' + bestiaryTag("Click to purchase" , "#57A157") +
-  bestiaryTag('Price: '+plants[i].price+'&nbsp;<img src="img/src/garden/gardenToken.jpg"> Bloom Tokens&nbsp;<FONT COLOR="gray">( '+rpgPlayer.gardenTokens+' )', "transparent");
+  bestiaryTag('Price: '+returnPlantPrice(i)+'&nbsp;<img src="img/src/garden/gardenToken.jpg"> Bloom Tokens&nbsp;<FONT COLOR="gray">( '+rpgPlayer.gardenTokens+' )', "transparent");
 
 
   let catalogueDescription = ""
   if ("catalogue" in plants[i]) catalogueDescription = '<div class="separador"></div>' + bestiaryTag(eval(plants[i].catalogue), "transparent")
   if ("catalogue2" in plants[i]) catalogueDescription = '<div class="separador"></div>' + bestiaryTag(eval(plants[i].catalogue), "transparent") + bestiaryTag(eval(plants[i].catalogue2), "transparent")
 
-  did("tooltipDescription").innerHTML = bestiaryTag(plants[i].name, plants[i].color) + bestiaryTag(colorTag("🌱 When Mature 🌱", "#997151"), "transparent") +
+  did("tooltipDescription").innerHTML = bestiaryTag(plants[i].name+" - Tier "+returnRoman(plants[i].tier), plants[i].color) + bestiaryTag(colorTag("🌱 When Mature 🌱", "#997151"), "transparent") +
   '<span style="display:flex; justify-content:center; align-items:center; flex-direction: column; background:transparent align-self:center; justify-content:center;">'+plants[i].description+'</span>' +
   '<div class="separador"></div>' + bestiaryTag(colorTag('⏱️ Lifespan: '+lifespan, "#9B4F65"), "transparent") + catalogueDescription + buyInfo
  

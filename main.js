@@ -1461,6 +1461,7 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
   saveData.savedPlotAge = {}; for (const i in plot) { saveData.savedPlotAge[i] = plot[i].age;}
   saveData.savedPlotWater = {}; for (const i in plot) { saveData.savedPlotWater[i] = plot[i].water;}
   saveData.savedPlotMature = {}; for (const i in plot) { saveData.savedPlotMature[i] = plot[i].mature;}
+  saveData.savedPlotRenewable = {}; for (const i in plot) { saveData.savedPlotRenewable[i] = plot[i].renewable;}
 
   saveData.savedSound = {}; saveData.savedSound = savedSound;
 
@@ -1522,6 +1523,7 @@ function load() {
     for (const i in parsedData.savedPlotAge) { plot[i].age = parsedData.savedPlotAge[i];}
     for (const i in parsedData.savedPlotWater) { plot[i].water = parsedData.savedPlotWater[i];}
     for (const i in parsedData.savedPlotMature) { plot[i].mature = parsedData.savedPlotMature[i];}
+    for (const i in parsedData.savedPlotRenewable) { plot[i].renewable = parsedData.savedPlotRenewable[i];}
 
     for (const i in parsedData.savedGardenShopStock) { gardenShop[i].stock = parsedData.savedGardenShopStock[i];}
 
