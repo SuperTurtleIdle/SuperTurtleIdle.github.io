@@ -384,8 +384,7 @@ function createGardenPlots() {
 
 
               if (plot[i].water>0 && plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,20)===1){ // bonus mutation
-                //if (plot[i].mature) plants[plot[i].slot].planted--
-                plants[plot[i].slot].planted--
+                if (plot[i].mature) plants[plot[i].slot].planted--
                 plot[i].slot = plot[i].slot+"a";
                 plot[i].renewable = true;
                 plot[i].age = 0;
@@ -536,7 +535,7 @@ function plantGrow(){ //purely visual stuff
   for (let i in plot) {
 
     //if (plot[i].slot !== "none") {did(i+'mound').style.visibility = "visible";} else did(i+'mound').style.visibility = "hidden";
-    if (plot[i].slot !== "none") {did(i+'mound').style.display = "flex";} else did(i+'mound').style.display = "none";
+    if (did(i+'mound') && plot[i].slot !== "none") {did(i+'mound').style.display = "flex";} else did(i+'mound').style.display = "none";
 
 
     
