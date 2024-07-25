@@ -535,7 +535,7 @@ function plantGrow(){ //purely visual stuff
   for (let i in plot) {
 
     //if (plot[i].slot !== "none") {did(i+'mound').style.visibility = "visible";} else did(i+'mound').style.visibility = "hidden";
-    if (did(i+'mound') && plot[i].slot !== "none") {did(i+'mound').style.display = "flex";} else did(i+'mound').style.display = "none";
+        if (did(i+'mound') && plot[i].slot !== "none") {did(i+'mound').style.display = "flex";} else if (did(i+'mound')) did(i+'mound').style.display = "none";
 
 
     
