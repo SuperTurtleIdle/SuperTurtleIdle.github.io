@@ -1155,7 +1155,7 @@ function calculateInactiveTime() { //calculates idle time
             did('idleTime').innerHTML = convertSecondsToHMS(secondsInactive);
             if (farmable && unlocks.penguins) offlineRewards((secondsInactive/60)*(playerPenguinPower/15));
             if (!settings.disablePenguinRecap && unlocks.penguins && farmable) { did("penguinRecap").style.display = "flex"; }
-            if (unlocks.garden){ for (let i = 0; i < Math.min(secondsInactive/10, 3000); i++) { plantTick("offline");} }
+            //if (unlocks.garden){ for (let i = 0; i < Math.min(secondsInactive/10, 3000); i++) { plantTick("offline");} }
 
             
             
