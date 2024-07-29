@@ -1504,10 +1504,10 @@ enemies.E44.bestiarySkills = "❖ Killing Instincts: Inflicts"+buffIcon("B31")+"
 enemies.E47 = {};
 enemies.E47.name = 'Dusk Cultist';
 enemies.E47.level = '[lvl 50]';
-enemies.E47.hp = 9000000000; 
+enemies.E47.hp = 9000000000000000000000000000000; 
 enemies.E47.description = 'A suspicious robbed member of the dusk temple. He didn\'t do anything nefarious yet, but you just know hes dying to do so.'
 enemies.E47.area = 'A10';
-enemies.E47.attack = 180000000;
+enemies.E47.attack = 180000000000000000000000000000000000;
 enemies.E47.drop =  "rareItemDrop('I313', 1)";
 enemies.E47.exp = 0;
 enemies.E47.difficulty = 'easy';
@@ -8790,7 +8790,7 @@ quests.A8Q4 = {};
 quests.A8Q4.name = 'Careful Procedures';
 quests.A8Q4.difficulty = 3;
 quests.A8Q4.description = 'See those wicked four legged beasts? Turns out, their teeth is something else! But we cannot get them through regular means, you know? You need to be delicate with it.';
-quests.A8Q4.objective = `'Hand over 100 Pristine Dragoraro Tusks <span class="questProgress">'+beautify(items.I398.count)+'/600</span>'`;
+quests.A8Q4.objective = `'Hand over 600 Pristine Dragoraro Tusks <span class="questProgress">'+beautify(items.I398.count)+'/600</span>'`;
 quests.A8Q4.logic = 'items.I398.count>599';
 quests.A8Q4.effect = 'items.I398.count-=600; items.I174.count+=5';
 quests.A8Q4.reward = `itemIcon("I174")+'Dungeon Voucher x5'`;
