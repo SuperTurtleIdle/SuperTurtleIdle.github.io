@@ -194,6 +194,7 @@ let collectibles8Total = 0;
 let collectibles9Total = 0;
 let collectibles10Total = 0;
 let collectibles11Total = 0;
+let collectibles12Total = 0;
 
 let collectibles1Got = 0;
 let collectibles2Got = 0;
@@ -206,6 +207,7 @@ let collectibles8Got = 0;
 let collectibles9Got = 0;
 let collectibles10Got = 0;
 let collectibles11Got = 0;
+let collectibles12Got = 0;
 
 let collectiblesTotal = 0;
 let collectiblesGot = 0;
@@ -312,8 +314,8 @@ function createCatalogue() {
 }
 
 
-collectiblesTotal = collectibles1Total+collectibles2Total+collectibles3Total+collectibles4Total+collectibles5Total+collectibles6Total+collectibles7Total+collectibles8Total+collectibles9Total+collectibles10Total+collectibles11Total;
-collectiblesGot = collectibles1Got+collectibles2Got+collectibles3Got+collectibles4Got+collectibles5Got+collectibles6Got+collectibles7Got+collectibles8Got+collectibles9Got+collectibles10Got+collectibles11Got;
+collectiblesTotal = collectibles1Total+collectibles2Total+collectibles3Total+collectibles4Total+collectibles5Total+collectibles6Total+collectibles7Total+collectibles8Total+collectibles9Total+collectibles10Total+collectibles11Total+collectibles12Total;
+collectiblesGot = collectibles1Got+collectibles2Got+collectibles3Got+collectibles4Got+collectibles5Got+collectibles6Got+collectibles7Got+collectibles8Got+collectibles9Got+collectibles10Got+collectibles11Got+collectibles12Got;
 
 
 did("catalogue1Count").innerHTML = "["+collectibles1Got+"/"+collectibles1Total+"]"
@@ -327,6 +329,7 @@ did("catalogue8Count").innerHTML = "["+collectibles8Got+"/"+collectibles8Total+"
 did("catalogue9Count").innerHTML = "["+collectibles9Got+"/"+collectibles9Total+"]"
 did("catalogue10Count").innerHTML = "["+collectibles10Got+"/"+collectibles10Total+"]"
 did("catalogue11Count").innerHTML = "["+collectibles11Got+"/"+collectibles11Total+"]"
+did("catalogue12Count").innerHTML = "["+collectibles12Got+"/"+collectibles12Total+"]"
 
 
 
@@ -417,7 +420,7 @@ function createArmory() {
 
 
     div.addEventListener("click", function (event) {
-      if (items[i].gotOnce){
+      if (items[i].gotOnce && "skills" in items[i]){
       closePanels();
       upgradeItem = i;
       upgradeMenu();

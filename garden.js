@@ -40,7 +40,7 @@ function calculateGardenStats(){
   gardenHealthPower = ((plants.g14.planted)*1 + (plants.g14a.planted*6))/100*(1+gardenFlowerPower/100);
   gardenMutationPower = ((plants.g15.planted)*4 + (plants.g15a.planted*15))*(1+(gardenFlowerPower/3)/100);
   gardenMagicRegenPower = ((plants.g18.planted)*1 + (plants.g18a.planted*5))/100*(1+gardenFlowerPower/100);
-  gardenDragonGoldPower = ((plants.g19.planted)*30 + (plants.g19a.planted*300))*(1+(gardenFlowerPower)/100);
+  gardenDragonGoldPower = ((plants.g19.planted)*3 + (plants.g19a.planted*30))*(1+(gardenFlowerPower)/100);
 
   statsUpdate();
   updateStatsUI();
@@ -119,6 +119,24 @@ function expBar() { //updates exp bar and checks level up
   
 }*/
 
+
+var gardenCollectibles = { 
+  I480:{P:200, A:1}, 
+  I482:{P:200, A:1}, 
+
+  I478:{P:400, A:1},
+  I479:{P:400, A:1}, 
+
+  I475:{P:1000, A:1},
+  I477:{P:1000, A:1}, 
+
+  I476:{P:2000, A:1}, 
+
+  I481:{P:4000, A:1}, 
+}
+
+
+
 stats.plantsHarvested = 0
 
 function createGardenPlots() {
@@ -158,6 +176,9 @@ function createGardenPlots() {
           if (rng(1,4)===1)playSound("audio/plant.mp3");
           else playSound("audio/plant2.mp3");
 
+          randomTabName()
+          did("jobTab").innerHTML = '<img src="img/src/icons/job.png"><p>Guildwork</p>';
+
           if (selectedSeed!=="g2") plants[selectedSeed].count--
           plot[i].water = 100;
           plot[i].slot = selectedSeed
@@ -195,6 +216,7 @@ function createGardenPlots() {
 
       if (plot[i].mature) { //if mature
         stats.plantsHarvested++
+        rollTable(gardenCollectibles, 1)
 
 
         let tokensGained = 1;
@@ -227,7 +249,8 @@ function createGardenPlots() {
           }
       
           plants[plot[i].slot].harvested++
-          did(i+'plotPlant').classList.remove('moundMature');
+          if (did(i+'plotPlant')) did(i+'plotPlant').classList.remove('moundMature');
+          if (settings.disableColorblind && did(i+'plotPlant')) did(i+'plotPlant').style.outline = "none"
 
           plot[i].slot = "none"
           div.style.animation = "";
@@ -358,13 +381,19 @@ function createGardenPlots() {
               //if (rpgPlayer.currentFertiliser === "f2") matureTime = 180*2
 
                
-              if (rpgPlayer.currentFertiliser==="f2"){ //water retaining fertiliser
-              plot[i].water-=rng(0,1)
-              } else plot[i].water-=rng(0,2) //water will run out in 17 minutes avg
+              plot[i].water-=rng(0,2) //water will run out in 17 minutes avg
+
+              if (stats.currentWeather === "rain")  plot[i].water=100
 
               let water = 1;
               if (plot[i].water>0){ water = 3;} else water = 1
 
+              
+
+              if (rpgPlayer.currentFertiliser==="f2"){ //water retaining
+                plot[i].water = 0;
+                water = 2.5;
+              }
 
               if (plants[plot[i].slot].growth === "short") plot[i].age+= 1.8*water //30 mins
               else if (plants[plot[i].slot].growth === "long") plot[i].age+= 0.44*water //2h
@@ -390,7 +419,8 @@ function createGardenPlots() {
                 plot[i].age = 0;
                 plot[i].water = 100;
                 plot[i].mature=false;
-                did(i+'plotPlant').classList.remove('moundMature');
+                if (did(i+'plotPlant')) did(i+'plotPlant').classList.remove('moundMature');
+                if (settings.disableColorblind && did(i+'plotPlant')) did(i+'plotPlant').style.outline = "none"
                 createGardenPlots();
                 calculateGardenStats()
               } else{
@@ -450,7 +480,8 @@ function createGardenPlots() {
                 plot[i].age = 0;
                 plot[i].water = 100;
                 plot[i].mature=false;
-                did(i+'plotPlant').classList.remove('moundMature');
+                if (did(i+'plotPlant')) did(i+'plotPlant').classList.remove('moundMature');
+                if (settings.disableColorblind && did(i+'plotPlant')) did(i+'plotPlant').style.outline = "none"
                 createGardenPlots();
                 calculateGardenStats()
               }
@@ -481,7 +512,7 @@ function createGardenPlots() {
             if (plot[i].mature && plot[i].age<0){ //plant death
                 
 
-
+                stats.plantsHarvested++
                 let tokensGained = 2;
                 if (talent.TG2D2.active && rng(1,4)===1) tokensGained += 1
                 rpgPlayer.gardenTokens += tokensGained;
@@ -490,8 +521,8 @@ function createGardenPlots() {
                 updateGardenUi()
 
                 plants[plot[i].slot].harvested++
-                did(i+'plotPlant').classList.remove('moundMature');
-
+                if (did(i+'plotPlant')) did(i+'plotPlant').classList.remove('moundMature');
+                if (settings.disableColorblind && did(i+'plotPlant')) did(i+'plotPlant').style.outline = "none"
 
                 plants[plot[i].slot].planted--;
                 plot[i].slot = "none"; 
@@ -535,14 +566,14 @@ function plantGrow(){ //purely visual stuff
   for (let i in plot) {
 
     //if (plot[i].slot !== "none") {did(i+'mound').style.visibility = "visible";} else did(i+'mound').style.visibility = "hidden";
-        if (did(i+'mound') && plot[i].slot !== "none") {did(i+'mound').style.display = "flex";} else if (did(i+'mound')) did(i+'mound').style.display = "none";
+    if (did(i+'mound') && plot[i].slot !== "none") {did(i+'mound').style.display = "flex";} else if (did(i+'mound')) did(i+'mound').style.display = "none";
 
 
     
     if (plot[i].slot !== "none"){
 
 
-  if (stats.currentCategory === "jobContainer"){ //visual stuff
+  if (stats.currentCategory === "jobContainer"){ //visual stuffg19
 
     if (did(i+'plotPlant') && !plot[i].mature) {
     
@@ -553,6 +584,7 @@ function plantGrow(){ //purely visual stuff
 
     did(i+'plotPlant').classList.add('moundMature');
     did(i+'plotPlant').style.height = "100%"
+    if (settings.disableColorblind) did(i+'plotPlant').style.outline = "solid yellow 1px"
     //let sepiaPercentage = 1 - (plot[i].age / plants[plot[i].slot].age); //extremely laggy do not use
     //did(i+'plotPlant').style.filter += "sepia("+ Math.min(sepiaPercentage, 0.1) +")";
 
@@ -1065,8 +1097,10 @@ if (plants[i].harvested>0){
 
 
 did("plantCatalogueProgress").innerHTML = Math.round(plantCompletionProgress/plantCompletionProgressTotal*100)+"%";
+did("plantCatalogueProgressBar").style.width = plantCompletionProgress/plantCompletionProgressTotal*100+"%"
 
-  did("plantCatalogueProgressBar").style.width = plantCompletionProgress/plantCompletionProgressTotal*100+"%"
+did("compendiumMastery").innerHTML = "+"+plantCompletionProgress*10+" Mastery";
+did("compendiumProgress2").innerHTML = plantCompletionProgress+"/"+plantCompletionProgressTotal+" Plants Discovered";
 
 
 
@@ -1223,6 +1257,13 @@ function createFertiliser() {
 
 
 
+function plantSanityCheck(){ for (i in plants){if (plants[i].planted<0)plants[i].planted=0} }
+
+
+
+
+
+
 
 
 
@@ -1238,11 +1279,17 @@ function gardenInitialization(){
     createGardenPlots();
     createPlants();
     createGardenShop();
-    createPlantCatalogue();
+    //createPlantCatalogue(); before statsupdate
 
     nextGardenLevel = Math.floor(100 * Math.pow(2, rpgPlayer.gardenLevel-1))
     updateGardenUi();
     plantGrow();
+
+
+
+
+
+    plantSanityCheck()
     
 
     

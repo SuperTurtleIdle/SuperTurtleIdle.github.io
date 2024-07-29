@@ -1,5 +1,7 @@
 
 function returnRoman(num) {
+
+  if (num===0) return 0
   const numerosRomanos = [
       { valor: 1000, simbolo: 'M' },
       { valor: 900, simbolo: 'CM' },

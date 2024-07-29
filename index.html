@@ -91,6 +91,7 @@
             <h3>Switch CTRL interaction for Alt<button id="switchContextKey" onclick="toggleSettings('switchContextKey')">OFF</button></h3>
             <h3>Disable container auto-open<button id="disableAutoOpen" onclick="toggleSettings('disableAutoOpen')">OFF</button></h3>
             <h3>Disable export reminder<button id="disableExportReminder" onclick="toggleSettings('disableExportReminder')">OFF</button></h3>
+            <h3>Colorblind Mode<button id="disableColorblind" onclick="toggleSettings('disableColorblind')">OFF</button></h3>
 
             <h2>Visual Settings</h2>
             <h3>Disable custom cursor<button id="disableCustomCursor" onclick="toggleSettings('disableCustomCursor'); setCursor()">OFF</button></h3>
@@ -171,7 +172,7 @@
             <h3>Total boss kills: <button id="statBossKills"></button></h3>
             <h3>Total defeats: <button id="statDeaths"></button></h3>
             <h3>Dungeons cleared: <button id="statDungeons"></button></h3>
-            <h3>Items stolen: <button id="statThief"></button></h3>
+            <h3>Total Steals: <button id="statThief"></button></h3>
 
             <h2>Stats</h2>
             <h3>Coins per pat: <button id="statCoinsClick"></button></h3>
@@ -453,8 +454,8 @@
             <span class="settingsFlex">
             <div class="shopLockedListing" id="honorShopListing1" style="margin-top: 5rem;"><div class="shopLockedListingCover" id="honorShopListing1Cover"><img src="img/src/icons/gladr2.jpg">Achieve <strong style="background: #ffb759;">Rank 2</strong> Gladiator Rank to unlock</div></div>
             <div class="shopLockedListing" id="honorShopListing2"><div class="shopLockedListingCover" id="honorShopListing2Cover"><img src="img/src/icons/gladr3.jpg">Achieve <strong style="background: #ffb759;">Rank 3</strong> Gladiator Rank to unlock</div></div>
-            <div style="display: none;">
             <div class="shopLockedListing" id="honorShopListing3"><div class="shopLockedListingCover" id="honorShopListing3Cover"><img src="img/src/icons/gladr4.jpg">Achieve <strong style="background: #ffb759;">Rank 4</strong> Gladiator Rank to unlock</div></div>
+            <div style="display: none;">
             <div class="shopLockedListing" id="honorShopListing4"><div class="shopLockedListingCover" id="honorShopListing4Cover"><img src="img/src/icons/gladr5.jpg">Achieve <strong style="background: #ffb759;">Rank 5</strong> Gladiator Rank to unlock</div></div>
             <div class="shopLockedListing" id="honorShopListing5"><div class="shopLockedListingCover" id="honorShopListing5Cover"><img src="img/src/icons/gladr6.jpg">Achieve <strong style="background: #ffb759;">Rank 6</strong> Gladiator Rank to unlock</div></div>
         </div>
@@ -501,6 +502,8 @@
             <div class="catalogueListing" id="catalogue6"></div>
             <div class="bannerTitle" style="margin-bottom: 2rem; margin-top: 2rem;">Jackpot Collection<span id="catalogue7Count">[0/0]</span></div>
             <div class="catalogueListing" id="catalogue7"></div>
+            <div class="bannerTitle" style="margin-bottom: 2rem; margin-top: 2rem;">Peculiar Flowers Collection<span id="catalogue12Count">[0/0]</span></div>
+            <div class="catalogueListing" id="catalogue12"></div>
             <div class="bannerTitle" style="margin-bottom: 2rem; margin-top: 2rem;">Prehistoric Collection<span id="catalogue5Count">[0/0]</span></div>
             <div class="catalogueListing" id="catalogue5"></div>
             <div class="bannerTitle" style="margin-bottom: 2rem; margin-top: 2rem;">Shoebox Critters Collection<span id="catalogue11Count">[0/0]</span></div>
@@ -578,9 +581,9 @@
                     
                     <img src="img/src/items/I305.jpg">
                     <div class="craftBookHeaderInfo">
-                        <div><span>PLANT CATALOGUE</span><span style="background: #FF993C; font-weight: 500;" id="plantCatalogueProgress"> 50%</span></div>
+                        <div><span>COMPENDIUM</span><span style="background: #FF993C; font-weight: 500;" id="plantCatalogueProgress"> 50%</span><span style="background: #464ACB; font-weight: 500; display:flex" id="compendiumMastery">Mastery</span></div>
                         <div><div><div id="plantCatalogueProgressBar"></div></div></div>
-                        <div><span style="background: transparent; font-weight: 500; color: #FF993C;"></span></div>
+                        <div><span style="background: transparent; font-weight: 500; color: #FF993C; display:flex" id="compendiumProgress2">2503 / 2750 EXP</span></div>
                     </div>
                 
                 
@@ -626,9 +629,13 @@
 
             <div class="armoryTitle" style="margin-bottom: 0rem; margin-top: 2rem; border-image: linear-gradient(90deg, rgba(240, 71, 5, 1), rgba(240, 169, 10, 1)) 30%; ">Solstice Series<span id="solsticeArmoryCount">[0/0]</span></div>
             <div class="catalogueListing" id="solsticeArmory"></div>
-            <div style="display: none;"> 
+
+            
+
             <div class="armoryTitle" style="margin-bottom: 0rem; margin-top: 2rem; border-image: linear-gradient(90deg, rgba(193,121,17,1), rgba(56,126,53,1)) 30%; ">Ancient Series<span id="ancientArmoryCount">[0/0]</span></div>
             <div class="catalogueListing" id="ancientArmory"></div>
+
+            <div style="display: none;"> 
             <div class="armoryTitle" style="margin-bottom: 0rem; margin-top: 2rem; border-image: linear-gradient(90deg, rgba(54,55,77,1), rgba(126,53,117,1)) 30%; ">Malevolent Series<span id="malevolentArmoryCount">[0/0]</span></div>
             <div class="catalogueListing" id="malevolentArmory"></div>
             <div class="armoryTitle" style="margin-bottom: 0rem; margin-top: 2rem; border-image: linear-gradient(90deg, rgba(77,54,128,1), rgba(187,48,159,1)) 30%; ">Runic Series<span id="runicArmoryCount">[0/0]</span></div>
@@ -714,7 +721,7 @@
         <div class="dynamicSpark"></div>
     
     
-    <div id="debugPanel" style="display: none"><button class="itemSlot" onclick="levelUp(1)">+1 Level</button><button class="itemSlot" onclick="rpgClass[stats.currentClass].level+=10;">+10 Level</button><button class="itemSlot" onclick="rpgClass[stats.currentClass].level-=5;">-5 Level</button><button class="itemSlot" onclick="revive()">Revive</button><button class="itemSlot" onclick="deleteEnemy()">Banish</button><button class="itemSlot" onclick="godmode=true">God</button><button class="itemSlot" onclick="unlockAll()">Unlock</button><button class="itemSlot" onclick="currentHP=0; enemyUpdate()">Kill</button><button class="itemSlot" onclick="for (i in items) if ('cd' in items[i]) {items[i].cd=0}">CD</button><button class="itemSlot" onclick="learnAllTalents()">Skills</button><button class="itemSlot" onclick="rpgPlayer.coins = 999999999999; stats.totalCoins=999999999999">Money</button><button class="itemSlot" onclick="disableArmory=true">Armory</button></div>
+    <div id="debugPanel" style="display: none"><button class="itemSlot" onclick="levelUp(1)">+1 Level</button><button class="itemSlot" onclick="rpgClass[stats.currentClass].level+=10;">+10 Level</button><button class="itemSlot" onclick="rpgClass[stats.currentClass].level-=5;">-5 Level</button<button class="itemSlot" onclick="enemies[stats.currentEnemy].killCount=10000">medal</button>><button class="itemSlot" onclick="revive()">Revive</button><button class="itemSlot" onclick="deleteEnemy()">Banish</button><button class="itemSlot" onclick="godmode=true">God</button><button class="itemSlot" onclick="unlockAll()">Unlock</button><button class="itemSlot" onclick="currentHP=0; enemyUpdate()">Kill</button><button class="itemSlot" onclick="for (i in items) if ('cd' in items[i]) {items[i].cd=0}">CD</button><button class="itemSlot" onclick="learnAllTalents()">Skills</button><button class="itemSlot" onclick="rpgPlayer.coins = 999999999999; stats.totalCoins=999999999999">Money</button><button class="itemSlot" onclick="disableArmory=true">Armory</button></div>
     
 
 </head>

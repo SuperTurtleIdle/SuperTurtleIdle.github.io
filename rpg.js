@@ -135,6 +135,9 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
   }
 
 
+  if (stats.currentEnemy==="E43") buffs.B83.time=2; //present mimic
+
+
   if (buffs.B67.time>0 && currentEnemy!=="E15"){ //caltrops
     currentHP -= Math.min((currentHP-1), (playerWeaponDamage*0.2)*playerSpellpower);
     enemyUpdate();
@@ -337,6 +340,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
   var percentageHP = (currentHP / enemies[stats.currentEnemy].hp) * 100;
 
   if (did(stats.currentEnemy+"enemy") && did(stats.currentEnemy+"enemy").classList.contains('gilded')) percentageHP = (currentHP / 15000) * 100;
+  
 
   did("enemyHpBar").style.background = "linear-gradient(90deg, rgb(144,238,111)" + percentageHP + "%, rgb(255,119,119) " + percentageHP + "%)";
 
@@ -658,7 +662,7 @@ function enemyAttackCheck(damage){
   if (buffs.B48.time>0) enemyOccultDamage(Math.min(damage*0.5, expectedPlayerDamage), "zeroScale")
 
 
-  if (gardenReflectPower>0) enemyNatureDamage(Math.min(damage, expectedPlayerDamage)*(gardenReflectPower/100), "noScale");
+  if (gardenReflectPower>0) enemyNatureDamage(Math.min(damage, expectedPlayerDamage)(gardenReflectPower/100), "zeroScale");
 
   if (currentSet==="explorer") enemyNatureDamage(Math.min(damage, expectedPlayerDamage), "zeroScale")
 
@@ -715,7 +719,7 @@ function damageTicks() {
   if (enemyMightDot > 0) { enemyMightDamage(enemyMightDot); }
   if (enemyElementalDot > 0) { enemyElementalDamage(enemyElementalDot); }
   if (enemyDeificDot > 0) { enemyDeificDamage(enemyDeificDot); }
-  if (enemyOccultDot > 0) { enemyOccultDamage(enemyOccultDot); }
+  if (enemyOccultDot > 0) { enemyOccultDamage(enemyOccultDot*items.I206.statUp); }
   if (enemyHealingDot > 0) { enemyHealingDamage(enemyHealingDot); }
 
   //if (playerNatureDot+playerMightDot+playerElementalDot+playerDeificDot+playerOccultDot>0) enemyAttackCheck(playerNatureDot+playerMightDot+playerElementalDot+playerDeificDot+playerOccultDot) scary!
@@ -928,7 +932,7 @@ function enemyDamage(damage, align, icon, type){
   if (gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)) damageDealt = 0
 
   ///dynamic enemies///
-  if (enemies[stats.currentEnemy].dynamic || did(stats.currentEnemy+"enemy").classList.contains('gilded')) {
+  if ( did(stats.currentEnemy+"enemy") && (enemies[stats.currentEnemy].dynamic || did(stats.currentEnemy+"enemy").classList.contains('gilded'))) {
   let dynamicCalc = 1;
   let weaponDamage = playerWeaponDamage * (1+eval(items[rpgPlayer.weaponSlot].align+"DamageBonus")) * (playerStrength) * Math.pow(1.005, playerMastery) + flatWeaponDamage
 
@@ -952,7 +956,7 @@ function enemyDamage(damage, align, icon, type){
   if (buffs.B83.time>0) finalDamage = 0; //invul buff
 
   if (buffs.B79.time>0 && type==="sp"){ //mirror buff
-    playerDeificDamage(finalDamage)
+    playerDeificDamage(finalDamage/5)
   }
 
   currentHP -= finalDamage;
@@ -1179,7 +1183,8 @@ function playerDeificDamage(damage){
 
 function playerHealingDamage(healing){
   playSound("audio/heal.mp3")
-  let healingDealt = healing
+  let healingDealt = healing * playerHealingBonus
+  //console.log(healing + " - " + playerHealingBonus + " - " + healingDealt)
   if (buffs.B82.time>0 || buffs.B80.time>0) healingDealt = 0;
   if (buffs.B80.time>0) playerOccultDamage(healing);
   rpgPlayer.hp += healingDealt;
@@ -1628,11 +1633,11 @@ while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
 }
 
 
-
+  /*
   console.log('Rare Drop IDs:', rareDropIds);
   console.log('Uncommon Drop IDs:', uncommonDropIds);
   console.log('Epic Drop IDs:', epicDropIds);
-
+  */
 
 
   itemGot = "none";
@@ -1821,7 +1826,11 @@ function addItem() { //updates inventory items
       if (items[i].max < items[i].count) items[i].count = items[i].max;
 
       if (items[i].upgradeable && did(items[i].id + "itemCount")) did(items[i].id + "itemCount").innerHTML = returnQualityColor(items[i].count.toString())
+
       if ((items[i].max !== 1 && !items[i].upgradeable) || i === "I281") did(items[i].id + "itemCount").innerHTML = beautify(items[i].count);
+
+      if ((items[i].max !== 1 && !items[i].upgradeable) && items[i].count===items[i].max) did(items[i].id + "itemCount").innerHTML = '<FONT COLOR="yellow">'+beautify(items[i].count);
+
 
     }
 
@@ -1910,7 +1919,7 @@ document.addEventListener('mouseover', function(event) {
     tierArmorBonus = '<FONT COLOR="#b983f7">'+items[itemID].tierArmorBonus
   } else tierArmorBonus = '<FONT COLOR="gray">'+items[itemID].tierArmorBonus
 
-  let tiername = items[itemID].tier
+  let tiername = items[itemID].armorTier
 
   var tierDescTotal = '<FONT COLOR="#b983f7"><br>✦── '+tiername+" ──✦<br>"+tierDesc1+tierDesc2+tierDesc3+tierDesc4+tierDesc5+tierDesc6+tierArmorBonus
 
@@ -2996,7 +3005,7 @@ function unlockAll(){
 var woodenStamps = ["nature1", "nature2", "might1", "might2", "elemental1", "elemental2", "occult1", "occult2", "deific1", "deific2","titan1"]
 var ironStamps = ["nature1", "nature2", "nature3", "might1", "might2", "might3", "elemental1", "elemental2", "elemental3", "occult1", "occult2", "occult3", "deific1", "deific2", "deific3","titan1", "titan2"]
 var goldStamps = ["nature2", "nature3", "might2", "might3", "elemental2", "elemental3","occult2", "occult3", "deific2", "deific3", "titan2", "titan3"]
-var eternalStamps = ["nature4", "might4", "elemental4", "occult4", "deific4", "titan3", "naturedown", "mightdown", "elementaldown", "deificdown", "occultdown"]
+var eternalStamps = ["nature4", "might4", "elemental4", "occult4", "deific4", "titan3", "naturedown", "mightdown", "elementaldown", "deificdown", "occultdown", "naturedown", "mightdown", "elementaldown", "deificdown", "occultdown"]
 var gardenStamps = ["dynamo1", "dynamo1", "dynamo1", "dynamo1", "dynamo2", "dynamo3"]
 
 function stampWeapon(tier){
@@ -3215,6 +3224,8 @@ function areaButton(id) {
 
       }
 
+      if (id==="A8") gametipUnlock("gt19")
+
       if (areas[id].dungeon && (areas[id].charges>0 || items.I174.count>0)){ //dungeon voucher
 
         if (areas[id].charges<1) items.I174.count--;
@@ -3246,7 +3257,8 @@ function areaButton(id) {
 
       }
 
-
+      statsUpdate()
+      updateStatsUI()
       }
     });
   }
@@ -3274,7 +3286,7 @@ function resetAreaButtonClass() { //visual select of area button
 function areaDictionary(area){
 
  if(area==="A8") return "🌫️ Esoteric Brume"
- if(area==="A8D") return "Thick mist prevents seeing changes in enemy Health"
+ if(area==="A8D") return "-15% All Resistances"
 
  if(area==="A9") return "💥 Unstable Cores"
  if(area==="A9D") return "Enemies have a small chance to explode on defeat" 
@@ -5765,6 +5777,17 @@ function setBonus() {
     did("rpgPlayerImg").src = "img/src/armor/A13.png";
     resetTierAppearance()
   } 
+  else if ( h === "I384" && r === "I383") { //grandad set
+    did("rpgPlayerImg").src = "img/src/armor/A12.png";
+    animState("rpgPlayerImg", "flash 0.3s 1");
+    
+    
+    resetTierAppearance()
+  } 
+  else if ( h === "I384" ) { //grandad
+    did("rpgPlayerImg").src = "img/src/armor/A12.png";
+    resetTierAppearance()
+  } 
   else if ( h === "I344" ) { //mudkip hat
     did("rpgPlayerImg").src = "img/src/armor/A2.png";
     resetTierAppearance()
@@ -5780,9 +5803,16 @@ function setBonus() {
     currentSet = "none";
     did("rpgPlayerImg").style.opacity = 1;
     did("armorFlair").src = "img/src/projectiles/none.png";
+
   }
 
   if ( h !== "none" && c !== "none" && l !== "none" && f !== "none" && d !== "none" && w !== "none" && t !== "none" && r !== "none" ) logTrackFullSlots = true;
+
+
+  if (items.I389.statUp!=="none") did("rpgPlayerImg").src = "img/src/armor/"+items.I389.statUp+".png";
+  
+
+
 }
 
 function updateAlignUi(){
@@ -6182,7 +6212,7 @@ function tooltipTalents(id) {
       if ("cast" in talent[id]) castDescription = "<span style='color:gray'>Uses "+eval(talent[id].cost)+" Magic<br>"+talent[id].cd+"s Cooldown</span><br><br>"
 
       let bonusDescription = ""
-      //if ("logic" in talent[id]) bonusDescription = "<br><br><span class='logStat'>[Current Bonus: "+beautify(eval(talent[id].logic)*100)+"%]</span>"
+      if (talent[id].category === "Class" && id!=="noClass") bonusDescription = "<br><br>"+ bestiaryTag("Innate Skill: "+talent[id+"BASE"].name, "#9C4BB9") + "<span style='color:gray'>Uses "+eval(talent[id+"BASE"].cost)+" Magic<br>"+talent[id+"BASE"].cd+"s Cooldown</span><br><br>"+ eval(talent[id+"BASE"].description) + '<br><br>';
 
       
       did("tooltipDescription").innerHTML = description1 + descriptionLock + classDescription + castDescription + '<FONT COLOR="lightgray">'+ eval(talent[id].description) + bonusDescription + description2
@@ -6534,7 +6564,7 @@ function playerBuffsDecay() {
   
     if (buffs.B85.time>0) {did("rpgPlayerImg").style.filter = "grayscale(1)"} else if (did("rpgPlayerImg").style.filter === "grayscale(1)" && buffs.B85.time<=0) did("rpgPlayerImg").style.filter = "none";
 
-    if (stats.currentArea==="A10" && rpgPlayer.ringSlot!=="I373") buffs.B91.time = 3;
+    if (stats.currentArea==="A10") buffs.B91.time = 3;
     if (stats.currentArea==="A11") buffs.B96.time = 3;
 
 
@@ -6624,6 +6654,7 @@ function buffEffect(strength, id) {
 
   if (rpgPlayer.ringSlot === "I176" && items.I176.level>9) buffs.B3.statUp = 0; //poison
   if (rpgPlayer.ringSlot === "I282" && items.I282.level>29) buffs.B59.statUp = 0; //burning
+  if (rpgPlayer.ringSlot === "I373") buffs.B91.statUp = 0; //darkmoon
 
 
 
@@ -6918,7 +6949,7 @@ function updateStatsUI() {
   did("statsDeificResist").innerHTML = "❖&nbsp;Deific Resistance: " + beautify((deificResist).toFixed(2) * 100) + "%";
   did("statsOccultResist").innerHTML = "❖&nbsp;Occult Resistance: " + beautify((occultResist).toFixed(2) * 100) + "%";
 
-  did("statsHaste").innerHTML = "❖&nbsp;Attack Speed: " + -((playerHaste-1)*100).toFixed(0) + "%";
+  did("statsHaste").innerHTML = "❖&nbsp;Attack Speed: " +beautify((Math.pow(playerHaste, -1) - 1).toFixed(2) * 100) + "%"; 
   did("statsStrength").innerHTML = "❖&nbsp;Strength: " + beautify((playerStrength-1).toFixed(2) * 100) + "%";
   did("statsSpellpower").innerHTML = "❖&nbsp;Spellpower: " + beautify((playerSpellpower-1).toFixed(2)*100) + "%";
   did("turtleName2").innerHTML = stats.turtleName;
@@ -6948,7 +6979,7 @@ if (areas[stats.currentArea].dungeon) stats.currentArea = "A1"; //prevents loadi
   encounterButtonPress();
   hpRegen();
   initGearAll();
-  
+  createPlantCatalogue()
   retroactiveUpdate();
   switchArea();
   createBestiary();

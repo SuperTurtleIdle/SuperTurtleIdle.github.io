@@ -29,7 +29,7 @@ function castFossilSet(){
     setTimeout(() => {
     animParticleProjectile("bone", "throw", 0, "particleSmoke", 0);
     setTimeout(() => {
-        enemyMightDamage(playerWeaponDamage*0.4, "noScale");
+        enemyElementalDamage(playerWeaponDamage*0.4,"sp");
     }, 700);
 }, 700);
 }
@@ -60,8 +60,30 @@ function castPurifyingSalt(){
 
         
     }, 700);
-
 }
+
+
+if (stats.currentEnemy === "E36") {
+    setTimeout(() => {
+        
+        animParticleBurst(10 , "particleFire", "enemyPanel", 200);
+        animParticleBurst(10 , "particleSpark", "enemyPanel", 200);
+        animImageSplash("soundWave", "enemyPanel", "wave", 200);
+        animImageSplash("ghost", "enemyPanel", "float", 0);
+        animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
+        playSound("audio/gas.mp3");
+        enemyDamageMultiplier = 0.85
+        enemyDefenseMultiplier = 1.15
+        enemyUpdate();
+        did(stats.currentEnemy+"enemy").style.opacity = '0.6'
+
+        
+    }, 700);
+}
+
+
+
+
 
     if (stats.currentEnemy === "E1") {
         setTimeout(() => {
@@ -589,6 +611,7 @@ function castRaijinGoran(){
         animParticleBurst(7 , "particleElectric", "playerPanel", 0);
         animState("rpgPlayerImg", "shake 0.4s 1");
         {buffs.B76.time=15; buffs.B76.stacks+=6;}
+        playerElementalDamage(enemies[stats.currentEnemy].attack*4)
         playerBuffs();
     }
 
@@ -721,6 +744,7 @@ function castEisZeith(){
         animParticleBurst(2 , "particleGlow2", "playerPanel", 100);
         animState("rpgPlayerImg", "shakeFlash 0.4s 1");
         buffs.B74.time=10;
+        playerMightDamage(enemies[stats.currentEnemy].attack*3)
         playerBuffs();
     }
 
@@ -731,7 +755,7 @@ function castEisZeith(){
         animImageSplash("soundWave", "enemyPanel", "wave", 100, undefined ,'boss');
         }
 
-        playerDeificDamage(546000)
+        playerDeificDamage(enemies[stats.currentEnemy].attack*7)
     
         }
     
@@ -966,7 +990,9 @@ function castEdgeOfCataclysm(){
 }
 
 function castHiddenPledge(){
-    if (rng(1,3)===1) for (let i = 0; i < rng(1,10); i++) { setTimeout(loop, 250 * i);} else normal()
+
+
+    if (items.I321.level>49 && rng(1,10)===1) for (let i = 0; i < rng(1,10); i++) { setTimeout(loop, 250 * i);} else normal()
 
 
         function normal(){
@@ -974,7 +1000,24 @@ function castHiddenPledge(){
     
             setTimeout(() => {
                 playerAttackHit();
+
+
+                if (items.I321.level>69 && rng(1,10)===1){
+                    let chance = rng(1,3)
+                    if (chance===1) buffs.B107.time+=5;
+                    if (chance===2) buffs.B110.time+=5;
+                    if (chance===3) buffs.B109.time+=5;
+                    playerBuffs()
+                }
+
+
+
+
             }, 700);
+
+
+
+            
 
 
 
@@ -990,9 +1033,19 @@ function castHiddenPledge(){
     
     setTimeout(() => {
         enemyNatureDamage(playerWeaponDamage*0.3);
+
+        if (items.I321.level>69 && rng(1,10)===1){
+            let chance = rng(1,3)
+            if (chance===1) buffs.B107.time+=5;
+            if (chance===2) buffs.B110.time+=5;
+            if (chance===3) buffs.B109.time+=5;
+            playerBuffs()
+        }
     }, 700);
     }
 }
+
+
 
 function castBluefinTuna(){ //weapon skill
 
@@ -1047,6 +1100,8 @@ function castRegalBroadsword(){ //weapon skill
 
 function castFossilClub(){
 
+    if (items.I322.level>44 && rng(1,10)===1){
+
     animParticleProjectile("bone", "spinningThrow", 0, "particleSmoke", 0);
 
     setTimeout(() => {
@@ -1058,6 +1113,8 @@ function castFossilClub(){
         animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
         enemyMightDamage(playerWeaponDamage);
     }
+
+}
 
 }
 
@@ -1296,16 +1353,31 @@ function castMoonlitGreatsword(){ //weapon skill
 
 
 function castManaSplitter(){ //weapon skill
+
+    if (items.I319.level>49 && rng(1,10)===1 && rpgPlayer.mana>=10){
+
+    rpgPlayer.mana-=10
     animImageSplash("slash", "enemyPanel", "impact", 0);
     animState(stats.currentEnemy+"enemy", "shake 0.4s 1");
     animParticleBurst(6 , "particleGlow2", "enemyPanel", 50);
     animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
-    animParticleProjectile("none", "reverseThrow", 9, "particleGlow", 50);
+    enemyDeificDamage(playerWeaponDamage*6)
+}
 
-    setTimeout(() => {
-        animParticleBurst(7 , "particleGlow2", "playerPanel", 50);
-        if (rpgPlayer.mana<playerMaxMana) rpgPlayer.mana += playerMaxMana*0.05 
-    }, 700);
+let stacks = 5;
+if (items.I319.level>69) stacks = 5;
+
+    if (items.I319.level>59 && rng(1,5)===1 && rpgPlayer.mana>=5 && buffs.B114.stacks<5){
+
+    rpgPlayer.mana-=5
+    animState("rpgPlayerImg", "flash 0.5s 1");
+    animParticleBurst(4 , "particleGlow2", "playerPanel", 0);
+    animParticleBurst(7 , "particleLight", "playerPanel", 100);
+    buffs.B114.time+=15; buffs.B114.stacks+=1;
+    playerBuffs();
+    }
+
+
 }
 
 function castSerizawaFestival(){ //weapon skill
@@ -1428,6 +1500,8 @@ function castSacrificialDagger(){ //weapon skill
 }
 
 function castTerrorscythe(){ //weapon skill
+
+    if (items.I64.level>49 && rng(1,10)===1) {
     animImageSplash("ghost", "enemyPanel", "float", 0);
     animImageSplash("holySlash", "enemyPanel", "impact", 0);
     animState(stats.currentEnemy+"enemy", "shake 0.4s 1");
@@ -1437,8 +1511,11 @@ function castTerrorscythe(){ //weapon skill
         animParticleBurst(7 , "particleGlow2", "playerPanel", 130);  
         animParticleBurst(7 , "particleLight", "playerPanel", 0);
         buffs.B20.time=10;
+        if (items.I64.level>59)buffs.B20A.time=10;
         playerBuffs();
     }, 700);
+
+}
 }
 
 let wraithbladeCooldown = 0;
@@ -1580,7 +1657,9 @@ function castVicesRetribution(){ //weapon skill
         setTimeout(() => {
             animState(stats.currentEnemy+"enemy", "shake 0.4s 1");
             animParticleBurst(3 , "particleFire", "enemyPanel", 140);
-            playerAttackHit();
+            //playerAttackHit();
+            if (items.I371.level>70) enemyOccultDamage(playerWeaponDamage*1.15, "str")
+            else enemyOccultDamage(playerWeaponDamage*1, "str")
         }, 600);
     }
 
@@ -1976,6 +2055,7 @@ function castThief(){
 
         let itemmod = mod - playerSteal
         let basemod = 0;
+        if (items[id].quality==="Quest") basemod = 5
         if (items[id].quality==="Common") basemod = commonThief
         if (items[id].quality==="Uncommon") basemod = uncommonThief
         if (items[id].quality==="Rare") basemod = rareThief
@@ -2224,7 +2304,7 @@ function castWizhardShield(){
     animState("rpgPlayerImg", "flash 0.5s 1");
     animImageSplash("magishield", "playerPanel", "hold", 0, 15);
     animParticleBurst(7 , "particleExp", "playerPanel", 0);
-    let shield =expectedPlayerDamage*1*playerSpellpower
+    let shield =expectedPlayerDamage*0.3*playerSpellpower
     playerShield += shield
     setTimeout(() => {
         animState("rpgPlayerImg", "gelatineHigh 0.4s 1");
