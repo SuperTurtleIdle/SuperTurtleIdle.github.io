@@ -1099,7 +1099,7 @@ if (plants[i].harvested>0){
 did("plantCatalogueProgress").innerHTML = Math.round(plantCompletionProgress/plantCompletionProgressTotal*100)+"%";
 did("plantCatalogueProgressBar").style.width = plantCompletionProgress/plantCompletionProgressTotal*100+"%"
 
-did("compendiumMastery").innerHTML = "+"+plantCompletionProgress*10+" Mastery";
+did("compendiumMastery").innerHTML = "+"+plantCompletionProgress*5+" Mastery";
 did("compendiumProgress2").innerHTML = plantCompletionProgress+"/"+plantCompletionProgressTotal+" Plants Discovered";
 
 

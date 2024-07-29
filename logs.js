@@ -647,7 +647,7 @@ function createBestiary() {
 
   }
 
-    if (!enemies[i].ignoreBestiaryPercentage){
+    if (!enemies[i].ignoreBestiaryPercentage && !enemies[i].ignoreBestiary){
 
       totalBestiaryPoints++
 

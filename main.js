@@ -1798,6 +1798,8 @@ function unlocksReveal(){
     if (stats.questsCompleted>=16) sendMail("MF2"); //spam
     if (stats.questsCompleted>=22) sendMail("MF3"); //mom
     if (stats.questsCompleted>=29) sendMail("MF4"); //omious warning
+    if (stats.questsCompleted>=43) sendMail("MF5"); //mom
+    if (stats.questsCompleted>=48) sendMail("MF6"); //
 
     //other    
     if (enemies.E23.killCount>0) sendMail("MO1");

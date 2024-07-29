@@ -1658,7 +1658,7 @@ function castVicesRetribution(){ //weapon skill
             animState(stats.currentEnemy+"enemy", "shake 0.4s 1");
             animParticleBurst(3 , "particleFire", "enemyPanel", 140);
             //playerAttackHit();
-            if (items.I371.level>70) enemyOccultDamage(playerWeaponDamage*1.15, "str")
+            if (items.I371.level>70) enemyOccultDamage(playerWeaponDamage*1.2, "str")
             else enemyOccultDamage(playerWeaponDamage*1, "str")
         }, 600);
     }
