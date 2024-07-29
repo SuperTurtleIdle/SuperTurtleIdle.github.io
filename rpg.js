@@ -2287,7 +2287,12 @@ function debug(state){
 
 if (state!==undefined) rpgPlayer.debug = state 
 
-if (rpgPlayer.debug) console.log("surely youre just trying to debug the game :^)")
+if (rpgPlayer.debug) {
+  console.log("surely youre just trying to debug the game :^)")
+  for (i in logs) logs[i].revealed=true
+
+
+} 
 
 if (!rpgPlayer.debug) did("debugPanel").style.display = "none"; else did("debugPanel").style.display = "flex"; 
 
@@ -4045,17 +4050,14 @@ function rUpgCapMat(id, mode){
   else {
 
     let multiplier = 1
-    if (items[id].quality==="Uncommon") multiplier = 2;
-    if (items[id].quality==="Rare") multiplier = 3;
-    if (items[id].quality==="Epic") multiplier = 4;
-    if (items[id].quality==="Mythic") multiplier = 5;
+
 
     if (items[id].level===10) return 1 * multiplier
-    else if (items[id].level===20) return 2 * multiplier
-    else if (items[id].level===30) return 3 * multiplier
-    else if (items[id].level===40) return 5 * multiplier
-    else if (items[id].level===50) return 7 * multiplier
-    else if (items[id].level===60) return 10 * multiplier
+    else if (items[id].level===20) return 3 * multiplier
+    else if (items[id].level===30) return 5 * multiplier
+    else if (items[id].level===40) return 8 * multiplier
+    else if (items[id].level===50) return 10 * multiplier
+    else if (items[id].level===60) return 15 * multiplier
 
   }
 

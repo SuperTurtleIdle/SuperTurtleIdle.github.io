@@ -1406,7 +1406,7 @@ enemies.E33.level = '[lvl 41]';
 enemies.E33.hp = 300000000;
 enemies.E33.description = 'A stumpy reanimated stone, woken up after millions of years.'
 enemies.E33.area = 'A8';
-enemies.E33.attack = 3000000;
+enemies.E33.attack = 3500000;
 enemies.E33.difficulty = 'easy';
 enemies.E33.exp = returnExp(41)/1800;
 enemies.E33.drop = "dropItem('I346');";
@@ -1416,10 +1416,10 @@ enemies.E33.bestiaryItem = 'bestiaryItem("I346","drop")';
 enemies.E34 = {};
 enemies.E34.name = 'Dragoraro';
 enemies.E34.level = '[lvl 44]';
-enemies.E34.hp = 1500000000;
+enemies.E34.hp = 1400000000;
 enemies.E34.description = 'An amalgamation of strange fossils merged into one powerful predator. Its jaws can press up to five hundred tons.'
 enemies.E34.area = 'A8';
-enemies.E34.attack = 40000000;
+enemies.E34.attack = 27000000;
 enemies.E34.difficulty = 'medium';
 enemies.E34.exp = returnExp(44)/1800;
 enemies.E34.drop =  "dropItem('I347'); rareItemDrop('I471',64000);";
@@ -1460,10 +1460,10 @@ enemies.E54.firstTimeReward = true;
 enemies.E35 = {}; 
 enemies.E35.name = 'Akumuro';
 enemies.E35.level = '[lvl 47]';
-enemies.E35.hp = 25000000000;
+enemies.E35.hp = 19000000000;
 enemies.E35.description = 'The manifestation of evil thoughts evoked into drawings by the turtles of old. It is better to not know what some of them were painting.'
 enemies.E35.area = 'A8';
-enemies.E35.attack = 80000000; 
+enemies.E35.attack = 70000000; 
 enemies.E35.exp = returnExp(47)/1800;
 enemies.E35.difficulty = 'hard';
 enemies.E35.drop = "dropItem('I348'); rareItemDrop('I321',epicDrop);";
@@ -1473,9 +1473,9 @@ enemies.E35.bestiaryItem = 'bestiaryItem("I348","drop")+bestiaryItem("I321","dro
 enemies.E36 = {};
 enemies.E36.name = 'Eis Zeith';
 enemies.E36.level = '[lvl 50]';
-enemies.E36.hp = 600000000000;
+enemies.E36.hp = 330000000000;
 enemies.E36.description = 'Tasked with protecting the valley millions of years ago, its mission remains unchanged.'
-enemies.E36.attack = 300000000;
+enemies.E36.attack = 200000000;
 enemies.E36.area = 'A8';
 enemies.E36.exp = returnExp(50)/1800;
 enemies.E36.align = 'deific';
@@ -4749,8 +4749,7 @@ items.I7.cap = 20;
 
 items.I373 = {};
 items.I373.name = 'Dark Bidding Ring';
-items.I373.description = 'Equipable - Ring<br><FONT COLOR="#1EFF0C">Equip: Prevents the Darkmoon Seal Debuff in the Temple of Dusk';
-items.I373.description = `'Equipable - Ring<br>'+rUpgLvl("I45")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I45", 1))+' Max Health'`;
+items.I373.description = `'Equipable - Ring<br>'+rUpgLvl("I373")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I373", 1))+' Max Health'`;
 items.I373.skills = 'rUpgSkill("I373", "Mind Resist:Prevents"+buffIcon("B40")+"Darkmoon Seal Damage in the Temple of Dusk","passive",0)'
 items.I373.flavor = '"I command you to go on my turtle finger."';
 items.I373.quality = 'Rare';
@@ -8555,9 +8554,9 @@ quests.A3Q3.name = 'Pressing Matters';
 quests.A3Q3.difficulty = 2;
 quests.A3Q3.description = 'I was playing with my building blocks and realised I\'m missing yellow ones.';
 quests.A3Q3.objective = `'Hand over 1500 Yellow Cubes <span class="questProgress">'+beautify(items.I16.count)+'/1500</span>'`;
-quests.A3Q3.reward = `itemIcon("I210")+'Perennial Time Egg x3'`;
+quests.A3Q3.reward = `itemIcon("I437")+'Occult Glitterstone x10'`;
 quests.A3Q3.logic = 'items.I16.count>1499';
-quests.A3Q3.effect = 'items.I16.count-=1500; items.I210.count++';
+quests.A3Q3.effect = 'items.I16.count-=1500; items.I437.count+=10';
 quests.A3Q3.icon = "img/src/items/I16.jpg";
 
 quests.A3Q4 = {};
@@ -8875,7 +8874,7 @@ quests.A8Q5F.unlocked = false;
 quests.A8Q6 = {};
 quests.A8Q6.name = 'Primal Bones';
 quests.A8Q6.difficulty = 1;
-quests.A8Q6.description = 'The world of paleontology is wonderful! Discover 6 fossils from these lands.';
+quests.A8Q6.description = 'The world of paleontology is wonderful! Discover 7 fossils from these lands.';
 quests.A8Q6.objective = `'Discover 7 different fossil collectibles <span class="questProgress">'+collectibles5Got+'/7</span>'`;
 quests.A8Q6.logic = 'collectibles5Got>6';
 quests.A8Q6.effect = 'items.I358.count++, shopItems.A8S19.unlocked = true; createShopItem()';
@@ -8899,7 +8898,7 @@ quests.A8Q9.difficulty = 4;
 quests.A8Q9.description = 'Im missing various cursed items to perform a ritual. Do not worry, the target will not suffer.';
 quests.A8Q9.objective = `'Hand over 1K Eerie Mural <span class="questProgress">'+beautify(items.I348.count)+'/1K</span><br>❖ Hand over 10K Ruinous Souls <span class="questProgress">'+beautify(items.I18.count)+'/10K</span><br>❖ Hand over 10K Frog Legs <span class="questProgress">'+beautify(items.I51.count)+'/10K</span>'`;
 quests.A8Q9.logic = 'items.I348.count>999 && items.I18.count>9999 && items.I51.count>9999';
-quests.A8Q9.effect = 'items.I71.count-=1000; items.I18.count-=10000; items.I51.count-=10000;  items.I389.count++';
+quests.A8Q9.effect = 'items.I348.count-=1000; items.I18.count-=10000; items.I51.count-=10000;  items.I389.count++';
 quests.A8Q9.reward = `itemIcon("I389")+'Flask of Aspects'`;
 quests.A8Q9.icon = "img/src/items/I356.jpg";
 
