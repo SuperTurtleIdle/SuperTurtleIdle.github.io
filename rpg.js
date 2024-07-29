@@ -662,7 +662,7 @@ function enemyAttackCheck(damage){
   if (buffs.B48.time>0) enemyOccultDamage(Math.min(damage*0.5, expectedPlayerDamage), "zeroScale")
 
 
-  if (gardenReflectPower>0) enemyNatureDamage(Math.min(damage, expectedPlayerDamage)(gardenReflectPower/100), "zeroScale");
+  if (gardenReflectPower>0) enemyNatureDamage(   Math.min( damage*gardenReflectPower/100, expectedPlayerDamage )         , "zeroScale");
 
   if (currentSet==="explorer") enemyNatureDamage(Math.min(damage, expectedPlayerDamage), "zeroScale")
 

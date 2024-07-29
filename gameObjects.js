@@ -2992,7 +2992,7 @@ items.I39.description = 'Miscellaneous - Currency<br><FONT COLOR="#1EFF0C">Use: 
 items.I39.flavor = '"Fateful decisions upon the high seas await ye."';
 items.I39.quality = 'Uncommon';
 items.I39.sell = 900;
-items.I39.use = 'items.I39.cd = 6; playSound("audio/touchGlass.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); items.I39.count--; if (rng(1,2)===1) {createPopup("&#127922; Tails", "#913c3c"); coinWins = 0;} else {createPopup("&#127922; Heads", "#61ba56"); coinWins++}; if (rng(1,50)===1) {playSound("audio/meow.mp3"); createPopup("&#127922; You feel lucky!", "#61ba56"); items.I193.count++; }';
+items.I39.use = 'items.I39.cd = 3; playSound("audio/touchGlass.mp3"); animState("rpgPlayerImg", "gelatineHigh 0.3s 1"); items.I39.count--; if (rng(1,2)===1) {createPopup("&#127922; Tails", "#913c3c"); coinWins = 0;} else {createPopup("&#127922; Heads", "#61ba56"); coinWins++}; if (rng(1,50)===1) {playSound("audio/meow.mp3"); createPopup("&#127922; You feel lucky!", "#61ba56"); items.I193.count++; }';
 items.I39.cd = 0;
 
 items.I310 = {};
@@ -8489,9 +8489,9 @@ quests.A2Q4A.name = 'Pharmacist Assistance';
 quests.A2Q4A.difficulty = 1;
 quests.A2Q4A.description = 'I tried to get cocky with a giant world-champion cat and broke five bones. If I was a level 2 Alchemist I could turn the tables against him.';
 quests.A2Q4A.objective = `'Hand over 5 Healing Flasks <span class="questProgress">'+beautify(items.I19.count)+'/5</span>'`;
-quests.A2Q4A.reward = `itemIcon("I209")+'Ephemeral Time Egg x2'`;
+quests.A2Q4A.reward = `itemIcon("I209")+'Ephemeral Time Egg x1'`;
 quests.A2Q4A.logic = 'items.I19.count>4';
-quests.A2Q4A.effect = 'items.I19.count-=5; items.I209.count+=2;';
+quests.A2Q4A.effect = 'items.I19.count-=5; items.I209.count+=1;';
 quests.A2Q4A.icon = "img/src/items/I19.jpg";
 
 quests.A2Q5 = {};
@@ -8555,9 +8555,9 @@ quests.A3Q3.name = 'Pressing Matters';
 quests.A3Q3.difficulty = 2;
 quests.A3Q3.description = 'I was playing with my building blocks and realised I\'m missing yellow ones.';
 quests.A3Q3.objective = `'Hand over 1500 Yellow Cubes <span class="questProgress">'+beautify(items.I16.count)+'/1500</span>'`;
-quests.A3Q3.reward = `itemIcon("I209")+'Ephemeral Time Egg x3'`;
+quests.A3Q3.reward = `itemIcon("I210")+'Perennial Time Egg x3'`;
 quests.A3Q3.logic = 'items.I16.count>1499';
-quests.A3Q3.effect = 'items.I16.count-=1500; items.I209.count+=3';
+quests.A3Q3.effect = 'items.I16.count-=1500; items.I210.count++';
 quests.A3Q3.icon = "img/src/items/I16.jpg";
 
 quests.A3Q4 = {};
@@ -8586,9 +8586,9 @@ quests.A3Q5.name = 'Poor Lodging Choices';
 quests.A3Q5.difficulty = 1;
 quests.A3Q5.description = 'There\'s rare ore on this cave. And I\'m going to make a house out of it.';
 quests.A3Q5.objective = `'Hand over 150 Arcanite Bar??? <span class="questProgress">'+beautify(items.I35.count)+'/150???</span>'`;
-quests.A3Q5.reward = `itemIcon("I209")+'Ephemeral Time Egg x3'`;
+quests.A3Q5.reward = `itemIcon("I209")+'Ephemeral Time Egg x1'`;
 quests.A3Q5.logic = 'items.I35.count>149';
-quests.A3Q5.effect = 'items.I35.count-=150; items.I209.count+=3';
+quests.A3Q5.effect = 'items.I35.count-=150; items.I209.count+=1';
 quests.A3Q5.icon = "img/src/items/I35.jpg";
 
 quests.A3Q5A = {};
@@ -8677,9 +8677,9 @@ quests.A4Q4.name = 'Begone Dark Presences';
 quests.A4Q4.difficulty = 4;
 quests.A4Q4.description = 'You feel the powerful aura, yes? I need a powerful exorciser to aid me on this Job.';
 quests.A4Q4.objective = `'Exorcise 3 Morgatos with salt <span class="questProgress">'+beautify(stats.purifiedMorgatosDefeated)+'/3</span>'`;
-quests.A4Q4.reward = `itemIcon("I209")+'Ephemeral Time Egg x3'`;
+quests.A4Q4.reward = `itemIcon("I209")+'Ephemeral Time Egg x1'`;
 quests.A4Q4.logic = 'stats.purifiedMorgatosDefeated>2'; 
-quests.A4Q4.effect = 'items.I209.count+=3';
+quests.A4Q4.effect = 'items.I209.count+=1';
 quests.A4Q4.icon = "img/src/items/I18.jpg";
 
 quests.A4Q3 = {};
@@ -8748,7 +8748,7 @@ quests.A8Q2 = {};
 quests.A8Q2.name = 'Scientific Method';
 quests.A8Q2.difficulty = 1;
 quests.A8Q2.description = 'See all those mushrooms lyin\' arround here? God knows what they do, but you will.';
-quests.A8Q2.objective = `'Discover all the efects of Suspicious Mushrooms <span class="questProgress">'+shroomEffectsDiscovered+'/8</span>'`;
+quests.A8Q2.objective = `'Discover all the effects of Suspicious Mushrooms <span class="questProgress">'+shroomEffectsDiscovered+'/8</span>'`;
 quests.A8Q2.logic = 'shroomEffectsDiscovered>7';
 quests.A8Q2.effect = 'items.I387.count++; shopItems.A8S2A.unlocked = true; createShopItem()';
 quests.A8Q2.reward = `itemIcon("I387")+'Ebonforge Gauntlets'`;
@@ -10258,6 +10258,11 @@ shopItems.A8S11 = {}
 shopItems.A8S11.item = 'I364';
 shopItems.A8S11.price = 300000;
 shopItems.A8S11.stock = "5";
+
+shopItems.A8S12 = {}
+shopItems.A8S12.item = 'I380';
+shopItems.A8S12.price = 55000;
+shopItems.A8S12.stock = "1";
 /*
 shopItems.A8S13 = {}
 shopItems.A8S13.item = 'I64';
@@ -10273,7 +10278,12 @@ shopItems.A8S19.price = 10000000;
 shopItems.A8S19.stock = "5";
 shopItems.A8S19.restock = 5;
 shopItems.A8S19.unlocked = false;
-shopItems.A8S19.unlockDescription = bestiaryTag('Complete "Ancient Recall" to unlock', '#CE4447');
+shopItems.A8S19.unlockDescription = bestiaryTag('Complete "Primal Bones" to unlock', '#CE4447');
+
+shopItems.A8S20 = {}
+shopItems.A8S20.item = 'I219';
+shopItems.A8S20.price = 1000000;
+shopItems.A8S20.stock = "3";
 
 
 //area 6
@@ -12012,7 +12022,7 @@ talent.TI0E.position = '-80px 210px'
 talent.TI0E.parent = "TI0D"
 talent.TI0E.name = "Archives of Ruina";
 talent.TI0E.category = "Passive";
-talent.TI0E.description = `"Increase"+deificIcon+"Deific Bonus by"+colorTag("x1.07","#E57D08")+"for every book collected<FONT COLOR='gray'> (x"+(1+(stats.logsGot * 0.007)).toFixed(2)+")"`;
+talent.TI0E.description = `"Increase"+deificIcon+"Deific Bonus by"+colorTag("x1.007","#E57D08")+"for every book collected<FONT COLOR='gray'> (x"+(1+(stats.logsGot * 0.007)).toFixed(2)+")"`;
 talent.TI0E.logic = 'stats.logsGot * 0.007';
 talent.TI0E.locked = true;
 talent.TI0E.lockedCondition = "Complete 70+ Books";
