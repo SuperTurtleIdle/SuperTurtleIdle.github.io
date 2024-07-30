@@ -8753,7 +8753,7 @@ quests.A8Q1.icon = "img/src/items/I52.jpg";
 
 quests.A8Q1A = {};
 quests.A8Q1A.name = 'Wilderness Gourmand';
-quests.A8Q1A.difficulty = 0;
+quests.A8Q1A.difficulty = 1;
 quests.A8Q1A.description = 'All these mushrooms growing arround here... And we dont even have fire to roast them? Who\'s going to held accountable for this now?';
 quests.A8Q1A.objective = `'Hand over 25 Firetank Pyrocombulators <span class="questProgress">'+beautify(items.I187.count)+'/25</span>'`;
 quests.A8Q1A.logic = 'items.I187.count>24';
