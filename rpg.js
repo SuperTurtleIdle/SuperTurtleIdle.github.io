@@ -2106,7 +2106,7 @@ did("stampMenu").style.display = "flex";
   if ("tierArmorBonus" in items[rpgPlayer[currentGear]]) gearSetbonus = items[rpgPlayer[currentGear]].tierArmorBonus
 
   var itemSkills = ""
-  if ("skills" in items[itemID]) { 
+  if ("skills" in items[rpgPlayer[currentGear]]) { 
     itemSkills = "<br>"+eval(items[rpgPlayer[currentGear]].skills)
   }
 
@@ -2198,6 +2198,25 @@ document.addEventListener('contextmenu', function(event) {
 
       if (!settings.disableAutoOpen){ //if a container
 
+        if (currentlyOpening===0 && items[itemID].count>9) autoOpenLocked()
+
+        function delay(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function autoOpenLocked() {
+          while (items[itemID].count > 1 && items[items[itemID].autoOpenLocked].count > 0) {
+            currentlyOpening = 1;
+            eval(items[itemID].use);
+            playSound("audio/thud.mp3");
+            addItem();
+            await delay(50);
+          }
+          currentlyOpening = 0;
+        }
+
+        /*
+
 
       if ("autoOpenLocked" in items[itemID] && items[itemID].count>9 && currentlyOpening === 0){
       for (let i = 0; i < Math.min(items[items[itemID].autoOpenLocked].count-1, items[itemID].count-1); i++) {
@@ -2221,6 +2240,11 @@ document.addEventListener('contextmenu', function(event) {
           }, i * 50); 
         }  
       }
+
+
+*/
+
+
 
     }
 

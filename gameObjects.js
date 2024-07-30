@@ -715,7 +715,7 @@ playerMiningDamage = additiveMiningDamage * multiplicativeMiningDamage;
 playerGatheringLevel = 0 + weaponGatheringLevel + buffs.B37.statUp + items.I117.statUp + buffs.B69.statUp + items.I387.statUp; 
 
 additiveFishingLevel = 0 + items.I182.statUp + buffs.B22.statUp + buffs.B14.statUp + buffs.B69.statUp + buffs.B45.statUp + items.I162.statUp ;
-playerFishingLevel = additiveFishingLevel + rainFishingUp + items.I344.statUp;
+playerFishingLevel = additiveFishingLevel + rainFishingUp + items.I344.statUp + items.I145.statUp2;
 
 additiveCoinsPerClick = items.I113.statUp + items.I124.statUp + items.I128.statUp + items.I202.statUp + items.I426.statUp + items.I401.statUp
 //multiplicativeCoinsPerClick = 1 + buffs.B8.statUp + buffs.B25.statUp + buffs.B26.statUp + talent.TA1B.statUp + talent.TG1.statUp * (1+gardenPatPower);
@@ -1459,6 +1459,7 @@ enemies.E54.bestiaryItem = 'bestiaryItem("I371","drop",rareDrop)'
 enemies.E54.bigEnemy = true;
 enemies.E54.bestiarySkills = "❖Primal Instincts: Every time it attacks, gain one stack of"+buffIcon("B26")+"Enrage.<br>❖"+buffIcon("B39")+"Thunder God Raiga: High"+elementalIcon+"Elemental Damage, increases"+buffIcon("B26")+"Enrage by 10 Stacks.";
 enemies.E54.firstTimeReward = true;
+enemies.E54.noMedal = true;
 
 enemies.E35 = {}; 
 enemies.E35.name = 'Akumuro';
@@ -3425,12 +3426,12 @@ items.I169 = {};
 items.I169.name = 'The Caught';
 items.I169.description = `'Equipable - Weapon<br>'+rUpgLvl("I169")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I169", 1))+' Might Damage'`;
 items.I169.flavor = '"A two-pronged fishing spear forged from a unique blue-hued metal, reflecting the mysteries of the deep."';
-items.I169.skills = 'rUpgSkill("I169", "Whirlpool: Low chance to deal medium"+mightIcon+"Might Damage 6 times","active",30)+"<br>"+rUpgSkill("I169", "King of the Seas: +20%"+mightIcon+"Might Resistance","passive",40)+"<br>"+rUpgSkill("I169", "Razorblade Typhoon: Whirlpool inflicts"+buffIcon("B32")+"Bleed for 6 seconds","passive",50)'
+items.I169.skills = 'rUpgSkill("I169", "Whirlpool: Low chance to deal medium"+mightIcon+"Might Damage 6 times","active",30)+"<br>"+rUpgSkill("I169", "King of the Seas: +15%"+mightIcon+"Might Resistance","passive",40)+"<br>"+rUpgSkill("I169", "Razorblade Typhoon: Whirlpool inflicts"+buffIcon("B32")+"Bleed for 6 seconds","passive",50)'
 items.I169.quality = 'Epic';
 items.I169.sell = 400000;
 items.I169.max = 1;
 items.I169.use = 'gearSwap(items.I169.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")'
-items.I169.stats = 'weaponMightDamage = rUpgDmg("I169", 1); if(items.I169.level>39) items.I169.statUp=0.2'
+items.I169.stats = 'weaponMightDamage = rUpgDmg("I169", 1); if(items.I169.level>39) items.I169.statUp=0.15'
 items.I169.remove = 'weaponMightDamage = 0; items.I169.statUp=0'
 items.I169.align = 'might';
 items.I169.attackChance = 'castTheCaught()'
@@ -3783,8 +3784,8 @@ items.I288.statUp=0;
 items.I360 = {};
 items.I360.name = 'Robertus Pajamas';
 items.I360.description =`'Equipable - Chest<br>'+rUpgLvl("I360")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I360", 1))+' Max Health'`
-items.I360.skills = 'rUpgSkill("I360", "Arcane Goodnights: +20%"+spIcon+"Spellpower","passive",50)+"<br>"+rUpgSkill("I360", "Empowered Sheep Counting: +20%"+spIcon+"Spellpower","passive",60)'
-items.I360.stats = 'chestAdditiveMaxHp = rUpgDmg("I360", 1); if (items.I360.level>49) items.I360.statUp= 0.2; if (items.I360.level>59) items.I360.statUp= 0.4'
+items.I360.skills = 'rUpgSkill("I360", "Arcane Goodnights: +25%"+spIcon+"Spellpower","passive",50)+"<br>"+rUpgSkill("I360", "Empowered Sheep Counting: +25%"+spIcon+"Spellpower","passive",60)'
+items.I360.stats = 'chestAdditiveMaxHp = rUpgDmg("I360", 1); if (items.I360.level>49) items.I360.statUp= 0.25; if (items.I360.level>59) items.I360.statUp= 0.50'
 items.I360.remove = 'chestAdditiveMaxHp = 0; items.I360.statUp=0; '
 items.I360.max = 1;
 items.I360.quality = 'Rare';
@@ -4989,7 +4990,8 @@ items.I193.cap = 60;
 
 items.I345 = {};
 items.I345.name = 'Cat Burglar Ring';
-items.I345.description = 'Equipable - Ring<br><FONT COLOR="#1EFF0C">Equip: Increases Thief success chance<br>'+bestiaryTag("⚜️ Dedicated Content: Neko ⚜️", "#A351AB")
+items.I345.description = 'Equipable - Ring' 
+items.I345.skills = 'rUpgSkill("I345", "Sticky Paw: Increases Thief success chance","passive",0)+bestiaryTag("⚜️ Dedicated Content: Neko ⚜️", "#A351AB")'
 items.I345.flavor = '"The gemstone resembling a cat\'s eye imbues one\'s perception with heightened acuity, facilitating the art of pocket-picking."';
 items.I345.quality = 'Rare';
 items.I345.sell = 20000;
@@ -4999,6 +5001,7 @@ items.I345.stats = 'items.I345.statUp = 50;'
 items.I345.remove = 'items.I345.statUp = 0;'
 items.I345.statUp = 0;
 items.I345.series = 'forgotten';
+items.I345.noUpgrade = true;
 
 items.I72 = {};
 items.I72.name = 'Ribbon';
@@ -5169,7 +5172,7 @@ items.I182.use = 'gearSwap(items.I182.id, rpgPlayer.trinketSlot, "rpgTrinketSlot
 items.I182.stats = 'items.I182.statUp = 1;'
 items.I182.remove = 'items.I182.statUp = 0;'
 items.I182.statUp = 0;
-items.I24.series = "masterwork"
+items.I182.series = "masterwork"
 
 items.I201 = {};
 items.I201.name = 'Thunderous Gyroresonator';
@@ -13271,7 +13274,7 @@ gametip.gt11.description ='Access the'+colorTag("Planetarium", "#4C838B")+'in yo
 
 gametip.gt13 = {}
 gametip.gt13.name = "The Garden";
-gametip.gt13.description ='Select a seed on the left and click or drag on an empty plot to plant it. Click on it again to water them. While plants are hydrated, they will grow faster.<br><br>Once the seed achives maturity, it will activate its bonuses, and slowly decay to death.<br><br>Each time you harvest any mature plant, you will discover said seed, get garden experince and one'+colorTag("Bloom Token,", "#3BA144")+'which you can spend in The Garden shop tab. If the plant dies of old age, it will still gain experience and tokens, but you wont discover that seed<br><br>On rare ocasions while mature, plants can mutate (🧬). Plants have an additional chance to mutate if they achieve maturity while watered. Harvesting a mature mutation is the only way to get mutated seeds, exceptuating Star Sprouts.<br><br>If circumstances are right, plants can'+colorTag("crossbreed", "darkorange")+', and you might discover new seeds. To crossbreed, plant two compatible parents somewhere on the garden and empty plots for their child to grow. The more parents of a plant are present, the higher the chances of crossbreeding.';
+gametip.gt13.description ='Select a seed on the left and click or drag on an empty plot to plant it. Click on it again to water them. While plants are hydrated, they will grow faster.<br><br>Once the seed achieves maturity, it will activate its bonuses, and slowly decay to death.<br><br>Each time you harvest any mature plant, you will discover said seed, get garden experince and one'+colorTag("Bloom Token,", "#3BA144")+'which you can spend in The Garden shop tab. If the plant dies of old age, it will still gain experience and tokens, but you wont discover that seed<br><br>On rare ocasions while mature, plants can mutate (🧬). Plants have an additional chance to mutate if they achieve maturity while watered. Harvesting a mature mutation is the only way to get mutated seeds, exceptuating Star Sprouts.<br><br>If circumstances are right, plants can'+colorTag("crossbreed", "darkorange")+', and you might discover new seeds. To crossbreed, plant two compatible parents somewhere on the garden and empty plots for their child to grow. The more parents of a plant are present, the higher the chances of crossbreeding.';
 
 gametip.gt18 = {}
 gametip.gt18.name = "Fishing";

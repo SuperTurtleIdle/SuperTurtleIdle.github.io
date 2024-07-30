@@ -669,7 +669,7 @@ function createBestiary() {
 
 
     if (enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'finalBoss')
-         { enemies[i].medal = "none"; }//eligible
+         { enemies[i].medal = "none"; totalBestiaryPoints++ }//eligible
 
 
     if (unlocks.bestiary){
