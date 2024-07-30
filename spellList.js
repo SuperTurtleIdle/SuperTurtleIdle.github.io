@@ -2151,7 +2151,8 @@ function castSussyMushroom(){
     }
 
     if (shroomRoll===2){
-        buffs.B3.time=100; buffs.B3.stacks=5;
+        buffs.B3.stacks=5;
+        buffs.B3.time=100;
         playerBuffs();
         stats.shroom2discovered = 1
 
