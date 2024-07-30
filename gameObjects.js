@@ -21,6 +21,9 @@ const collectibleChance1 = 1000;
 const collectibleChance2 = 7000;
 const collectibleChance3 = 30000;
 
+let plantCompletionProgress = 0
+let plantCompletionProgressTotal = 0
+
 let uncommonDrop = 5000
 let rareDrop = 15000
 let epicDrop = 45000
@@ -602,7 +605,7 @@ multiplicativeSellValue = 1;
 
 //multiplicativeEXPGain = 1 + bluemoonExpUp + buffs.B9.statUp + buffs.B10.statUp + buffs.B23.statUp + items.I172.statUp + buffs.B35.statUp + items.I193.statUp + talent.TI2C.statUp + talent.TI0D.statUp + items.I432.statUp + buffs.B101.statUp + items.I3.statUp + items.I140.statUp2
 additiveEXPGain = bluemoonExpUp + buffs.B9.statUp + buffs.B10.statUp + buffs.B23.statUp + items.I172.statUp + buffs.B35.statUp + items.I193.statUp + items.I432.statUp + buffs.B101.statUp + items.I3.statUp + items.I140.statUp2 + items.I55.statUp + items.I337.statUp2
-multiplicativeEXPGain =  (1+gardenExpGainPower) * (1+talent.TI0D.statUp)
+multiplicativeEXPGain =  (1+gardenExpGainPower) * (1+talent.TI0D.statUp) * (1+talent.TI2B3.statUp)
 playerEXPGain = 1+ additiveEXPGain * multiplicativeEXPGain
 
 armorAdditiveMaxHp = headAdditiveMaxHp + chestAdditiveMaxHp + legsAdditiveMaxHp + feetAdditiveMaxHp + handsAdditiveMaxHp + ringAdditiveMaxHp + trinketAdditiveMaxHp
@@ -700,7 +703,7 @@ deificResist =  - deificDownStampStatUp + items.I72.statUp;
 
 //multiplicativeHaste = (1 - buffs.B7.statUp - buffs.B47.statUp - weaponHaste - buffs.B71.statUp - buffs.B72.statUp - buffs.B86.statUp - items.I2.statUp) * hasteStampStatUp older haste
 //playerHaste = Math.min(1 - items.I2.statUp - items.I81.statUp - hasteStampStatUp + buffs.B86.statUp - buffs.B47.statUp + items.I23.statUp, 4)  old haste
-playerHaste = 1/(1 + Math.max( items.I2.statUp + items.I81.statUp + hasteStampStatUp + buffs.B47.statUp + buffs.B86.statUp + items.I23.statUp + buffs.B71.statUp + buffs.B72.statUp + items.I385.statUp + items.I199.statUp, -0.99) )   
+playerHaste = 1/(1 + Math.max( items.I2.statUp + items.I81.statUp + hasteStampStatUp + buffs.B47.statUp + buffs.B86.statUp + items.I23.statUp + buffs.B71.statUp + buffs.B72.statUp + items.I385.statUp + items.I199.statUp + items.I85.statUp + items.I24.statUp, -0.99) )   
 
 playerHealingBonus = 1 +  items.I206.statUp2   
 
@@ -722,7 +725,7 @@ playerCoinsPerClick = (10 + additiveCoinsPerClick) * multiplicativeCoinsPerClick
 playerClickRate = 100 / ( 1 + ( buffs.B27.statUp + buffs.B28.statUp ))
 
 additiveMaxMana = 100 + talent.TA0C.statUp + items.I375.statUp;
-multiplicativeMaxMana = 1 + talent.TA1G.statUp + talent.TI2B3.statUp + talent.TG2D1.statUp
+multiplicativeMaxMana = 1
 playerMaxMana = additiveMaxMana * multiplicativeMaxMana
 
 playerPresentsMinigame = 6 + talent.TA0B.statUp + talent.TG1D.statUp + talent.TI0B.statUp + items.I217.statUp + items.I184.statUp
@@ -2723,7 +2726,7 @@ items.I26.max = 1;
 items.I389 = {};
 items.I389.name = 'Flask of Aspects';
 items.I389.description = `'Miscellaneous<br><FONT COLOR="#1EFF0C">Use it to freeze the visual appearance of your turtle gear. Use it again to unfreeze it'`;
-items.I389.flavor = '"The stars are gleaming through the crustacean\'s surface."';
+items.I389.flavor = '"Be yourself, we wont judge over here."';
 items.I389.quality = 'Rare';
 items.I389.sell = 0;
 items.I389.use = 'aspectFlask(); items.I389.cd = 5; animParticleBurst(10 , "particleFire", "playerPanel", 200); animParticleBurst(10 , "particleSpark", "playerPanel", 200); animImageSplash("soundWave", "playerPanel", "wave", 200); animState("rpgPlayerImg", "shakeFlash 0.4s 1"); playSound("audio/explosion.mp3")'
@@ -2778,7 +2781,7 @@ items.I119.description = `'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">U
 items.I119.flavor = '"Para mi?"';
 items.I119.quality = 'Uncommon';
 items.I119.sell = 1;
-items.I119.use = 'playSound("audio/meow.mp3"); rareItemDrop("I26",1); rareItemDrop("I68",1); rareItemDrop(rareItems[rng(0,(rareItems.length-1))],1); rareItemDrop(rareItems2[rng(0,(rareItems2.length-1))],1); items.I119.count--; ';
+items.I119.use = 'playSound("audio/meow.mp3"); rareItemDrop("I26",1); rareItemDrop("I98",1); rareItemDrop(rareItems[rng(0,(rareItems.length-1))],1); rareItemDrop(rareItems2[rng(0,(rareItems2.length-1))],1); items.I119.count--; ';
 items.I119.dynamic = true;
 
 items.I296 = {}; 
@@ -3148,27 +3151,31 @@ items.I84.series = "millionaire"
 items.I85 = {};
 items.I85.name = 'Reinforced Mattock';
 items.I85.description = 'Equipable - Tool<br><FONT COLOR="#1EFF0C">+2 Gathering Level';
+items.I85.skills = 'rUpgSkill("I85", "Tempered Steel: +5% Attack Speed","passive",0)'
 items.I85.flavor = '"For when you had enough with your hoe."';
 items.I85.quality = 'Uncommon';
 items.I85.sell = 5000;
 items.I85.max = 1;
 items.I85.use = 'gearSwap(items.I85.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")'
-items.I85.stats = 'weaponGatheringLevel = 2;'
-items.I85.remove = 'weaponGatheringLevel = 0;';
+items.I85.stats = 'weaponGatheringLevel = 2; items.I85.statUp=0.05'
+items.I85.remove = 'weaponGatheringLevel = 0; items.I85.statUp=0';
 items.I85.tag = "mattock"
 items.I85.series = "millionaire"
+items.I85.statUp=0;
 
 items.I24 = {};
 items.I24.name = 'Prismatic Mattock';
 items.I24.description = 'Equipable - Tool<br><FONT COLOR="#1EFF0C">+3 Gathering Level';
+items.I24.skills = 'rUpgSkill("I24", "Polychrome: +10% Attack Speed","passive",0)'
 items.I24.flavor = '"It feels like a waste to smash this onto a rock."';
 items.I24.quality = 'Rare';
 items.I24.sell = 15000;
 items.I24.max = 1;
 items.I24.use = 'gearSwap(items.I24.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")'
-items.I24.stats = 'weaponGatheringLevel = 3;'
-items.I24.remove = 'weaponGatheringLevel = 0;';
-items.I24.tag = "mattock"
+items.I24.stats = 'weaponGatheringLevel = 3; items.I24.statUp=0.1'
+items.I24.remove = 'weaponGatheringLevel = 0; items.I24.statUp=0';
+items.I24.tag = "mattock";
+items.I24.statUp=0;
 items.I24.series = "masterwork"
 
 items.I162 = {};
@@ -3451,13 +3458,13 @@ items.I167.statUp=0;
 items.I137 = {};
 items.I137.name = 'King-Kat Decapitator';
 items.I137.description = `'Equipable - Weapon<br>'+rUpgLvl("I137")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I137", 1))+' Might Damage'`;
-items.I137.skills = 'rUpgSkill("I137", "Mighty Roar: Low chance to increase"+mightIcon+"Might Bonus by 25%","active",20)+"<br>"+rUpgSkill("I137", "Sin of Pride: +20%"+strIcon+"Strength","passive",40)'
+items.I137.skills = 'rUpgSkill("I137", "Mighty Roar: Low chance to increase"+mightIcon+"Might Bonus by 25%","active",20)+"<br>"+rUpgSkill("I137", "Sin of Pride: +15%"+strIcon+"Strength","passive",40)'
 items.I137.flavor = '"It\'s not flawed, it\'s just a one-handed axe."';
 items.I137.quality = 'Rare';
 items.I137.sell = 1500;
 items.I137.max = 1;
 items.I137.use = 'gearSwap(items.I137.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")'
-items.I137.stats = 'weaponMightDamage = rUpgDmg("I137", 1); if(items.I137.level>39) items.I137.statUp=0.2'
+items.I137.stats = 'weaponMightDamage = rUpgDmg("I137", 1); if(items.I137.level>39) items.I137.statUp=0.15'
 items.I137.remove = 'weaponMightDamage = 0; items.I137.statUp=0;'
 items.I137.align = 'might';
 items.I137.attackChance = 'castKingKatDecapitator()';
@@ -3608,7 +3615,7 @@ items.I321.statUp= 0;
 items.I322 = {};
 items.I322.name = 'Fossil Club';
 items.I322.description = `'Equipable - Weapon<br>'+rUpgLvl("I322")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I322", 1))+' Might Damage'`;
-items.I322.skills = 'rUpgSkill("I322", "Marrowstorm: Low chance to deal medium"+mightIcon+"Might Damage 3 times","active",45)+"<br>"+rUpgSkill("I322", "Ancient Might: +15%"+strIcon+"Strength","passive",60)'
+items.I322.skills = 'rUpgSkill("I322", "Marrowstorm: Low chance to deal High"+mightIcon+"Might Damage 3 times","active",45)+"<br>"+rUpgSkill("I322", "Ancient Might: +15%"+strIcon+"Strength","passive",60)'
 items.I322.flavor = '"Millions of years worth of pain."';
 items.I322.quality = 'Uncommon';
 items.I322.sell = 'artisanBonus("SA2")';
@@ -3706,7 +3713,7 @@ items.I328.use = 'gearSwap(items.I328.id, rpgPlayer.weaponSlot, "rpgWeaponSlot",
 items.I328.attackChance = 'playSound("audio/trumpet.mp3");'
 items.I328.animation = 'ranged';
 items.I328.series = 'ancient';
-items.I328.cap = 80;
+items.I328.noUpgrade = true;
 
 items.I371 = {};
 items.I371.name = 'Vice\'s Retribution';
@@ -4420,7 +4427,7 @@ items.I334.name = 'Fossil Footpads';
 items.I334.description =`'Equipable - Feet<br>'+rUpgLvl("I334")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I334", 1))+' Max Health'`
 items.I334.skills = 'rUpgSkill("I334", "Elemental Path: +15%"+elementalIcon+"Elemental Resistance","passive",50)+"<br>"+rUpgSkill("I334", "Spriteboost: +15%"+elementalIcon+"Elemental Bonus","passive",60)'
 items.I334.armorTier ='Spirit Fossil';
-items.I334.tierArmorBonus =  "★ Set bonus [5]: Casting Skills throws a small bone, dealing low"+elementalIcon+"Elemental Damage";
+items.I334.tierArmorBonus =  "★ Set bonus [5]: Casting Skills throws a spirit bone, dealing low"+elementalIcon+"Elemental Damage";
 items.I334.stats = 'feetAdditiveMaxHp = rUpgDmg("I334", 1); if (items.I334.level>49) items.I334.statUp= 0.15; if (items.I334.level>59) items.I334.statUp2= 0.15'
 items.I334.remove = 'feetAdditiveMaxHp = 0; items.I334.statUp=0; items.I334.statUp2=0'
 items.I334.max = 1;
@@ -4444,7 +4451,7 @@ items.I335.name = 'Fossil Skull';
 items.I335.description =`'Equipable - Head<br>'+rUpgLvl("I335")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I335", 1))+' Max Health'`
 items.I335.skills = 'rUpgSkill("I335", "Shaman Will: +15%"+elementalIcon+"Elemental Bonus","passive",50)+"<br>"+rUpgSkill("I335", "Shaman King: +30%"+spIcon+"Spellpower","passive",60)'
 items.I335.armorTier ='Spirit Fossil';
-items.I335.tierArmorBonus =  "★ Set bonus [5]: Casting Skills throws a small bone, dealing low"+elementalIcon+"Elemental Damage";
+items.I335.tierArmorBonus =  "★ Set bonus [5]: Casting Skills throws a spirit bone, dealing low"+elementalIcon+"Elemental Damage";
 items.I335.stats = 'headAdditiveMaxHp = rUpgDmg("I335", 1); if (items.I335.level>49) items.I335.statUp= 0.15; if (items.I335.level>59) items.I335.statUp2= 0.3'
 items.I335.remove = 'headAdditiveMaxHp = 0; items.I335.statUp=0; items.I335.statUp2=0'
 items.I335.max = 1;
@@ -4468,7 +4475,7 @@ items.I336.name = 'Fossil Claws';
 items.I336.description =`'Equipable - Hands<br>'+rUpgLvl("I336")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I336", 1))+' Max Health'`
 items.I336.skills = 'rUpgSkill("I336", "Spirit Rend: +15%"+elementalIcon+"Elemental Resistance","passive",50)+"<br>"+rUpgSkill("I336", "Fierce Deity: +15%"+strIcon+"Strength","passive",60)'
 items.I336.armorTier ='Spirit Fossil';
-items.I336.tierArmorBonus =  "★ Set bonus [5]: Casting Skills throws a small bone, dealing low"+elementalIcon+"Elemental Damage";
+items.I336.tierArmorBonus =  "★ Set bonus [5]: Casting Skills throws a spirit bone, dealing low"+elementalIcon+"Elemental Damage";
 items.I336.stats = 'handsAdditiveMaxHp = rUpgDmg("I336", 1); if (items.I336.level>49) items.I336.statUp= 0.15; if (items.I336.level>59) items.I336.statUp2= 0.15'
 items.I336.remove = 'handsAdditiveMaxHp = 0; items.I336.statUp=0; items.I336.statUp2=0'
 items.I336.max = 1;
@@ -4492,7 +4499,7 @@ items.I337.name = 'Fossil Harness';
 items.I337.description =`'Equipable - Chest<br>'+rUpgLvl("I337")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I337", 1))+' Max Health'`
 items.I337.skills = 'rUpgSkill("I337", "Eroded Shield: +15%"+elementalIcon+"Elemental Resistance","passive",50)+"<br>"+rUpgSkill("I337", "Channeling: +15%"+expIcon+"EXP Bonus","passive",60)'
 items.I337.armorTier ='Spirit Fossil';
-items.I337.tierArmorBonus =  "★ Set bonus [5]: Casting Skills throws a small bone, dealing low"+elementalIcon+"Elemental Damage";
+items.I337.tierArmorBonus =  "★ Set bonus [5]: Casting Skills throws a spirit bone, dealing low"+elementalIcon+"Elemental Damage";
 items.I337.stats = 'chestAdditiveMaxHp = rUpgDmg("I337", 1); if (items.I337.level>49) items.I337.statUp= 0.15; if (items.I337.level>59) items.I337.statUp2= 0.15'
 items.I337.remove = 'chestAdditiveMaxHp = 0; items.I337.statUp=0; items.I337.statUp2=0'
 items.I337.max = 1;
@@ -4516,7 +4523,7 @@ items.I338.name = 'Fossil Legguards';
 items.I338.description =`'Equipable - Legs<br>'+rUpgLvl("I338")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I338", 1))+' Max Health'`
 items.I338.skills = 'rUpgSkill("I338", "Maelstrom: +15%"+elementalIcon+"Elemental Bonus","passive",50)+"<br>"+rUpgSkill("I338", "Evil Ward: Prevents"+buffIcon("B25")+"Hex damage","passive",60)'
 items.I338.armorTier ='Spirit Fossil';
-items.I338.tierArmorBonus =  "★ Set bonus [5]: Casting Skills throws a small bone, dealing low"+elementalIcon+"Elemental Damage";
+items.I338.tierArmorBonus =  "★ Set bonus [5]: Casting Skills throws a spirit bone, dealing low"+elementalIcon+"Elemental Damage";
 items.I338.stats = 'legsAdditiveMaxHp = rUpgDmg("I338", 1); if (items.I338.level>49) items.I338.statUp= 0.15; if (items.I338.level>59) items.I338.statUp2= 0.2'
 items.I338.remove = 'legsAdditiveMaxHp = 0; items.I338.statUp=0; items.I338.statUp2=0'
 items.I338.max = 1;
@@ -4750,7 +4757,7 @@ items.I7.cap = 20;
 items.I373 = {};
 items.I373.name = 'Dark Bidding Ring';
 items.I373.description = `'Equipable - Ring<br>'+rUpgLvl("I373")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I373", 1))+' Max Health'`;
-items.I373.skills = 'rUpgSkill("I373", "Mind Resist:Prevents"+buffIcon("B40")+"Darkmoon Seal Damage in the Temple of Dusk","passive",0)'
+items.I373.skills = 'rUpgSkill("I373", "Mind Resist: Prevents"+buffIcon("B40")+"Darkmoon Seal Damage in the Temple of Dusk","passive",0)'
 items.I373.flavor = '"I command you to go on my turtle finger."';
 items.I373.quality = 'Rare';
 items.I373.sell = 100000;
@@ -5061,6 +5068,7 @@ items.I432.remove = 'items.I432.statUp = 0;'
 items.I432.statUp = 0;
 //items.I432.series = 'heirloom';
 
+
 items.I176 = {};
 items.I176.name = 'Old Bandaid';
 items.I176.description =  `'Equipable - Ring<br>'+rUpgLvl("I176")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I176", 1))+' Max Health'`;
@@ -5181,7 +5189,7 @@ items.I201.cap = '50';
 items.I425 = {};
 items.I425.name = 'Lithic Speartip';
 items.I425.description = `'Equipable - Trinket<br>'+rUpgLvl("I425")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I425", 1))+' Max Health'`;
-items.I425.skills = 'rUpgSkill("I425", "Ancient Recall: Every 30 seconds, gain one stack of"+buffIcon("B38")+"Brittle Shield","passive",0)+"<br>"+rUpgSkill("I425", "Era Walk: Gain one extra stack of"+buffIcon("B38")+"Brittle Shield","passive",50)'
+items.I425.skills = 'rUpgSkill("I425", "Ancient Recall: Every 30 seconds, gain one stack of"+buffIcon("B38")+"Brittle Shield","passive",0)+"<br>"+rUpgSkill("I425", "Era Walk: Gain one extra stack of"+buffIcon("B38")+"Brittle Shield","passive",60)'
 items.I425.flavor = '"Don\'t bring a spear to a gunfight."';
 items.I425.quality = 'Uncommon';
 items.I425.sell = 100000;
@@ -5189,7 +5197,7 @@ items.I425.stats = 'trinketAdditiveMaxHp = rUpgDmg("I425", 1)'
 items.I425.remove = 'trinketAdditiveMaxHp = 0'
 items.I425.max = 1;
 items.I425.use = 'gearSwap(items.I425.id, rpgPlayer.trinketSlot, "rpgTrinketSlot", "trinket")'
-items.I425.attackChance = 'if (items.I425.cd === 0 && items.I425.level>49) {items.I425.cd = 30; buffs.B89.time=30; buffs.B89.stacks=2;} else if (items.I425.cd === 0) {items.I425.cd = 30; buffs.B89.time=30; buffs.B89.stacks=1;}';
+items.I425.attackChance = 'if (items.I425.cd === 0 && items.I425.level>59) {items.I425.cd = 30; buffs.B89.time=30; buffs.B89.stacks=2;} else if (items.I425.cd === 0) {items.I425.cd = 30; buffs.B89.time=30; buffs.B89.stacks=1;}';
 items.I425.cd = 0;
 items.I425.series = 'solstice';
 items.I425.cap = 70;
@@ -5592,7 +5600,7 @@ items.I398.name = 'Pristine Tusk';
 items.I398.description = 'Miscellaneous';
 items.I398.flavor = '"As pristine as a billion year old piece of rock can be at least."';
 items.I398.quality = 'Quest';
-items.I398.sell = 100;
+items.I398.sell = 50;
 
 items.I388 = {}; 
 items.I388.name = 'Forge Binder';
@@ -8743,6 +8751,16 @@ quests.A8Q1.effect = 'items.I346.count-=1000; items.I177.count++';
 quests.A8Q1.reward = `itemIcon("I177")+'EXP Voucher'`;
 quests.A8Q1.icon = "img/src/items/I52.jpg";
 
+quests.A8Q1A = {};
+quests.A8Q1A.name = 'Wilderness Gourmand';
+quests.A8Q1A.difficulty = 0;
+quests.A8Q1A.description = 'All these mushrooms growing arround here... And we dont even have fire to roast them? Who\'s going to held accountable for this now?';
+quests.A8Q1A.objective = `'Hand over 25 Firetank Pyrocombulators <span class="questProgress">'+beautify(items.I187.count)+'/25</span>'`;
+quests.A8Q1A.logic = 'items.I187.count>24';
+quests.A8Q1A.effect = 'items.I187.count-=25; items.I312.count+=10';
+quests.A8Q1A.reward = `itemIcon("I312")+"Gardener\'s Stamper x10"`;
+quests.A8Q1A.icon = "img/src/items/I90.jpg";
+
 quests.A8Q2 = {};
 quests.A8Q2.name = 'Scientific Method';
 quests.A8Q2.difficulty = 1;
@@ -8874,9 +8892,9 @@ quests.A8Q5F.unlocked = false;
 quests.A8Q6 = {};
 quests.A8Q6.name = 'Primal Bones';
 quests.A8Q6.difficulty = 1;
-quests.A8Q6.description = 'The world of paleontology is wonderful! Discover 7 fossils from these lands.';
-quests.A8Q6.objective = `'Discover 7 different fossil collectibles <span class="questProgress">'+collectibles5Got+'/7</span>'`;
-quests.A8Q6.logic = 'collectibles5Got>6';
+quests.A8Q6.description = 'The world of paleontology is wonderful! Discover 5 fossils from these lands.';
+quests.A8Q6.objective = `'Discover 5 different fossil collectibles <span class="questProgress">'+collectibles5Got+'/5</span>'`;
+quests.A8Q6.logic = 'collectibles5Got>4';
 quests.A8Q6.effect = 'items.I358.count++, shopItems.A8S19.unlocked = true; createShopItem()';
 quests.A8Q6.reward = `itemIcon("I358")+'Ancient Fossil'`;
 quests.A8Q6.icon = "img/src/items/I358.jpg";
@@ -8896,9 +8914,9 @@ quests.A8Q9 = {};
 quests.A8Q9.name = 'Voodoo Request';
 quests.A8Q9.difficulty = 4;
 quests.A8Q9.description = 'Im missing various cursed items to perform a ritual. Do not worry, the target will not suffer.';
-quests.A8Q9.objective = `'Hand over 1K Eerie Mural <span class="questProgress">'+beautify(items.I348.count)+'/1K</span><br>❖ Hand over 10K Ruinous Souls <span class="questProgress">'+beautify(items.I18.count)+'/10K</span><br>❖ Hand over 10K Frog Legs <span class="questProgress">'+beautify(items.I51.count)+'/10K</span>'`;
-quests.A8Q9.logic = 'items.I348.count>999 && items.I18.count>9999 && items.I51.count>9999';
-quests.A8Q9.effect = 'items.I348.count-=1000; items.I18.count-=10000; items.I51.count-=10000;  items.I389.count++';
+quests.A8Q9.objective = `'Hand over 1K Eerie Mural <span class="questProgress">'+beautify(items.I348.count)+'/1K</span><br>❖ Hand over 5K Ruinous Souls <span class="questProgress">'+beautify(items.I18.count)+'/5K</span><br>❖ Hand over 5K Frog Legs <span class="questProgress">'+beautify(items.I51.count)+'/5K</span>'`;
+quests.A8Q9.logic = 'items.I348.count>999 && items.I18.count>4999 && items.I51.count>4999';
+quests.A8Q9.effect = 'items.I348.count-=1000; items.I18.count-=5000; items.I51.count-=5000;  items.I389.count++';
 quests.A8Q9.reward = `itemIcon("I389")+'Flask of Aspects'`;
 quests.A8Q9.icon = "img/src/items/I356.jpg";
 
@@ -9053,9 +9071,9 @@ recipes.SN3.item = 'I349';
 recipes.SN3.reagent1 = 'I417';
 recipes.SN3.amount1 = 5;
 recipes.SN3.reagent2 = 'I32';
-recipes.SN3.amount2 = 2;
+recipes.SN3.amount2 = 1;
 recipes.SN3.reagent3 = 'I36';
-recipes.SN3.amount3 = 2;
+recipes.SN3.amount3 = 1;
 
 
 //weapons
@@ -9088,7 +9106,7 @@ recipes.SA2.exp = 800;
 recipes.SA2.timer = 600;
 recipes.SA2.item = 'I322';
 recipes.SA2.reagent1 = 'I419';
-recipes.SA2.amount1 = 20;
+recipes.SA2.amount1 = 40;
 recipes.SA2.reagent2 = 'I347';
 recipes.SA2.amount2 = 200;
 recipes.SA2.reagent3 = 'I359';
@@ -9111,7 +9129,7 @@ recipes.SA3.amount3 = 1;
 recipes.SG1 = {};
 recipes.SG1.description = 'Creates a piece of gear of the Plated Explorer Set';
 recipes.SG1.level = 2;
-recipes.SG1.exp = 50;
+recipes.SG1.exp = 60;
 recipes.SG1.timer = 300;
 recipes.SG1.item = 'I73';
 recipes.SG1.reagent1 = 'I66';
@@ -9124,7 +9142,7 @@ recipes.SG1.amount3 = 100;
 recipes.SG2 = {};
 recipes.SG2.description = 'Creates a piece of gear of the Plated Explorer Set';
 recipes.SG2.level = 3;
-recipes.SG2.exp = 50;
+recipes.SG2.exp = 60;
 recipes.SG2.timer = 300;
 recipes.SG2.item = 'I74';
 recipes.SG2.reagent1 = 'I66';
@@ -9137,7 +9155,7 @@ recipes.SG2.amount3 = 100;
 recipes.SG3 = {};
 recipes.SG3.description = 'Creates a piece of gear of the Plated Explorer Set';
 recipes.SG3.level = 4;
-recipes.SG3.exp = 50;
+recipes.SG3.exp = 60;
 recipes.SG3.timer = 300;
 recipes.SG3.item = 'I75';
 recipes.SG3.reagent1 = 'I66';
@@ -9150,7 +9168,7 @@ recipes.SG3.amount3 = 100;
 recipes.SG4 = {};
 recipes.SG4.description = 'Creates a piece of gear of the Plated Explorer Set';
 recipes.SG4.level = 5;
-recipes.SG4.exp = 50;
+recipes.SG4.exp = 60;
 recipes.SG4.timer = 300;
 recipes.SG4.item = 'I76';
 recipes.SG4.reagent1 = 'I66';
@@ -9163,7 +9181,7 @@ recipes.SG4.amount3 = 100;
 recipes.SG5 = {};
 recipes.SG5.description = 'Creates a piece of gear of the Plated Explorer Set';
 recipes.SG5.level = 6;
-recipes.SG5.exp = 50;
+recipes.SG5.exp = 60;
 recipes.SG5.timer = 300;
 recipes.SG5.item = 'I77';
 recipes.SG5.reagent1 = 'I66';
@@ -9180,7 +9198,7 @@ recipes.SG6.exp = 700;
 recipes.SG6.timer = 300;
 recipes.SG6.item = 'I334';
 recipes.SG6.reagent1 = 'I419';
-recipes.SG6.amount1 = 20;
+recipes.SG6.amount1 = 30;
 recipes.SG6.reagent2 = 'I346';
 recipes.SG6.amount2 = 200;
 recipes.SG6.reagent3 = 'I100';
@@ -9193,7 +9211,7 @@ recipes.SG7.exp = 700;
 recipes.SG7.timer = 300;
 recipes.SG7.item = 'I335';
 recipes.SG7.reagent1 = 'I419';
-recipes.SG7.amount1 = 20;
+recipes.SG7.amount1 = 30;
 recipes.SG7.reagent2 = 'I346';
 recipes.SG7.amount2 = 200;
 recipes.SG7.reagent3 = 'I100';
@@ -9206,7 +9224,7 @@ recipes.SG8.exp = 700;
 recipes.SG8.timer = 300;
 recipes.SG8.item = 'I336';
 recipes.SG8.reagent1 = 'I419';
-recipes.SG8.amount1 = 20;
+recipes.SG8.amount1 = 30;
 recipes.SG8.reagent2 = 'I346';
 recipes.SG8.amount2 = 200;
 recipes.SG8.reagent3 = 'I100';
@@ -9219,7 +9237,7 @@ recipes.SG9.exp = 700;
 recipes.SG9.timer = 300;
 recipes.SG9.item = 'I337';
 recipes.SG9.reagent1 = 'I419';
-recipes.SG9.amount1 = 20;
+recipes.SG9.amount1 = 30;
 recipes.SG9.reagent2 = 'I346';
 recipes.SG9.amount2 = 200;
 recipes.SG9.reagent3 = 'I100';
@@ -9232,7 +9250,7 @@ recipes.SG10.exp = 700;
 recipes.SG10.timer = 300;
 recipes.SG10.item = 'I338';
 recipes.SG10.reagent1 = 'I419';
-recipes.SG10.amount1 = 20;
+recipes.SG10.amount1 = 30;
 recipes.SG10.reagent2 = 'I346';
 recipes.SG10.amount2 = 200;
 recipes.SG10.reagent3 = 'I100';
@@ -9602,7 +9620,7 @@ recipes.EA1.amount2 = 30;
 
 recipes.EA2 = {};
 recipes.EA2.level = 22;
-recipes.EA2.exp = 13;
+recipes.EA2.exp = 16;
 recipes.EA2.timer = 15;
 recipes.EA2.item = 'I179';
 recipes.EA2.reagent1 = 'I198';
@@ -9614,7 +9632,7 @@ recipes.EA2.amount3 = 30;
 
 recipes.EA3 = {};
 recipes.EA3.level = 24;
-recipes.EA3.exp = 20;
+recipes.EA3.exp = 32;
 recipes.EA3.timer = 15;
 recipes.EA3.item = 'I187';
 recipes.EA3.reagent1 = 'I198';
@@ -10273,7 +10291,7 @@ shopItems.A8S13.unlockDescription = bestiaryTag('Clear the Temple of the Duck to
 */
 shopItems.A8S19 = {}
 shopItems.A8S19.item = 'I358';
-shopItems.A8S19.price = 10000000;
+shopItems.A8S19.price = 1000000;
 shopItems.A8S19.stock = "5";
 shopItems.A8S19.restock = 5;
 shopItems.A8S19.unlocked = false;
@@ -11473,31 +11491,31 @@ var aRank = {};
 
 aRank.AR1 = {}
 aRank.AR1.required = 0
-aRank.AR1.reward = 'bestiaryItem("I13","container")'
+aRank.AR1.reward = 'bestiaryItem("I13","container",1)'
 
 aRank.AR2 = {}
 aRank.AR2.required = 7
-aRank.AR2.reward = 'bestiaryItem("I13","container", "Area Exploration Permit")'
+aRank.AR2.reward = 'bestiaryItem("I13","container", "Area Exploration Permit",1)'
 
 aRank.AR3 = {}
 aRank.AR3.required = 12 //armory
-aRank.AR3.reward = 'bestiaryItem("I474","container")'
+aRank.AR3.reward = 'bestiaryItem("I474","container",1)'
 
 aRank.AR4 = {}
 aRank.AR4.required = 19 //dungeons
-aRank.AR4.reward = 'bestiaryItem("I174","container", "Dungeon Exploration Permit")'
+aRank.AR4.reward = 'bestiaryItem("I174","container", "Dungeon Exploration Permit",1)'
 
 aRank.AR5 = {}
 aRank.AR5.required = 26 //bestiary medals
-aRank.AR5.reward = 'bestiaryItem("I315","container")'
+aRank.AR5.reward = 'bestiaryItem("I315","container",1)'
 
 aRank.AR6 = {}
-aRank.AR6.required = 37 //garden
-aRank.AR6.reward = 'bestiaryItem("I287","container")'
+aRank.AR6.required = 36 //garden
+aRank.AR6.reward = 'bestiaryItem("I287","container",1)'
 
 aRank.AR7 = {}
 aRank.AR7.required = 410
-aRank.AR7.reward = 'bestiaryItem("I204","container")'
+aRank.AR7.reward = 'bestiaryItem("I204","container",1)'
 
 
 //#endregion
@@ -11647,6 +11665,8 @@ talent.TA1E.description = `"Increases"+spIcon+"Spellpower by"+colorTag("x1.5","#
 talent.TA1E.locked = true;
 talent.TA1E.lockedCondition = "Reach level 50 with Apprentice";
 talent.TA1E.effect = 'talent.TA1E.statUp = 0.5'
+talent.TA1E.lockedLogic = "rpgClass.TA1E.level>49";
+
 
 talent.TA1F = {};
 talent.TA1F.position = '-100px -150px'
@@ -13050,7 +13070,7 @@ fertiliser.f1.description = 'Plants have a chance to drop an extra<img src="img/
 
 fertiliser.f2 = {}
 fertiliser.f2.name = "Water-Retaining Fertiliser";
-fertiliser.f2.description = "Plants no longer need watering and water has no effect, but plants take 80% less time to mature";
+fertiliser.f2.description = "Plants no longer need water nor speeds up growth, but plants grow to maturity 80% faster";
 
 for (var i in fertiliser) {
   fertiliser[i].unlocked = false;
@@ -13114,6 +13134,13 @@ gardenShop.GS5I2.stock = 1;
 gardenShop.GS5I2.parent = 'gardenShopListing4'; //esto level 5
 gardenShop.GS5I2.effect = 'playSound("audio/retro2.mp3"); unlocks.fertiliser=true; items.I304.gotOnce=true ; unlocksReveal(); rpgPlayer.currentFertiliser = "f1"';
 
+gardenShop.GS5I3 = {}
+gardenShop.GS5I3.item = 'I312';
+gardenShop.GS5I3.price = 50;
+gardenShop.GS5I3.stock = "∞";
+gardenShop.GS5I3.parent = 'gardenShopListing4'; 
+gardenShop.GS5I3.effect = 'items.I312.count++; addItem()';
+
 //shop 5
 /*
 gardenShop.GS5I1 = {}
@@ -13138,6 +13165,13 @@ gardenShop.GS6I1.price = 400;
 gardenShop.GS6I1.stock = 1;
 gardenShop.GS6I1.parent = 'gardenShopListing6'; 
 gardenShop.GS6I1.effect = 'playSound("audio/retro2.mp3"); unlocks.gardenUpgrade2=true; items.I302.gotOnce=true; unlocksReveal();';
+
+gardenShop.GS6I2 = {}
+gardenShop.GS6I2.item = 'I213';
+gardenShop.GS6I2.price = 500;
+gardenShop.GS6I2.stock = 1;
+gardenShop.GS6I2.parent = 'gardenShopListing6'; 
+gardenShop.GS6I2.effect = 'items.I213.count++; addItem()';
 
 /*
 gardenShop.GS6I1 = {}
@@ -13237,7 +13271,7 @@ gametip.gt11.description ='Access the'+colorTag("Planetarium", "#4C838B")+'in yo
 
 gametip.gt13 = {}
 gametip.gt13.name = "The Garden";
-gametip.gt13.description ='Select a seed on the left and click or drag on an empty plot to plant it. Click on it again to water them. While plants are hydrated, they will grow faster.<br><br>Once the seed achives maturity, it will activate its bonuses, and slowly decay to death.<br><br>Each time you harvest any mature plant, you will discover said seed, get garden experince and one'+colorTag("Bloom Token,", "#3BA144")+'which you can spend in The Garden shop tab. If the plant dies of old age, it will still gain experience and tokens, but you wont discover that seed<br><br>On rare ocasions while mature, plants can mutate (🧬). Harvesting a mature mutation is the only way to get mutated seeds, exceptuating Star Sprouts.<br><br>If circumstances are right, plants can'+colorTag("crossbreed", "darkorange")+', and you might discover new seeds. To crossbreed, plant two compatible parents somewhere on the garden and empty plots for their child to grow. The more parents of a plant are present, the higher the chances of crossbreeding.';
+gametip.gt13.description ='Select a seed on the left and click or drag on an empty plot to plant it. Click on it again to water them. While plants are hydrated, they will grow faster.<br><br>Once the seed achives maturity, it will activate its bonuses, and slowly decay to death.<br><br>Each time you harvest any mature plant, you will discover said seed, get garden experince and one'+colorTag("Bloom Token,", "#3BA144")+'which you can spend in The Garden shop tab. If the plant dies of old age, it will still gain experience and tokens, but you wont discover that seed<br><br>On rare ocasions while mature, plants can mutate (🧬). Plants have an additional chance to mutate if they achieve maturity while watered. Harvesting a mature mutation is the only way to get mutated seeds, exceptuating Star Sprouts.<br><br>If circumstances are right, plants can'+colorTag("crossbreed", "darkorange")+', and you might discover new seeds. To crossbreed, plant two compatible parents somewhere on the garden and empty plots for their child to grow. The more parents of a plant are present, the higher the chances of crossbreeding.';
 
 gametip.gt18 = {}
 gametip.gt18.name = "Fishing";

@@ -999,8 +999,7 @@ function gardenShopButton(id) {
 
 settingsPanel ("gardenShipButton", "plantCatalogue");
 
-let plantCompletionProgress = 0
-let plantCompletionProgressTotal = 0
+
 
 
 function returnPlantPrice(id){
@@ -1248,7 +1247,7 @@ function createFertiliser() {
 
 
 
-    if (rpgPlayer.currentFertiliser === i) did(i+"fertiliser").style.outlineColor = "lawngreen"; else did(i+"fertiliser").style.outlineColor = "white";
+    if (rpgPlayer.currentFertiliser === i && did(i+"fertiliser")) did(i+"fertiliser").style.outlineColor = "lawngreen"; else if (did(i+"fertiliser")) did(i+"fertiliser").style.outlineColor = "white";
 
 
   }

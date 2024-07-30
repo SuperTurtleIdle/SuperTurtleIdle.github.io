@@ -27,7 +27,7 @@ function castLightDynamite(){
 
 function castFossilSet(){
     setTimeout(() => {
-    animParticleProjectile("bone", "throw", 0, "particleSmoke", 0);
+    animParticleProjectile("bone2", "throw", 0, "particleSmoke", 0);
     setTimeout(() => {
         enemyElementalDamage(playerWeaponDamage*0.4,"sp");
     }, 700);
@@ -1111,7 +1111,7 @@ function castFossilClub(){
 
     function loop() {
         animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
-        enemyMightDamage(playerWeaponDamage);
+        enemyMightDamage(playerWeaponDamage*3);
     }
 
 }
@@ -2151,7 +2151,7 @@ function castSussyMushroom(){
     }
 
     if (shroomRoll===2){
-        buffs.B57.time=100;
+        buffs.B3.time=100; buffs.B3.stacks=5;
         playerBuffs();
         stats.shroom2discovered = 1
 
