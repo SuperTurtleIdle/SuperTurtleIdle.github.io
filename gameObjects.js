@@ -11665,7 +11665,7 @@ talent.TA1E.description = `"Increases"+spIcon+"Spellpower by"+colorTag("x1.5","#
 talent.TA1E.locked = true;
 talent.TA1E.lockedCondition = "Reach level 50 with Apprentice";
 talent.TA1E.effect = 'talent.TA1E.statUp = 0.5'
-talent.TA1E.lockedLogic = "rpgClass.TA1E.level>49";
+talent.TA1E.lockedLogic = "rpgClass.TA0.level>49";
 
 
 talent.TA1F = {};
