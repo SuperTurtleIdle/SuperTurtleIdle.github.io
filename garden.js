@@ -550,13 +550,13 @@ function createGardenPlots() {
 
 function returnPlantExp(id){
 
-  mutation = 1;
-  if (i.slice(-1) !== 'a') mutation = 2
+ 
+  if (plants[id].tier===0) return 2
+  if (plants[id].tier===1) return 4
+  if (plants[id].tier===2) return 8
+  if (plants[id].tier===3) return 16
 
-  if (plants[id].tier===0) return 1*mutation
-  if (plants[id].tier===1) return 2*mutation 
-  if (plants[id].tier===2) return 4*mutation
-  if (plants[id].tier===3) return 8*mutation
+  return 1 //failsafe
 
 
 }
@@ -861,13 +861,13 @@ function createNewPlant(seed, parents){
     if (gardenHealthPower>0) gardenHealthPowerDisplay = '<br>'+colorTag("x"+(1+gardenHealthPower).toFixed(2),"#E57D08")+" Max Health";
 
     let gardenFlowerPowerDisplay = "";
-    if (gardenFlowerPower>0) gardenFlowerPowerDisplay = '<br>+' + gardenFlowerPower +"% Flower Power";
+    if (gardenFlowerPower>0) gardenFlowerPowerDisplay = '<br>+' + gardenFlowerPower.toFixed(2) +"% Flower Power";
 
     let gardenMutationPowerDisplay = "";
-    if (gardenMutationPower>0) gardenMutationPowerDisplay = '<br>+' + gardenMutationPower +"% Mutation Chance";
+    if (gardenMutationPower>0) gardenMutationPowerDisplay = '<br>+' + gardenMutationPower.toFixed(2) +"% Mutation Chance";
 
     let gardenMagicRegenPowerDisplay = "";
-    if (gardenMagicRegenPower>0) gardenMagicRegenPowerDisplay = '<br>+' + gardenMagicRegenPower +" Magic Regeneration";
+    if (gardenMagicRegenPower>0) gardenMagicRegenPowerDisplay = '<br>+' + gardenMagicRegenPower.toFixed(2) +" Magic Regeneration";
 
     let gardenDragonGoldPowerDisplay = "";
     if (gardenDragonGoldPower>0) gardenDragonGoldPowerDisplay = '<br>Enemies Drop ' + beautify(gardenDragonGoldPower) +" Shells";
@@ -1289,6 +1289,8 @@ function gardenInitialization(){
 
 
     plantSanityCheck()
+
+    if (rpgPlayer.gardenExp === null) rpgPlayer.gardenExp = 0;
     
 
     
