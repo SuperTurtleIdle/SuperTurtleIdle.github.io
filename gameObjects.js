@@ -2754,7 +2754,7 @@ function aspectFlask(){
 
 items.I432 = {};
 items.I432.name = 'Personal Battle Data Analyzer';
-items.I432.description = `'Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gather battle data over 20 seconds'+bestiaryTag("⏱️ Battle data over 20 seconds<br>" , "coral")+items.I432.data`;
+items.I432.description = `'Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gather battle data over 60 seconds'+bestiaryTag("⏱️ Battle data over 60 seconds<br>" , "coral")+items.I432.data`;
 items.I432.flavor = '"Tortulexa, play despacito"';
 items.I432.quality = 'Rare';
 items.I432.sell = 0;
@@ -2765,13 +2765,21 @@ items.I432.dynamic = true;
 
 let dataDamageDealt = 0;
 let dataExpGained = 0;
+let dataEnemiesKilled = 0;
 let battleData = false;
 
 function battleAnalysis(){
 
+
+  if (battleData){
+    createPopup('⏱️ An analysis is already taking place!', '#913c3c')
+    return
+  }
+
   battleData = true;
   dataDamageDealt = 0;
   dataExpGained = 0;
+  dataEnemiesKilled = 0;
   createPopup('⏱️ Data analysing started!', '#994687')
   playSound("audio/engine.mp3");
   setTimeout(() => {
@@ -2780,12 +2788,14 @@ function battleAnalysis(){
 
 
 
-    items.I432.data = "◆ Damage Dealt: "+beautify(dataDamageDealt)+"<br>◆ DPS: "+beautify(dataDamageDealt/20)+"<br>◆ EXP Gained:"+beautify(dataExpGained)+"<br>◆ Estimated to level up: "+convertSecondsToHMS(next * 20 / dataExpGained)
+    items.I432.data = "◆ Damage dealt: "+beautify(dataDamageDealt)+"<br>◆ DPS: "+beautify(dataDamageDealt/60)+"<br>◆ Enemies defeated: "+dataEnemiesKilled+"<br>◆ Kills per second: "+(dataEnemiesKilled/60).toFixed(2)+"<br>◆ EXP gained: "+beautify(dataExpGained)+"<br>◆ Estimated to level up: "+convertSecondsToHMS(next * 60 / dataExpGained)
 
     createPopup('⏱️ Data analysing finished!', '#994687')
     playSound("audio/ring.mp3");
+
+    battleData = false
     
-  }, 20000);
+  }, 60000);
 
 
 

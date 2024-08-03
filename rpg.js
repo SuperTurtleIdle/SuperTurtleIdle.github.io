@@ -196,6 +196,8 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
       rpgPlayer.coins += gardenDragonGoldPower
         } 
 
+        if (battleData) dataEnemiesKilled ++
+
 
         const loottable = window[stats.currentArea + 'Loot']; if (loottable) {rollTable(eval(stats.currentArea+"Loot"), 1) }
 
