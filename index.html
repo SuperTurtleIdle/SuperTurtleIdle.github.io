@@ -91,12 +91,14 @@
             <h3>Switch CTRL interaction for Alt<button id="switchContextKey" onclick="toggleSettings('switchContextKey')">OFF</button></h3>
             <h3>Disable container auto-open<button id="disableAutoOpen" onclick="toggleSettings('disableAutoOpen')">OFF</button></h3>
             <h3>Disable export reminder<button id="disableExportReminder" onclick="toggleSettings('disableExportReminder')">OFF</button></h3>
+            <h3>Hold key for sell mode<button id="disableHoldSell" onclick="toggleSettings('disableHoldSell')">OFF</button></h3>
             <h3>Colorblind Mode<button id="disableColorblind" onclick="toggleSettings('disableColorblind')">OFF</button></h3>
 
             <h2>Visual Settings</h2>
             <h3>Disable custom cursor<button id="disableCustomCursor" onclick="toggleSettings('disableCustomCursor'); setCursor()">OFF</button></h3>
             <h3>Disable numbers on turtle click<button id="disableClickText" onclick="toggleSettings('disableClickText')">OFF</button></h3>
             <h3 id="disablePenguinRecapButton" style="display: none;" >Disable penguin recap window<button id="disablePenguinRecap" onclick="toggleSettings('disablePenguinRecap')">OFF</button></h3>
+            <h3>Disable inventory culling (for 4K displays)<button id="disableCulling" onclick="toggleSettings('disableCulling')">OFF</button></h3>
 
 
             <h2>Performance</h2>
@@ -1713,9 +1715,9 @@
                             <div id="gearLoadouts" style="display: none;">
                                 <button id="loadout1" onClick="updateLoadout(1);"><img src="img/src/icons/loadoutIcon.png"><span style="color: #46CB4C;">1</span></button>
                                 <button id="loadout2" onClick="updateLoadout(2);"><img src="img/src/icons/loadoutIcon.png"><span style="color: #446CC9;">2</span></button>
-                                <button id="loadout3" onClick="updateLoadout(3);"><img src="img/src/icons/loadoutIcon.png"><span style="color: #CB5E46;">3</span></button>
+                                <button id="loadout3" onClick="updateLoadout(3);"><img src="img/src/icons/loadoutIcon.png"><span style="color: #AD44C8;">3</span></button>
                                 <button id="loadout4" onClick="updateLoadout(4);"><img src="img/src/icons/loadoutIcon.png"><span style="color: #CBA746;">4</span></button>
-                                <button id="loadout5" onClick="updateLoadout(5);"><img src="img/src/icons/loadoutIcon.png"><span style="color: #AD44C8;">5</span></button>
+                                <button id="loadout5" onClick="updateLoadout(5);"><img src="img/src/icons/loadoutIcon.png"><span style="color: #CB5E46;">5</span></button>
                                 <button id="loadout6" onClick="updateLoadout(6);"><img src="img/src/icons/loadoutIcon.png"><span style="color: #464ACB;">6</span></button>
                                 <button id="loadout7" onClick="updateLoadout(7);"><img src="img/src/icons/loadoutIcon.png"><span style="color: #CB4646;">7</span></button>
                             </div>

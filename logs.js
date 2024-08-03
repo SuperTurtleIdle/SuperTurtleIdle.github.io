@@ -703,8 +703,13 @@ if (enemies[i].killCount>=100000
 
 if (did(i+"bestiary")){
 if (enemies[i].killCount>=1 || enemies[i].sawOnce){
-  did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+'</span>';
-  if (enemies[i].tag==="areaBoss") did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+' 💀</span>';
+
+  let enemyMedal = ""
+  if (enemies[i].medal==="gold") enemyMedal = "🥇"
+  if (enemies[i].medal==="platinum") enemyMedal = "🥈"
+
+  did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+ enemyMedal +'</span>';
+  if (enemies[i].tag==="areaBoss") did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+' 💀' + enemyMedal +'</span>';
   if (enemies[i].ignoreBestiaryPercentage) did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+' ❌</span>';
 } else{
   did(i+"bestiary").innerHTML = '<span>?????</span>';

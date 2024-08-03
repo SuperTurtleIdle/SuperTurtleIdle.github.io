@@ -1000,7 +1000,7 @@ settingsPanel ("turtleName", "turtleRename");
 var logTrackName = 'base';
 
 function enterName(event) {
-    if (event.key === "Enter" && did("namingBox").value.length >= 1) {stats.turtleName = did("namingBox").value; logTrackName = did("namingBox").value; displayTurtleName(); closePanels();}
+    if (event.key === "Enter" && did("namingBox").value.length >= 1) {stats.turtleName = did("namingBox").value; logTrackName = did("namingBox").value; displayTurtleName(); closePanels(); if (did("namingBox").value==="squeaky" || did("namingBox").value==="Squeaky") {rareItemDrop("I172",1)}}
 }
 function displayTurtleName(){
 
@@ -1129,8 +1129,8 @@ function convertSecondsToHMS(seconds, size) {
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
 
-    if (size==="mini") return `${minutes}m ${remainingSeconds}s`;
-    else return `${hours}h ${minutes}m ${remainingSeconds}s`;
+    if (size==="mini") return `${minutes}m ${remainingSeconds.toFixed(0)}s`;
+    else return `${hours}h ${minutes}m ${remainingSeconds.toFixed(0)}s`;
 }
 
 
@@ -1419,6 +1419,7 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
 
   saveData.savedTalents = {}; for (const i in talent) { saveData.savedTalents[i] = talent[i].active;}
   saveData.savedTalentsStats = {}; for (const i in talent) { saveData.savedTalentsStats[i] = talent[i].statUp;}
+  saveData.savedTalentsPermanent = {}; for (const i in talent) { saveData.savedTalentsPermanent[i] = talent[i].permanent;}
 
 
   saveData.savedItemOfTheDay = {}; for (const i in itemOfTheDay) { saveData.savedItemOfTheDay[i] = itemOfTheDay[i];}
@@ -1562,6 +1563,7 @@ function load() {
 
     for (const i in parsedData.savedTalents) { talent[i].active = parsedData.savedTalents[i];}  
     for (const i in parsedData.savedTalentsStats) { talent[i].statUp = parsedData.savedTalentsStats[i];}  
+    for (const i in parsedData.savedTalentsPermanent) { talent[i].permanent = parsedData.savedTalentsPermanent[i];}  
 
 
     for (const i in parsedData.savedBuildingLevel) { buildings[i].level = parsedData.savedBuildingLevel[i];}  

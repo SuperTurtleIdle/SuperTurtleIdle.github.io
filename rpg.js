@@ -20,7 +20,7 @@ stats.currentEnemy = 'E1';
 var currentHP = 0;
 
 const fuse = new Fuse(Object.values(items), {
-  keys: ['name', 'description'],
+  keys: ['name', 'description', 'skills'],
   threshold: 0.1,
   ignoreLocation: true, 
 })
@@ -207,6 +207,9 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
            stats.totalExp += totalEXP;
            if (!settings.disableExpLog) logPrint("<FONT COLOR='#ae77f7'>You gain " + beautify(totalEXP) + " EXP!" );
 
+           if (battleData) dataExpGained += totalEXP
+
+
            for (let i in enemies){ if (did(i+"enemy")){ did(i + "enemy").remove(); }}
 
 
@@ -229,6 +232,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
           stats.totalExp += totalEXP;
           if (!settings.disableExpLog) logPrint("<FONT COLOR='#ae77f7'>" + enemies[stats.currentEnemy].name + " gets defeated! You gain " + beautify(totalEXP) + " EXP!" );
 
+          if (battleData) dataExpGained += totalEXP
 
           
           for (let i in enemies){ if (did(i+"enemy")){
@@ -543,7 +547,7 @@ for (i in buffs){
 did("rpgPlayerImg").addEventListener("click", function () {
   if (!rpgPlayer.alive){
     playSound("audio/throw.mp3");
-    rpgPlayer.hp += playerMaxHp*0.04
+    rpgPlayer.hp += playerMaxHp*0.08
     animParticleBurst(1 , "particleHeart", "playerPanel", 0);
     hpRegen()
     playerUpdate();
@@ -979,6 +983,9 @@ function enemyDamage(damage, align, icon, type){
   if (finalDamage > 999999) logs.P35B.unlocked = true;
   if (finalDamage > 9999999) logs.P35BA.unlocked = true;
   if (finalDamage > 99999999) logs.P35BB.unlocked = true;
+
+
+  if (battleData) dataDamageDealt += finalDamage
 
 
 
@@ -1757,6 +1764,8 @@ function itemCooldownTick(ID, time) { //removes one second from the cd of every 
 
   function inventoryCulling(){
 
+    if (!settings.disableCulling){
+
     const alturaContenedor = document.getElementById('inventory').clientHeight;
     const alturaViewport = window.innerHeight;
     const porcentajeVisible = (alturaViewport / alturaContenedor) * 100;
@@ -1770,6 +1779,10 @@ function itemCooldownTick(ID, time) { //removes one second from the cd of every 
         item.style.visibility = "visible";
       }
     });
+
+  }
+
+  
   }
 
 
@@ -3768,6 +3781,7 @@ addItem()
 var sellMode = false;
 
 document.addEventListener("keyup", (event) => {
+  if (!settings.disableHoldSell){
   if (did("bodyCover").style.display === "none"){
   if (settings.switchContextKey) {
     if (event.code === 'AltLeft' || event.code === 'AltRight' ) {
@@ -3777,6 +3791,42 @@ document.addEventListener("keyup", (event) => {
   if (event.code === 'ControlLeft' || event.code === 'ControlRight') {
     toggleSell();
   }
+}
+}
+}
+
+if (settings.disableHoldSell && sellMode){
+
+  if (settings.switchContextKey) {
+    if (event.code === 'AltLeft' || event.code === 'AltRight' ) {
+      toggleSell();
+    }
+  } else{
+  if (event.code === 'ControlLeft' || event.code === 'ControlRight') {
+    toggleSell();
+  }
+  }
+
+
+}
+
+
+
+
+});
+
+document.addEventListener("keydown", (event) => {
+  if (settings.disableHoldSell && !sellMode){
+  if (did("bodyCover").style.display === "none"){
+  if (settings.switchContextKey) {
+    if (event.code === 'AltLeft' || event.code === 'AltRight' ) {
+      toggleSell();
+    }
+  } else{
+  if (event.code === 'ControlLeft' || event.code === 'ControlRight') {
+    toggleSell();
+  }
+}
 }
 }
 });
@@ -4937,9 +4987,16 @@ function createTalent() {
     }
 
 
-    if (eval(talent[i].lockedLogic)) {talent[i].locked = false;} else if (eval(talent[i].lockedLogic)==false) {talent[i].locked = true;}
+    if (eval(talent[i].lockedLogic)) {
+      
+      talent[i].locked = false;
 
-    if (talent[i].locked===true) did(i + "talent").src = "img/src/icons/talentStarLocked.png";
+      if (talent[i].permanent===false) talent[i].permanent=true
+    
+    
+    } else if (eval(talent[i].lockedLogic)==false) {talent[i].locked = true;}
+
+    if (talent[i].locked===true && talent[i].permanent!==true) did(i + "talent").src = "img/src/icons/talentStarLocked.png";
 
     else if (talent[i].category === "Class") did(i + "talent").src = "img/src/icons/talentStarClass.png";
     else if (talent[i].category === "Skill") did(i + "talent").src = "img/src/icons/talentStarSkill.png";
@@ -4993,7 +5050,7 @@ function talentClick(id) {
   if (did(id + "talent")) {
     did(id + "talent").addEventListener("click", function () {
       if (rpgPlayer.debug || 
-        ( ((!talent[id].active && id==="T0") || (!talent[id].active && (talent[talent[id].parent].active || talent[talent[id].parent2].active) ) ) && rpgPlayer.talentPoints>0 && !talent[id].locked )){
+        ( ((!talent[id].active && id==="T0") || (!talent[id].active && (talent[talent[id].parent].active || talent[talent[id].parent2].active) ) ) && rpgPlayer.talentPoints>0 && (!talent[id].locked || talent[id].permanent===true) )){
       playSound("audio/talent.mp3");
       talent[id].active=true;
       eval(talent[id].effect);
@@ -5283,7 +5340,7 @@ let starFailsafe = code.substring(6);
 
 let decodedTalents = JSON.parse(atob(starFailsafe))
 
-for (const i in decodedTalents) { if (talent[i].locked) {createPopup('&#10060; Some stars are locked!', '#913c3c'); return} }
+for (const i in decodedTalents) { if (talent[i].locked && talent[i].permanent!==true) {createPopup('&#10060; Some stars are locked!', '#913c3c'); return} }
 
   
 resetTalentPoints();
@@ -5298,7 +5355,7 @@ for (const i in decodedTalents) {
   
 
   
-  if (!talent[i].locked && rpgPlayer.talentPoints>0){ //primer failsafe, tienes puntos y no esta bloqueado
+  if ((!talent[i].locked || talent[i].permanent===true) && rpgPlayer.talentPoints>0){ //primer failsafe, tienes puntos y no esta bloqueado
 
     
     talent[i].active = decodedTalents[i];
@@ -6652,7 +6709,7 @@ function playerBuffs() { //only UI
         let percentage = 100 - ((buffs[b].time / buffs[b].visualTime) * 100);
         did(b + "timer").style.transform = 'scaleY('+percentage+"%)";
 
-        if ('stacks' in buffs[b]) did(b + "stacks").innerHTML = buffs[b].stacks
+        if ('stacks' in buffs[b]) did(b + "stacks").innerHTML = beautify(buffs[b].stacks)
 
         if (buffs[b].stacks<=0)buffs[b].time=0;
 

@@ -36,6 +36,7 @@
 @font-face { font-family: lilita; src: url(font/lilita.ttf); }
 @font-face { font-family: fredoka; src: url(font/fredoka.ttf); }
 @font-face { font-family: germanica; src: url(font/germanica.ttf); }
+@font-face { font-family: yikes; src: url(font/yikes.TTF); }
 
 
 
@@ -5263,6 +5264,21 @@ margin-left: 0.5rem;
     font-family: lilita;
     color: #61b600;
     font-size: 3.5vh;
+    background: transparent;
+    white-space: nowrap;
+    overflow: visible;
+    -webkit-text-stroke: 0.06vw white; 
+    animation: damageBounce 1.5s 1;
+    pointer-events: none;
+    z-index: 12;
+}
+
+
+.squeakyText{
+    position: absolute;
+    font-family: yikes;
+    color: #61b600;
+    font-size: 5vh;
     background: transparent;
     white-space: nowrap;
     overflow: visible;

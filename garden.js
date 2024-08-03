@@ -23,24 +23,47 @@ let gardenMagicRegenPower = 0;
 
 function calculateGardenStats(){
 
-  gardenFlowerPower = ((plants.g17.planted)*10 + (plants.g17a.planted*30)) + (talent.TI2B1.statUp);
+  if (rpgPlayer.currentFertiliser==="f0"){ //frozen
 
+    gardenFlowerPower = 0
+    gardenReflectPower = 0
+    gardenNaturePower = 0
+    gardenElementalPower = 0
+    gardenMightPower = 0
+    gardenDeificPower = 0
+    gardenOccultPower = 0
+    gardenPatPower = 0
+    gardenStrengthPower = 0
+    gardenSpellpower = 0
+    gardenDropChancePower = 0
+    gardenExpGainPower = 0
+    gardenHealthPower = 0
+    gardenMutationPower = 0
+    gardenMagicRegenPower = 0
+    gardenDragonGoldPower = 0
 
-  gardenReflectPower = ((plants.g1.planted)*3 + (plants.g1a.planted*10))*(1+(gardenFlowerPower/3)/100);
-  gardenNaturePower = ((plants.g7.planted)*2 + (plants.g7a.planted*10))/100*(1+gardenFlowerPower/100);
-  gardenElementalPower = ((plants.g4.planted)*2 + (plants.g4a.planted*10))/100*(1+gardenFlowerPower/100);
-  gardenMightPower = ((plants.g6.planted)*2 + (plants.g6a.planted*10))/100*(1+gardenFlowerPower/100);
-  gardenDeificPower = ((plants.g3.planted)*2 + (plants.g3a.planted*10))/100*(1+gardenFlowerPower/100);
-  gardenOccultPower = ((plants.g5.planted)*2 + (plants.g5a.planted*10))/100*(1+gardenFlowerPower/100);
-  gardenPatPower = ((plants.g12.planted)*2 + (plants.g12a.planted*10))/100*(1+gardenFlowerPower/100);
-  gardenStrengthPower = ((plants.g8.planted)*1 + (plants.g8a.planted*6))/100*(1+gardenFlowerPower/100);
-  gardenSpellpower = ((plants.g9.planted)*1 + (plants.g9a.planted*6))/100*(1+gardenFlowerPower/100);
-  gardenDropChancePower = ((plants.g11.planted)*2 + (plants.g11a.planted*10))/100*(1+gardenFlowerPower/100);
-  gardenExpGainPower = ((plants.g13.planted)*2 + (plants.g13a.planted*10))/100*(1+gardenFlowerPower/100);
-  gardenHealthPower = ((plants.g14.planted)*1 + (plants.g14a.planted*6))/100*(1+gardenFlowerPower/100);
-  gardenMutationPower = ((plants.g15.planted)*4 + (plants.g15a.planted*15))*(1+(gardenFlowerPower/3)/100);
-  gardenMagicRegenPower = ((plants.g18.planted)*1 + (plants.g18a.planted*5))/100*(1+gardenFlowerPower/100);
-  gardenDragonGoldPower = ((plants.g19.planted)*3 + (plants.g19a.planted*30))*(1+(gardenFlowerPower)/100);
+  } else {
+
+    gardenFlowerPower = ((plants.g17.planted)*10 + (plants.g17a.planted*30)) + (talent.TI2B1.statUp);
+    gardenReflectPower = ((plants.g1.planted)*3 + (plants.g1a.planted*10))*(1+(gardenFlowerPower/3)/100);
+    gardenNaturePower = ((plants.g7.planted)*2 + (plants.g7a.planted*10))/100*(1+gardenFlowerPower/100);
+    gardenElementalPower = ((plants.g4.planted)*2 + (plants.g4a.planted*10))/100*(1+gardenFlowerPower/100);
+    gardenMightPower = ((plants.g6.planted)*2 + (plants.g6a.planted*10))/100*(1+gardenFlowerPower/100);
+    gardenDeificPower = ((plants.g3.planted)*2 + (plants.g3a.planted*10))/100*(1+gardenFlowerPower/100);
+    gardenOccultPower = ((plants.g5.planted)*2 + (plants.g5a.planted*10))/100*(1+gardenFlowerPower/100);
+    gardenPatPower = ((plants.g12.planted)*2 + (plants.g12a.planted*10))/100*(1+gardenFlowerPower/100);
+    gardenStrengthPower = ((plants.g8.planted)*1 + (plants.g8a.planted*6))/100*(1+gardenFlowerPower/100);
+    gardenSpellpower = ((plants.g9.planted)*1 + (plants.g9a.planted*6))/100*(1+gardenFlowerPower/100);
+    gardenDropChancePower = ((plants.g11.planted)*2 + (plants.g11a.planted*10))/100*(1+gardenFlowerPower/100);
+    gardenExpGainPower = ((plants.g13.planted)*2 + (plants.g13a.planted*10))/100*(1+gardenFlowerPower/100);
+    gardenHealthPower = ((plants.g14.planted)*1 + (plants.g14a.planted*6))/100*(1+gardenFlowerPower/100);
+    gardenMutationPower = ((plants.g15.planted)*20 + (plants.g15a.planted*75))*(1+(gardenFlowerPower/3)/100);
+    gardenMagicRegenPower = ((plants.g18.planted)*1 + (plants.g18a.planted*5))/100*(1+gardenFlowerPower/100);
+    gardenDragonGoldPower = ((plants.g19.planted)*3 + (plants.g19a.planted*30))*(1+(gardenFlowerPower)/100);
+    
+  }
+
+  
 
   statsUpdate();
   updateStatsUI();
@@ -373,7 +396,7 @@ function createGardenPlots() {
     for (let i in plot) {
 
 
-        if (plot[i].slot !== "none"){
+        if (plot[i].slot !== "none" && rpgPlayer.currentFertiliser!=="f0"){
             if (!plot[i].mature) {  
 
               //secondsPassed+=10
@@ -469,7 +492,14 @@ function createGardenPlots() {
               if (plants[plot[i].slot].tier === 2) baseMutationChance = 10000
               if (plants[plot[i].slot].tier === 3) baseMutationChance = 19000
               if (plants[plot[i].slot].tier === 4) baseMutationChance = 24000
-              let mutationChance = baseMutationChance * (100-Math.min(gardenMutationPower,99)) / 100
+              //console.log("new:" + baseMutationChance*(1/(1 + (gardenMutationPower*5)/100 )))
+              //let mutationChance = baseMutationChance * (100-Math.min(gardenMutationPower,99)) / 100
+              //console.log("old:" + mutationChance)
+              let mutationChance = baseMutationChance*(1/(1 + (gardenMutationPower)/100 ))
+
+
+
+
               //if (rpgPlayer.currentFertiliser === "f2") mutationChance = baseMutationChance*2
 
               if (plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,mutationChance)===1){ //mutation
@@ -555,6 +585,7 @@ function returnPlantExp(id){
   if (plants[id].tier===1) return 4
   if (plants[id].tier===2) return 8
   if (plants[id].tier===3) return 16
+  if (plants[id].tier===4) return 32
 
   return 1 //failsafe
 
@@ -864,7 +895,7 @@ function createNewPlant(seed, parents){
     if (gardenFlowerPower>0) gardenFlowerPowerDisplay = '<br>+' + gardenFlowerPower.toFixed(2) +"% Flower Power";
 
     let gardenMutationPowerDisplay = "";
-    if (gardenMutationPower>0) gardenMutationPowerDisplay = '<br>+' + gardenMutationPower.toFixed(2) +"% Mutation Chance";
+    if (gardenMutationPower>0) gardenMutationPowerDisplay = '<br>+' + gardenMutationPower.toFixed(0) +"% Mutation Chance";
 
     let gardenMagicRegenPowerDisplay = "";
     if (gardenMagicRegenPower>0) gardenMagicRegenPowerDisplay = '<br>+' + gardenMagicRegenPower.toFixed(2) +" Magic Regeneration";
@@ -1197,6 +1228,8 @@ function createFertiliser() {
         rpgPlayer.currentFertiliser = i
 
         did("currentFertiliser").src = "img/src/garden/"+i+".jpg";
+
+        calculateGardenStats()
 
         closePanels()
         

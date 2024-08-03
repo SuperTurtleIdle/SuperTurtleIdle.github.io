@@ -597,6 +597,9 @@ function castTURTLE(){
 function castRaijinGoran(){
 
 
+    if (!(buffs.B115.time>0)) {buffs.B115.stacks=2000; buffs.B115.time=1000; playerBuffs(); updateStatsUI();}
+
+
     enemyTurn++
 
     buffs.B76.time=100; buffs.B76.stacks++;
@@ -989,6 +992,30 @@ function castEdgeOfCataclysm(){
 }
 }
 
+
+function castSqueaky(){
+
+
+
+
+
+    enemyBasicDamage(1);
+    playSound("audio/squeaky1.mp3")
+    if (rng(1,3)===1){
+        playSound("audio/squeaky2.mp3")
+        let random = rng(1,5)
+        if (random===1) damageText("POW!", 'squeakyText', 'red', undefined, "enemyPanel");
+        if (random===2) damageText("SQUEAK!", 'squeakyText', 'yellow', undefined, "enemyPanel");
+        if (random===3) damageText("BAM!", 'squeakyText', 'orange', undefined, "enemyPanel");
+        if (random===4) damageText("KAPOW!", 'squeakyText', 'lime', undefined, "enemyPanel");
+        if (random===5) damageText("ZOOM!", 'squeakyText', 'blue', undefined, "enemyPanel");
+    }
+    
+
+
+
+}
+
 function castHiddenPledge(){
 
 
@@ -1086,9 +1113,20 @@ function castPineBoomerang(){
     animParticleProjectile("boomerang", "throw", 0, "particleSmoke", 0);
     animState("rpgPlayerImg", "gelatineHigh 0.3s 1");
     setTimeout(() => {
-        enemyNatureDamage(playerWeaponDamage*0.2);
+        enemyNatureDamage(playerWeaponDamage*0.4);
         animState(stats.currentEnemy+"enemy", "gelatine 0.4s 1");
-        playSound("audio/throw.mp3")}, 700);}
+        playSound("audio/throw.mp3")}, 700);
+}
+
+function castBoneShuriken(){
+    animParticleProjectile("bone", "throw", 0, "particleSmoke", 0);
+    animState("rpgPlayerImg", "gelatineHigh 0.3s 1");
+    setTimeout(() => {
+        enemyMightDamage(playerWeaponDamage*0.4);
+        animState(stats.currentEnemy+"enemy", "gelatine 0.4s 1");
+        playSound("audio/throw.mp3")}, 700);
+}
+
 
 function castRegalBroadsword(){ //weapon skill
     if (rng(1,5)===1){
@@ -2649,6 +2687,7 @@ function castPerishSong(){
     animState("rpgPlayerImg", "gelatineHigh 0.4s 1");
     animImageSplash("partiture", "enemyPanel", "downwards", -30);
     animParticleBurst(10 , "particleNote", "enemyPanel", -50);
+    castInterrupt()
     setTimeout(() => {
         animState(stats.currentEnemy+"enemy", "shakeFlash 0.5s 1");
         animParticleBurst(6 , "particleGlow", "enemyPanel", 200);
