@@ -3133,7 +3133,7 @@ items.I163.description = 'Consumable - Battle<br><FONT COLOR="#1EFF0C">Use: Flin
 items.I163.flavor = '"Sticks and stones may break my bones, but my bones will definitely break yours."';
 items.I163.quality = 'Common';
 items.I163.use = 'castBoneShuriken(); items.I163.count -- ;'
-items.I163.sell = 'artisanBonus("EA4")/10';
+items.I163.sell = 'artisanBonus("EA4")/20';
 items.I163.max = 10;
 items.I163.align = 'might'
 
@@ -4864,13 +4864,13 @@ items.I376.series = 'runic';
 items.I383 = {};
 items.I383.name = 'Ring of Grace and Salvation';
 items.I383.description = `'Equipable - Ring<br>'+rUpgLvl("I383")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I383", 1))+' Max Health'`;
-items.I383.skills = 'rUpgSkill("I383", "Favor: +20%"+spIcon+"Spellpower","passive",50)+"<br>"+rUpgSkill("I383", "Protection: +20%"+strIcon+"Strength","passive",60)'
+items.I383.skills = 'rUpgSkill("I383", "Favor: +30%"+spIcon+"Spellpower","passive",50)+"<br>"+rUpgSkill("I383", "Protection: +30%"+strIcon+"Strength","passive",60)'
 items.I383.flavor = '"A fragile ring that shatters on equip. It will take a while to reforge itself back."';
 items.I383.quality = 'Rare';
 items.I383.sell = 300000;
 items.I383.max = 1;
 items.I383.use = 'items.I383.cd=1200; gearSwap(items.I383.id, rpgPlayer.ringSlot, "rpgRingSlot", "ring")'
-items.I383.stats = 'ringAdditiveMaxHp = rUpgDmg("I383", 1); if (items.I383.level>29) items.I383.statUp = 0.2; if (items.I383.level>29) items.I383.statUp2 = 0.2;'
+items.I383.stats = 'ringAdditiveMaxHp = rUpgDmg("I383", 1); if (items.I383.level>29) items.I383.statUp = 0.3; if (items.I383.level>59) items.I383.statUp2 = 0.3;'
 items.I383.remove = 'ringAdditiveMaxHp = 0; items.I383.statUp = 0; items.I383.statUp2 = 0;'
 items.I383.statUp = 0;
 items.I383.statUp2 = 0;
