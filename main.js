@@ -742,6 +742,8 @@ function toggleSettings(i) {
 
 function toggleSettingsUI(){
     for (let i in settings) {
+        if (settings[i]){
+
     if (settings[i]) {
         did(i).innerHTML = 'ON';
         did(i).style.background = '#6BB23E';
@@ -750,6 +752,8 @@ function toggleSettingsUI(){
         did(i).innerHTML = 'OFF';
         did(i).style.background = '#373737';
     }
+
+}
     }
 }
 
