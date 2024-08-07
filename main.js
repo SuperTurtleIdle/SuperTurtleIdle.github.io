@@ -742,7 +742,7 @@ function toggleSettings(i) {
 
 function toggleSettingsUI(){
     for (let i in settings) {
-        if (settings[i]){
+        if (did(i)){
 
     if (settings[i]) {
         did(i).innerHTML = 'ON';
