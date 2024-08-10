@@ -4299,7 +4299,7 @@ function upgradeMax(event){
 
 
 
-  if (items[rUpgBaseMat(upgradeItem, "item")].count>=rUpgBaseMat(upgradeItem) && rpgPlayer.coins>=rUpgShells(upgradeItem) && items[upgradeItem].level<itemCap){
+  if ( items[upgradeItem].level<itemCap && items[rUpgBaseMat(upgradeItem, "item")].count>=rUpgBaseMat(upgradeItem) && rpgPlayer.coins>=rUpgShells(upgradeItem)){
     did("upgradeItem").style.animation = "";
     void did("upgradeItem").offsetWidth;
     did("upgradeItem").style.animation = "useSkill 1s 1";
@@ -4314,7 +4314,7 @@ function upgradeMax(event){
   } else  playSound("audio/thud.mp3")
 
 
-while (items[rUpgBaseMat(upgradeItem, "item")].count>=rUpgBaseMat(upgradeItem) && rpgPlayer.coins>=rUpgShells(upgradeItem) && rUpgCapMat(upgradeItem, "check")  && items[upgradeItem].level<itemCap){
+while ( items[upgradeItem].level<itemCap && items[rUpgBaseMat(upgradeItem, "item")].count>=rUpgBaseMat(upgradeItem) && rpgPlayer.coins>=rUpgShells(upgradeItem) && rUpgCapMat(upgradeItem, "check")){
   items[rUpgBaseMat(upgradeItem, "item")].count-=rUpgBaseMat(upgradeItem);
   rpgPlayer.coins-=rUpgShells(upgradeItem);
   items[upgradeItem].level++;
