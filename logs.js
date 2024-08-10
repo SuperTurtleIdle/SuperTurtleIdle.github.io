@@ -438,6 +438,22 @@ function createArmory() {
     }
     });
 
+
+    div.addEventListener("contextmenu", function (event) {
+      if (items[i].gotOnce && rpgPlayer.coins>= eval(items[i].sell) && items[i].count===0){
+        rpgPlayer.coins-= eval(items[i].sell)
+        items[i].count++;
+
+        playSound("audio/button3.mp3"); 
+          div.style.animation = "";
+          void div.offsetWidth;
+          div.style.animation = "buyAnimation 0.2s 1";
+
+        addItems()
+
+    } else playSound("audio/thud.mp3"); 
+    });
+
     
 
 
@@ -536,13 +552,19 @@ function tooltipArmory(i) {
   did("tooltipDescription").innerHTML = "";
   did('tooltipImage').style.filter = "grayscale(0.6)"
 
-  if (items[i].armoryState==="partial") did("tooltipDescription").innerHTML = rUpgLvl(i)+'<br><FONT COLOR="gray">Upgrade this item to level '+items[i].cap+' to complete the entry and unlock its potential<br><br><FONT COLOR="#d194cd">Click to open the upgrade menu of this item<div class="separador"></div>';
+
+  let partialText =""
+  if (items[i].armoryState==="partial") partialText ='<br><FONT COLOR="gray">Upgrade this item to level '+items[i].cap+' to complete the entry and unlock its potential'
+
+  let completeText = ""
+  if (items[i].armoryState==="complete") completeText = '<br><span class="logStat">[+ 10 Mastery]</span>'
 
   if (items[i].armoryState==="complete"){
     did('tooltipImage').style.filter = "grayscale(0)"
-    did("tooltipDescription").innerHTML = rUpgLvl(i)+'<br><span class="logStat">[+ 10 Mastery]</span>';
-
   }
+
+  did("tooltipDescription").innerHTML = rUpgLvl(i)+partialText+completeText+'<br><br><FONT COLOR="#d194cd">Left Click to open the upgrade menu of this item<br>Right Click to buy a copy of this item for '+beautify(eval(items[i].sell))+' Shells<div class="separador">';
+
 
  
   const movingDiv = document.getElementById('tooltip');
@@ -597,6 +619,8 @@ did("armoryButton").addEventListener("mouseleave", function () {
 
 settingsPanel ("bestiaryButton", "bestiary");
 
+settingsPanel ("masteryButton", "masteryGuide");
+
 let bestiaryPointEntry = 0;
 let bestiaryPointBronze = 0;
 let bestiaryPointGold = 0;
@@ -627,6 +651,8 @@ let bronzeMedalsGot = 0;
 let goldMedalsGot = 0;
 let platinumMedalsGot = 0;
 
+let elibileEnemies = 0;
+
 let medalsGot = 0;
 
 function createBestiary() {
@@ -634,7 +660,7 @@ function createBestiary() {
   goldMedalsGot = 0;
   platinumMedalsGot = 0;
   bestiaryPointEntry = 0;
-  let elibileEnemies = 0;
+  elibileEnemies = 0;
   totalBestiaryPoints = 0;
   medalsGot = 0;
 
@@ -829,6 +855,30 @@ did("bestiaryButton").addEventListener("mouseleave", function () {
 });
 
 
+
+did("masteryButton").addEventListener("mouseenter", function () {
+  did("tooltip").style.display = "flex";
+  did("upperTooltip").style.display = "none";
+  did("tooltipDescription").innerHTML ='<FONT COLOR="#edd585">Open the Mastery Guide';
+  did("tooltipFlavor").textContent = "";
+  did("tooltipDescription").style.textAlign = "center";
+  did("tooltipImage").style.display = "none";
+  did("tooltipArrowUp").style.display = 'flex'
+  did("tooltipArrow").style.display = 'none'
+
+const movingDiv = did("tooltip");
+const referenceDiv = did("masteryButton");
+const referenceRect = referenceDiv.getBoundingClientRect();
+const referenceRight = referenceRect.right; // Derecha de currentWeather
+const referenceBottom = referenceRect.bottom - 1; // Abajo de currentWeather
+const newLeft = referenceRight - movingDiv.offsetWidth;
+const newTop = referenceBottom;
+movingDiv.style.left = newLeft + "px";
+movingDiv.style.top = newTop + "px";
+});
+did("masteryButton").addEventListener("mouseleave", function () {
+  resetTooltip();
+});
 
 
 

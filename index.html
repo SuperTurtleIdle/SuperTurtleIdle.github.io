@@ -72,10 +72,6 @@
             <h2><br></h2>
             <h3 style="background: #363a5e;">Discord server</strong><button style="background: #454179;" onclick='window.open("https://discord.gg/VnukKfSs3S", "_blank"); logTrackClickDiscord=true'>Join</button></h3>
 
-            <h2 id="specialSettings" style="display: flex;">Special</h2>
-            <h3 class="specialToggle" >Disable Mastery<button id="masteryToggle" onclick="toggleSettings('masteryToggle'); statsUpdate(); updateStatsUI();">OFF</button></h3>
-            <h3 class="specialToggle">Disable Seasonal Events<button id="sEventToggle" onclick="toggleSettings('sEventToggle')">OFF</button></h3>
-
             <h2>General</h2>
             <h3>Save manually <strong style="color: rgb(85, 80, 80);">[Shortcut: "S"]</strong><button onclick="autosave(); playSound('audio/button1.mp3')">Save</button></h3>
             <h3 id="exportSave">Export save in a JSON file<button onclick="exportJSON(); playSound('audio/button1.mp3')">Export</button></h3>
@@ -113,8 +109,38 @@
             <h3>Disable item drop logs<button id="disableDropsLog" onclick="toggleSettings('disableDropsLog')">OFF</button></h3>
             <h3>Disable skills logs<button id="disableSkillLog" onclick="toggleSettings('disableSkillLog')">OFF</button></h3>
 
+            <h2 id="specialSettings" style="display: flex;">Special</h2>
+            <h3 class="specialToggle" >Disable mastery<button id="masteryToggle" onclick="toggleSettings('masteryToggle'); statsUpdate(); updateStatsUI();">OFF</button></h3>
+            <h3 class="specialToggle">Disable seasonal events<button id="sEventToggle" onclick="toggleSettings('sEventToggle')">OFF</button></h3>
+            <h3 class="specialToggle">Disable gilded and present spawns<button id="randomEventToggle" onclick="toggleSettings('randomEventToggle')">OFF</button></h3>
 
 
+
+
+
+            </span>
+
+
+
+
+
+        </div>
+
+
+
+
+        <div id="masteryGuide" class="panelOpciones" style="display:none">
+              
+            <h1>MASTERY GUIDE</h1>
+            <div class="separatorHeader"><div class="separator"></div>(Click outside the window to close)<div class="separator"></div></div>
+            <span class="settingsFlex">
+            <div style="display: flex; margin-right: auto; font-size: 1.5rem; font-family: fredoka; color: rgb(194, 194, 194); background: transparent; font-weight: 400; flex-shrink: 0;"><img src="img/src/icons/masteryGuide.png">< Mastery is the fastest way to get stronger!</div>
+            <div class="masteryGuideBox" id="MGQuesting"><img src="img/src/items/quest.jpg"><h1>Questing</h1><h2><strong><img src="img/src/icons/insight.png">330/550</strong> 32/82 (15%)</h2><div class="masteryGuideProgress"><div></div></div></div>
+            <div class="masteryGuideBox" id="MGCollection"><img src="img/src/icons/collection.jpg"><h1>Collection</h1><h2><strong><img src="img/src/icons/insight.png">330/550</strong> 32/82 (15%)</h2><div class="masteryGuideProgress"><div></div></div></div>
+            <div class="masteryGuideBox" id="MGGrandArchive"><img src="img/src/items/I0.jpg" style="outline: white solid 1px;"><h1 style="color: gray;">?????</h1><div class="masteryGuideProgress"><div></div></div></div>
+            <div class="masteryGuideBox" id="MGArmory"><img src="img/src/items/I0.jpg" style="outline: white solid 1px;"><h1 style="color: gray;">?????</h1><div class="masteryGuideProgress"><div></div></div></div>
+            <div class="masteryGuideBox" id="MGBestiary"><img src="img/src/items/I0.jpg" style="outline: white solid 1px;"><h1 style="color: gray;">?????</h1><div class="masteryGuideProgress"><div></div></div></div>
+            <div class="masteryGuideBox" id="MGGarden"><img src="img/src/items/I0.jpg" style="outline: white solid 1px;"><h1 style="color: gray;">?????</h1><div class="masteryGuideProgress"><div></div></div></div>
 
 
             </span>
@@ -457,8 +483,9 @@
             <div class="shopLockedListing" id="honorShopListing1" style="margin-top: 5rem;"><div class="shopLockedListingCover" id="honorShopListing1Cover"><img src="img/src/icons/gladr2.jpg">Achieve <strong style="background: #ffb759;">Rank 2</strong> Gladiator Rank to unlock</div></div>
             <div class="shopLockedListing" id="honorShopListing2"><div class="shopLockedListingCover" id="honorShopListing2Cover"><img src="img/src/icons/gladr3.jpg">Achieve <strong style="background: #ffb759;">Rank 3</strong> Gladiator Rank to unlock</div></div>
             <div class="shopLockedListing" id="honorShopListing3"><div class="shopLockedListingCover" id="honorShopListing3Cover"><img src="img/src/icons/gladr4.jpg">Achieve <strong style="background: #ffb759;">Rank 4</strong> Gladiator Rank to unlock</div></div>
-            <div style="display: none;">
+            
             <div class="shopLockedListing" id="honorShopListing4"><div class="shopLockedListingCover" id="honorShopListing4Cover"><img src="img/src/icons/gladr5.jpg">Achieve <strong style="background: #ffb759;">Rank 5</strong> Gladiator Rank to unlock</div></div>
+            <div style="display: none;">
             <div class="shopLockedListing" id="honorShopListing5"><div class="shopLockedListingCover" id="honorShopListing5Cover"><img src="img/src/icons/gladr6.jpg">Achieve <strong style="background: #ffb759;">Rank 6</strong> Gladiator Rank to unlock</div></div>
         </div>
              </span>
@@ -896,6 +923,7 @@
                 </div>
             </div>
             <div class="recursosSuperior">
+                <div class="topWidget"  id="masteryButton" onclick="masteryGuide()"><img src="img/src/icons/insight.png"></div>
                 <div class="topWidget"  id="bestiaryButton" onclick=" bestiaryEntry(stats.currentEnemy); createBestiary(); playSound('audio/book.mp3');"><img src="img/src/items/I290.jpg"></div>
                 <div class="topWidget" id="armoryButton" style="display: none;" onclick="createArmory()"><img src="img/src/icons/armory.jpg"></div>
                 <div class="topWidget" id="collectionButton"><img src="img/src/icons/collection.jpg"></div>
@@ -1189,7 +1217,7 @@
 
                     <div id="gardenList"></div>
 
-                    <div class="gardenRows">
+                    <div class="gardenRows" id="gardenSquare">
                         <span class="gardenWood1"></span><span class="gardenWood2"></span><span class="gardenWood3"></span><span class="gardenWood4"></span>
                         <div id="gardenRow1"></div>
                         <div id="gardenRow2"></div>

@@ -2322,6 +2322,78 @@ flex-shrink: 0;
     -ms-user-select: none;
 }
 
+#gardenSquare{
+    transition: 0.5s;
+}
+
+.masteryGuideBox{
+    width: 100%;
+    display: flex;
+    border-radius: 0.2rem;
+    padding: 1rem;
+    position: relative;
+    margin-top: 1rem;
+    background: transparent;
+    flex-shrink: 0;
+}
+
+.masteryGuideBox img{
+    height: 4rem;
+    width: auto;
+    border-radius: 0.2rem;
+    outline: rgb(243, 156, 42) solid 1px;
+
+}
+
+.masteryGuideBox h1{
+    font-size: 2rem;
+    font-family: belwe;
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
+.masteryGuideBox h2,.masteryGuideBox h2 strong {
+    margin-left: auto;
+    margin-bottom: 1.5rem;
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+    font-family: fredoka;
+}
+
+.masteryGuideBox h2 img{
+    height: 1.5rem;
+    outline: none;
+    translate: 0 0.2rem;
+    margin-right: 0.3rem;
+
+}
+
+.masteryGuideBox h2 strong{
+    font-weight: 500;
+    color: cyan;
+    font-size: 1.3rem;
+
+
+}
+
+.masteryGuideProgress{
+    background: rgb(56, 56, 56);
+    height: 0.6rem;
+    width: 85%;
+    position: absolute;
+    border-radius: 5rem;
+    bottom: 1.5rem;
+    margin-left: 5rem;
+}
+
+.masteryGuideProgress div{
+    background: rgb(243, 156, 42);
+    height: 100%;
+    width: 0%;
+    position: absolute;
+    border-radius: 5rem;
+    margin-left: auto;
+}
 
 .flash-animation {
   animation: flash 0.5s;
@@ -3231,6 +3303,7 @@ margin-right: 0.2rem;
     font-size: 1.3rem;
     flex-shrink: 0;
     padding: 0 0.2rem;
+    position: relative;
 }
 
 .buildingInfoDesc{
@@ -3247,6 +3320,17 @@ margin-right: 0.2rem;
     bottom: 0;
 }
 
+.buildingProgress{
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    background:
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E"),
+    #BD6F3B;
+    left: 0;
+    border-radius: 0 0.2rem  0.2rem 0;
+}
+
 
 .panelMejoras {
 
@@ -3261,6 +3345,8 @@ margin-right: 0.2rem;
     background-size: cover;
     position: relative;
 }
+
+
 
 .panelMejoras::before{
     content: "";

@@ -44,7 +44,7 @@ function calculateGardenStats(){
 
   } else {
 
-    gardenFlowerPower = ((plants.g17.planted)*10 + (plants.g17a.planted*30)) + (talent.TI2B1.statUp);
+    gardenFlowerPower = ((plants.g17.planted)*10 + (plants.g17a.planted*30)) + (talent.TI2B1.statUp) + sakuraDropUp;
     gardenReflectPower = ((plants.g1.planted)*3 + (plants.g1a.planted*10))*(1+(gardenFlowerPower/3)/100);
     gardenNaturePower = ((plants.g7.planted)*2 + (plants.g7a.planted*10))/100*(1+gardenFlowerPower/100);
     gardenElementalPower = ((plants.g4.planted)*2 + (plants.g4a.planted*10))/100*(1+gardenFlowerPower/100);
@@ -392,6 +392,8 @@ function createGardenPlots() {
 
 
   function plantTick(mode){
+
+    
   
     for (let i in plot) {
 
@@ -435,7 +437,7 @@ function createGardenPlots() {
 
 
 
-              if (plot[i].water>0 && plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,20)===1){ // bonus mutation
+              if (plot[i].water>0 && plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,15)===1){ // bonus mutation
                 if (plot[i].mature) plants[plot[i].slot].planted--
                 plot[i].slot = plot[i].slot+"a";
                 plot[i].renewable = true;
@@ -489,9 +491,7 @@ function createGardenPlots() {
 
 
               let baseMutationChance = 6000
-              if (plants[plot[i].slot].tier === 2) baseMutationChance = 10000
-              if (plants[plot[i].slot].tier === 3) baseMutationChance = 19000
-              if (plants[plot[i].slot].tier === 4) baseMutationChance = 24000
+              if (plants[plot[i].slot].tier >= 2) baseMutationChance = 10000 //increase cuando añada otra row supongo
               //console.log("new:" + baseMutationChance*(1/(1 + (gardenMutationPower*5)/100 )))
               //let mutationChance = baseMutationChance * (100-Math.min(gardenMutationPower,99)) / 100
               //console.log("old:" + mutationChance)
@@ -543,7 +543,7 @@ function createGardenPlots() {
                 
 
                 stats.plantsHarvested++
-                let tokensGained = 2;
+                let tokensGained = 3;
                 if (talent.TG2D2.active && rng(1,4)===1) tokensGained += 1
                 rpgPlayer.gardenTokens += tokensGained;
                 if (rpgPlayer.gardenLevel<=6) rpgPlayer.gardenExp+=returnPlantExp(plot[i].slot)*2
@@ -604,7 +604,22 @@ function plantGrow(){ //purely visual stuff
     if (plot[i].slot !== "none"){
 
 
-  if (stats.currentCategory === "jobContainer"){ //visual stuffg19
+  if (stats.currentCategory === "jobContainer"){ //visual stuff
+
+
+
+    if (rpgPlayer.currentFertiliser==="f0"){
+
+      did("gardenSquare").style.filter= "sepia(50%) hue-rotate(160deg)";
+
+    } else {
+      did("gardenSquare").style.filter= ""
+    }
+
+
+
+
+
 
     if (did(i+'plotPlant') && !plot[i].mature) {
     
@@ -1230,6 +1245,7 @@ function createFertiliser() {
         did("currentFertiliser").src = "img/src/garden/"+i+".jpg";
 
         calculateGardenStats()
+        plantGrow()
 
         closePanels()
         

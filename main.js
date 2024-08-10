@@ -295,7 +295,7 @@ cd.shopRestock = 259200
 
 var itemOfTheDay = {}
 itemOfTheDay.item = 'I93';
-itemOfTheDay.price = 'stats.totalCoins*0.015';
+itemOfTheDay.price = 'Math.min(stats.totalCoins*0.015,500000)';
 itemOfTheDay.bought = false;
 
 function clickIOTD(){
@@ -383,15 +383,15 @@ function refreshItemOfTheDay(){
 
     if (!itemOfTheDay.bought) {
         did("itemOfTheDayFlair").style.display = "inline";
-        did("itemOfTheDayTag").style.display = "none";
+        did("IOTDitemTag").style.display = "none";
     }else {
         did("itemOfTheDayFlair").style.display = "none";
-        did("itemOfTheDayTag").style.display = "flex";
+        did("IOTDitemTag").style.display = "flex";
 }
     
     
     
-    did("imageOfTheDay").src = "img/src/items/"+itemOfTheDay.item+".jpg";
+    did("IOTDdisplayItem").src = "img/src/items/"+itemOfTheDay.item+".jpg";
     did("nameOfTheDay").innerHTML = items[itemOfTheDay.item].name;
     did("nameOfTheDay").style.background = returnQualityColor(items[itemOfTheDay.item].quality);
     
@@ -579,6 +579,7 @@ var bluemoonExpUp = 0;
 var bluemoonDmgUp = 0;
 var sakuraDropUp = 0;
 var rainFishingUp = 0;
+
 setInterval(weatherCheck, 2500); //1 day = 1 hour
 function weatherCheck() {
     stats.rpgTime++;
@@ -603,7 +604,7 @@ function weatherCheck() {
     if (stats.currentWeather === 'bluemoon' && !(document.getElementById('currentWeather').src.endsWith("bluemoon.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/bluemoon.png"; did('weatherOverlay').style.opacity = 0.5; did('weatherOverlay').style.background = "#010028"; did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/bluemoon.gif)"; did('weatherEffectOverlay').style.opacity = "0.5"; bluemoonExpUp = 1; bluemoonDmgUp = 0.2; statsUpdate(); updateStatsUI(); }
     if (stats.currentWeather === 'vortex' && !(document.getElementById('currentWeather').src.endsWith("vortex.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/vortex.png"; did('weatherOverlay').style.opacity = 0.5; did('weatherOverlay').style.background = "#18011F" ;did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/vortex.gif)";  did('weatherEffectOverlay').style.opacity = "1";  did('weatherEffectOverlay').style.backgroundSize = "150%"; did('weatherEffectOverlay').style.backgroundPosition = "150% 60%"; statsUpdate(); updateStatsUI();}
     if (stats.currentWeather === 'rain' && !(document.getElementById('currentWeather').src.endsWith("rain.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/rain.png"; did('weatherOverlay').style.opacity = 0; did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/rain.gif)";  did('weatherEffectOverlay').style.opacity = "1"; rainFishingUp = 1; statsUpdate(); updateStatsUI();}
-    if (stats.currentWeather === 'sakura' && !(document.getElementById('currentWeather').src.endsWith("sakura.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/sakura.png"; did('weatherOverlay').style.opacity = 0.2; did('weatherOverlay').style.background = "#512551" ;did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/sakura.gif)";  did('weatherEffectOverlay').style.opacity = "1"; sakuraDropUp = 1; statsUpdate(); updateStatsUI();}
+    if (stats.currentWeather === 'sakura' && !(document.getElementById('currentWeather').src.endsWith("sakura.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/sakura.png"; did('weatherOverlay').style.opacity = 0.2; did('weatherOverlay').style.background = "#512551" ;did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/sakura.gif)";  did('weatherEffectOverlay').style.opacity = "1"; sakuraDropUp = 50; statsUpdate(); updateStatsUI();}
     if (stats.currentWeather === 'snow' && !(document.getElementById('currentWeather').src.endsWith("snow.png"))){ resetOverlay(); did('currentWeather').src = "/img/src/icons/snow.png"; did('weatherOverlay').style.opacity = 0.35; did('weatherEffectOverlay').style.backgroundImage = "url(img/src/icons/snow.gif)";  did('weatherEffectOverlay').style.opacity = "1"; statsUpdate(); updateStatsUI();}
     };
 
@@ -684,7 +685,7 @@ function tooltipWeather() {
       if (stats.currentWeather==="sakura"){
         did("tooltipName").textContent = "Sakura Fall";
         did("tooltipFlavor").textContent = '"Sakura petals drift, Whispering the springtimes end, Beautys gentle fall."';
-        did("tooltipDescription").innerHTML = '<span style="color:gray">No special weather bonuses.</span>';
+        did("tooltipDescription").innerHTML = '<span style="color:#1EFF0C">❖ +50% Flower Power</span>';
      }
 
      if (stats.currentWeather==="vortex"){
@@ -742,8 +743,7 @@ function toggleSettings(i) {
 
 function toggleSettingsUI(){
     for (let i in settings) {
-        if (did(i)){
-
+        if (did(i)) {
     if (settings[i]) {
         did(i).innerHTML = 'ON';
         did(i).style.background = '#6BB23E';
@@ -753,8 +753,8 @@ function toggleSettingsUI(){
         did(i).style.background = '#373737';
     }
 
-}
     }
+}
 }
 
 //-----category button on the left----- (weird placement but oh well)
@@ -877,6 +877,7 @@ function closePanels(){
     did("rankMenu").style.display = "none";
     did("gardenShop").style.display = "none";
     did("turtleRename").style.display = "none";
+    did("masteryGuide").style.display = "none";
     did("gameGuide").style.display = "none";
     did("plantCatalogue").style.display = "none";
     did("boughtUpgradesPanel").style.display = "none";
@@ -1165,6 +1166,10 @@ function calculateInactiveTime() { //calculates idle time
             
             for (let i in research) { if (research[i].status === "researching" && research[i].timer>1) research[i].timer -= secondsInactive}
 
+
+            for (let i in buildings) { if (buildings[i].unlocked && buildings[i].progress<8640) {buildings[i].progress += secondsInactive/30; if (buildings[i].progress>8640) buildings[i].progress=8640}}
+
+
             for (let i in areas) {
 
                 if ("dungeonTimer" in areas[i] && areas[i].dungeonTimer>0) {
@@ -1314,6 +1319,27 @@ addItem();
 //----------------------==========================-----------------------
 //#region Debug
 function diablo() {document.getElementById("cheatPanel").style.display = "flex"; console.log('modo diablo activado')}
+
+
+function masteryGuide(){
+
+let totalQuests = 58
+did("MGQuesting").innerHTML = `<img src="img/src/items/quest.jpg"><h1>Questing</h1><h2><strong><img src="img/src/icons/insight.png">`+stats.questsCompleted*10+`/`+(totalQuests*10)+`</strong> `+stats.questsCompleted+`/`+totalQuests+` (`+(stats.questsCompleted/totalQuests*100).toFixed(1)+`%)</h2><div class="masteryGuideProgress"><div style="width:`+(stats.questsCompleted/totalQuests*100).toFixed(1)+`%"></div></div>`
+
+did("MGCollection").innerHTML = `<img src="img/src/icons/collection.jpg"><h1>Collection</h1><h2><strong><img src="img/src/icons/insight.png">`+collectiblesGot*5+`/`+(collectiblesTotal*5)+`</strong> `+collectiblesGot+`/`+collectiblesTotal+` (`+(collectiblesGot/collectiblesTotal*100).toFixed(1)+`%)</h2><div class="masteryGuideProgress"><div style="width:`+(collectiblesGot/collectiblesTotal*100).toFixed(1)+`%"></div></div>`
+
+if (unlocks.journal) did("MGGrandArchive").innerHTML = `<img src="img/src/icons/achievement.png"><h1>Grand Archive</h1><h2><strong><img src="img/src/icons/insight.png">`+stats.logsGot*5+`/`+(totalLogs*5)+`</strong> `+stats.logsGot+`/`+totalLogs+` (`+(stats.logsGot/totalLogs*100).toFixed(1)+`%)</h2><div class="masteryGuideProgress"><div style="width:`+(stats.logsGot/totalLogs*100).toFixed(1)+`%"></div></div>`
+
+if (unlocks.armory) did("MGArmory").innerHTML = `<img src="img/src/icons/armory.jpg"><h1>Armory</h1><h2><strong><img src="img/src/icons/insight.png">`+totalArmoryGot*10+`/`+(totalArmory*10)+`</strong> `+totalArmoryGot+`/`+totalArmory+` (`+(totalArmoryGot/totalArmory*100).toFixed(1)+`%)</h2><div class="masteryGuideProgress"><div style="width:`+(totalArmoryGot/totalArmory*100).toFixed(1)+`%"></div></div>`
+
+if (unlocks.bestiary) did("MGBestiary").innerHTML = `<img src="img/src/items/I290.jpg"><h1>Bestiary Medals</h1><h2><strong><img src="img/src/icons/insight.png">`+medalsGot*10+`/`+((elibileEnemies+medalsGot)*10)+`</strong> `+medalsGot+`/`+(elibileEnemies+medalsGot)+` (`+(medalsGot/(elibileEnemies+medalsGot)*100).toFixed(1)+`%)</h2><div class="masteryGuideProgress"><div style="width:`+(medalsGot/(elibileEnemies+medalsGot)*100).toFixed(1)+`%"></div></div>`
+
+if (unlocks.garden) did("MGGarden").innerHTML = `<img src="img/src/items/I287.jpg"><h1>Garden</h1><h2><strong><img src="img/src/icons/insight.png">`+plantCompletionProgress*6+`/`+(plantCompletionProgressTotal*6)+`</strong> `+plantCompletionProgress+`/`+plantCompletionProgressTotal+` (`+(plantCompletionProgress/plantCompletionProgressTotal*100).toFixed(1)+`%)</h2><div class="masteryGuideProgress"><div style="width:`+(plantCompletionProgress/plantCompletionProgressTotal*100).toFixed(1)+`%"></div></div>`
+
+
+
+
+}
 //#endregion
 //----------------------==========================-----------------------
 //----------------------===========SAVING=========-----------------------
@@ -1414,6 +1440,7 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
   saveData.savedBuildingMaxLevel = {}; for (const i in buildings) { saveData.savedBuildingMaxLevel[i] = buildings[i].maxLevel;}
   saveData.savedBuildingUnlock = {}; for (const i in buildings) { saveData.savedBuildingUnlock[i] = buildings[i].unlocked;}
   saveData.savedBuildingTier = {}; for (const i in buildings) { saveData.savedBuildingTier[i] = buildings[i].tier;}
+  saveData.savedBuildingProgress = {}; for (const i in buildings) { saveData.savedBuildingProgress[i] = buildings[i].progress;}
 
   saveData.savedResearchTimer = {}; for (const i in research) { saveData.savedResearchTimer[i] = research[i].timer;}
   saveData.savedResearchStatus = {}; for (const i in research) { saveData.savedResearchStatus[i] = research[i].status;}
@@ -1574,6 +1601,7 @@ function load() {
     for (const i in parsedData.savedBuildingUnlock) { buildings[i].unlocked = parsedData.savedBuildingUnlock[i];}  
     for (const i in parsedData.savedBuildingMaxLevel) { buildings[i].maxLevel = parsedData.savedBuildingMaxLevel[i];}  
     for (const i in parsedData.savedBuildingTier) { buildings[i].tier = parsedData.savedBuildingTier[i];}  
+    for (const i in parsedData.savedBuildingProgress) { buildings[i].progress = parsedData.savedBuildingProgress[i];}  
 
     
     for (const i in parsedData.savedLogsUnlocked) { logs[i].unlocked = parsedData.savedLogsUnlocked[i];}  
@@ -1694,7 +1722,7 @@ function exportJSON() {
     
     const a = document.createElement("a");
     a.href = url;
-    a.download = "SuperSaveData-0.4.json";
+    a.download = "SuperSaveData-"+stats.currentVersion+".json";
     a.click();
     URL.revokeObjectURL(url);
         
@@ -1747,7 +1775,7 @@ function unlocksReveal(){
 
 
     if (unlocks.jobs) did('jobTab').style.display = "flex";
-    //if (unlocks.garrison) did('campTab').style.display = "flex";
+    if (unlocks.garrison) did('campTab').style.display = "flex";
     if (unlocks.itemOfTheDay) did('itemOfTheDay').style.display = "flex";
     if (unlocks.journal) did('achievementsTab').style.display = "flex";
     if (unlocks.bestiary) {did('bestiaryMastery').style.display = "flex"; did('bestiaryProgress2').style.display = "flex"; did('bestiaryBadge').style.display = "flex";}
@@ -1798,6 +1826,7 @@ function unlocksReveal(){
     if (stats.questsCompleted>=19) sendMail("MR3");
     if (stats.questsCompleted>=26) sendMail("MR4");
     if (stats.questsCompleted>=36) sendMail("MR5"); //garden
+    if (stats.questsCompleted>=50) sendMail("MR6"); //garrison
 
     //flavor
     if (stats.questsCompleted>=4) sendMail("MF1"); //mom
@@ -1843,9 +1872,12 @@ function retroactiveUpdate(){
     if (stats.currentVersion<0.42){ sendMail("MS2"); gametipUnlock("gt18")}
 
 
+    if (stats.currentVersion<0.43){for (var i in research) { research[i].status = "waiting"; research[i].unlocked = false; }; areas.A9.unlockedHerb = 0;}
+
+
 
     sanityCheck()
-    stats.currentVersion = 0.42;
+    stats.currentVersion = 0.43;
 }
 
 

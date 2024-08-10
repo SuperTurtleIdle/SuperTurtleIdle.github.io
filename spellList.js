@@ -160,11 +160,13 @@ function castCubomite(){
 
 
 function castArea9Explosion(){
-
-    playerElementalDamage(enemies[stats.currentEnemy].attack*3);
-    animImageSplash("circle", "enemyPanel", "explosion", 0);
-    animImageSplash("soundWave", "enemyPanel", "wave", 0);
-    playerUpdate()
+    
+        playerElementalDamage(playerMaxHp/7);
+        animImageSplash("circle", "enemyPanel", "explosion", 0);
+        animImageSplash("soundWave", "enemyPanel", "wave", 0);
+        playerUpdate()
+    
+    
 }
 
 function castNetOLauncher3000(){
@@ -386,7 +388,10 @@ function castKawKaw(){
         animParticleBurst(2 , "particleGlow2", "playerPanel", 100);
         animState("rpgPlayerImg", "shakeFlash 0.4s 1");
         buffs.B73.time=15; buffs.B73.stacks=10;
+        buffs.B60.time=10;
         playerBuffs();
+        playerOccultDamage(enemies[stats.currentEnemy].attack*3)
+
     }
 
 
@@ -628,7 +633,7 @@ function castArcaniteTower(){
 
     animImageSplash("lightning", "playerPanel", "impact", 0);
 
-
+    if (items.I382.gotOnce && items.I382.statUp<100) items.I382.statUp+=0.05
 
 
 }
@@ -792,7 +797,7 @@ function castYogKulth(){
     buffs.B92.stacks -= 1
     if (buffs.B93.time>0) buffs.B92.stacks -= 5
 
-    if (buffs.B92.stacks<=0){buffs.B73.time=10000; buffs.B73.stacks=15;}
+    if (buffs.B92.stacks<=0){buffs.B73.time=10000; buffs.B73.stacks=30;}
     
 
     if(enemyTurn===5){
@@ -827,7 +832,9 @@ function castYogKulth(){
     function corruption(){
             animState("rpgPlayerImg", "shakeFlash 0.4s 1");
             animParticleBurst(7 , "particleFire", "playerPanel", 180);
-            buffs.B92.stacks -= 15        
+            buffs.B92.stacks -= 15;     
+            playerNatureDamage(enemies[stats.currentEnemy].attack*3)
+   
     }
 
     function mindfly(){
@@ -843,7 +850,7 @@ function castYogKulth(){
         animImageSplash("soundWave", "enemyPanel", "wave", 100, undefined ,'boss');
         }
 
-        if (rpgPlayer.hp<playerMaxHp*0.7) buffs.B92.stacks -= 40     
+        if (rpgPlayer.hp<playerMaxHp*0.8) buffs.B92.stacks -= 40     
     }
     
 
@@ -1113,7 +1120,7 @@ function castPineBoomerang(){
     animParticleProjectile("boomerang", "throw", 0, "particleSmoke", 0);
     animState("rpgPlayerImg", "gelatineHigh 0.3s 1");
     setTimeout(() => {
-        enemyNatureDamage(playerWeaponDamage*0.4);
+        enemyNatureDamage(playerWeaponDamage*0.5);
         animState(stats.currentEnemy+"enemy", "gelatine 0.4s 1");
         playSound("audio/throw.mp3")}, 700);
 }
@@ -1122,7 +1129,7 @@ function castBoneShuriken(){
     animParticleProjectile("bone", "throw", 0, "particleSmoke", 0);
     animState("rpgPlayerImg", "gelatineHigh 0.3s 1");
     setTimeout(() => {
-        enemyMightDamage(playerWeaponDamage*0.4);
+        enemyMightDamage(playerWeaponDamage*0.5);
         animState(stats.currentEnemy+"enemy", "gelatine 0.4s 1");
         playSound("audio/throw.mp3")}, 700);
 }
@@ -1712,16 +1719,11 @@ function castVicesRetribution(){ //weapon skill
 
 function castInfernalus(){ 
 
-
-
-
     enemyTurn++
 
     if (enemyTurn % 3 === 0){fire();}
 
     if (enemyTurn===10){smoke(); enemyTurn=0;}
-
-
 
     function fire(){
         animImageSplash("holySlash", "playerPanel", "impact", 0);
@@ -1743,11 +1745,66 @@ function castInfernalus(){
     }
 
 
+}
 
+
+function castXezdeth(){ 
+
+    enemyTurn++
+
+    if (enemyTurn===4)fire();
+    if (enemyTurn===6) castEnemyCasting(3)
+    if (enemyTurn===8 && buffs.B90.time>0) blast();
+    if (enemyTurn===11)fire();
+    if (enemyTurn===14) castEnemyCasting(3)
+    if (enemyTurn===16 && buffs.B90.time>0) blast();
+    if (enemyTurn===17) castEnemyAlerted(3)
+    if (enemyTurn===19 && buffs.B59.time===0) rage();
+    if (enemyTurn===19) enemyTurn=0;
+
+    function fire(){
+        animParticleProjectile("none", "reverseThrow", 6, "particleFire", 60);
+        animParticleProjectile("none", "reverseThrow", 6, "particleFire", 0);
+        setTimeout(() => {
+            animState("rpgPlayerImg", "shake 0.4s 1");
+            animParticleBurst(5 , "particleFire", "playerPanel", 0);
+            animParticleBurst(5 , "particleFire", "playerPanel", 60);
+            buffs.B59.time += 30;
+            buffs.B59.stacks += 4;
+
+            buffs.B73.time = 30;
+            buffs.B73.stacks += 4;
+            playerBuffs();
+        }, 600);
+    }
+
+    function blast(){
+        animImageSplash("soundWave", "playerPanel", "wave", 200, undefined ,'boss');
+        animParticleBurst(10 , "particleFire", "playerPanel", 100);
+        buffs.B59.time = 0;
+        playerBuffs();
+        animState("rpgPlayerImg", "shakeFlash 0.4s 1"); 
+        playerOccultDamage(enemies[stats.currentEnemy].attack*3)
+
+    }
+
+    function rage(){
+        for (let i = 0; i < 3; i++) { setTimeout(loop, 150 * i);}
+        function loop() {
+        animState(stats.currentEnemy+"enemy", "gelatineHigh 0.4s 1");
+        animImageSplash("soundWave", "enemyPanel", "wave", 100, undefined ,'boss');
+        }
+
+        playerElementalDamage(enemies[stats.currentEnemy].attack*20)
     
+        }
 
 
 
+
+
+    castEnemyAlertedDecay()
+    castEnemyCastingDecay()
 
 
 }
@@ -2086,6 +2143,8 @@ function castThief(){
         if (stats.currentEnemy === "E30") gotItem = steal("I345",60) //creatura
         if (stats.currentEnemy === "E27")  gotItem = steal("I90",150)  //infernalus
         if (stats.currentEnemy === "E43")  gotItem = steal("I184",200)  //mimic
+        if (stats.currentEnemy === "E33")  gotItem = steal("I386",300)  //relicolo
+        if (stats.currentEnemy === "E39")  gotItem = steal("I490",100)  //maholem
 
 
 
@@ -2556,6 +2615,8 @@ function castDragonfellSword(){ //weapon skill
     animImageSplash("soundWave", "enemyPanel", "wave", 200);
     animImageSplash("slash", "enemyPanel", "impact", 0);
     animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
+
+    if (items.I82.level>69) enemyMightDamage(playerWeaponDamage*0.3)
 }
 
 function castTortufleet(){ //weapon skill

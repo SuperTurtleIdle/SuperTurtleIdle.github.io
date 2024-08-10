@@ -89,7 +89,7 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
 
   if (bossTime) currentEnemy=areas[stats.currentArea].boss
 
-  if (!bossTime && document.hasFocus() && rng(1,50) === 1 && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty) && !skirmishTime && !showdownTime && !dungeonTime && cd.presentCanSpawn<=0) {currentEnemy="E15"; }
+  if (!bossTime && document.hasFocus() && !settings.randomEventToggle && rng(1,50) === 1 && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty) && !skirmishTime && !showdownTime && !dungeonTime && cd.presentCanSpawn<=0) {currentEnemy="E15"; }
 
   if (enemy!==undefined) currentEnemy=enemy
 
@@ -126,7 +126,7 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
   
 
 
-  if (document.hasFocus() && cd.gildedCooldown<=0 && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)  && !skirmishTime && !showdownTime && !dungeonTime && !bossTime && stats.currentArea!=="A7" && rng(1,50)===1){ //gilding
+  if (document.hasFocus() && cd.gildedCooldown<=0 && !settings.randomEventToggle && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)  && !skirmishTime && !showdownTime && !dungeonTime && !bossTime && stats.currentArea!=="A7" && rng(1,50)===1){ //gilding
     cd.gildedCooldown=1200;
     div.className = "enemy gilded";
     did("enemyLevel").textContent = "[lvl "+rpgClass[stats.currentClass].level +"]";
@@ -198,6 +198,8 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
 
         if (battleData) dataEnemiesKilled ++
 
+        if (talent.TA1D1.active && rpgPlayer.mana<playerMaxMana) rpgPlayer.mana += playerMaxMana*0.005
+
 
         const loottable = window[stats.currentArea + 'Loot']; if (loottable) {rollTable(eval(stats.currentArea+"Loot"), 1) }
 
@@ -205,6 +207,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
 
         if (gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)) { //if its ore
           var totalEXP = Math.round(enemies[stats.currentEnemy].exp * playerEXPGain);
+          if (talent.TI3C2.active && (enemies[stats.currentEnemy].medal==="gold" || enemies[stats.currentEnemy].medal==="platinum")) totalEXP *= 1.5
            rpgClass[stats.currentClass].currentExp += totalEXP;
            stats.totalExp += totalEXP;
            if (!settings.disableExpLog) logPrint("<FONT COLOR='#ae77f7'>You gain " + beautify(totalEXP) + " EXP!" );
@@ -230,6 +233,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
 
 
           var totalEXP = Math.round(enemies[stats.currentEnemy].exp * playerEXPGain);
+          if (talent.TI3C2.active && (enemies[stats.currentEnemy].medal==="gold" || enemies[stats.currentEnemy].medal==="platinum")) totalEXP *= 1.5
           rpgClass[stats.currentClass].currentExp += totalEXP;
           stats.totalExp += totalEXP;
           if (!settings.disableExpLog) logPrint("<FONT COLOR='#ae77f7'>" + enemies[stats.currentEnemy].name + " gets defeated! You gain " + beautify(totalEXP) + " EXP!" );
@@ -670,7 +674,6 @@ function enemyAttackCheck(damage){
 
   if (gardenReflectPower>0) enemyNatureDamage(   Math.min( damage*gardenReflectPower/100, expectedPlayerDamage )         , "zeroScale");
 
-  if (currentSet==="explorer") enemyNatureDamage(Math.min(damage, expectedPlayerDamage), "zeroScale")
 
 
 
@@ -884,8 +887,8 @@ function updateDungeonPoints(){
   let percentageEXP =  (dungeonPoints/areas[stats.currentArea].dungeonPoints)*100;   
   did('dungeonMeter').style.width = percentageEXP+"%";
 
-  if (dungeonPoints === areas[stats.currentArea].dungeonPoints){
-  
+  if (dungeonPoints >= areas[stats.currentArea].dungeonPoints){
+    dungeonPoints = 0;
   if (dungeonStage===0){
   playSound("audio/levelup.mp3");
   did("dungeonBox2").style.animation = "levelUp 1s 1";
@@ -988,6 +991,10 @@ function enemyDamage(damage, align, icon, type){
 
 
   if (battleData) dataDamageDealt += finalDamage
+
+
+  if (equipCheck("I378") && type==="sp" && items.I378.level>69 && rng(1,15)===1) {buffs.B109.time+=5;  playerBuffs();}
+ 
 
 
 
@@ -1101,6 +1108,15 @@ function enemyHealingDamage(healing){
 }
 
 
+function playerBasicDamage(damage){
+  let damageDealt = damage;
+  rpgPlayer.hp -= damageDealt;
+  playerUpdate();
+  damageText(beautify(damageDealt), 'damageText', '#818181', undefined, "playerPanel");
+  if (!settings.disableDamageLog) logPrint( stats.turtleName + " receives <FONT COLOR='#e8643c'>" +beautify(damageDealt) + " Damage");
+}
+
+
 
 function playerNatureDamage(damage){
   let icon;
@@ -1116,6 +1132,10 @@ function playerNatureDamage(damage){
   playerUpdate();
   damageText(beautify(damageDealt), 'damageText', '#21b42d', icon, "playerPanel");
   if (!settings.disableDamageLog) logPrint( stats.turtleName + " receives <FONT COLOR='#e8643c'>" +beautify(damageDealt) + " Nature Damage");
+
+  if (currentSet==="explorer") enemyNatureDamage(Math.min(damageDealt, expectedPlayerDamage), "zeroScale")
+
+
 }
 
 function playerMightDamage(damage){
@@ -1521,7 +1541,7 @@ function dropItem(ID) { //dedicated drop rolls
   itemdrop = 1;
 
   
-  if (talent.TI3C2.active && enemies[stats.currentEnemy].medal==="platinum" && rng(1,3)===1) itemdrop += 1; //platinum awards
+  //if (talent.TI3C2.active && enemies[stats.currentEnemy].medal==="platinum" && rng(1,3)===1) itemdrop += 1; //platinum awards
 
 
 
@@ -1733,17 +1753,20 @@ setInterval(itemCooldownTick, 1000);
 function itemCooldownTick(ID, time) { //removes one second from the cd of every single item
   for (let i in items) {
     if ("cd" in items[i]){
-    if (items[i].cd > 0 && did(items[i].id + "item")) { //if its on CD
+    if (items[i].cd > 0) { //if its on CD
       items[i].cd--;
-      did(items[i].id + "item").style.filter = "brightness(0.7)";
 
+
+      if (did(items[i].id + "item")){
+
+        did(items[i].id + "item").style.filter = "brightness(0.7)";
 
       let resultado = items[i].cd < 60 ? items[i].cd : Math.floor(items[i].cd / 60) + "m";
       if (items[i].cd < 1) resultado = ""
 
       did(items[i].id + "itemCooldownText").innerHTML = resultado;
 
-
+    }
     }
     if (items[i].cd === 0 && did(items[i].id + "item")) { //if its not anymore
       did(items[i].id + "item").style.filter = "brightness(1)";
@@ -1818,6 +1841,9 @@ function addItem() { //updates inventory items
         did("inventory").appendChild(itemdiv);
 
         itemdiv.style.outline = returnQualityColor(items[i].quality) + " solid 0.15rem";
+
+
+        if (items[i].quality==="Mythic" && logs.P71.unlocked===false) logs.P71.unlocked= true
 
 
          if ("collectible" in items[i]){
@@ -2523,7 +2549,6 @@ function removeTableItem() {
 
   if (items.I286.gotOnce) fishingEeriePond2.I286.P = 0;
 
-  if (items.BR2U1.gotOnce) spriteCenserLoot.BR2U1.P = 0;
 
 }
 
@@ -4163,7 +4188,7 @@ function rUpgShells(id, mode){
   }
 }
 
-let itemCap = 60
+let itemCap = 61
 
 function upgradeMenu(){
 
@@ -5412,10 +5437,11 @@ function updateSkills() {
 
 }
 
+setInterval(manaRegen, 1000); 
 setInterval(manaUpdate, 1000); 
-function manaUpdate(){
 
- if (rpgPlayer.mana < playerMaxMana ) rpgPlayer.mana += playerManaRegen
+function manaUpdate(){ //purely visual
+
 
 
 
@@ -5441,6 +5467,20 @@ function manaUpdate(){
 
 
 }
+
+
+function manaRegen(){
+
+
+
+  if (rpgPlayer.mana < playerMaxMana ) rpgPlayer.mana += playerManaRegen
+
+
+
+
+
+}
+
 
 setInterval(updateSkillCD, 1000); 
 function updateSkillCD(){
@@ -6340,7 +6380,9 @@ function tooltipQuests(id) {
         did("tooltipName").style.color = "#FFD100";
         let questMoney = Math.min(Math.max(500,stats.totalCoins*0.25), 250000);
         if ("money" in quests[id]) questMoney=quests[id].money;
-        did("tooltipDescription").innerHTML = '“ '+quests[id].description+' ”<br><br><span style="color:#FFD100; font-size:1vw"> Objective:</span><br><span style="color:#deaf6a">❖ '+eval(quests[id].objective)+'</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ '+eval(quests[id].reward)+'</span><br><span style="color:#ffbd54">★ '+beautify(questMoney)+coinIcon+'Shells</span><br><span style="color:#ae77f7">★ '+beautify(rpgClass[stats.currentClass].nextExp*0.4)+' '+expIcon+'Experience</span><br><span style="color:#464ACB">★ 10'+repIcon+'Mastery</span>'
+        let excessWarning = ""
+        if ("warning1" in quests[id] && (items[quests[id].warning1].count+quests[id].warning2)>items[quests[id].warning1].max) excessWarning = "⚠️"
+        did("tooltipDescription").innerHTML = '“ '+quests[id].description+' ”<br><br><span style="color:#FFD100; font-size:1vw"> Objective:</span><br><span style="color:#deaf6a">❖ '+eval(quests[id].objective)+'</span><br><br><span style="color:#FFD100; font-size:1vw"> Rewards:</span></span><br><span style="color:#79ed8b">★ '+eval(quests[id].reward)+excessWarning+'</span><br><span style="color:#ffbd54">★ '+beautify(questMoney)+coinIcon+'Shells</span><br><span style="color:#ae77f7">★ '+beautify(rpgClass[stats.currentClass].nextExp*0.4)+' '+expIcon+'Experience</span><br><span style="color:#464ACB">★ 10'+repIcon+'Mastery</span>'
         did("tooltipFlavor").textContent = "";
         did("tooltipImage").src = "img/src/items/quest.jpg";
         //position related code
@@ -6740,6 +6782,7 @@ function buffEffect(strength, id) {
   if (rpgPlayer.ringSlot === "I176" && items.I176.level>9) buffs.B3.statUp = 0; //poison
   if (rpgPlayer.ringSlot === "I282" && items.I282.level>29) buffs.B59.statUp = 0; //burning
   if (rpgPlayer.ringSlot === "I373") buffs.B91.statUp = 0; //darkmoon
+  if (rpgPlayer.legsSlot === "I338" && items.I338.level>59) buffs.B73.statUp /= 2; //hex
 
 
 
@@ -6798,9 +6841,9 @@ setTimeout(() => {
 }*/
 
 
-let rareItems = ["I91","I92","I93" /*stampers*/,"I298" /*paint*/, "I209" /*egg1*/,"I222" /*magnifying*/]
-let rareItems2 = ["I311","I312" /*stampers2*/, "I210" /*egg2*/, "I200" /*phoenix*/, "I96" /*gold gamba*/, "I174" /*dungeon voucher*/, "I208" /*jackinabox*/, "I177" /*expVoucher*/, "I219" /*improv drive*/, "I205" /*kidsmeal*/]
-let rareItems3 = ["I211" /*egg3*/]
+let rareItems = ["I91","I92","I93" /*stampers*/,"I298" /*paint*/,"I222" /*magnifying*/, "I118" /*gamba*/]
+let rareItems2 = ["I311","I312" /*stampers2*/, "I209" /*egg1*/, "I200" /*phoenix*/, "I96" /*gold gamba*/, "I174" /*dungeon voucher*/, "I208" /*jackinabox*/, "I177" /*expVoucher*/, "I219" /*improv drive*/, "I205" /*kidsmeal*/, "I483","I484","I485","I486","I487" /*glitterchips*/]
+let rareItems3 = ["I210" /*egg2*/]
 
 function startMysteryMinigame(){
 
@@ -7115,6 +7158,11 @@ if (areas[stats.currentArea].dungeon) stats.currentArea = "A1"; //prevents loadi
 
   document.documentElement.style.setProperty('--bgColor1', areas[stats.currentArea].color1);
   document.documentElement.style.setProperty('--bgColor2', areas[stats.currentArea].color2);
+
+
+
+  shroomEffectsDiscovered = stats.shroom1discovered + stats.shroom2discovered + stats.shroom3discovered + stats.shroom4discovered + stats.shroom5discovered + stats.shroom6discovered + stats.shroom7discovered + stats.shroom8discovered;
+
 
 
  
