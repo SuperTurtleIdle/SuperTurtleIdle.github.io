@@ -381,6 +381,8 @@ var itemsOfTheDay = ['I14', 'I26', 'I93', 'I96', 'I97', 'I174', 'I177', 'I178', 
 
 function refreshItemOfTheDay(){
 
+    if (did("IOTDitemTag") && did("IOTDdisplayItem")){
+
     if (!itemOfTheDay.bought) {
         did("itemOfTheDayFlair").style.display = "inline";
         did("IOTDitemTag").style.display = "none";
@@ -394,6 +396,8 @@ function refreshItemOfTheDay(){
     did("IOTDdisplayItem").src = "img/src/items/"+itemOfTheDay.item+".jpg";
     did("nameOfTheDay").innerHTML = items[itemOfTheDay.item].name;
     did("nameOfTheDay").style.background = returnQualityColor(items[itemOfTheDay.item].quality);
+
+}
     
 }
 
