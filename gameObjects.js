@@ -4893,7 +4893,7 @@ items.I376.statUp = 1;
 items.I376.statUp2 = 1;
 items.I376.statUp3 = 0;
 items.I376.series = 'ancient';
-items.I376.cap = 90;
+items.I376.cap = 80;
 
 items.I383 = {};
 items.I383.name = 'Ring of Grace and Salvation';
