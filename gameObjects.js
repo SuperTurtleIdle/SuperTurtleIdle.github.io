@@ -678,7 +678,7 @@ natureDamageAdditive =  buffs.B4.statUp + buffs.B15.statUp + items.I44.statUp + 
 natureDamageMultiplicative =   (1+gardenNaturePower) * (1+talent.TI1B.statUp) * (1+talent.TI3C1.statUp);
 natureDamageBonus = natureDamageAdditive * natureDamageMultiplicative
 
-mightDamageAdditive =  items.I8.statUp + buffs.B5.statUp + buffs.B13.statUp  + buffs.B21.statUp + items.I45.statUp + mightStampStatUp + items.I133.statUp + items.I7.statUp + items.I27.statUp  + items.I136.statUp + items.I132.statUp;
+mightDamageAdditive =  items.I8.statUp + buffs.B5.statUp + buffs.B13.statUp  + buffs.B21.statUp + items.I45.statUp + mightStampStatUp + items.I133.statUp + items.I7.statUp  + items.I136.statUp + items.I132.statUp;
 mightDamageMultiplicative =  (1+gardenMightPower) * (1+talent.TG2C.statUp) * (1+talent.TG2D4.statUp);
 mightDamageBonus = mightDamageAdditive * mightDamageMultiplicative
 
@@ -690,7 +690,7 @@ deificDamageAdditive = buffs.B31.statUp + items.I175.statUp + buffs.B38.statUp +
 deificDamageMultiplicative =  (1+gardenDeificPower) * (1+talent.TA1G.statUp) * (1+talent.TG3.statUp) * (1+talent.TI0E.statUp);
 deificDamageBonus = deificDamageAdditive * deificDamageMultiplicative
 
-elementalDamageAdditive =  buffs.B30.statUp + items.I173.statUp + buffs.B40.statUp + elementalStampStatUp + items.I23.statUp2 + items.I23.statUp2 + items.I288.statUp2 + items.I334.statUp2 + items.I335.statUp + items.I338.statUp + items.I20.statUp2;
+elementalDamageAdditive =  buffs.B30.statUp + items.I173.statUp + buffs.B40.statUp + elementalStampStatUp + items.I23.statUp2 + items.I23.statUp2 + items.I288.statUp2 + items.I334.statUp2 + items.I335.statUp + items.I338.statUp + items.I20.statUp2 + items.I27.statUp;
 elementalDamageMultiplicative =  (1+gardenElementalPower) * (1+talent.TA3.statUp) * (1+talent.TA31.statUp);
 elementalDamageBonus = elementalDamageAdditive * elementalDamageMultiplicative
 
@@ -1593,7 +1593,7 @@ enemies.E40.attack = 5000000000;
 enemies.E40.exp = returnExp(57)/2000;
 enemies.E40.difficulty = 'hard';
 enemies.E40.attackChance = 'castArcaniteTower();';
-enemies.E40.drop = "dropItem('I353');";
+enemies.E40.drop = "dropItem('I353')+rareItemDrop('I375',rareDrop)";
 enemies.E40.align = 'elemental';
 enemies.E40.bestiaryItem = 'bestiaryItem("I353","drop")+bestiaryItem("I375","drop",rareDrop)';
 enemies.E40.bigEnemy = true;
@@ -3352,7 +3352,7 @@ items.I27 = {};
 items.I27.name = 'Moonlit Greatsword';
 items.I27.description = `'Equipable - Weapon<br>'+rUpgLvl("I27")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I27", 1))+' Elemental Damage'`;
 items.I27.flavor = '"Nothing appears to be refracted on the edge but the blue hue of the moon."';
-items.I27.skills = 'rUpgSkill("I27", "Blessing of the Moon: Very low chance to empower your attacks","active",35)+"<br>"+rUpgSkill("I27", "Kaguya Desperatio: Blessing of the Moon Damage Up","passive",45)+"<br>"+rUpgSkill("I27", "Artemisa Legatum: +20%"+mightIcon+"Might Bonus","passive",55)'
+items.I27.skills = 'rUpgSkill("I27", "Blessing of the Moon: Very low chance to empower your attacks","active",35)+"<br>"+rUpgSkill("I27", "Kaguya Desperatio: Blessing of the Moon Damage Up","passive",45)+"<br>"+rUpgSkill("I27", "Artemisa Legatum: +20%"+elementalIcon+"Elemental Bonus","passive",55)'
 items.I27.quality = 'Epic';
 items.I27.sell = 'returnGearPrice("I27")';
 items.I27.max = 1;
