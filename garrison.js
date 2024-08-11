@@ -289,12 +289,12 @@ function createResearch() {
           
       }
 
-      if (research[i].status === "researching"){
+      if (research[i].status === "researching" && did(i + "research")){
         did(i+'researchStatus').innerHTML = '&#x1f52c;';
         did(i+'researchStatus').style.background = '#5eb3bd'
       }
 
-      if (research[i].status === "ready"){
+      if (research[i].status === "ready" && did(i + "research")){
         did(i+'researchStatus').innerHTML = '&#10003;';
         did(i+'researchStatus').style.background = '#7be86b'
         did(i+'researchTime').innerHTML = 'Completed';
@@ -313,7 +313,7 @@ function researchTimer(){
 if (research[i].status === "researching") {
   research[i].timer--
 
-  if (stats.currentCategory === "campContainer"){
+  if (stats.currentCategory === "campContainer" && did(i + "research")){
     let percentageEXP = (research[i].timer / research[i].timerMax) * 100;
     did(i+"researchBar").style.background = "linear-gradient(-90deg, black " + percentageEXP + "%, #319364 " + percentageEXP + "%)";
     did(i+'researchTime').innerHTML = convertSecondsToHMS(research[i].timer)
