@@ -247,6 +247,7 @@ stats.researchedBuildings = 0;
 function createResearch() {
     for (let i in research) {
       if (!did(i + "research") && research[i].unlocked && research[i].status !== "completed") {
+        if (research[i].timer===undefined) {research[i].timer=research[i].timerMax} //sanity check
         researchSnapshot = research[i].timer
         const researchdiv = document.createElement("div");
         researchdiv.id = i + "research";
