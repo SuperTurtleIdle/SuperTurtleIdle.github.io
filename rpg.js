@@ -4245,7 +4245,7 @@ function equipCheck(item){
 
 function upgradeOnce(event){
 
-if (items[rUpgBaseMat(upgradeItem, "item")].count>=rUpgBaseMat(upgradeItem) && rpgPlayer.coins>=rUpgShells(upgradeItem) && rUpgCapMat(upgradeItem, "check")  && items[upgradeItem].level<itemCap){
+if (items[upgradeItem].level<itemCap && items[rUpgBaseMat(upgradeItem, "item")].count>=rUpgBaseMat(upgradeItem) && rpgPlayer.coins>=rUpgShells(upgradeItem) && rUpgCapMat(upgradeItem, "check")){
 
 
   items[rUpgBaseMat(upgradeItem, "item")].count-=rUpgBaseMat(upgradeItem);

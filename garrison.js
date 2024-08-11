@@ -131,7 +131,7 @@ function createBuilding() {
             buildingdiv.style.animation = "gelatine 0.3s 1";
 
 
-            let buildingReward = Math.ceil(buildings[i].progress/100+(buildings[i].level*100))
+            let buildingReward = Math.ceil(buildings[i].progress/100*(buildings[i].level*4))
 
 
             let mat1 = ""
@@ -215,7 +215,7 @@ function createBuilding() {
         if ("mat3" in buildings[id]) mat3 = bestiaryItem(buildings[id].mat3)+"<br>"
 
 
-        let buildingReward = Math.ceil(buildings[id].progress/100+(buildings[id].level*100))
+        let buildingReward = Math.ceil(buildings[id].progress/100*(buildings[id].level*4))
 
 
 
@@ -258,7 +258,6 @@ function createResearch() {
         did(i+'researchImage').src = research[i].img;
         did(i+'researchPrice').innerHTML = beautify(research[i].price) + ' <img src="img/sys/coin.png" />';
         did(i+'researchTime').innerHTML = convertSecondsToHMS(research[i].timer)
-        research[i].timerMax = research[i].timer;
   
         did(i + "research").addEventListener("click", function () {
           if(rpgPlayer.coins>=research[i].price && research[i].status === "waiting"){
@@ -273,7 +272,9 @@ function createResearch() {
             playSound("audio/retro2.mp3")
             stats.researchedBuildings++;
             eval(research[i].effect);
-            research[i].status = "completed";
+            research[i].status = "waiting";
+            research[i].unlocked = false;
+            research[i].timer = research[i].timerMax;
             did(i + "research").style.animation = "shrinkFadeOut 0.3s 1";
             
             setTimeout(() => {did(i+"research").remove() }, 200);

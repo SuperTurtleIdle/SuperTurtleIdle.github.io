@@ -3368,7 +3368,7 @@ items.I27.statUp = 0;
 items.I28 = {};
 items.I28.name = 'Edge Of Cataclysm';
 items.I28.description = `'Equipable - Weapon<br>'+rUpgLvl("I28")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I28", 1))+' Deific Damage'`;
-items.I28.skills = 'rUpgSkill("I28", "Meteora: Medium chance to deal medium"+elementalIcon+"Elemental Damage 4 times","active",40)+"<br>"+rUpgSkill("I28", "Ignitio: Meteora now inflicts"+buffIcon("B16")+"Burn for 5 seconds","passive",50)'
+items.I28.skills = 'rUpgSkill("I28", "Meteora: Low chance to deal medium"+elementalIcon+"Elemental Damage 4 times","active",40)+"<br>"+rUpgSkill("I28", "Ignitio: Meteora now inflicts"+buffIcon("B16")+"Burn for 5 seconds","passive",50)'
 items.I28.flavor = '"Terrific blade wielded by the jailer of the hallowed grounds. Tasked with warding off souls, this weapon has become nearly sentient over time."';
 items.I28.quality = 'Rare';
 items.I28.sell = 'returnGearPrice("I28")';
@@ -4845,6 +4845,8 @@ items.I373.quality = 'Rare';
 items.I373.sell = 'returnGearPrice("I373")';
 items.I373.max = 1;
 items.I373.use = 'gearSwap(items.I373.id, rpgPlayer.ringSlot, "rpgRingSlot", "ring")'
+items.I373.stats = 'ringAdditiveMaxHp = rUpgDmg("I373", 1); '
+items.I373.remove = 'ringAdditiveMaxHp = 0;'
 items.I373.series = 'solstice';
 items.I373.cap = 70;
 
@@ -4879,7 +4881,6 @@ items.I375.statUp2 = 0;
 
 items.I376 = {};
 items.I376.name = 'Beholder Ring';
-items.I376.description = `'Equipable - Ring<br><FONT COLOR="#1EFF0C">Equip: Increase Strength by'+ colorTag("x"+(returnItemUpgradeScaling(1.9, "I376")*0.1+1).toFixed(1),"#E57D08")+'at the expense of removing all Spellpower.'`;
 items.I376.description = `'Equipable - Ring<br>'+rUpgLvl("I376")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I376", 1))+' Max Health'`;
 items.I376.skills = 'rUpgSkill("I376", "Lifeforce Conversion: "+colorTag("x2","#E57D08")+strIcon+"Strength, "+colorTag("x0","#E57D08")+spIcon+"Skill Damage","passive",60)+"<br>"+rUpgSkill("I376", "Fierce Deity: +20%"+strIcon+"Strength","passive",70)'
 items.I376.flavor = '"Would you watch the world burn with me?"';
@@ -12463,42 +12464,42 @@ var research = {};
 research.R1 = {};
 research.R1.name = 'Lumberjack Post';
 research.R1.price = 600000;
-research.R1.timer = 18000;
+research.R1.timerMax = 18000;
 research.R1.effect = 'buildings.B1.unlocked=true';
 research.R1.img = 'img/src/buildings/B1U1.jpg';
 
 research.R2 = {};
 research.R2.name = 'Sawmill Plant';
 research.R2.price = 600000;
-research.R2.timer = 18000;
+research.R2.timerMax = 18000;
 research.R2.effect = 'buildings.B2.unlocked=true';
 research.R2.img = 'img/src/buildings/B2U1.jpg';
 
 research.R3 = {};
 research.R3.name = 'Metal Workshop';
 research.R3.price = 600000;
-research.R3.timer = 18000;
+research.R3.timerMax = 18000;
 research.R3.effect = 'buildings.B3.unlocked=true';
 research.R3.img = 'img/src/buildings/B3U1.jpg';
 
 research.R7 = {};
 research.R7.name = 'Penguin Aviary';
 research.R7.price = 5000000;
-research.R7.timer = 28800;
+research.R7.timerMax = 28800;
 research.R7.effect = 'buildings.B7.unlocked=true';
 research.R7.img = 'img/src/buildings/B7U1.jpg';;
 
 research.R4 = {};
 research.R4.name = 'Monster Hatchery';
 research.R4.price = 300;
-research.R4.timer = 10;
+research.R4.timerMax = 10;
 research.R4.effect = 'buildings.B4.unlocked=true';
 research.R4.img = 'img/src/buildings/B4U1.jpg';
 
 research.R5 = {};
 research.R5.name = 'Tome Enchanter';
 research.R5.price = 300;
-research.R5.timer = 10;
+research.R5.timerMax = 10;
 research.R5.effect = 'buildings.B5.unlocked=true';
 research.R5.img = 'img/src/buildings/B5U1.jpg';
 
@@ -12508,7 +12509,7 @@ stats.thebox = false
 research.R6 = {};
 research.R6.name = 'The Box';
 research.R6.price = 1000000;
-research.R6.timer = 43200;
+research.R6.timerMax = 43200;
 research.R6.effect = 'stats.thebox=true';
 research.R6.img = 'img/src/items/I492.jpg';
 
@@ -12517,42 +12518,42 @@ research.R6.img = 'img/src/items/I492.jpg';
 research.R1U1 = {};
 research.R1U1.name = 'Gold Plated Tools';
 research.R1U1.price = 600000;
-research.R1U1.timer = 18000;
+research.R1U1.timerMax = 18000;
 research.R1U1.effect = 'buildings.B1.tier++';
 research.R1U1.img = 'img/src/buildings/B1U2.jpg';
 
 research.R2U1 = {};
 research.R2U1.name = 'Willow Tree Logs';
 research.R2U1.price = 600000;
-research.R2U1.timer = 18000;
+research.R2U1.timerMax = 18000;
 research.R2U1.effect = 'buildings.B2.tier++';
 research.R2U1.img = 'img/src/buildings/B2U2.jpg';
 
 research.R3U1 = {};
 research.R3U1.name = 'Hotter Furnaces';
 research.R3U1.price = 600000;
-research.R3U1.timer = 18000;
+research.R3U1.timerMax = 18000;
 research.R3U1.effect = 'buildings.B3.tier++';
 research.R3U1.img = 'img/src/buildings/B3U2.jpg';
 
 research.R4U1 = {};
 research.R4U1.name = 'Solar-Powered Incubators';
 research.R4U1.price = 600000;
-research.R4U1.timer = 18000;
+research.R4U1.timerMax = 18000;
 research.R4U1.effect = 'buildings.B4.tier++';
 research.R4U1.img = 'img/src/buildings/B4U2.jpg';
 
 research.R5U1 = {};
 research.R5U1.name = 'Wizard Group Chat';
 research.R5U1.price = 600000;
-research.R5U1.timer = 18000;
+research.R5U1.timerMax = 18000;
 research.R5U1.effect = 'buildings.B5.tier++';
 research.R5U1.img = 'img/src/buildings/B5U2.jpg';
 
 research.R7U1 = {};
 research.R7U1.name = 'Penguin Diplomats';
 research.R7U1.price = 600000;
-research.R7U1.timer = 18000;
+research.R7U1.timerMax = 18000;
 research.R7U1.effect = 'buildings.B7.tier++';
 research.R7U1.img = 'img/src/buildings/B7U2.jpg';
 
@@ -12562,35 +12563,35 @@ research.R7U1.img = 'img/src/buildings/B7U2.jpg';
 research.RO1 = {};
 research.RO1.name = 'Nature-Infused Tech';
 research.RO1.price = 300000;
-research.RO1.timer = 18000;
+research.RO1.timerMax = 18000;
 research.RO1.effect = 'rareItemDrop("I434",1,rng(5,10))';
 research.RO1.img = 'img/src/items/I483.jpg';
 
 research.RO2 = {};
 research.RO2.name = 'Might-Infused Tech';
 research.RO2.price = 300000;
-research.RO2.timer = 18000;
+research.RO2.timerMax = 18000;
 research.RO2.effect = 'rareItemDrop("I435",1,rng(5,10))';
 research.RO2.img = 'img/src/items/I484.jpg';
 
 research.RO3 = {};
 research.RO3.name = 'Elemental-Infused Tech';
 research.RO3.price = 300000;
-research.RO3.timer = 18000;
+research.RO3.timerMax = 18000;
 research.RO3.effect = 'rareItemDrop("I436",1,rng(5,10))';
 research.RO3.img = 'img/src/items/I485.jpg';
 
 research.RO4 = {};
 research.RO4.name = 'Occult-Infused Tech';
 research.RO4.price = 300000;
-research.RO4.timer = 18000;
+research.RO4.timerMax = 18000;
 research.RO4.effect = 'rareItemDrop("I437",1,rng(5,10))';
 research.RO4.img = 'img/src/items/I486.jpg';
 
 research.RO5 = {};
 research.RO5.name = 'Deific-Infused Tech';
 research.RO5.price = 300000;
-research.RO5.timer = 18000;
+research.RO5.timerMax = 18000;
 research.RO5.effect = 'rareItemDrop("I438",1,rng(5,10))';
 research.RO5.img = 'img/src/items/I487.jpg';
 

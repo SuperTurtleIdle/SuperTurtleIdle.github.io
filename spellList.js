@@ -981,7 +981,7 @@ function castHexTag(){
 
 function castEdgeOfCataclysm(){
 
-    if (items.I28.level>39 && rng(1,5)===1){
+    if (items.I28.level>39 && rng(1,10)===1){
     for (let i = 0; i < 4; i++) { setTimeout(loop, 250 * i);}
     if (items.I28.level>49) buffs.B110.time+=5;
     playerBuffs()
