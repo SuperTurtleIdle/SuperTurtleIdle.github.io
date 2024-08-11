@@ -3679,7 +3679,7 @@ items.I320.series = 'runic';
 items.I321 = {};
 items.I321.name = 'Hidden Pledge';
 items.I321.description = `'Equipable - Weapon<br>'+rUpgLvl("I321")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I321", 1))+' Nature Damage'`;
-items.I321.skills = 'rUpgSkill("I321", "Multicolored Multikill: Low chance to deal low"+natureIcon+"Nature Damage a random amount of times","active",50)+"<br>"+rUpgSkill("I321", "Colored Pinions: +20%"+natureIcon+"Nature Bonus","passive",60)+"<br>"+rUpgSkill("I321", "Fiesta: Low chance to deal random debuffs","passive",70)'
+items.I321.skills = 'rUpgSkill("I321", "Multicolored Multikill: Medium chance to deal low"+natureIcon+"Nature Damage a random amount of times","active",50)+"<br>"+rUpgSkill("I321", "Colored Pinions: +20%"+natureIcon+"Nature Bonus","passive",60)+"<br>"+rUpgSkill("I321", "Fiesta: Low chance to deal random debuffs","passive",70)'
 items.I321.flavor = '"A tribal greatbow covered in feathers. There are many ancient carvings on the surface depicting a giant creature bonding with a certain tribe."';
 items.I321.quality = 'Epic';
 items.I321.sell = 'returnGearPrice("I321")';
