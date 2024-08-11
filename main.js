@@ -1877,7 +1877,7 @@ function retroactiveUpdate(){
 
     if (stats.currentVersion<0.43){for (var i in research) { research[i].status = "waiting"; research[i].unlocked = false; }; areas.A9.unlockedHerb = 0;}
 
-    if (stats.currentVersion<0.44){for (var i in research) if (research[i].status = "complete") {research[i].status = "waiting"; research[i].unlocked = false; research[i].timer = research[i].timerMax; } }
+    if (stats.currentVersion<0.44){for (var i in research) if (research[i].status === "completed") {research[i].status = "waiting"; research[i].unlocked = false; research[i].timer = research[i].timerMax; } }
 
     sanityCheck()
     stats.currentVersion = 0.44;
