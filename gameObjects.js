@@ -2307,14 +2307,14 @@ items.I48.name = 'Glass Flask';
 items.I48.description = 'Material';
 items.I48.flavor = '"A specialized flask crafted from materials designed to interact with alchemical substances."';
 items.I48.quality = 'Common';
-items.I48.sell = 5;
+items.I48.sell = 300;
 
 items.I422 = {};
 items.I422.name = 'Tempered Flask';
 items.I422.description = 'Material';
 items.I422.flavor = '"Usually tedious and expensive to mass produce, these containers are often reserved for luxury potions, or fancy alchemy restaurants."';
 items.I422.quality = 'Common';
-items.I422.sell = 10;
+items.I422.sell = 15000;
 
 items.I49 = {};
 items.I49.name = 'Nature Flask';
@@ -2547,7 +2547,7 @@ items.I367.dynamic = true;
 
 items.I368 = {}; 
 items.I368.name = 'Shadowbolt Tincture';
-items.I368.description = 'Consumable - Tincture<br><FONT COLOR="#1EFF0C">Use: Small chance to fire a Shadow Bolt dealing Low'+occultIcon+'Occult Damage for 30 minutes <FONT COLOR="gray">(Only one tincture can be active at a time)';
+items.I368.description = 'Consumable - Tincture<br><FONT COLOR="#1EFF0C">Use: Fire a Shadow Bolt dealing Low'+occultIcon+'Occult Damage with every attack for 30 minutes <FONT COLOR="gray">(Only one tincture can be active at a time)';
 items.I368.flavor = '"Its name inspires both fear and lack of creativity."';
 items.I368.quality = 'Uncommon';
 items.I368.sell = 'artisanBonus("AT9")';
@@ -9089,7 +9089,7 @@ quests.A9Q3.logic = 'buildings.B1.level>4';
 quests.A9Q3.effect = 'items.I486.count+=3;';
 quests.A9Q3.reward = `itemIcon("I486")+'Occult-Infused Tech x3'`;
 quests.A9Q3.icon = "img/src/icons/garrison.jpg";
-
+if (items.BR2.gotOnce && !buildings.B1.unlocked) {items.BR2.count=1; addItem()}
 quests.A9Q5 = {};
 quests.A9Q5.name = 'What is in the box?';
 quests.A9Q5.difficulty = 1;
@@ -9504,7 +9504,7 @@ recipes.AA2.amount3 = 1;
 recipes.AA3 = {};
 recipes.AA3.level = 22;
 recipes.AA3.exp = 40;
-recipes.AA3.timer = 5;
+recipes.AA3.timer = 15;
 recipes.AA3.item = 'I364';
 recipes.AA3.reagent1 = 'I422';
 recipes.AA3.amount1 = 1;
@@ -9516,7 +9516,7 @@ recipes.AA3.amount3 = 50;
 recipes.AA3A = {};
 recipes.AA3A.level = 24;
 recipes.AA3A.exp = 40;
-recipes.AA3A.timer = 5;
+recipes.AA3A.timer = 15;
 recipes.AA3A.item = 'I365';
 recipes.AA3A.reagent1 = 'I422';
 recipes.AA3A.amount1 = 1;
@@ -9650,7 +9650,7 @@ recipes.AT7.amount3 = 5;
 recipes.AT8 = {};
 recipes.AT8.level = 23;
 recipes.AT8.exp = 40;
-recipes.AT8.timer = 5;
+recipes.AT8.timer = 15;
 recipes.AT8.item = 'I367';
 recipes.AT8.reagent1 = 'I422';
 recipes.AT8.amount1 = 1;
@@ -9662,14 +9662,14 @@ recipes.AT8.amount3 = 100;
 recipes.AT9 = {};
 recipes.AT9.level = 26;
 recipes.AT9.exp = 40;
-recipes.AT9.timer = 5;
+recipes.AT9.timer = 15;
 recipes.AT9.item = 'I368';
 recipes.AT9.reagent1 = 'I422';
 recipes.AT9.amount1 = 1;
 recipes.AT9.reagent2 = 'I362';
 recipes.AT9.amount2 = 5;
 recipes.AT9.reagent3 = 'I418';
-recipes.AT9.amount3 = 5;
+recipes.AT9.amount3 = 1;
 
 /*
 recipes.AT10 = {};

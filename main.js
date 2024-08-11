@@ -295,7 +295,7 @@ cd.shopRestock = 259200
 
 var itemOfTheDay = {}
 itemOfTheDay.item = 'I93';
-itemOfTheDay.price = 'Math.min(stats.totalCoins*0.015,500000)';
+itemOfTheDay.price = 'Math.max(stats.totalCoins*0.015,500000)';
 itemOfTheDay.bought = false;
 
 function clickIOTD(){
