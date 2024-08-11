@@ -1026,7 +1026,7 @@ function castSqueaky(){
 function castHiddenPledge(){
 
 
-    if (items.I321.level>49 && rng(1,10)===1) for (let i = 0; i < rng(1,10); i++) { setTimeout(loop, 250 * i);} else normal()
+    if (items.I321.level>49 && rng(1,5)===1) for (let i = 0; i < rng(1,10); i++) { setTimeout(loop, 250 * i);} else normal()
 
 
         function normal(){
@@ -2013,7 +2013,7 @@ function castChrysalisRecurver(){ //weapon skill
     let timesshot = 3;
     if (items.I83.level>29) timesshot = 5
 
-    if (items.I83.level>19 && rng(1,6)===1) for (let i = 0; i < timesshot; i++) { setTimeout(shard, 70 * i);}
+    if (items.I83.level>19 && rng(1,5)===1) for (let i = 0; i < timesshot; i++) { setTimeout(shard, 70 * i);}
 
 
 
