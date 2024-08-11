@@ -2124,7 +2124,7 @@ items.I354 = {};
 items.I354.name = 'Hellion Tethers';
 items.I354.description = 'Material';
 items.I354.flavor = '"Magical binds used to chain down a bigger threat. They can be used as materials with proper procedure."';
-items.I354.quality = 'Common';
+items.I354.quality = 'Uncommon';
 items.I354.sell = 150;
 
 items.I22 = {};
