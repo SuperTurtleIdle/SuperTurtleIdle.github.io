@@ -411,6 +411,7 @@ stats.jesterTurtleClicks = 0;
 
 function createItemOfTheDay(){
         if (!did("IOTD") && unlocks.itemOfTheDay) {
+          itemOfTheDay.price = 'Math.min(stats.totalCoins*0.015,500000)';
           const areadiv = document.createElement("div");
           areadiv.id = "IOTD";
           areadiv.innerHTML = '<img id="itemOfTheDayFlair" src="img/src/projectiles/sunray.png"><div class=soldOut id="IOTDitemTag">SOLD OUT</div><img id="IOTDdisplayItem" src="img/src/items/' + items[itemOfTheDay.item].img + '.jpg">';
