@@ -12620,6 +12620,7 @@ research.R8.img = 'S30';
 for (var i in research) {
   research[i].status = "waiting";
   research[i].unlocked = false;
+  research[i].timer = research[i].timerMax
 }
 //#endregion
 //----------------------==========================-----------------------
