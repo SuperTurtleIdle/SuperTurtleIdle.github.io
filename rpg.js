@@ -6916,7 +6916,7 @@ function openPresent(present) {
     if (present.startsWith("coin")) {
       let amount = 0
 
-      let cap = 2500000 //3.12M big prize
+      let cap = 3500000
 
       amount = Math.floor(Math.min(stats.totalCoins,cap) * 0.02 / playerPresentsMinigame)
       if (rng(1,50)===1) amount = Math.floor(Math.min(stats.totalCoins,cap) * 1 / playerPresentsMinigame)
