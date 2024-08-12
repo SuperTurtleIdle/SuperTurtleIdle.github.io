@@ -2307,14 +2307,14 @@ items.I48.name = 'Glass Flask';
 items.I48.description = 'Material';
 items.I48.flavor = '"A specialized flask crafted from materials designed to interact with alchemical substances."';
 items.I48.quality = 'Common';
-items.I48.sell = 300;
+items.I48.sell = 500;
 
 items.I422 = {};
 items.I422.name = 'Tempered Flask';
 items.I422.description = 'Material';
 items.I422.flavor = '"Usually tedious and expensive to mass produce, these containers are often reserved for luxury potions, or fancy alchemy restaurants."';
 items.I422.quality = 'Common';
-items.I422.sell = 15000;
+items.I422.sell = 25000;
 
 items.I49 = {};
 items.I49.name = 'Nature Flask';
