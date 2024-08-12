@@ -329,7 +329,7 @@ if (research[i].timer<=0){
 
 }
 
-if (research[i].status === "ready") {
+if (research[i].status === "ready" && did(i+"researchBar")) {
   did(i+"researchBar").style.background = "#3ec986";
 }
 
