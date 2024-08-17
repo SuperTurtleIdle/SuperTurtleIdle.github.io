@@ -144,7 +144,7 @@ function rUpgSkill(id,text,type,cap){
   if (type==="passive") upgImg = '<img src="img/src/icons/scaling2.jpg">';
   if (type==="active") upgImg = '<img src="img/src/icons/active.jpg">';
 
-  if (items[id].level<cap && items[id].revealed) return '<FONT COLOR="gray">⯁'+upgImg+text
+  if (items[id].level<cap && items[id].revealed) return '<FONT COLOR="gray">⯁'+upgImg+text+" ["+cap+"]"
   
   return '<FONT COLOR="#1EFF0C">⯁'+upgImg+text
 }
