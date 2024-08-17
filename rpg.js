@@ -1847,6 +1847,10 @@ function itemCooldownTick(ID, time) { //removes one second from the cd of every 
 stats.recipesLearnt = 0;
 let itemReuseInterval;
 
+setInterval(() => {
+  addItem();
+}, 2000);
+
 function addItem() { //updates inventory items
   for (let i in items) {
     if (items[i].count >= 1) {
