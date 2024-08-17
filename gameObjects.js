@@ -3810,7 +3810,7 @@ items.I328.quality = 'Mythic';
 items.I328.sell = 'returnGearPrice("I328")';
 items.I328.max = 1;
 items.I328.use = 'gearSwap(items.I328.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")';
-items.I328.attackChance = 'playSound("audio/trumpet.mp3"); if (stats.currentEnemy==="E15") { enemyBasicDamage(50); if (rng(1,6)===1) {cd.presentCanSpawn=0; deleteEnemy("E43"); playSound("audio/hawk.mp3"); animParticleBurst(10 , "particleFire", "enemyPanel", 200);animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/explosion.mp3"); } }'
+items.I328.attackChance = 'playSound("audio/trumpet.mp3"); if (stats.currentEnemy==="E15") { cd.presentCanSpawn=0; enemyBasicDamage(50); if (rng(1,6)===1) { deleteEnemy("E43"); playSound("audio/hawk.mp3"); animParticleBurst(10 , "particleFire", "enemyPanel", 200);animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/explosion.mp3"); } }'
 items.I328.animation = 'ranged';
 items.I328.series = 'ancient';
 items.I328.noUpgrade = true;
@@ -13534,7 +13534,7 @@ gametip.gt20.description = colorTag("Mastery", "#464ACB")+' increases your Healt
 
 gametip.gt21 = {}
 gametip.gt21.name = "Offline Gains";
-gametip.gt21.description = 'Your turtle will keep working hard while you are not inside the game. You will get resources, rare items, experience and defeats of the current enemy while doing so. Your'+colorTag("Offline Multiplier", "#45a3a2")+'determines how fast you can defeat the enemies.<br><br>However, to be eligible for this, you will need to defeat the enemy you want them to farm at least'+colorTag("100 times.", "coral")+'times.';
+gametip.gt21.description = 'Turtlebot will keep working hard while you are not inside the game. You will get resources, rare items, collectibles, experience and defeats of the current enemy while doing so. Your'+colorTag("Offline Multiplier", "#45a3a2")+'determines how fast you can defeat the enemies.<br><br>However, to be eligible for this, you will need to defeat the enemy you want them to farm at least'+colorTag("100 times.", "coral")+'times.';
 
 gametip.gt6 = {}
 gametip.gt6.name = "Alignments";
@@ -13578,7 +13578,7 @@ gametip.gt12.description = "Dungeons are perilous instances where passive health
 
 gametip.gt10 = {}
 gametip.gt10.name = "Penguins Helpers";
-gametip.gt10.description ='Penguin Helpers will gather resources for you while you are offline. You can select up to three different materials to farm at the same time, or select multiple of the same. They are eligible for '+colorTag("Offline Multiplier", "#45a3a2")+'bonuses too.';
+gametip.gt10.description ='Penguin Helpers will gather resources for you while you are offline. You can select up to three different materials to farm at the same time, or select multiple of the same. They are eligible for '+colorTag("Offline Multiplier", "#45a3a2")+'bonuses too.<br><br>However, unlike Turtlebot, they wont gather experience, rare items nor be affected by time eggs.';
 
 gametip.gt11 = {}
 gametip.gt11.name = "Skills And Stars";
