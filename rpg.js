@@ -1927,6 +1927,11 @@ function addItem() { //updates inventory items
 }
 
 
+
+
+
+
+
 document.addEventListener('mouseover', function(event) {
 
   if (event.target.id && event.target.id.endsWith('ItemImage')) {
@@ -2583,7 +2588,9 @@ function removeTableItem() {
  
 
 
-  if (items.I286.gotOnce) fishingEeriePond2.I286.P = 0;
+  if (items.I286.gotOnce) fishingEeriePond2.I286.P = -1;
+
+  if (quests.A4Q3.state==="completed" && items.I286.count>0) items.I286.count=0; //wip, remove after some time
 
 
 }

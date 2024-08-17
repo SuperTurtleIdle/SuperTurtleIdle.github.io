@@ -1245,7 +1245,7 @@ function tooltipPenguin() {
     
 
     if (did("penguinCurrentResource")){
-    did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: '+bestiaryItem(currentDrop),"#2C8A97");
+    if (enemies[stats.currentEnemy].difficulty !== "pond") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: '+bestiaryItem(currentDrop),"#2C8A97");
     if (enemies[stats.currentEnemy].difficulty === "pond") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: ... fish?',"#2C8A97");
     if (enemies[stats.currentEnemy].killCount<99) did("penguinCurrentResource").innerHTML = '<FONT COLOR="gray">Defeat the current enemy at least 100 times to autofarm it'
     
@@ -1303,10 +1303,14 @@ function activatePenguin(x){
             if (enemies[stats.currentEnemy].killCount>=100) rpgPlayer[x] = match[1]
         }
 
+        if (enemies[stats.currentEnemy].difficulty === "pond") rpgPlayer[x]="I316"
+
         if (rpgPlayer[x]!=="none") {did(x).style.outline = "lawngreen 2px solid"}
         else {did(x).style.outline = "coral 2px solid"}
         
         did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: '+bestiaryItem(rpgPlayer[x]),"#2C8A97");
+        if (rpgPlayer[x]==="I316") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: ... fish?',"#2C8A97");
+
 
         did(x).style.animation = "";
         void did(x).offsetWidth;
@@ -1359,7 +1363,7 @@ function afkPenguinTooltip(x){
         if (did("penguinCurrentResource")){
         if (rpgPlayer[x]!=="none"){
             did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: '+bestiaryItem(rpgPlayer[x]),"#2C8A97");
-            if (enemies[stats.currentEnemy].difficulty === "pond") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: ... fish?',"#2C8A97");
+            if (rpgPlayer[x]==="I316") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: ... fish?',"#2C8A97");
         } else did("penguinCurrentResource").innerHTML = '<FONT COLOR="gray">Click here to start gathering offline the current enemy'
         if (enemies[stats.currentEnemy].killCount<99 && rpgPlayer[x]==="none") did("penguinCurrentResource").innerHTML = '<FONT COLOR="gray">Defeat the current enemy at least 100 times to autofarm it'
 

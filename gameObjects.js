@@ -1561,11 +1561,11 @@ enemies.E49.description = 'A dark entity transported from a realm without turtle
 enemies.E49.attack = 16000000000;
 enemies.E49.exp = 0;
 enemies.E49.align = 'occult';
-enemies.E49.drop =  "rareItemDrop('I325',mythicDungeon); rareItemDrop('I313',1, 10); rareItemDrop('I470',60); sendMail('MF7'); shopItems.A9S7.unlocked = true; shopItems.A9S8.unlocked = true; shopItems.A9S9.unlocked = true; shopItems.A9S10.unlocked = true; shopItems.A9S11.unlocked = true;"; // shopItems.A8S18.unlocked = true;
+enemies.E49.drop =  "rareItemDrop('I325',mythicDungeon); rareItemDrop('I495',uncommonDungeon); rareItemDrop('I313',1, 10); rareItemDrop('I470',60); sendMail('MF7'); shopItems.A9S7.unlocked = true; shopItems.A9S8.unlocked = true; shopItems.A9S9.unlocked = true; shopItems.A9S10.unlocked = true; shopItems.A9S11.unlocked = true;"; // shopItems.A8S18.unlocked = true;
 enemies.E49.tag = "finalBoss";
 enemies.E49.attackChance = 'castYogKulth()';
 enemies.E49.bigEnemy = true;
-enemies.E49.bestiaryItem = 'bestiaryItem("I325","drop",mythicDungeon)+bestiaryItem("I470","drop",60)'
+enemies.E49.bestiaryItem = 'bestiaryItem("I325","drop",mythicDungeon)+bestiaryItem("I495","drop",uncommonDungeon)+bestiaryItem("I470","drop",60)'
 enemies.E49.bestiarySkills = "❖ Inflicts the"+buffIcon("B41")+"Sanity debuff at the start of the fight. If it reaches 0, you will rapidly lose Health.<br>❖"+buffIcon("B39")+"Corruption: High"+natureIcon+"Nature Damage and decreases"+buffIcon("B41")+"Sanity by 15.<br>❖"+buffIcon("B42")+"Mindfly: Enemy attacks will drain 5 more"+buffIcon("B41")+"Sanity until"+deificIcon+"Deific Damage is dealt.<br>❖"+buffIcon("B34")+"Time Has Cometh: Drain 40"+buffIcon("B41")+"Sanity if your Health is under 80%.";
 enemies.E49.animation = 'ranged';
 enemies.E49.bigEnemy = true;
@@ -13530,7 +13530,7 @@ gametip.gt2.description = 'Gear with a level on their description is eligible to
 
 gametip.gt20 = {}
 gametip.gt20.name = "Player Stats";
-gametip.gt20.description = colorTag("Mastery", "#464ACB")+' increases your Health and Attack exponentially, and its the main way to get stronger.<br><br>'+colorTag("Align Bonus", "#46CB4C")+' will increase your damage from all sources of that specific alignment. Includes, but is not limited to, status effects, skills, weapon skills and consumable items.<br><br>'+colorTag("Align Resistances", "#CB5E46")+' decreases your damage taken from that specific align.<br><br>'+colorTag("Strength", "#CB7F46")+' increases the damage of your turtle\'s auto-attacks.<br><br>'+colorTag("Spellpower", "#446CC9")+' increases the percentage that magic skills use to determine their power.';
+gametip.gt20.description = colorTag("Mastery", "#464ACB")+' increases your Health and Attack exponentially, and is the main way to get stronger.<br><br>'+colorTag("Alignment Bonus", "#46CB4C")+' will increase your damage from all sources of that specific alignment. Includes, but is not limited to, status effects, skills, weapon skills and consumable items.<br><br>'+colorTag("Alignment Resistances", "#CB5E46")+' decreases your damage taken from that specific Alignment.<br><br>'+colorTag("Strength", "#CB7F46")+' increases the damage of your turtle\'s auto-attacks.<br><br>'+colorTag("Spellpower", "#446CC9")+' increases the percentage that magic skills use to determine their power.';
 
 gametip.gt21 = {}
 gametip.gt21.name = "Offline Gains";
@@ -13558,7 +13558,7 @@ gametip.gt8.description = 'If your turtle gets defeated in battle, worry not!<br
 
 gametip.gt4 = {}
 gametip.gt4.name = "Weapon Stamping";
-gametip.gt4.description = 'Equip a weapon and use a stamp to apply them to it in various levels of effectivity. The current weapon stamps will be replaced and rerolled by new ones.<br><br>Some stamp effects might not be available until better stampers get acquired.<br><br>'+colorTag("Alignment Force", "#5CAA5D")+' such as Nature Force will increase the damage for that specific alignment.<br><br>'+colorTag("Titanic Grip", "#BE7150")+' will increase your Strength. Strength increases the damage of your auto-attacks.<br><br>'+colorTag("Dynamo", "#B062A1")+' will increase your Attack Speed.<br><br>'+colorTag("Afflictions", "purple")+' will decrease your align resistance.';
+gametip.gt4.description = 'Equip a weapon and use a stamp to apply them to it in various levels of effectivity. The current weapon stamps will be replaced and rerolled by new ones.<br><br>Some stamp effects might not be available until better stampers get acquired.<br><br>'+colorTag("Alignment Force", "#5CAA5D")+' such as Nature Force will increase the damage for that specific alignment.<br><br>'+colorTag("Titanic Grip", "#BE7150")+' will increase your Strength. Strength increases the damage of your auto-attacks.<br><br>'+colorTag("Dynamo", "#B062A1")+' will increase your Attack Speed.<br><br>'+colorTag("Afflictions", "purple")+' will decrease your Alignment resistance.';
 
 gametip.gt3 = {}
 gametip.gt3.name = "Mastery";
