@@ -295,7 +295,7 @@ cd.shopRestock = 259200
 
 var itemOfTheDay = {}
 itemOfTheDay.item = 'I93';
-itemOfTheDay.price = 'Math.max(stats.totalCoins*0.015,500000)';
+itemOfTheDay.price = 'Math.min(stats.totalCoins*0.015,500000)';
 itemOfTheDay.bought = false;
 
 function clickIOTD(){
@@ -1153,19 +1153,34 @@ function convertSecondsToDHM(seconds) {
 }
 
 
+let lastofflinetime = 0
+
+
 function calculateInactiveTime() { //calculates idle time
     const lastVisitTime = localStorage.getItem('lastVisitTime');
     if (lastVisitTime) {
         const currentTime = new Date().getTime();
         const inactiveTime = currentTime - parseInt(lastVisitTime);
         const secondsInactive = Math.floor(inactiveTime / 1000);
+
+        lastofflinetime = secondsInactive
+
         if (secondsInactive > 60) {
             stats.totalSeconds += secondsInactive; 
             for (let i in cd) if (cd[i]>0) {cd[i]-=secondsInactive};
-            did('idleTime').innerHTML = convertSecondsToHMS(secondsInactive);
-            if (farmable && unlocks.penguins) offlineRewards((secondsInactive/60)*(playerPenguinPower/15));
-            if (!settings.disablePenguinRecap && unlocks.penguins && farmable) { did("penguinRecap").style.display = "flex"; }
-            //if (unlocks.garden){ for (let i = 0; i < Math.min(secondsInactive/10, 3000); i++) { plantTick();} }
+            if (enemies[stats.currentEnemy].killCount>99 && !dungeonTime){
+                offlineRewards((secondsInactive/60));
+                if (!settings.disablePenguinRecap) { did("penguinRecap").style.display = "flex"; }
+                offlineDrops(secondsInactive/60)
+
+            } 
+
+
+
+            setTimeout(() => {
+                if (unlocks.garden){ plantTick(secondsInactive/30) }
+               }, 1000);
+            
 
             
             
@@ -1207,44 +1222,36 @@ did("closeRecap").onclick = function () { did("penguinRecap").style.animation = 
 function tooltipPenguin() {
     did('penguinIndicatorButton').addEventListener('mouseenter', function () { //on mouseenter
     did('tooltip').style.display = "flex";
-    did("tooltipName").textContent = "Penguin Helpers";
+    did("tooltipName").textContent = "Turtlebot";
     did("tooltipPrice").innerHTML = '';
     
   
-    did("tooltipRarity").textContent = 'Hard-Working Birbs';
+    did("tooltipRarity").textContent = 'Offline Gains';
     did("tooltipRarity").style.color = "#5A9AE5";      
     did("tooltipName").style.color = "white";     
-    did('tooltipImage').src = "img/src/upgrades/P1.jpg";
+    did('tooltipImage').src = "img/src/icons/afk.jpg";
        
     did("tooltipFlavor").textContent = '';
     did("tooltipDescription").style.textAlign = "center";
-    did("tooltipDescription").innerHTML = '<div class="separador"></div><span id="penguinPowerMeter" style="color:white;font-size:1.6vh; background:#42A24C; padding: 0% 2%; border-radius:0.2vh">Penguin Power: 100 (1 kill per minute)</span><div class="separador"></div><span id="penguinCurrentResource" style="color:white;font-size:1.6vh; background:#2C8A97; padding: 0% 2%; border-radius:0.2vh">Currently Gathering: Nothing</span> <img id="penguinCurrentResourceImage" src="img/src/items/I28.jpg">';
-     if (enemies[stats.currentEnemy].tag==="areaBoss" || dungeonTime || stats.currentArea==="A7") did("tooltipDescription").innerHTML = '<div class="separador"></div><span id="penguinPowerMeter" style="color:white;font-size:1.6vh; background:#42A24C; padding: 0% 2%; border-radius:0.2vh">Penguin Power: 100 (1 kill per minute)</span><div class="separador"></div><span style="color:white;font-size:1.6vh; background:coral; padding: 0% 2%; border-radius:0.2vh">Currently Gathering: Not Available!</span> <img src="img/src/icons/missing.jpg">';
-     if (enemies[stats.currentEnemy].difficulty === "pond") did("tooltipDescription").innerHTML = '<div class="separador"></div><span id="penguinPowerMeter" style="color:white;font-size:1.6vh; background:#42A24C; padding: 0% 2%; border-radius:0.2vh">Penguin Power: 100 (1 kill per minute)</span><div class="separador"></div><span style="color:white;font-size:1.6vh; background:#2C8A97; padding: 0% 2%; border-radius:0.2vh">Currently Gathering: Various Fish</span> <img src="img/src/items/I171.jpg">';
+    did("tooltipDescription").innerHTML = '</div><span id="penguinPowerMeter" style="color:white;font-size:1.6vh; background:#42A24C; padding: 0% 2%; border-radius:0.2vh">Penguin Power: 100 (1 kill per minute)</span><div class="separador"></div><span id="penguinCurrentResource">Currently Gathering: Nothing</span> ';
 
     let currentDrop = "";
 
     if (enemies[stats.currentEnemy].drop && enemies[stats.currentEnemy].drop.includes('dropItem')) {
-        const startIndex = enemies[stats.currentEnemy].drop.indexOf("dropItem('") + "dropItem('".length;
-        const endIndex = enemies[stats.currentEnemy].drop.indexOf("')", startIndex);
-        if (startIndex !== -1 && endIndex !== -1) {
-            currentDrop = enemies[stats.currentEnemy].drop.substring(startIndex, endIndex);
-        }
+        const regex = /dropItem\(["'](I\d+)["']\)/;
+            const match = enemies[stats.currentEnemy].drop.match(regex);
+            currentDrop = match[1];
     }
     
 
     if (did("penguinCurrentResource")){
-    did("penguinCurrentResource").innerHTML = 'Currently Gathering: '+items[currentDrop].name
-    did("penguinCurrentResourceImage").src = "img/src/items/"+currentDrop+".jpg";
+    did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: '+bestiaryItem(currentDrop),"#2C8A97");
+    if (enemies[stats.currentEnemy].difficulty === "pond") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: ... fish?',"#2C8A97");
+    if (enemies[stats.currentEnemy].killCount<99) did("penguinCurrentResource").innerHTML = '<FONT COLOR="gray">Defeat the current enemy at least 100 times to autofarm it'
+    
     }
 
     did("penguinPowerMeter").innerHTML = (playerPenguinPower/15).toFixed(1)+' kills per minute';
-
-
-
-      did("tooltipArrowUp").style.display = 'flex';
-      did("tooltipArrowUp").style.right = '91%'
-      did("tooltipArrow").style.display = 'none'
 
 
       const movingDiv = did('tooltip');
@@ -1261,33 +1268,270 @@ movingDiv.style.top = newTop + 'px';
     resetTooltip();
     });
   
+}tooltipPenguin()
+
+rpgPlayer.minipenguin1="none"
+rpgPlayer.minipenguin2="none"
+rpgPlayer.minipenguin3="none"
+
+activatePenguin("minipenguin1")
+activatePenguin("minipenguin2")
+activatePenguin("minipenguin3")
+
+afkPenguinTooltip("minipenguin1")
+afkPenguinTooltip("minipenguin2")
+afkPenguinTooltip("minipenguin3")
+
+
+function activatePenguin(x){
+
+   setTimeout(() => {
+    
+   
+
+
+    did(x).addEventListener("click", function() {
+
+
+        if (enemies[stats.currentEnemy].killCount>=100){
+
+            playSound("audio/button1.mp3");
+
+        if (enemies[stats.currentEnemy].drop && enemies[stats.currentEnemy].drop.includes('dropItem')) {
+            const regex = /dropItem\(["'](I\d+)["']\)/;
+            const match = enemies[stats.currentEnemy].drop.match(regex);
+            if (enemies[stats.currentEnemy].killCount>=100) rpgPlayer[x] = match[1]
+        }
+
+        if (rpgPlayer[x]!=="none") {did(x).style.outline = "lawngreen 2px solid"}
+        else {did(x).style.outline = "coral 2px solid"}
+        
+        did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: '+bestiaryItem(rpgPlayer[x]),"#2C8A97");
+
+        did(x).style.animation = "";
+        void did(x).offsetWidth;
+        did(x).style.animation = "levelUp 0.5s 1";
+
+    } else playSound("audio/thud.mp3");
+
+
+
+
+
+    });
+
+
+    //console.log (rpgPlayer[x])
+    if (rpgPlayer[x]!=="none") {did(x).style.outline = "lawngreen 2px solid"}
+    else {did(x).style.outline = "coral 2px solid"}
+
+
+}, 100);
+
+
+
 }
 
-tooltipPenguin()
+
+function afkPenguinTooltip(x){
+    did(x).addEventListener('mouseenter', function () { 
+        did('tooltip').style.display = "flex";
+        did("tooltipName").textContent = "Penguin Helper";
+        did("tooltipPrice").innerHTML = '';
+        did("tooltipRarity").textContent = 'Hard-working birb';
+        did("tooltipRarity").style.color = "#5A9AE5";      
+        did("tooltipName").style.color = "white";     
+        did('tooltipImage').src = "img/src/upgrades/P1.jpg";
+           
+        did("tooltipFlavor").textContent = '';
+        did("tooltipDescription").style.textAlign = "center";
+        did("tooltipDescription").innerHTML = '</div><span id="penguinPowerMeter" style="color:white;font-size:1.6vh; background:#42A24C; padding: 0% 2%; border-radius:0.2vh">Penguin Power: 100 (1 kill per minute)</span><div class="separador"></div><span id="penguinCurrentResource">Currently Gathering: Nothing</span> ';
+    
+        let currentDrop = "";
+    
+        if (enemies[stats.currentEnemy].drop && enemies[stats.currentEnemy].drop.includes('dropItem')) {
+            const regex = /dropItem\(["'](I\d+)["']\)/;
+                const match = enemies[stats.currentEnemy].drop.match(regex);
+                currentDrop = match[1];
+        }
+        
+    
+        if (did("penguinCurrentResource")){
+        if (rpgPlayer[x]!=="none"){
+            did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: '+bestiaryItem(rpgPlayer[x]),"#2C8A97");
+            if (enemies[stats.currentEnemy].difficulty === "pond") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: ... fish?',"#2C8A97");
+        } else did("penguinCurrentResource").innerHTML = '<FONT COLOR="gray">Click here to start gathering offline the current enemy'
+        if (enemies[stats.currentEnemy].killCount<99 && rpgPlayer[x]==="none") did("penguinCurrentResource").innerHTML = '<FONT COLOR="gray">Defeat the current enemy at least 100 times to autofarm it'
+
+        }
+    
+        did("penguinPowerMeter").innerHTML = ((playerPenguinPower/15)/4).toFixed(1)+' kills per minute';
+    
+    
+          const movingDiv = did('tooltip');
+    const referenceDiv = did(x);
+    const referenceRect = referenceDiv.getBoundingClientRect();
+    const newLeft = referenceRect.left;
+    const newTop = referenceRect.top + 35;
+    movingDiv.style.left = newLeft + 'px';
+    movingDiv.style.top = newTop + 'px';
+        
+            
+      });
+        did(x).addEventListener('mouseleave', function () {
+        resetTooltip();
+        });
+}
+
+  
+
+
+
+
+
+function offlineDrops(kills){
+
+    let killsGot = Math.round((kills*(playerPenguinPower/15))/3)
+
+    const regex = /rareItemDrop\(['"]([^'"]+)['"],\s*(rareDrop|uncommonDrop|epicDrop|mythicDrop|relicDrop)\s*\)/g;
+  let match;
+const rareDropIds = [];
+const uncommonDropIds = [];
+const epicDropIds = [];
+const mythicDropIds = [];
+const relicDropIds = [];
+
+while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
+    const id = match[1];
+    const dropType = match[2];
+    if ((dropType === 'rareDrop')) {
+        rareDropIds.push(id);
+    }
+    
+    if ((dropType === 'uncommonDrop')) {
+        uncommonDropIds.push(id);
+    }
+
+    if ((dropType === 'epicDrop')) {
+        epicDropIds.push(id);
+    }
+
+    if ((dropType === 'mythicDrop')) {
+        mythicDropIds.push(id);
+    }
+
+    if ((dropType === 'relicDrop')) {
+        relicDropIds.push(id);
+    }
+}
+
+
+/*
+  console.log('Rare Drop IDs:', rareDropIds);
+  console.log('Uncommon Drop IDs:', uncommonDropIds);
+  console.log('Epic Drop IDs:', epicDropIds);
+  console.log('Mythic Drop IDs:', mythicDropIds);
+  console.log('Relic Drop IDs:', relicDropIds);
+  */
+
+
+  if (uncommonDropIds.length>0) uncommonDropIds.forEach(id => { rareItemDrop(id, Math.max(uncommonDrop/Math.ceil(killsGot,1)));});
+  if (rareDropIds.length>0) rareDropIds.forEach(id => { rareItemDrop(id, Math.max(rareDrop/Math.ceil(killsGot,1)));});
+  if (epicDropIds.length>0) epicDropIds.forEach(id => { rareItemDrop(id, Math.max(epicDrop/Math.ceil(killsGot,1)));});
+  if (mythicDropIds.length>0) mythicDropIds.forEach(id => { rareItemDrop(id, Math.max(mythicDrop/Math.ceil(killsGot,1)));});
+  if (relicDropIds.length>0) relicDropIds.forEach(id => { rareItemDrop(id, Math.max(relicDrop/Math.ceil(killsGot,1)));});
+
+  console.log("uncommon:"+ Math.max(uncommonDrop/Math.ceil(killsGot,1)) +"rare:"+Math.max(rareDrop/Math.ceil(killsGot,1))+"relic :"+Math.max(relicDrop/Math.ceil(killsGot,1))+"epic :"+Math.max(mythicDrop/Math.ceil(killsGot,1))+"mythic :"+Math.max(mythicDrop/Math.ceil(killsGot,1)))
+
+    
+  if (stats.currentEnemy === "E13") rollTable(copperCollectibles, 1, killsGot)
+  if (stats.currentEnemy === "E14") rollTable(snapthornCollectibles, 1, killsGot)
+  if (stats.currentEnemy === "E19") rollTable(arcaniteCollectibles, 1, killsGot)
+  if (stats.currentEnemy === "E20") rollTable(eeriePondCollectibles, 1, killsGot)
+  if (stats.currentEnemy === "E37") rollTable(fossilCollectibles, 1, killsGot)
+  if (stats.currentEnemy === "E42") rollTable(dataclusterCollectibles, 1, killsGot)
+
+
+
+  /*
+
+  itemGot = "none"
+
+  if (uncommonDropIds.length>0) itemGot = uncommonDropIds[rng(0,(uncommonDropIds.length-1))]
+  if (rng(1,4)===1 && rareDropIds.length>0 || rareDropIds.length>0 && uncommonDropIds.length===0) itemGot = rareDropIds[rng(0,(rareDropIds.length-1))]
+
+  if (uncommonDropIds.length===0 && rareDropIds.length===0) invalid()
+  if (itemGot!=="none") valid()
+
+  function invalid(){
+
+    if (!did('popupmaterialiser')) createPopup('&#10060; Invalid Target!', '#913c3c', "popupmaterialiser");
+
+  }
+
+
+  function valid (){
+
+  if (mode==="guaranteed"){
+    if (items[itemGot].quality==="Uncommon") {createPopup('💠 First time reward: '+items[itemGot].name+' !', '#994687'); items[itemGot].count++}
+    else if (items[itemGot].quality==="Rare") {createPopup('💠 First time reward: '+items[itemGot].name+' !', '#994687'); items[itemGot].count++}
+
+  } else {
+    if (items[itemGot].quality==="Uncommon" && rng(1,5)===1) {createPopup('💠 '+items[itemGot].name+' has materialised!', '#994687'); items[itemGot].count++}
+    else if (items[itemGot].quality==="Rare" && rng(1,10)===1) {createPopup('💠 '+items[itemGot].name+' has materialised!', '#994687'); items[itemGot].count++}
+    else createPopup('&#10060; Failed to materialise '+items[itemGot].name, '#913c3c');
+    items.I219.count--
+    addItem();
+  }
+  
+  playSound("audio/button9.mp3");
+
+
+  }
+
+
+*/
+
+
+
+}
 
 
 function offlineRewards(amount, concept){
-if (enemies[stats.currentEnemy].tag!=="areaBoss" && !dungeonTime) {
+if (!dungeonTime) {
     let currentDrop = "";
 
     if (enemies[stats.currentEnemy].drop && enemies[stats.currentEnemy].drop.includes('dropItem')) {
+
+
+/*
         const startIndex = enemies[stats.currentEnemy].drop.indexOf("dropItem('") + "dropItem('".length;
         const endIndex = enemies[stats.currentEnemy].drop.indexOf("')", startIndex);
         if (startIndex !== -1 && endIndex !== -1) {
-            currentDrop = enemies[stats.currentEnemy].drop.substring(startIndex, endIndex);
+*/
+            const regex = /dropItem\(["'](I\d+)["']\)/;
+            const match = enemies[stats.currentEnemy].drop.match(regex);
+
+            currentDrop = match[1];
         }
+    
+
+    let killsGot = Math.round(amount*(playerPenguinPower/15))
+
+    if (enemies[stats.currentEnemy].difficulty === "pond") {
+        currentDrop = "I316";
+        killsGot = Math.round(amount*(100/15))
+
     }
-
-
-    if (enemies[stats.currentEnemy].difficulty === "pond") currentDrop = "I316"
 
 
 
     if (concept==='egg'){
-
-        createPopup('&#9201; Time Skipped and gathered '+beautify(Math.round(amount))+'<img src="img/src/items/'+currentDrop+'.jpg">and '+beautify(enemies[stats.currentEnemy].exp/6 * Math.round(amount))+' EXP', '#4e9690')
+        createPopup('&#9201; Time Skipped and gathered '+beautify(killsGot)+'<img src="img/src/items/'+currentDrop+'.jpg">and '+beautify(enemies[stats.currentEnemy].exp * killsGot)+' EXP', '#4e9690')
 
     }
+
+
 
     /*
 if (stats.currentArea === "A1") rollTable(area1Loot, amount/7)
@@ -1296,20 +1540,64 @@ if (stats.currentArea === "A3") rollTable(area3Loot, amount/7)
 if (stats.currentArea === "A4") rollTable(area4Loot, amount/7)
     */
 
+if (unlocks.penguins){
 
 
+if (rpgPlayer.minipenguin1!=="none"){
+    items[rpgPlayer.minipenguin1].count += killsGot/4;
+}
+
+if (rpgPlayer.minipenguin2!=="none"){
+    items[rpgPlayer.minipenguin2].count += killsGot/4;
+}
+
+if (rpgPlayer.minipenguin3!=="none"){
+    items[rpgPlayer.minipenguin3].count += killsGot/4;
+}
+
+    
+}
 
 
-items[currentDrop].count += Math.round(amount);
-rpgClass[stats.currentClass].currentExp += enemies[stats.currentEnemy].exp/6 * Math.round(amount);
+if (concept===undefined) enemies[stats.currentEnemy].killCount += killsGot
+    
+items[currentDrop].count += killsGot;
 
+rpgClass[stats.currentClass].currentExp += enemies[stats.currentEnemy].exp * killsGot;
 
-did("idleItem").innerHTML = beautify(Math.round(amount));
+/*
+did("idleItem").innerHTML = beautify(killsGot);
 did("idleItemImg").src = "img/src/items/"+currentDrop+".jpg";
+did("idleExp").innerHTML = beautify(enemies[stats.currentEnemy].exp * killsGot);
+did('idleTime').innerHTML = convertSecondsToHMS(secondsInactive);
+*/
+
+let additionalText = ""
+
+if (unlocks.penguins) {
+
+    did("recapImage").style.display="flex"
+
+    if (rpgPlayer.minipenguin1!=="none" && rpgPlayer.minipenguin2!=="none" && rpgPlayer.minipenguin3!=="none"){
+
+
+        additionalText = "Additionally, your penguins gathered "+beautify(killsGot/4)+" "+bestiaryItem(rpgPlayer.minipenguin1)+", "+beautify(killsGot/4)+" "+bestiaryItem(rpgPlayer.minipenguin2)+" and "+beautify(killsGot/4)+" "+bestiaryItem(rpgPlayer.minipenguin3)
 
 
 
-did("idleExp").innerHTML = beautify(enemies[stats.currentEnemy].exp * Math.round(amount));
+    }
+
+
+
+
+
+}
+
+did("recapMsg").innerHTML = "<p>You have been away for "+convertSecondsToHMS(lastofflinetime)+". In that time, you gathered "+beautify(amount*(playerPenguinPower/15))+" "+bestiaryItem(currentDrop)+" and "+beautify(enemies[stats.currentEnemy].exp * killsGot)+" EXP. "+additionalText+"</p>"
+
+
+
+
 
 
 expBar();
@@ -1388,6 +1676,7 @@ localStorage.setItem('lastVisitTime', new Date().getTime());
   saveData.savedItemStamp2 = {}; for (const i in items) { saveData.savedItemStamp2[i] = items[i].stamp2;}
   saveData.savedItemStamp3 = {}; for (const i in items) { saveData.savedItemStamp3[i] = items[i].stamp3;}
   saveData.savedItemTimesGot = {}; for (const i in items) { saveData.savedItemTimesGot[i] = items[i].timesGot;}
+  saveData.savedItemRevealed = {}; for (const i in items) { saveData.savedItemRevealed[i] = items[i].revealed;}
 
   saveData.savedMailGot = {}; for (const i in mail) { saveData.savedMailGot[i] = mail[i].recieved;}
   saveData.savedMailRead = {}; for (const i in mail) { saveData.savedMailRead[i] = mail[i].read;}
@@ -1649,6 +1938,7 @@ function load() {
     for (const i in parsedData.savedItemStats) { if (items[i]) items[i].statUp = parsedData.savedItemStats[i];}
     for (const i in parsedData.savedItemGot) { if (items[i]) items[i].gotOnce = parsedData.savedItemGot[i];}
     for (const i in parsedData.savedItemTimesGot) { if (items[i]) items[i].timesGot = parsedData.savedItemTimesGot[i];}
+    for (const i in parsedData.savedItemRevealed) { if (items[i]) items[i].revealed = parsedData.savedItemRevealed[i];}
 
     for (const i in parsedData.savedItemStamp1) { if (items[i]) items[i].stamp1 = parsedData.savedItemStamp1[i];}
     for (const i in parsedData.savedItemStamp2) { if (items[i]) items[i].stamp2 = parsedData.savedItemStamp2[i];}
@@ -1785,7 +2075,14 @@ function unlocksReveal(){
     if (unlocks.journal) did('achievementsTab').style.display = "flex";
     if (unlocks.bestiary) {did('bestiaryMastery').style.display = "flex"; did('bestiaryProgress2').style.display = "flex"; did('bestiaryBadge').style.display = "flex";}
     if (unlocks.armory) did('armoryButton').style.display = "flex";
-    if (unlocks.penguins) {did('disablePenguinRecapButton').style.display = "flex"; did('penguinIndicatorButton').style.display = "flex"; did('penguinIndicator').style.display = "flex";gametipUnlock("gt10") }
+    if (unlocks.penguins) {
+        
+        did("minipenguin1").style.display = "flex"
+        did("minipenguin2").style.display = "flex"
+        did("minipenguin3").style.display = "flex"
+
+        gametipUnlock("gt10") 
+    }
     if (unlocks.inventorySorting) {
         //did('inventorySorters2').style.display = "flex";
 
@@ -1881,7 +2178,7 @@ function retroactiveUpdate(){
     if (stats.currentVersion<0.44){for (var i in research) if (research[i].status === "completed") {research[i].status = "waiting"; research[i].unlocked = false; research[i].timer = research[i].timerMax; } }
 
     sanityCheck()
-    stats.currentVersion = 0.44;
+    stats.currentVersion = 0.45;
 }
 
 

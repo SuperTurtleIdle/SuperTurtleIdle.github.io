@@ -1928,19 +1928,13 @@ if (rng(1,5)===1){
 
 }
 
-let eaCooldown = 0;
 function castHeavenlyRuin(){
-    wraithbladeCooldown--
     animImageSplash("ea", "enemyPanel", "impact", 0);
-    enemyElementalDamage(rng(returnItemUpgradeScaling(4800, "I201"),returnItemUpgradeScaling(5100, "I201")), "noScale");
     animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
+    buffs.B65.time=3;
+    playerAttackHit();
+    playerBuffs();
 
-    if (eaCooldown<=0) {
-        eaCooldown = 20;
-        buffs.B65.time=10;
-        playerBuffs();
-
-    }
 }
         
 function castFirekegCannon(){ //weapon skill
@@ -2032,6 +2026,35 @@ function castChrysalisRecurver(){ //weapon skill
             enemyOccultDamage(playerWeaponDamage*0.4);
         }, 600);
         }
+
+
+
+
+}
+
+
+
+function castIvBag(){
+
+
+    if (items.I19.count>0 && playerMaxHp*0.3>rpgPlayer.hp){
+        playSound("audio/potion.mp3");
+        playerHealingDamage(returnPotionLevel("I19")*playerMaxHp/100);
+        animState("rpgPlayerImg", "flash 0.5s 1");
+        playerUpdate();
+        animParticleBurst(5 , "particleGlow", "playerPanel", 230);
+        animParticleBurst(3 , "particleHealth", "playerPanel", 0);
+        items.I19.count--;
+        addItem()
+    }
+
+    
+
+
+
+
+
+
 
 
 

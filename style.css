@@ -1728,6 +1728,7 @@ animation: shakeAndGrow 1s infinite;
     left: 0; 
     align-items: center;  
     animation: gelatine 0.3s;
+    padding: 0 1rem;
     
 }
 
@@ -2399,6 +2400,17 @@ flex-shrink: 0;
   animation: flash 0.5s;
 }
 
+#fxCanvas{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    pointer-events: none;
+}
+
 #currentTreaty{height:4.5%; width: 16%; position: absolute; background: transparent; bottom:1%; left: 3%; pointer-events: none; }
 #currentTreaty img {height: 100%;}
 #currentTreaty:hover {animation: gelatine 0.3s;}
@@ -3055,7 +3067,7 @@ flex-shrink: 0;
 }
 
 .contentHeaderLeft img, .contentHeaderCenter img, .contentHeaderRight img {
-    height: 80%;
+    height: 1.6rem;
     width: auto;
     flex-shrink: 0;
     margin: 0 0.5rem;
@@ -5000,7 +5012,12 @@ margin-left: 0.5rem;
     
 }
 
-#enemyAnimation{animation: enemyAttacke 0.5s infinite ease-out; position: relative; height: 16vh; width: 16vh;}
+#enemyAnimation{
+    animation: enemyAttacke 0.5s infinite ease-out;
+    position: relative;
+    height: 16vh;
+    width: 16vh;
+}
 
 #rpgPlayerImg {
     width: auto;
@@ -5877,6 +5894,45 @@ background: rgba(47, 34, 22, 0.77);
 
 }
 
+
+#revealWeaponSkills{
+    height: 3rem;
+    width: 3rem;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border-radius: 0.5rem;
+    background-image: url(img/src/items/I222.jpg); 
+    background-size: cover;
+    transition: all 0.5s;
+}
+
+#revealWeaponSkills:hover{
+    outline: white solid 1px;
+    filter: brightness(1.4);
+}
+
+.minipenguin{
+    scale: 0.9;
+    margin-left: -0.1rem !important;
+    transition: all 0.2s;
+}
+
+#recapMsg img{
+    height: 1.2rem;
+    width: 1.2rem;
+    margin: 0 0.2rem;
+    border-radius: 0.2rem;
+    overflow: visible;
+    translate: 0rem 0.2rem;
+
+}
+
+.minipenguin:hover{
+    scale: 1;
+
+}
+
 #upgradeItemDescription{
     height: 14rem;
     width: 27rem;
@@ -5885,6 +5941,11 @@ background: rgba(47, 34, 22, 0.77);
     border-radius: 0.4rem;
     padding: 1rem;
     background: #18130F;
+    position: relative;
+}
+
+#upgradeItemDescription span{
+    background: transparent;
 }
 
 #upgradeItemDescription img, #upgradeRequired img{

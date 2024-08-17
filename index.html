@@ -75,14 +75,14 @@
             <h2>General</h2>
             <h3>Save manually <strong style="color: rgb(85, 80, 80);">[Shortcut: "S"]</strong><button onclick="autosave(); playSound('audio/button1.mp3')">Save</button></h3>
             <h3 id="exportSave">Export save in a JSON file<button onclick="exportJSON(); playSound('audio/button1.mp3')">Export</button></h3>
-            <h3>Import JSON file<button onclick="importJSON(); playSound('audio/button1.mp3')">Import</button></h3>
+            <h3>Import JSON file <strong style="color: rgb(240, 92, 92);"> [⚠ Only import trusted saves!]</strong><button onclick="importJSON(); playSound('audio/button1.mp3')">Import</button></h3>
             <h3 id="warningButton">Wipe all progress<button onclick="deleteSavePrompt();" style="background: #B23E3E;">DELETE</button></h3>
 
             <h2>Game Settings</h2>
             <h3>Game audio<button id="volumeSliderBox"><input type="range" id="volumeSlider" min="0" max="100" value="30" oninput="changeVolume()"></button></h3>
             <h3>Mute game<button id="disableAudio" onclick="toggleSettings('disableAudio')">OFF</button></h3>
             <h3>Disable combat audio<button id="disableCombatAudio" onclick="toggleSettings('disableCombatAudio')">OFF</button></h3>
-            <h3>Disable autosave <strong style="color: rgb(85, 80, 80);">(Autosaves every minute)</strong><button id="disableAutosave" onclick="toggleSettings('disableAutosave')">OFF</button></h3>
+            <h3>Disable autosave <strong style="color: rgb(85, 80, 80);"> (Autosaves every minute)</strong><button id="disableAutosave" onclick="toggleSettings('disableAutosave')">OFF</button></h3>
             <h3>Open upgrade menu on gear click <button id="disableFastUpgrade" onclick="toggleSettings('disableFastUpgrade')">OFF</button></h3>
             <h3>Switch CTRL interaction for Alt<button id="switchContextKey" onclick="toggleSettings('switchContextKey')">OFF</button></h3>
             <h3>Disable container auto-open<button id="disableAutoOpen" onclick="toggleSettings('disableAutoOpen')">OFF</button></h3>
@@ -377,7 +377,7 @@
 
                 <div id="upgradeName"><img src="img/src/items/I64.jpg" style="left:1rem;"><img src="img/src/icons/occult.png" style="right:1rem;">Terrorscythe<br><strong>Malevolent Series</strong></div>
                 <img id="upgradeItem" src="img/src/weaponModels/I64.png">
-                <div id="upgradeItemDescription">Aqui van los stats y los niveles y todo eso</div>
+                <div id="upgradeItemDescription"><div id="revealWeaponSkills"></div><span id="upgradeItemDescription2">Aqui van los stats y los niveles y todo eso</span></div>
 
             </div>
 
@@ -502,6 +502,7 @@
             <div class="shopLockedListing" id="gardenShopListing4"><div class="shopLockedListingCover" id="gardenShopListing4Cover"><img src="img/src/garden/gardenIcon.jpg">Achieve <strong style="background: #97ECA5;">Gardening Level 5</strong> to unlock</div></div>
             <div class="shopLockedListing" id="gardenShopListing5"><div class="shopLockedListingCover" id="gardenShopListing5Cover"><img src="img/src/garden/gardenIcon.jpg">Achieve <strong style="background: #97ECA5;">Gardening Level 6</strong> to unlock</div></div>
             <div class="shopLockedListing" id="gardenShopListing6"><div class="shopLockedListingCover" id="gardenShopListing6Cover"><img src="img/src/garden/gardenIcon.jpg">Achieve <strong style="background: #97ECA5;">Gardening Level 7</strong> to unlock</div></div>
+            <div class="shopLockedListing" id="gardenShopListing7"><div class="shopLockedListingCover" id="gardenShopListing7Cover"><img src="img/src/garden/gardenIcon.jpg">Achieve <strong style="background: #97ECA5;">Gardening Level 8</strong> to unlock</div></div>
             </span>
         </div>
         
@@ -664,9 +665,10 @@
             <div class="armoryTitle" style="margin-bottom: 0rem; margin-top: 2rem; border-image: linear-gradient(90deg, rgba(193,121,17,1), rgba(56,126,53,1)) 30%; ">Ancient Series<span id="ancientArmoryCount">[0/0]</span></div>
             <div class="catalogueListing" id="ancientArmory"></div>
 
-            <div style="display: none;"> 
+            
             <div class="armoryTitle" style="margin-bottom: 0rem; margin-top: 2rem; border-image: linear-gradient(90deg, rgba(54,55,77,1), rgba(126,53,117,1)) 30%; ">Malevolent Series<span id="malevolentArmoryCount">[0/0]</span></div>
             <div class="catalogueListing" id="malevolentArmory"></div>
+            <div style="display: none;"> 
             <div class="armoryTitle" style="margin-bottom: 0rem; margin-top: 2rem; border-image: linear-gradient(90deg, rgba(77,54,128,1), rgba(187,48,159,1)) 30%; ">Runic Series<span id="runicArmoryCount">[0/0]</span></div>
             <div class="catalogueListing" id="runicArmory"></div>
             <div class="armoryTitle" style="margin-bottom: 0rem; margin-top: 2rem; border-image: linear-gradient(90deg, rgba(210,171,17,1), rgba(41,159,112,1)) 30%; ">Chosen Series<span id="chosenArmoryCount">[0/0]</span></div>
@@ -720,10 +722,8 @@
         <div id="penguinRecap" class="panelOpciones" style="display:none">
             <h2 id="closeRecap">X</h2>
             
-            <img src="img/sys/penguinRecap.png" onclick='logs.P53A.unlocked=true; this.style.animation = "gelatine 0.3s 1";'>
-            <div class="flex">
-            <p>Your hard working Penguin Helpers have been working for you while you weren't online for <strong id="idleTime">0h 0m 0s</strong></p>
-            <p>In that time, they managed to collect <span><span id="idleItem">0</span><img id="idleItemImg" src="img/sys/coin.png"> and <span id="idleExp">0</span> exp!</p>
+            <img src="img/sys/penguinRecap.png" onclick='logs.P53A.unlocked=true; this.style.animation = "gelatine 0.3s 1";' id="recapImage" style="display: none;">
+            <div class="flex" id="recapMsg">
             </div>    
             
         </div>
@@ -1512,7 +1512,7 @@
 
                 <div class="contentHeader" id="rpgBannerTitle" >
                     
-                    <div class="contentHeaderLeft"><img src="img/src/upgrades/P1.jpg" id="penguinIndicatorButton" style="display:none"><span id="penguinIndicator" style="display:none">Active</span>
+                    <div class="contentHeaderLeft"><img src="img/src/icons/afk.jpg" id="penguinIndicatorButton"><img src="img/src/upgrades/P1.jpg" id="minipenguin1" style="display:none" class="minipenguin"><img src="img/src/upgrades/P1.jpg" id="minipenguin2" style="display:none" class="minipenguin"><img src="img/src/upgrades/P1.jpg" id="minipenguin3" style="display:none" class="minipenguin">
                     
                     </div>
                     <div class="contentHeaderCenter">
@@ -1535,6 +1535,9 @@
                     
 
                 <div id="rpgCanvas">
+
+                    <canvas id="fxCanvas"></canvas>
+
                     <div class="extraBattleUI" id="dungeonUI"> <div class="dungeonBar"><div class="dungeonBox"></div><div id="dungeonMeter"></div></div><img id="dungeonBox2" src="img/src/icons/skull5.png"> </div>
                         
                     <div class="extraBattleUI" id="showdownUI" style="display: none;"> 00:00 </div>

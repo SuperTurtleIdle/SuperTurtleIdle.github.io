@@ -20,6 +20,8 @@ let gardenMutationPower = 0;
 let gardenDragonGoldPower = 0;
 let gardenMagicRegenPower = 0;
 
+const gardenMaxLevel = 7;
+
 
 function calculateGardenStats(){
 
@@ -250,7 +252,7 @@ function createGardenPlots() {
         rpgPlayer.gardenTokens += tokensGained;
         
 
-        if (rpgPlayer.gardenLevel<=6) rpgPlayer.gardenExp+=returnPlantExp(plot[i].slot)
+        if (rpgPlayer.gardenLevel<=gardenMaxLevel) rpgPlayer.gardenExp+=returnPlantExp(plot[i].slot)
         plants[plot[i].slot].planted--;
         if ("harvest" in plants[plot[i].slot]) eval(plants[plot[i].slot].harvest)
         updateGardenUi()
@@ -391,7 +393,7 @@ function createGardenPlots() {
   let matureSeconds = 0
 
 
-  function plantTick(mode){
+  function plantTick(offlineTime){
 
     
   
@@ -407,6 +409,9 @@ function createGardenPlots() {
 
                
               plot[i].water-=rng(0,2) //water will run out in 17 minutes avg
+
+              if (offlineTime!==undefined) plot[i].water-= offlineTime
+              if (plot[i].water<0) plot[i].water = 0;
 
               if (stats.currentWeather === "rain")  plot[i].water=100
 
@@ -424,6 +429,12 @@ function createGardenPlots() {
               else if (plants[plot[i].slot].growth === "long") plot[i].age+= 0.44*water //2h
               else plot[i].age+= 0.22*water //60 mins without watering, 30 with watering after 17 mins, default
 
+
+              if (offlineTime!==undefined) {
+                plot[i].age+=(0.22*water)*offlineTime
+                if (plot[i].age>= matureTime) plot[i].age=matureTime
+              }
+
             } 
 
             
@@ -437,7 +448,7 @@ function createGardenPlots() {
 
 
 
-              if (plot[i].water>0 && plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,15)===1){ // bonus mutation
+              if (offlineTime===undefined && plot[i].water>0 && plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,15)===1){ // bonus mutation
                 if (plot[i].mature) plants[plot[i].slot].planted--
                 plot[i].slot = plot[i].slot+"a";
                 plot[i].renewable = true;
@@ -480,9 +491,25 @@ function createGardenPlots() {
 
             let crossbreedChance = 300
 
+            if (offlineTime!==undefined) for (let i = 0; i < (Math.min(offlineTime/2, 100) / 300); i++) { crossBreeding();} //boy this code is scuffed as shit
+
+
+
+
             if (plot[i].mature){ //when plant mature
-              if (rng(1,crossbreedChance)===1) crossBreeding();
+              if (rpgPlayer.currentFertiliser!=="f3" && rng(1,crossbreedChance)===1) crossBreeding();
+
+
+
+
+
+
               plot[i].age-=0.17 // 2h of maturity, default
+
+              /*if (offlineTime!==undefined) {
+                 plot[i].age-=(0.17)*offlineTime
+                 if (plot[i].age<3 && offlineTime>25) plot[i].age=3
+             }*/
 
               //matureSeconds+=10
               //console.log(matureSeconds/60)
@@ -496,6 +523,10 @@ function createGardenPlots() {
               //let mutationChance = baseMutationChance * (100-Math.min(gardenMutationPower,99)) / 100
               //console.log("old:" + mutationChance)
               let mutationChance = baseMutationChance*(1/(1 + (gardenMutationPower)/100 ))
+
+              if (offlineTime!==undefined) mutationChance =( baseMutationChance*(1/(1 + (gardenMutationPower)/100 )) ) / Math.min(offlineTime, 400) //yes this one is also scuffed
+
+              //console.log(mutationChance)
 
 
 
@@ -546,7 +577,7 @@ function createGardenPlots() {
                 let tokensGained = 3;
                 if (talent.TG2D2.active && rng(1,4)===1) tokensGained += 1
                 rpgPlayer.gardenTokens += tokensGained;
-                if (rpgPlayer.gardenLevel<=6) rpgPlayer.gardenExp+=returnPlantExp(plot[i].slot)*2
+                if (rpgPlayer.gardenLevel<=gardenMaxLevel) rpgPlayer.gardenExp+=returnPlantExp(plot[i].slot)*2
                 if (i!=="g2" && "harvest" in plants[plot[i].slot]) eval(plants[plot[i].slot].harvest)
                 updateGardenUi()
 
@@ -555,7 +586,41 @@ function createGardenPlots() {
                 if (settings.disableColorblind && did(i+'plotPlant')) did(i+'plotPlant').style.outline = "none"
 
                 plants[plot[i].slot].planted--;
-                plot[i].slot = "none"; 
+
+
+                let seedToPlant = plot[i].slot
+                if (plot[i].slot.slice(-1) === 'a') seedToPlant = seedToPlant.replace('a', '');
+
+
+                if (rpgPlayer.currentFertiliser==="f3" && plants[seedToPlant].count>0){
+
+                  
+                  //console.log(seedToPlant)
+
+                    createGardenPlots();
+                    plot[i].age = 0;
+                    plot[i].water = 0;
+                    plot[i].mature=false;
+                    plot[i].renewable = false;
+                    calculateGardenStats()
+                    did(i+'plotPlant').style.height = "0%"
+                    createPlants();
+
+
+                    if (seedToPlant !== "g2") plants[seedToPlant].count--
+                    plot[i].slot = seedToPlant
+
+
+
+                  
+
+
+                } else plot[i].slot = "none"; 
+
+
+                
+
+
 
                 createGardenPlots();
                 plot[i].age = 0;
@@ -718,8 +783,14 @@ function createNewPlant(seed, parents){
     
           div.addEventListener('click', function(event) { 
             playSound("audio/button1.mp3")
-            selectedSeed = i;
-            createPlants()
+            if (selectedSeed === i) {
+              selectedSeed = "none";
+          } else {
+              selectedSeed = i;
+          }
+
+          createPlants();
+
             
         });
     
@@ -1080,7 +1151,7 @@ function createPlantCatalogue() {
       plantCompletionProgress++}
 
 
-      areadiv.addEventListener('click', function(event) { 
+      areadiv.addEventListener('click', function(event) { //left click
 
         if (plants[i].harvested>0 && unlocks.seedShipping && i.slice(-1) !== 'a' && i !== "g2" && rpgPlayer.gardenTokens>=returnPlantPrice(i)){
 
@@ -1098,15 +1169,32 @@ function createPlantCatalogue() {
         void areadiv.offsetWidth;
          areadiv.style.animation = "faintStrike 0.5s 1";
     
-    
-    
-    
         }
         
     });
 
 
+    areadiv.addEventListener('contextmenu', function(event) { //right click
 
+      if (plants[i].harvested>0 && unlocks.seedShipping && i.slice(-1) !== 'a' && i !== "g2" && rpgPlayer.gardenTokens>=returnPlantPrice(i)*10){
+
+        playSound("audio/button8.mp3");
+        
+       plants[i].count+=10
+       rpgPlayer.gardenTokens-=returnPlantPrice(i)*10
+
+       tooltipSeedCatalogue(i);
+       createPlantCatalogue();
+       updateGardenUi();
+       createPlants();
+
+       areadiv.style.animation = "";
+      void areadiv.offsetWidth;
+       areadiv.style.animation = "faintStrike 0.5s 1";
+  
+      }
+      
+  });
 
 
 

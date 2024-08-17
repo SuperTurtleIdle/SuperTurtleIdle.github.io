@@ -384,7 +384,7 @@ function craftingProgress(){
     jobExp();
     }
     
-    if (items[recipes[r].item].max===1 && items[recipes[r].item].count>0) { rpgPlayer.coins+=eval(items[recipes[r].item].sell)*0.35; stats.totalCoins +=eval(items[recipes[r].item].sell)*0.35; }
+    if (items[recipes[r].item].max!==playerMaxStack && items[recipes[r].item].count>0) { rpgPlayer.coins+=eval(items[recipes[r].item].sell); stats.totalCoins +=eval(items[recipes[r].item].sell); }
     items[recipes[r].item].count += 1;
     rollTable(craftingCollectibles, 1)
     if ("itemCount" in recipes[r]) items[recipes[r].item].count += recipes[r].itemCount-1
@@ -550,7 +550,7 @@ function tooltipOutcome(outcome) {
     }
 
     let priceText = '<FONT COLOR="white"> Sell value: <FONT COLOR="#ffbd54">'+beautify(eval(items[outcome].sell)*multiplicativeSellValue)+coinIcon+'Shells'
-    if (items[outcome].max===1) priceText = '<FONT COLOR="white"> Sell value: <FONT COLOR="#ffbd54">'+beautify(eval(items[outcome].sell)*multiplicativeSellValue)+coinIcon+'Shells <FONT COLOR="pink">[ Autosell: '+beautify(eval(items[outcome].sell)*0.35)+' ]'
+    if (items[outcome].max!==playerMaxStack) priceText = '<FONT COLOR="white"> Sell value: <FONT COLOR="#ffbd54">'+beautify(eval(items[outcome].sell)*multiplicativeSellValue)+coinIcon+'Shells <FONT COLOR="pink">[ Autoselling Excess ]'
 
     did("tooltipDescription").innerHTML = items[outcome].description +itemSkills+ '<br><div class="separador"></div><div style=" text-align: center;background:transparent"><FONT COLOR="white">'+priceText+'<br></div>';
     if (items[outcome].upgradeable || items[outcome].dynamic) did("tooltipDescription").innerHTML = eval(items[outcome].description) +itemSkills+ '<br><div class="separador"></div><div style=" text-align: center;background:transparent">'+priceText+'<br></div>';

@@ -89,6 +89,8 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
 
   if (bossTime) currentEnemy=areas[stats.currentArea].boss
 
+  if (stats.currentDifficulty==="boss") bossTime = true;
+
   if (!bossTime && document.hasFocus() && !settings.randomEventToggle && rng(1,50) === 1 && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty) && !skirmishTime && !showdownTime && !dungeonTime && cd.presentCanSpawn<=0) {currentEnemy="E15"; }
 
   if (enemy!==undefined) currentEnemy=enemy
@@ -119,14 +121,14 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
   //} 
 
   if (enemies[stats.currentEnemy].killCount>=100 && stats.currentArea!=="A7"){ farmable = true} else {farmable = false};
-    if (farmable) {did('penguinIndicator').innerHTML='Active'; did('penguinIndicator').style.color='lawngreen';}
-    else {did('penguinIndicator').innerHTML='Inactive';did('penguinIndicator').style.color='coral';}
+    if (farmable) {did('penguinIndicatorButton').style.outline = "lawngreen 2px solid"}
+    else {did('penguinIndicatorButton').style.outline = "coral 2px solid"}
 
 
   
 
 
-  if (document.hasFocus() && cd.gildedCooldown<=0 && !settings.randomEventToggle && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)  && !skirmishTime && !showdownTime && !dungeonTime && !bossTime && stats.currentArea!=="A7" && rng(1,50)===1){ //gilding
+  if (document.hasFocus() && farmable && stats.currentDifficulty!=="boss" && cd.gildedCooldown<=0 && !settings.randomEventToggle && !gatherDifficulty.includes(enemies[stats.currentEnemy].difficulty)  && !skirmishTime && !showdownTime && !dungeonTime && !bossTime && stats.currentArea!=="A7" && rng(1,50)===1){ //gilding
     cd.gildedCooldown=1200;
     div.className = "enemy gilded";
     did("enemyLevel").textContent = "[lvl "+rpgClass[stats.currentClass].level +"]";
@@ -194,6 +196,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
 
         if (gardenDragonGoldPower>0){
       rpgPlayer.coins += gardenDragonGoldPower
+      stats.totalCoins += gardenDragonGoldPower
         } 
 
         if (battleData) dataEnemiesKilled ++
@@ -378,6 +381,9 @@ function playerAttack() {
             if( rng(1,500)===1) {logPrint("<FONT COLOR='#edd585'>"+enemies[stats.currentEnemy].name + ": why are you looking at me like that");}
             if( rng(1,500)===1) {logPrint("<FONT COLOR='#edd585'>"+enemies[stats.currentEnemy].name + ": can we resolve this peacefully");}
           }
+
+
+          if (equipCheck("I328")) eval(items[rpgPlayer.weaponSlot].attackChance)
           
           
         } else  {
@@ -464,9 +470,10 @@ function playerUpdate(){ //updates player HP and checks if its dead
 
   if (rpgPlayer.hp <= 0 && rpgPlayer.alive && !godmode) {
     rpgPlayer.hp = 0;
-    if ((enemies[stats.currentEnemy].tag==="areaBoss") && buffs.B64.time<=0) { //if a boss kills the turtle
+    if ((stats.currentDifficulty==="boss") && buffs.B64.time<=0) { //if a boss kills the turtle
       bossTime = false;
-      
+      stats.currentDifficulty="easy"
+      encounterButtonPress() 
       deleteEnemy();
       did("rpgCanvas").style.animation = "";
       void did("rpgCanvas").offsetWidth;
@@ -703,7 +710,7 @@ var playerHealingDot = 0;
 function damageTicks() {
 
   enemyNatureDot = buffs.B2.statUp + buffs.B54.statUp 
-  enemyElementalDot = 0 + buffs.B43.statUp  + buffs.B110.statUp;
+  enemyElementalDot = 0 + buffs.B43.statUp  + buffs.B110.statUp + buffs.B65.statUp;
   enemyMightDot = buffs.B111.statUp;
   enemyOccultDot = 0 + buffs.B33.statUp + buffs.B50.statUp + buffs.B109.statUp;
   enemyDeificDot = 0;
@@ -1237,7 +1244,7 @@ function animParticleProjectile(img, throwAnimation, particleCount, particleType
   if (document.hasFocus()  && !settings.disableAnimations && stats.currentCategory === "rpgContainer"){
   //create projectile
   const projectile = document.createElement("div");
-  projectile.id = projectile + "projectile";
+  projectile.id = "projectile";
   projectile.className = "itemThrow";
   did("playerPanel").appendChild(projectile);
   projectile.style.backgroundImage = "url(img/src/projectiles/" + img + ".png)";
@@ -1579,21 +1586,22 @@ function dropItem(ID) { //dedicated drop rolls
 
   items[ID].count += itemdrop;
   items[ID].timesGot += itemdrop;
-  addItem()
+  //addItem()
 }
 
-function rollTable(table, rolls) { //droptable rolls
+function rollTable(table, rolls, offline) { //droptable rolls
 
-  function getRandomInt(max) { //rewrite with the rng
-    return Math.floor(Math.random() * max);
-  }
 
   for (let i = 0; i < rolls; i++) {
     for (let dt in table) {
-      let rngroll = getRandomInt(table[dt].P);
-      if (rngroll === table[dt].P - 1) {
+
+      let dieRoll = table[dt].P
+
+      if (offline!==undefined) dieRoll = Math.max(dieRoll - offline,1)
+
+      if (rng(1,dieRoll)===1) {
         //because the die can land on 0, substract 1 to make for it
-        rollcount = eval(table[dt].A)
+        let rollcount = eval(table[dt].A)
         items[dt].count += rollcount;
         items[dt].timesGot += rollcount;
         addItem();
@@ -1614,11 +1622,35 @@ function rollTable(table, rolls) { //droptable rolls
 
 
       if ("R" in table[dt]){ //collectibles
-        if (items[dt].rarity===1) if (rng(1,4000)===1) items[dt].count += 1;
-        if (items[dt].rarity===2) if (rng(1,8000)===1) items[dt].count += 1;
-        if (items[dt].rarity===3) if (rng(1,16000)===1) items[dt].count += 1;
-        if (items[dt].rarity===4) if (rng(1,32000)===1) items[dt].count += 1;
-        if (items[dt].rarity===5) if (rng(1,64000)===1) items[dt].count += 1;
+
+        
+        if (offline!==undefined){
+
+          if (items[dt].rarity===1) rareItemDrop(dt, Math.max(4000/Math.ceil(offline,1)));
+          if (items[dt].rarity===2) rareItemDrop(dt, Math.max(8000/Math.ceil(offline,1)));
+          if (items[dt].rarity===3) rareItemDrop(dt, Math.max(16000/Math.ceil(offline,1)));
+          if (items[dt].rarity===4) rareItemDrop(dt, Math.max(32000/Math.ceil(offline,1)));
+          if (items[dt].rarity===5) rareItemDrop(dt, Math.max(64000/Math.ceil(offline,1)));
+
+          console.log(Math.max(4000/Math.ceil(offline,1)))
+
+
+        } else {
+
+          if (items[dt].rarity===1) if (rng(1,4000)===1) items[dt].count += 1;
+          if (items[dt].rarity===2) if (rng(1,8000)===1) items[dt].count += 1;
+          if (items[dt].rarity===3) if (rng(1,16000)===1) items[dt].count += 1;
+          if (items[dt].rarity===4) if (rng(1,32000)===1) items[dt].count += 1;
+          if (items[dt].rarity===5) if (rng(1,64000)===1) items[dt].count += 1;
+
+
+
+
+
+        }
+
+
+        
       }
 
 
@@ -2821,7 +2853,7 @@ function toggleText(id){
   did("tooltip2").style.display = "flex"
 
   if (id==="toggleSellButton"){  did("tooltip2").innerHTML = bestiaryTag("SELL MODE", "#FF4545")+ 'Click to sell an item once<br>Right Click to sell all the items at the same time<br>The shop will sell items ten at a time while this is active<br>You can also press CTRL to toggle sell mode' }
-  if (id==="toggleLockButton"){  did("tooltip2").innerHTML = bestiaryTag("LOCK MODE", "#6F709B")+ 'Click to lock an item<br>Locking items prevent them from being sold' }
+  if (id==="toggleLockButton"){  did("tooltip2").innerHTML = bestiaryTag("LOCK MODE", "#6F709B")+ 'Click to lock an item<br>Locking items prevents them from being sold or stamped' }
   if (id==="addFavoriteButton"){  did("tooltip2").innerHTML = bestiaryTag("FAVORITE MODE", "#e0903f")+ 'Click to favorite an item<br>Favorited items will automatically go to the Favorites tab' }
   if (id==="addVaultButton"){  did("tooltip2").innerHTML = bestiaryTag("VAULT MODE", "#89BBBB")+ 'Click to vault an item<br>Click them again to unvault them<br>Vaulted items wont show in other tabs' }
   if (id==="toggleUpgradeButton"){  did("tooltip2").innerHTML = bestiaryTag("UPGRADE MODE", "#D06209")+ 'Click on an upgradeable item to open the upgrade menu' }
@@ -3220,7 +3252,7 @@ function createAreaPanel() {
       areadiv.innerHTML = '<img src="img/src/areas/'+a+'M.png"><strong>' + areas[a].name + '</strong><strong id="' + a + 'areal">LVL ' + areas[a].level + '</strong>';
       if ("mastery" in areas[a]) areadiv.innerHTML = '<img src="img/src/areas/'+a+'M.png"><strong>' + areas[a].name + '</strong><strong id="' + a + 'areal">LVL ' + areas[a].level + '</strong><strong id="' + a + 'aream">' + repIcon + areas[a].mastery + '</strong>';
 
-      if (a === "A7") areadiv.innerHTML = '<img src="img/src/areas/'+a+'M.png"><strong style="background:#957A4B">🌟 ' + areas[a].name + '</strong><strong id="' + a + 'areal">LVL ' + areas[a].level + '</strong>';
+      if (a === "A7") areadiv.innerHTML = '<img src="img/src/areas/'+a+'M.png"><strong style="background:#957A4B">' + areas[a].name + '</strong><strong id="' + a + 'areal">LVL ' + areas[a].level + '</strong><strong id="' + a + 'aream">' + repIcon + areas[a].mastery + '</strong>';
       areadiv.className = "areaSlider";
       areadiv.style.background = ' linear-gradient(130deg, #1A1A1B 60%, rgba(255,255,255,0) 100%), url(img/src/areas/'+a+'.png), #1A1A1B '
 
@@ -3486,6 +3518,8 @@ function summonAreaBoss(){
 unlocks.autoBoss = false;
 var togleAutoBoss = false
 
+/*
+
 did("bossButton").addEventListener("contextmenu", function () { //right click to togle boss autokill
   if (unlocks.autoBoss) {
 
@@ -3500,6 +3534,8 @@ did("bossButton").addEventListener("contextmenu", function () { //right click to
 
 
       }});
+
+*/
 
 function difficultyButton(div, difficulty){
   did(div).addEventListener("click", function () {
@@ -3520,6 +3556,7 @@ function difficultyButton(div, difficulty){
 difficultyButton("encounterEasy", "easy")
 difficultyButton("encounterMedium", "medium")
 difficultyButton("encounterHard", "hard")
+difficultyButton("bossButton", "boss")
 difficultyButton("miningNode", "ore")
 difficultyButton("herbNode", "herb")
 difficultyButton("pondNode", "pond")
@@ -3528,6 +3565,7 @@ function encounterButtonPress() { //Ui states of special Buttons
   did("encounterEasy").style.boxShadow = "";
   did("encounterMedium").style.boxShadow = "";
   did("encounterHard").style.boxShadow = "";
+  did("bossButton").style.boxShadow = "";
   did("miningNode").style.boxShadow = "";
   did("herbNode").style.boxShadow = "";
   did("pondNode").style.boxShadow = "";
@@ -3538,6 +3576,8 @@ function encounterButtonPress() { //Ui states of special Buttons
     did("encounterMedium").style.boxShadow = "inset white 0px 0px 5px 1px";
   } else if (stats.currentDifficulty === "hard") {
     did("encounterHard").style.boxShadow = "inset white 0px 0px 5px 1px";
+  } else if (stats.currentDifficulty === "boss") {
+    did("bossButton").style.boxShadow = "inset white 0px 0px 5px 1px";
   } else if (stats.currentDifficulty === "ore") {
     did("miningNode").style.boxShadow = "inset white 0px 0px 5px 1px";
   } else if (stats.currentDifficulty === "herb") {
@@ -3635,8 +3675,8 @@ function returnDifficulty(level){
 }
 
 function questReward(q) { //generic rewards for quests
-  if ("money" in quests[q]) stats.coins+=quests[q].money;
-  else rpgPlayer.coins+=Math.min(Math.max(500,stats.totalCoins*0.25), 250000)
+  if ("money" in quests[q]) {stats.coins+=quests[q].money; stats.totalCoins += quests[q].money;}
+  else {rpgPlayer.coins+=Math.min(Math.max(500,stats.totalCoins*0.25), 250000); stats.totalCoins += Math.min(Math.max(500,stats.totalCoins*0.25), 250000);}
   rpgClass[stats.currentClass].currentExp += rpgClass[stats.currentClass].nextExp*0.4;
     
   
@@ -4190,6 +4230,42 @@ function rUpgShells(id, mode){
 
 let itemCap = 61
 
+did("revealWeaponSkills").addEventListener('click', function() { 
+  if (items.I222.count>0 && !items[upgradeItem].revealed && items[upgradeItem].level<items[upgradeItem].cap){
+    items.I222.count--;
+    addItem();
+    items[upgradeItem].revealed=true;
+    playSound("audio/button8.mp3");
+    upgradeMenu()
+    did("tooltipDescription").innerHTML = bestiaryTag("Spend a Golden Magnifying Glass to reveal hidden skills ("+items.I222.count+" available)", "transparent");
+
+   
+  } else playSound("audio/thud.mp3");
+});
+
+
+did("revealWeaponSkills").addEventListener("mouseenter", function () {
+  did("tooltip").style.display = "flex";
+  did("upperTooltip").style.display = "none";
+  did("tooltipDescription").innerHTML = bestiaryTag("Spend a Golden Magnifying Glass to reveal hidden skills ("+items.I222.count+" available)", "transparent");
+  did("tooltipFlavor").textContent = "";
+  did("tooltipDescription").style.textAlign = "center";
+  did("tooltipImage").style.display = "none";
+  const movingDiv = did("tooltip");
+  const referenceDiv = did("revealWeaponSkills");
+  const referenceRect = referenceDiv.getBoundingClientRect();
+  var newLeft = referenceRect.left;
+var newTop = referenceRect.top - movingDiv.offsetHeight;
+
+// Establecer las coordenadas del tooltip
+movingDiv.style.left = newLeft - 8+ "px";
+movingDiv.style.top = newTop - 13+ "px";
+});
+did("revealWeaponSkills").addEventListener("mouseleave", function () {
+  resetTooltip();
+});
+
+
 function upgradeMenu(){
 
    playSound("audio/button3.mp3");
@@ -4212,7 +4288,7 @@ function upgradeMenu(){
   did("upgradeName").style.color = returnQualityColor(items[upgradeItem].quality)
     
 
-  did("upgradeItemDescription").innerHTML = eval(items[upgradeItem].description)+"<br>"+eval(items[upgradeItem].skills)
+  did("upgradeItemDescription2").innerHTML = eval(items[upgradeItem].description)+"<br>"+eval(items[upgradeItem].skills)
 
   did("upgradeLevel").innerHTML = "Upgrade Item"
 
@@ -4270,7 +4346,7 @@ if (items[upgradeItem].level<itemCap && items[rUpgBaseMat(upgradeItem, "item")].
     did("upgradeRequired").innerHTML = '<FONT COLOR="gray">Required materials to level up:<br><FONT COLOR="white">'+rUpgBaseMat(upgradeItem, "display")+rUpgShells(upgradeItem, "display")
   }
 
-  did("upgradeItemDescription").innerHTML = eval(items[upgradeItem].description)+"<br>"+eval(items[upgradeItem].skills)
+  did("upgradeItemDescription2").innerHTML = eval(items[upgradeItem].description)+"<br>"+eval(items[upgradeItem].skills)
 
 
   did("upgradeItem").style.animation = "";
@@ -4337,7 +4413,7 @@ while ( items[upgradeItem].level<itemCap && items[rUpgBaseMat(upgradeItem, "item
     did("upgradeRequired").innerHTML = '<FONT COLOR="gray">Required materials to level up:<br><FONT COLOR="white">'+rUpgBaseMat(upgradeItem, "display")+rUpgShells(upgradeItem, "display")
   }
 
-  did("upgradeItemDescription").innerHTML = eval(items[upgradeItem].description)+"<br>"+eval(items[upgradeItem].skills)
+  did("upgradeItemDescription2").innerHTML = eval(items[upgradeItem].description)+"<br>"+eval(items[upgradeItem].skills)
 
 
   
@@ -6452,10 +6528,11 @@ function tooltipBossButton() {
     did("tooltip").style.display = "flex";
     did("upperTooltip").style.display = "none";
 
-    if (unlocks.autoBoss){
+    /*if (unlocks.autoBoss){
     if (!togleAutoBoss) did("tooltipDescription").innerHTML = '<FONT COLOR="#edd585">Press to summon the boss of this area<span style="background:black; padding: 0 2%; border-radius: 0.6vh"><br><FONT COLOR="coral">Auto-summon is turned OFF</span><br><FONT COLOR="white">(Right Click to activate)';
     else did("tooltipDescription").innerHTML = '<FONT COLOR="#edd585">Press to summon the boss of this area<span style="background:black; padding: 0 2%; border-radius: 0.6vh"><br><FONT COLOR="#44bd6c">Auto-summon is turned ON</span><br><FONT COLOR="white">(Right Click to deactivate)';
-    } else did("tooltipDescription").innerHTML = '<FONT COLOR="#edd585">Press to summon the boss of this area';
+    } else */
+    did("tooltipDescription").innerHTML = '<FONT COLOR="#edd585">Press to summon the boss of this area';
     did("tooltipFlavor").textContent = "";
     did("tooltipDescription").style.textAlign = "center";
     did("tooltipImage").style.display = "none";
@@ -6916,7 +6993,7 @@ function openPresent(present) {
     if (present.startsWith("coin")) {
       let amount = 0
 
-      let cap = 3500000
+      let cap = 3500000 
 
       amount = Math.floor(Math.min(stats.totalCoins,cap) * 0.02 / playerPresentsMinigame)
       if (rng(1,50)===1) amount = Math.floor(Math.min(stats.totalCoins,cap) * 1 / playerPresentsMinigame)
@@ -6924,7 +7001,7 @@ function openPresent(present) {
 
       div.innerHTML = '<img src="img/src/icons/coin.png">'+beautify(amount)+' Shells'
       rpgPlayer.coins += amount
-      //stats.totalCoins += amount this doesnt increase total coins because it would snowball exponentially
+      stats.totalCoins += amount
     }
 
     if (present.startsWith("exp")) {

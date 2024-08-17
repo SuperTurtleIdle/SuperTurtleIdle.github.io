@@ -29,6 +29,9 @@ let rareDrop = 15000
 let epicDrop = 45000
 let mythicDrop = 450000
 
+let relicDrop = 64000
+
+
 let uncommonChest = 30
 let rareChest = 90
 let epicChest = 270
@@ -135,11 +138,13 @@ function rUpgLvl(id){
 
 function rUpgSkill(id,text,type,cap){
 
-  if (items[id].level<cap) return '<FONT COLOR="gray">⯁<img src="img/src/icons/lock.jpg">Upgrade this item to level '+cap+' to unlock this skill'
+  if (items[id].level<cap && !items[id].revealed) return '<FONT COLOR="gray">⯁<img src="img/src/icons/lock.jpg">Upgrade this item to level '+cap+' to unlock this skill'
 
   let upgImg = '<img src="img/src/icons/xp.png">';
   if (type==="passive") upgImg = '<img src="img/src/icons/scaling2.jpg">';
   if (type==="active") upgImg = '<img src="img/src/icons/active.jpg">';
+
+  if (items[id].level<cap && items[id].revealed) return '<FONT COLOR="gray">⯁'+upgImg+text
   
   return '<FONT COLOR="#1EFF0C">⯁'+upgImg+text
 }
@@ -604,6 +609,8 @@ playerMastery = stats.questsCompleted*10 + collectiblesGot*5 + totalArmoryGot*10
 if (rpgPlayer.debugMastery!=0) playerMastery = rpgPlayer.debugMastery
 if (buffs.B115.time>0 && playerMastery>buffs.B115.stacks)  playerMastery = buffs.B115.stacks
 
+//if ("masteryCap" in areas[stats.currentArea] && playerMastery>areas[stats.currentArea].masteryCap) playerMastery = areas[stats.currentArea].masteryCap
+
 if (settings.masteryToggle) playerMastery = 0;
 
 multiplicativeSellValue = 1;
@@ -711,9 +718,9 @@ deificResist =  - deificDownStampStatUp + items.I72.statUp + esotericBrume;
 
 //multiplicativeHaste = (1 - buffs.B7.statUp - buffs.B47.statUp - weaponHaste - buffs.B71.statUp - buffs.B72.statUp - buffs.B86.statUp - items.I2.statUp) * hasteStampStatUp older haste
 //playerHaste = Math.min(1 - items.I2.statUp - items.I81.statUp - hasteStampStatUp + buffs.B86.statUp - buffs.B47.statUp + items.I23.statUp, 4)  old haste
-playerHaste = 1/(1 + Math.max( items.I2.statUp + items.I81.statUp + hasteStampStatUp + buffs.B47.statUp + buffs.B86.statUp + items.I23.statUp +  items.I82.statUp + buffs.B71.statUp + buffs.B72.statUp + items.I385.statUp + items.I199.statUp + items.I85.statUp + items.I24.statUp + items.I171.statUp2, -0.99) )   
+playerHaste = 1/(1 + Math.max( items.I2.statUp + items.I81.statUp + hasteStampStatUp + buffs.B47.statUp + buffs.B86.statUp + items.I23.statUp + items.I320.statUp + items.I82.statUp + buffs.B71.statUp + buffs.B72.statUp + items.I385.statUp + items.I199.statUp + items.I85.statUp + items.I24.statUp + items.I171.statUp2, -0.99) )   
 
-playerHealingBonus = 1 +  items.I206.statUp2   
+playerHealingBonus = 1 +  items.I206.statUp2 + items.I495.statUp
 
 
 multiplicativeMiningDamage = 1
@@ -912,6 +919,7 @@ function returnExp(level){
 
 }
 
+
 enemies.E1 = {};
 enemies.E1.name = 'Caulislug';
 enemies.E1.level = '[lvl 1]';
@@ -921,9 +929,9 @@ enemies.E1.area = 'A1';
 enemies.E1.attack = 3;
 enemies.E1.difficulty = 'easy';
 enemies.E1.exp = returnExp(1)/200;
-enemies.E1.drop = "dropItem('I1'); rareItemDrop('I464',64000);";
+enemies.E1.drop = "dropItem('I1'); rareItemDrop('I464',relicDrop);";
 enemies.E1.align = 'nature';
-enemies.E1.bestiaryItem = 'bestiaryItem("I1", "drop")+bestiaryItem("I464", "drop", 64000)';
+enemies.E1.bestiaryItem = 'bestiaryItem("I1", "drop")+bestiaryItem("I464", "drop", relicDrop)';
 
 enemies.E3 = {};
 enemies.E3.name = 'Ribull';
@@ -976,6 +984,7 @@ enemies.E4.attackChance = 'castHoopperoona()';
 enemies.E4.drop = 'rareItemDrop("I83",uncommonDrop)+rareItemDrop("I192",uncommonDrop)+rareItemDrop("I47",uncommonDrop)+dropItem("I57")'; 
 enemies.E4.align = 'occult';
 enemies.E4.tag = 'areaBoss';
+enemies.E4.difficulty = 'boss';
 enemies.E4.bigEnemy = true;
 enemies.E4.bestiarySkills = "❖ Fleming Bite: Inflicts"+buffIcon("B1")+"Poison.";
 enemies.E4.bestiaryItem = 'bestiaryItem("I83", "drop", uncommonDrop)+bestiaryItem("I192", "drop", uncommonDrop)+bestiaryItem("I47", "drop", uncommonDrop)+bestiaryItem("I57", "drop")';
@@ -1065,6 +1074,7 @@ enemies.E8.defenseChance = ' if(rpgPlayer.weaponSlot==="I60") {logs.P39.unlocked
 enemies.E8.align = 'nature';
 enemies.E8.drop =  'rareItemDrop("I137",rareDrop)+rareItemDrop("I15",rareDrop)+rareItemDrop("I132",uncommonDrop)+rareItemDrop("I133",uncommonDrop)+rareItemDrop("I134",uncommonDrop)+rareItemDrop("I135",uncommonDrop)+rareItemDrop("I136",uncommonDrop)+dropItem("I165")'; 
 enemies.E8.tag = 'areaBoss';
+enemies.E8.difficulty = 'boss';
 enemies.E8.bigEnemy = true;
 enemies.E8.bestiarySkills = '❖ King Punch: Medium'+mightIcon+'Might Damage.<br>❖'+buffIcon("B26")+'Enrage: Increases attack.';
 enemies.E8.bestiaryItem = 'bestiaryItem("I135","container","Jungle King Armor Set", uncommonDrop)+bestiaryItem("I137","drop", rareDrop)+bestiaryItem("I15","drop", rareDrop)+bestiaryItem("I165","drop")';
@@ -1163,8 +1173,8 @@ enemies.E11.attack = 9000;
 enemies.E11.exp = returnExp(27)/1800;
 enemies.E11.difficulty = 'hard';
 enemies.E11.align = 'elemental';
-enemies.E11.drop =  "dropItem('I17');rareItemDrop('I468',64000);";
-enemies.E11.bestiaryItem = 'bestiaryItem("I17","drop")+bestiaryItem("I468","drop",64000)'
+enemies.E11.drop =  "dropItem('I17');rareItemDrop('I468',relicDrop);";
+enemies.E11.bestiaryItem = 'bestiaryItem("I17","drop")+bestiaryItem("I468","drop",relicDrop)'
 
 enemies.E19 = {};
 enemies.E19.name = 'Arcanite Vein';
@@ -1220,9 +1230,10 @@ enemies.E12.attack = 40000;
 enemies.E12.exp = returnExp(30)/1800;
 enemies.E12.area = 'A3';
 enemies.E12.align = 'elemental';
-enemies.E12.drop =  'rareItemDrop("I27",epicDrop)+rareItemDrop("I173",uncommonDrop)+rareItemDrop("I288",rareDrop)+dropItem("I71")';
+enemies.E12.drop =  'dropItem("I71")+rareItemDrop("I27",epicDrop)+rareItemDrop("I173",uncommonDrop)+rareItemDrop("I288",rareDrop)';
 enemies.E12.attackChance = 'castTerragosa()';
 enemies.E12.tag = 'areaBoss';
+enemies.E12.difficulty = 'boss';
 enemies.E12.bigEnemy = true;
 enemies.E12.bestiaryItem = 'bestiaryItem("I27","drop",epicDrop)+bestiaryItem("I288","drop",rareDrop)+bestiaryItem("I173","drop",uncommonDrop)+bestiaryItem("I71","drop")';
 enemies.E12.bestiarySkills = "❖"+buffIcon("B37")+"Prismatic Shield: Increase attack after receiving"+natureIcon+"Nature Damage. Starts at 1 stack. <br>❖ Dragon Claws: Inflicts"+buffIcon("B32")+"Wounded.<br>❖ Crystal Breath: Inflicts"+buffIcon("B24")+"Burning.";
@@ -1403,6 +1414,7 @@ enemies.E27.align = 'elemental';
 enemies.E27.drop =  'rareItemDrop("I28",rareDrop)+rareItemDrop("I175",uncommonDrop)+rareItemDrop("I282",uncommonDrop)+rareItemDrop("I65",rareDrop)+dropItem("I100")';
 enemies.E27.attackChance = 'castInfernalus();';
 enemies.E27.tag = 'areaBoss';
+enemies.E27.difficulty = 'boss';
 enemies.E27.bigEnemy = true;
 enemies.E27.bestiaryItem = 'bestiaryItem("I28","drop",rareDrop)+bestiaryItem("I65","drop",rareDrop)+bestiaryItem("I175","drop",uncommonDrop)+bestiaryItem("I282","drop",uncommonDrop)+bestiaryItem("I90","steal", "1/150 up to 1/5")+bestiaryItem("I100","drop")';
 enemies.E27.bestiarySkills = "❖ Hellfire Slash: Inflicts"+buffIcon("B24")+"Burning.<br>❖ Smog Blast: Inflicts"+buffIcon("B23")+"Blind.";
@@ -1430,10 +1442,10 @@ enemies.E34.area = 'A8';
 enemies.E34.attack = 27000000;
 enemies.E34.difficulty = 'medium';
 enemies.E34.exp = returnExp(44)/1800;
-enemies.E34.drop =  "dropItem('I347'); rareItemDrop('I471',64000);";
+enemies.E34.drop =  "dropItem('I347'); rareItemDrop('I471',relicDrop);";
 enemies.E34.align = 'nature';
 enemies.E34.defenseChance = 'if (["mattock"].includes(items[rpgPlayer.weaponSlot].tag) && playerGatheringLevel>3) { rareItemDrop("I398",1)  }';
-enemies.E34.bestiaryItem = 'bestiaryItem("I347","drop")+bestiaryItem("I471","drop",64000)+colorTag("⛏️4","#446262")+bestiaryItem("I398","drop")';
+enemies.E34.bestiaryItem = 'bestiaryItem("I347","drop")+bestiaryItem("I471","drop",relicDrop)+colorTag("⛏️4","#446262")+bestiaryItem("I398","drop")';
 
 enemies.E37 = {};
 enemies.E37.name = 'Fossil Deposit';
@@ -1491,6 +1503,7 @@ enemies.E36.align = 'deific';
 enemies.E36.drop =  'rareItemDrop("I319",epicDrop)+rareItemDrop("I383",rareDrop)+rareItemDrop("I425",uncommonDrop)+dropItem("I350"); logs.P61B.unlocked=true;'; 
 enemies.E36.attackChance = 'castEisZeith()';
 enemies.E36.tag = 'areaBoss';
+enemies.E36.difficulty = 'boss';
 enemies.E36.bigEnemy = true;
 enemies.E36.bestiaryItem = 'bestiaryItem("I319","drop",epicDrop)+bestiaryItem("I383","drop",rareDrop)+bestiaryItem("I425","drop",uncommonDrop)+bestiaryItem("I350","drop")';
 enemies.E36.bestiarySkills = "❖ Soulfire: Inflicts"+buffIcon("B24")+"Burning.<br>❖"+buffIcon("B39")+"Thunder Stomp: Deals High"+mightIcon+"Might Damage and Inflicts"+buffIcon("B21")+"Paralysis.<br>❖"+buffIcon("B34")+"Rage of Ancients: Deals Very High"+deificIcon+"Deific Damage";
@@ -1612,6 +1625,7 @@ enemies.E41.drop =  'rareItemDrop("I378",epicDrop)+rareItemDrop("I82",rareDrop)+
 enemies.E41.bestiaryItem = 'bestiaryItem("I378","drop",epicDrop)+bestiaryItem("I82","drop",rareDrop)+bestiaryItem("I376","drop",rareDrop)+bestiaryItem("I354","drop")'
 enemies.E41.attackChance = 'castXezdeth()';
 enemies.E41.tag = 'areaBoss';
+enemies.E41.difficulty = 'boss';
 enemies.E41.bigEnemy = true;
 enemies.E41.bestiarySkills = "❖ Daemon Flame: Inflicts"+buffIcon("B24")+"Burning and"+buffIcon("B25")+"Hex.<br>❖"+buffIcon("B39")+"Dark Blast: High"+occultIcon+"Occult Damage and removes all stacks of"+buffIcon("B24")+"Burning.<br>❖"+buffIcon("B34")+"Conflagrate Soul: Extreme"+elementalIcon+"Elemental Damage if the target is not"+buffIcon("B24")+"Burning.";
 enemies.E41.firstTimeReward = true;
@@ -1839,34 +1853,6 @@ items.I438.description = 'Material';
 items.I438.flavor = '"An enhancement material dropped by deific aligned beings."';
 items.I438.quality = 'Uncommon';
 items.I438.sell = 5000;
-
-items.I194 = {}; 
-items.I194.name = 'Mossy Supply Box';
-items.I194.description = 'Material';
-items.I194.flavor = '"A container with materials necessary to construct various structures."';
-items.I194.quality = 'Uncommon';
-items.I194.sell = 500;
-
-items.I195 = {}; 
-items.I195.name = 'Sporty Supply Box';
-items.I195.description = 'Material';
-items.I195.flavor = '"A container with materials necessary to construct various structures."';
-items.I195.quality = 'Uncommon';
-items.I195.sell = 500;
-
-items.I196 = {}; 
-items.I196.name = 'Rocky Supply Box';
-items.I196.description = 'Material';
-items.I196.flavor = '"A container with materials necessary to construct various structures."';
-items.I196.quality = 'Uncommon';
-items.I196.sell = 500;
-
-items.I197 = {}; 
-items.I197.name = 'Ghastly Supply Box';
-items.I197.description = 'Material';
-items.I197.flavor = '"A container with materials necessary to construct various structures."';
-items.I197.quality = 'Uncommon';
-items.I197.sell = 500;
 
 items.I197A = {}; 
 items.I197A.name = 'Artisan Supply Box';
@@ -2155,6 +2141,34 @@ items.I359.flavor = '"A gem with an unnatural orange luster."';
 items.I359.quality = 'Uncommon';
 items.I359.sell = 20000;
 
+items.I194 = {}; 
+items.I194.name = 'Flawless Nephrite';
+items.I194.description = 'Material';
+items.I194.flavor = '"A meticulously carved gemstone polished to perfection. Sells for a good price."';
+items.I194.quality = 'Uncommon';
+items.I194.sell = 6000*1.5;
+
+items.I195 = {}; 
+items.I195.name = 'Flawless Malachite';
+items.I195.description = 'Material';
+items.I195.flavor = '"A meticulously carved gemstone polished to perfection. Sells for a good price."';
+items.I195.quality = 'Uncommon';
+items.I195.sell = 10000*1.5;
+
+items.I196 = {}; 
+items.I196.name = 'Flawless Shadow Diamond';
+items.I196.description = 'Material';
+items.I196.flavor = '"A meticulously carved gemstone polished to perfection. Sells for a good price."';
+items.I196.quality = 'Uncommon';
+items.I196.sell = 40000*1.5;
+
+items.I197 = {}; 
+items.I197.name = 'Flawless Citrokine';
+items.I197.description = 'Material';
+items.I197.flavor = '"A meticulously carved gemstone polished to perfection. Sells for a good price."';
+items.I197.quality = 'Uncommon';
+items.I197.sell = 50000*1.5;
+
 items.I32 = {};
 items.I32.name = 'Copper Ore';
 items.I32.description = "Material";
@@ -2281,19 +2295,19 @@ items.I108.flavor = '"A spice known for its sweet licorice-like flavor."';
 items.I108.quality = 'Common';
 items.I108.sell = 200;
 
-items.I355 = {};
-items.I355.name = 'Dreambulb Sequence';
-items.I355.description = "Material";
-items.I355.flavor = '"A pristine cluster of information of biological data of the Dreambulb."';
-items.I355.quality = 'Common';
-items.I355.sell = 120;
-
 items.I68 = {};
 items.I68.name = 'Alchemical Dust';
 items.I68.description = 'Material';
 items.I68.flavor = '"A shimmering, iridescent powder valued for its reactivity in alchemy."';
 items.I68.quality = 'Common';
 items.I68.sell = 'artisanBonus("AN1")';
+
+items.I355 = {};
+items.I355.name = 'Dreambulb Sequence';
+items.I355.description = "Material";
+items.I355.flavor = '"A pristine cluster of information of biological data of the Dreambulb."';
+items.I355.quality = 'Common';
+items.I355.sell = 120;
 
 items.I362 = {};
 items.I362.name = 'Seraphire Powder';
@@ -2667,7 +2681,7 @@ items.I205.description = 'Consumable - Container<br><FONT COLOR="#1EFF0C">Use: O
 items.I205.flavor = '"If a toy happened to be inside, it would be healthier to eat than the food served."';
 items.I205.quality = 'Rare';
 items.I205.sell = 15000;
-items.I205.use = 'rareItemDrop(rareItems[rng(0,(rareItems.length-1))],1); rareItemDrop(rareItems2[rng(0,(rareItems2.length-1))],1); items.I205.count--; if (rng(1,15)===1) {items.I284.count++;}';
+items.I205.use = 'rareItemDrop(rareItems[rng(0,(rareItems.length-1))],1); rareItemDrop(rareItems2[rng(0,(rareItems2.length-1))],1); items.I205.count--; if (rng(1,6)===1) {items.I284.count++;}';
 
 items.I433 = {}; 
 items.I433.name = 'Prison Realm Binding';
@@ -2864,7 +2878,7 @@ items.I91.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use
 items.I91.flavor = '"Pluck."';
 items.I91.quality = 'Common';
 items.I91.sell = 100;
-items.I91.use = 'if (!(["rod", "mattock"].includes(items[rpgPlayer.weaponSlot].tag))) { stampWeapon("wood"); stats.stampsUsed++; items.I91.count--; ; updateStampMenu(); }'
+items.I91.use = 'if (!(["rod", "mattock"].includes(items[rpgPlayer.weaponSlot].tag)) && !items[rpgPlayer.weaponSlot].locked) { stampWeapon("wood"); stats.stampsUsed++; items.I91.count--; ; updateStampMenu(); }'
 
 items.I92 = {}; 
 items.I92.name = 'Reinforced Stamper';
@@ -2872,7 +2886,7 @@ items.I92.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use
 items.I92.flavor = '"Doink."';
 items.I92.quality = 'Uncommon';
 items.I92.sell = 1000;
-items.I92.use = 'if (!(["rod", "mattock"].includes(items[rpgPlayer.weaponSlot].tag))) { stampWeapon("iron"); stats.stampsUsed++; items.I92.count--; ; updateStampMenu(); }'
+items.I92.use = 'if (!(["rod", "mattock"].includes(items[rpgPlayer.weaponSlot].tag)) && !items[rpgPlayer.weaponSlot].locked) { stampWeapon("iron"); stats.stampsUsed++; items.I92.count--; ; updateStampMenu(); }'
 
 items.I93 = {}; 
 items.I93.name = 'Ornate Stamper';
@@ -2880,7 +2894,7 @@ items.I93.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use
 items.I93.flavor = '"Tunk."';
 items.I93.quality = 'Rare';
 items.I93.sell = 2000;
-items.I93.use = 'if (!(["rod", "mattock"].includes(items[rpgPlayer.weaponSlot].tag))) { stampWeapon("gold"); stats.stampsUsed++; items.I93.count--; ; updateStampMenu(); }'
+items.I93.use = 'if (!(["rod", "mattock"].includes(items[rpgPlayer.weaponSlot].tag)) && !items[rpgPlayer.weaponSlot].locked) { stampWeapon("gold"); stats.stampsUsed++; items.I93.count--; ; updateStampMenu(); }'
 
 items.I312 = {}; 
 items.I312.name = 'Gardener\'s Stamper';
@@ -2888,19 +2902,19 @@ items.I312.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Us
 items.I312.flavor = '"Badoonk."';
 items.I312.quality = 'Rare';
 items.I312.sell = 1200;
-items.I312.use = 'if (["rod", "mattock"].includes(items[rpgPlayer.weaponSlot].tag)) { stampWeapon("gardener"); stats.stampsUsed++; items.I312.count--; updateStampMenu(); }'
+items.I312.use = 'if (["rod", "mattock"].includes(items[rpgPlayer.weaponSlot].tag) && !items[rpgPlayer.weaponSlot].locked) { stampWeapon("gardener"); stats.stampsUsed++; items.I312.count--; updateStampMenu(); }'
 
 items.I311 = {}; 
 items.I311.name = 'Cursed Stamper';
-items.I311.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Applies or rerolls a random stamp to the currently equiped weapon, always adding multiple stamps. Has a chance to add negative stamps.';
+items.I311.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Applies or rerolls a random stamp to the currently equiped weapon, always adding multiple stamps. Has a chance to add negative stamps';
 items.I311.flavor = '"Bababoink."';
 items.I311.quality = 'Rare';
 items.I311.sell = 2000;
-items.I311.use = 'if (!(["rod", "mattock"].includes(items[rpgPlayer.weaponSlot].tag))) { stampWeapon("eternal"); stats.stampsUsed++; items.I311.count--; ; updateStampMenu(); }'
+items.I311.use = 'if (!(["rod", "mattock"].includes(items[rpgPlayer.weaponSlot].tag)) && !items[rpgPlayer.weaponSlot].locked) { stampWeapon("eternal"); stats.stampsUsed++; items.I311.count--; ; updateStampMenu(); }'
 
 items.I222 = {}; 
 items.I222.name = 'Golden Magnifying Glass';
-items.I222.description = 'Miscellaneous<br><FONT COLOR="#1EFF0C">Can be used once to reveal the details of a missing book';
+items.I222.description = 'Miscellaneous<br><FONT COLOR="#1EFF0C">Can be used once to reveal the details of a missing book or the skills of a weapon';
 items.I222.flavor = '"Oh. So that\'s what it was talking about."';
 items.I222.quality = 'Rare';
 items.I222.sell = 10000;
@@ -2918,38 +2932,38 @@ items.I208.max = 10;
 
 items.I209 = {};
 items.I209.name = 'Ephemeral Time Egg';
-items.I209.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 1 hour of offline progress<br><FONT COLOR="gray"> (Doesnt work on bosses or if the current enemy has been defeated less than 100 times)'
+items.I209.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 1 hour of offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
 items.I209.flavor = '"...Time, the very essence of change and decay, which would hatch forth and the very heartbeat of existence, would find its genesis..."';
 items.I209.quality = 'Rare';
 items.I209.sell = 1000;
-items.I209.use = 'if (farmable && !bossTime) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((3600/60)*(playerPenguinPower/15),"egg"); items.I209.count--; }';
+items.I209.use = 'if (farmable && (!bossTime || stats.currentDifficulty==="boss")) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((3600/60),"egg"); items.I209.count--; }';
 items.I209.max = 1;
 
 items.I210 = {};
 items.I210.name = 'Perennial Time Egg';
-items.I210.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 6 hours of offline progress<br><FONT COLOR="gray"> (Doesnt work on bosses or if the current enemy has been defeated less than 100 times)'
+items.I210.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 6 hour of offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
 items.I210.flavor = '"...Encased within the shell of the cosmic ovum lay the potential for eternity, awaiting the pivotal moment of hatching, as within resided..."';
 items.I210.quality = 'Epic';
 items.I210.sell = 10000;
-items.I210.use = 'if (farmable && !bossTime) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((21600/60)*(playerPenguinPower/15),"egg"); items.I210.count--; }';
+items.I210.use = 'if (farmable && (!bossTime || stats.currentDifficulty==="boss")) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((21600/60),"egg"); items.I210.count--; }';
 items.I210.max = 1;
 
 items.I211 = {};
 items.I211.name = 'Everlasting Time Egg';
-items.I211.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 3 days of offline progress<br><FONT COLOR="gray"> (Doesnt work on bosses or if the current enemy has been defeated less than 100 times)'
+items.I211.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 3 days of offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
 items.I211.flavor = '"—In the depths of its ancient shell harbored the essence of creation itself. And so, in an epoch-shattering moment, amidst the swirling mists of eternity, it laid an egg..."';
 items.I211.quality = 'Mythic';
 items.I211.sell = 50000;
-items.I211.use = 'if (farmable && !bossTime) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((259200/60)*(playerPenguinPower/15),"egg"); items.I211.count--; }';
+items.I211.use = 'if (farmable && (!bossTime || stats.currentDifficulty==="boss")) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((259200/60),"egg"); items.I211.count--; }';
 items.I211.max = 1;
 
 items.I212 = {};
 items.I212.name = 'Timeless Time Egg';
-items.I212.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Fast-forwards 2 weeks of offline progress<br><FONT COLOR="gray"> (Doesnt work on bosses or if the current enemy has been defeated less than 100 times)'
+items.I212.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 2 weeks of offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
 items.I212.flavor = '"...As it unfurled its wings, ages passed like fleeting shadows, civilizations rose and crumbled, and the land itself bore witness to the inexorable march of time."';
 items.I212.quality = 'Legendary';
 items.I212.sell = 200000;
-items.I212.use = 'if (farmable && !bossTime) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((1209600/60)*(playerPenguinPower/15),"egg"); items.I212.count--; }';
+items.I212.use = 'if (farmable && (!bossTime || stats.currentDifficulty==="boss")) {playSound("audio/button9.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); offlineRewards((1209600/60),"egg"); items.I212.count--; }';
 items.I212.max = 1;
 
 items.I291 = {};
@@ -3663,23 +3677,27 @@ items.I319.cap = 80;
 
 items.I320 = {};
 items.I320.name = 'Heavenly Ruin';
-items.I320.description = 'Equipable - Weapon<br><FONT COLOR="#1EFF0C">100K Elemental Damage<br>On Attack: Low chance to disrupt the enemy\'s spirit circuits, immobilising them and dealing medium'+elementalIcon+'Elemental Damage overtime for 10 seconds';
+items.I320.description = `'Equipable - Weapon<br>'+rUpgLvl("I320")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I320", 1))+' Elemental Damage'`;
+items.I320.skills = 'rUpgSkill("I320", "Spiritron Break: Deal Medium"+elementalIcon+"Elemental Damage overtime, -40% Attack Speed","active",0)+"<br>"+rUpgSkill("I320", "Colored Pinions: +20%"+natureIcon+"Nature Bonus","passive",80)'
 items.I320.flavor = '"When of the gods none had been called into being, and none bore a name, and no destinies were ordained; Then were created the gods in the midst of heaven."';
-items.I320.quality = 'Epic';
+items.I320.quality = 'Rare';
 items.I320.sell = 'returnGearPrice("I320")';
 items.I320.max = 1;
 items.I320.use = 'gearSwap(items.I320.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")';
-items.I320.stats = 'weaponElementalDamage = returnItemUpgradeScaling(510, "I320");'
-items.I320.remove = 'weaponElementalDamage = 0;'
+items.I320.stats = 'weaponElementalDamage = rUpgDmg("I320", 1); items.I320.statUp= -0.4;'
+items.I320.remove = 'weaponElementalDamage = 0; items.I320.statUp= 0;'
 items.I320.attackChance = 'castHeavenlyRuin()'
 items.I320.align = 'elemental';
 items.I320.animation = 'ranged';
-items.I320.series = 'runic';
+items.I320.series = 'malevolent';
+items.I320.cap = '90';
+items.I320.tier = 2;
+items.I320.statUp= 0;
 
 items.I321 = {};
 items.I321.name = 'Hidden Pledge';
 items.I321.description = `'Equipable - Weapon<br>'+rUpgLvl("I321")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I321", 1))+' Nature Damage'`;
-items.I321.skills = 'rUpgSkill("I321", "Multicolored Multikill: Medium chance to deal low"+natureIcon+"Nature Damage a random amount of times","active",50)+"<br>"+rUpgSkill("I321", "Colored Pinions: +20%"+natureIcon+"Nature Bonus","passive",60)+"<br>"+rUpgSkill("I321", "Fiesta: Low chance to deal random debuffs","passive",70)'
+items.I321.skills = 'rUpgSkill("I321", "Multicolored Multikill: Low chance to deal low"+natureIcon+"Nature Damage a random amount of times","active",50)+"<br>"+rUpgSkill("I321", "Colored Pinions: +20%"+natureIcon+"Nature Bonus","passive",60)+"<br>"+rUpgSkill("I321", "Fiesta: Low chance to deal random debuffs","passive",70)'
 items.I321.flavor = '"A tribal greatbow covered in feathers. There are many ancient carvings on the surface depicting a giant creature bonding with a certain tribe."';
 items.I321.quality = 'Epic';
 items.I321.sell = 'returnGearPrice("I321")';
@@ -3739,7 +3757,6 @@ items.I324.stats = 'weaponDeificDamage = returnItemUpgradeScaling(91721839, "I32
 items.I324.remove = 'weaponDeificDamage = 0;'
 items.I324.attackChance = 'if (rng(1,7)===1) castAngelicBuster()'
 items.I324.align = 'deific';
-items.I324.series = 'chosen';
 
 items.I325 = {};
 items.I325.name = 'Wrath';
@@ -3769,7 +3786,6 @@ items.I326.stats = 'weaponDeificDamage = returnItemUpgradeScaling(510, "I326");'
 items.I326.remove = 'weaponDeificDamage = 0;'
 items.I326.attackChance = 'castFaith()'
 items.I326.align = 'deific';
-items.I326.series = 'chosen';
 
 items.I327 = {};
 items.I327.name = 'Eternity\'s End';
@@ -3794,7 +3810,7 @@ items.I328.quality = 'Mythic';
 items.I328.sell = 'returnGearPrice("I328")';
 items.I328.max = 1;
 items.I328.use = 'gearSwap(items.I328.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")';
-items.I328.attackChance = 'playSound("audio/trumpet.mp3");'
+items.I328.attackChance = 'playSound("audio/trumpet.mp3"); if (stats.currentEnemy==="E15") { enemyBasicDamage(50); if (rng(1,6)===1) {deleteEnemy("E43"); playSound("audio/hawk.mp3"); animParticleBurst(10 , "particleFire", "enemyPanel", 200);animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/explosion.mp3"); } }'
 items.I328.animation = 'ranged';
 items.I328.series = 'ancient';
 items.I328.noUpgrade = true;
@@ -4640,7 +4656,6 @@ items.I329.max = 10;
 items.I329.use = 'gearSwap(items.I329.id, rpgPlayer.feetSlot, "rpgFeetSlot", "feet")'
 items.I329.stats = 'feetAdditiveMaxHp = returnItemUpgradeScaling(273*100391, "I329"); feetAdditiveRegen = returnItemUpgradeScaling(27*100391, "I329");'
 items.I329.remove = 'feetAdditiveMaxHp = 0; feetAdditiveRegen = 0;'
-items.I329.series = 'malevolent';
 
 items.I330 = {};
 items.I330.name = 'Nightmare Tricorn';
@@ -4658,7 +4673,6 @@ items.I330.max = 10;
 items.I330.use = 'gearSwap(items.I330.id, rpgPlayer.headSlot, "rpgHeadSlot", "head")'
 items.I330.stats = 'headAdditiveMaxHp = returnItemUpgradeScaling(287*100391, "I330"); headAdditiveRegen = returnItemUpgradeScaling(28*100391, "I330");'
 items.I330.remove = 'headAdditiveMaxHp = 0; headAdditiveRegen = 0;'
-items.I330.series = 'malevolent';
 
 items.I331 = {};
 items.I331.name = 'Nightmare Gloves';
@@ -4676,7 +4690,6 @@ items.I331.max = 10;
 items.I331.use = 'gearSwap(items.I331.id, rpgPlayer.handsSlot, "rpgHandsSlot", "hands")'
 items.I331.stats = 'handsAdditiveMaxHp = returnItemUpgradeScaling(275*100391, "I331"); handsAdditiveRegen = returnItemUpgradeScaling(27*100391, "I331");'
 items.I331.remove = 'handsAdditiveMaxHp = 0; handsAdditiveRegen = 0;'
-items.I331.series = 'malevolent';
 
 items.I332 = {};
 items.I332.name = 'Nightmare Cuirass';
@@ -4694,7 +4707,6 @@ items.I332.max = 10;
 items.I332.use = 'gearSwap(items.I332.id, rpgPlayer.chestSlot, "rpgChestSlot", "chest")'
 items.I332.stats = 'chestAdditiveMaxHp = returnItemUpgradeScaling(290*100391, "I332"); chestAdditiveRegen = returnItemUpgradeScaling(29*100391, "I332");'
 items.I332.remove = 'chestAdditiveMaxHp = 0; chestAdditiveRegen = 0;'
-items.I332.series = 'malevolent';
 
 items.I333 = {};
 items.I333.name = 'Nightmare Pants';
@@ -4712,7 +4724,6 @@ items.I333.max = 10;
 items.I333.use = 'gearSwap(items.I333.id, rpgPlayer.legsSlot, "rpgLegsSlot", "legs")'
 items.I333.stats = 'legsAdditiveMaxHp = returnItemUpgradeScaling(280*100391, "I333"); legsAdditiveRegen = returnItemUpgradeScaling(28*100391, "I333");'
 items.I333.remove = 'legsAdditiveMaxHp = 0; legsAdditiveRegen = 0;'
-items.I333.series = 'malevolent';
 
 //--------------------------------
 
@@ -4732,7 +4743,6 @@ items.I339.max = 10;
 items.I339.use = 'gearSwap(items.I339.id, rpgPlayer.feetSlot, "rpgFeetSlot", "feet")'
 items.I339.stats = 'feetAdditiveMaxHp = returnItemUpgradeScaling(273*600391, "I339"); feetAdditiveRegen = returnItemUpgradeScaling(27*600391, "I339");'
 items.I339.remove = 'feetAdditiveMaxHp = 0; feetAdditiveRegen = 0;'
-items.I339.series = 'chosen';
 
 items.I340 = {};
 items.I340.name = 'Lightbringer Crown';
@@ -4861,18 +4871,17 @@ items.I374.use = 'gearSwap(items.I374.id, rpgPlayer.ringSlot, "rpgRingSlot", "ri
 items.I374.stats = 'items.I374.statUp = returnItemUpgradeScaling(2881299, "I374");'
 items.I374.remove = 'items.I374.statUp = 0;'
 items.I374.statUp = 0;
-items.I374.series = 'malevolent';
 
 items.I375 = {};
 items.I375.name = 'Arcane Sign';
 items.I375.description = `'Equipable - Ring<br>'+rUpgLvl("I375")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I375", 1))+' Max Health'`;
-items.I375.skills = 'rUpgSkill("I375", "Runetraced: +50 Max Magic","passive",60)+"<br>"+rUpgSkill("I375", "Protection: +50%"+spIcon+"Spellpower","passive",70)'
+items.I375.skills = 'rUpgSkill("I375", "Runetraced: +50 Max Magic","passive",60)+"<br>"+rUpgSkill("I375", "Protection: +60%"+spIcon+"Spellpower","passive",70)'
 items.I375.flavor = '"A magic-amplifying ring, operating as a relay for magic waves."';
 items.I375.quality = 'Rare';
 items.I375.sell = 'returnGearPrice("I375")';
 items.I375.max = 1;
 items.I375.use = 'gearSwap(items.I375.id, rpgPlayer.ringSlot, "rpgRingSlot", "ring")'
-items.I375.stats = 'ringAdditiveMaxHp = rUpgDmg("I375", 1); if (items.I375.level>59) items.I375.statUp = 50; if (items.I375.level>69) items.I375.statUp2 = 0.5;'
+items.I375.stats = 'ringAdditiveMaxHp = rUpgDmg("I375", 1); if (items.I375.level>59) items.I375.statUp = 50; if (items.I375.level>69) items.I375.statUp2 = 0.6;'
 items.I375.remove = 'ringAdditiveMaxHp = 0; items.I375.statUp = 0; items.I375.statUp2 = 0;'
 items.I375.series = 'ancient';
 items.I375.cap = 80;
@@ -4899,13 +4908,13 @@ items.I376.cap = 80;
 items.I383 = {};
 items.I383.name = 'Ring of Grace and Salvation';
 items.I383.description = `'Equipable - Ring<br>'+rUpgLvl("I383")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I383", 1))+' Max Health'`;
-items.I383.skills = 'rUpgSkill("I383", "Favor: +30%"+spIcon+"Spellpower","passive",50)+"<br>"+rUpgSkill("I383", "Protection: +30%"+strIcon+"Strength","passive",60)'
+items.I383.skills = 'rUpgSkill("I383", "Favor: +40%"+spIcon+"Spellpower","passive",50)+"<br>"+rUpgSkill("I383", "Protection: +40%"+strIcon+"Strength","passive",60)'
 items.I383.flavor = '"A fragile ring that shatters on equip. It will take a while to reforge itself back."';
 items.I383.quality = 'Rare';
 items.I383.sell = 'returnGearPrice("I383")';
 items.I383.max = 1;
 items.I383.use = 'items.I383.cd=1200; gearSwap(items.I383.id, rpgPlayer.ringSlot, "rpgRingSlot", "ring")'
-items.I383.stats = 'ringAdditiveMaxHp = rUpgDmg("I383", 1); if (items.I383.level>49) items.I383.statUp = 0.3; if (items.I383.level>59) items.I383.statUp2 = 0.3;'
+items.I383.stats = 'ringAdditiveMaxHp = rUpgDmg("I383", 1); if (items.I383.level>49) items.I383.statUp = 0.4; if (items.I383.level>59) items.I383.statUp2 = 0.4;'
 items.I383.remove = 'ringAdditiveMaxHp = 0; items.I383.statUp = 0; items.I383.statUp2 = 0;'
 items.I383.statUp = 0;
 items.I383.statUp2 = 0;
@@ -5304,6 +5313,7 @@ items.I377.use = 'gearSwap(items.I377.id, rpgPlayer.trinketSlot, "rpgTrinketSlot
 items.I377.defenseChance = 'playerHealingDamage(returnItemUpgradeScaling(16923000, "I377"))'
 items.I377.statUp = 0;
 //if (items.I168.level>49) items.I168.statUp=0.2;
+
 items.I378 = {};
 items.I378.name = 'Demonlife Orb';
 items.I378.description = `'Equipable - Trinket<br>'+rUpgLvl("I378")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I378", 1))+' Max Health'`;
@@ -5321,6 +5331,22 @@ items.I378.series = 'ancient';
 items.I378.cap = 80;
 items.I378.statUp=1;
 items.I378.statUp2=0;
+
+items.I495 = {};
+items.I495.name = 'IV Bag';
+items.I495.description =  `'Equipable - Trinket<br>'+rUpgLvl("I495")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I495", 1))+' Max Health'`;
+items.I495.skills = 'rUpgSkill("I495", "Transfusion: Automatically uses owned Healing Potions on low Health","passive",0)+"<br>"+rUpgSkill("I495", "First Aid: +10% Healing Received","passive",70)'
+items.I495.flavor = '"Remains of a forbidden friendship."';
+items.I495.quality = 'Uncommon';
+items.I495.sell = 'returnGearPrice("I495")';
+items.I495.max = 1;
+items.I495.stats = 'trinketAdditiveMaxHp = rUpgDmg("I495", 1);  if (items.I495.level>49) items.I495.statUp= 0.15'
+items.I495.remove = 'trinketAdditiveMaxHp = 0; items.I495.statUp= 0'
+items.I495.use = 'gearSwap(items.I495.id, rpgPlayer.trinketSlot, "rpgTrinketSlot", "trinket")';
+items.I495.defenseChance = 'castIvBag()';
+items.I495.series = "ancient"; 
+items.I495.cap = 80;
+items.I495.statUp= 0;
 
 items.I113 = {}; 
 items.I113.name = 'Soft Leather Gloves';
@@ -5805,6 +5831,15 @@ items.I379.quality = 'Upgrade';
 items.I379.sell = 0;
 items.I379.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); unlocks.gardenFertiliser=true; unlocksReveal(); items.I304.count--; ';
 items.I379.max = 1;
+
+items.I494 = {};
+items.I494.name = 'Sack of Microbots';
+items.I494.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently unlocks the Sack of Microbots Fertiliser'
+items.I494.flavor = '"I just realised that the players dont really read this text ever so why bother."';
+items.I494.quality = 'Upgrade';
+items.I494.sell = 0;
+items.I494.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particleSpark", "cursor", 0); unlocks.gardenFertiliser=true; unlocksReveal(); items.I304.count--; ';
+items.I494.max = 1;
 
 unlocks.seedCompendium=false;
 items.I305 = {};
@@ -6888,6 +6923,14 @@ items.M4.quality = 'Poor';
 items.M4.sell = 1;
 items.M4.max = 1;
 
+items.M5 = {}; 
+items.M5.name = 'Small Memo Note';
+items.M5.description = 'Miscellaneous';
+items.M5.flavor = '"The presents... they aren\'t what they seem. Found out the hard way when I gave one to her. Radio was on, playing some old jazz... and then the trumpet hit. The thing shrieked and morphed right there. So, whatever you do, keep a radio nearby, and for the love of all that\'s holy, if you hear a trumpet, stay alert. It hates the sound. Could save your life."';
+items.M5.quality = 'Poor';
+items.M5.sell = 1;
+items.M5.max = 1;
+
 
 /*
 items.M3 = {}; 
@@ -7790,9 +7833,9 @@ buffs.B64.buff = true;
 buffs.B64.img = 'img/src/items/I200.jpg';
 
 buffs.B65 = {};
-buffs.B65.name = 'Spirit Short Circuit';
-buffs.B65.description = '<FONT COLOR="#8fbaff">Unable to move and losing life';
-buffs.B65.effect = '';
+buffs.B65.name = 'Spiritron Break';
+buffs.B65.description = '<FONT COLOR="#8fbaff">Losing life';
+buffs.B65.effect = 'buffEffect(playerWeaponDamage*0.5, "B65")';
 buffs.B65.img = 'img/src/buffs/B19.jpg';
 
 buffs.B66 = {};
@@ -8320,13 +8363,15 @@ areas.A3.unlockedOre = 0;
 areas.A3.color1 = "#4a477a";
 areas.A3.color2 = "#3A3D56";
 areas.A3.mastery = 300;
+areas.A3.masteryCap = 700;
 
 areas.A7 = {};
-areas.A7.name = 'Monster Arena';
+areas.A7.name = '🏆 The Arena';
 areas.A7.level = 25;
 areas.A7.description = '"Welcoming all brave turtles, this thunderdome is a place of glory and riches. Fight against powerful foes and claim prize for yourself!."';
 areas.A7.color1 = "#69584e";
 areas.A7.color2 = "#524238";
+areas.A7.mastery = 500;
 
 var A4Loot = { I43:{P:200,A:1}, /*chest*/ I263:{P:100000,A:1}, I264:{P:100000,A:1} /*relics*/ }
 areas.A4 = {};
@@ -9836,6 +9881,40 @@ recipes.EI6.reagent3 = 'I418';
 recipes.EI6.amount3 = 5;
 
 
+//gemcutting
+
+recipes.EG1 = {};
+recipes.EG1.level = 12;
+recipes.EG1.exp = 10;
+recipes.EG1.timer = 120;
+recipes.EG1.item = 'I194';
+recipes.EG1.reagent1 = 'I22';
+recipes.EG1.amount1 = 1;
+
+recipes.EG2 = {};
+recipes.EG2.level = 20;
+recipes.EG2.exp = 20;
+recipes.EG2.timer = 120;
+recipes.EG2.item = 'I195';
+recipes.EG2.reagent1 = 'I42';
+recipes.EG2.amount1 = 1;
+
+recipes.EG3 = {};
+recipes.EG3.level = 24;
+recipes.EG3.exp = 30;
+recipes.EG3.timer = 120;
+recipes.EG3.item = 'I196';
+recipes.EG3.reagent1 = 'I418';
+recipes.EG3.amount1 = 1;
+
+recipes.EG4 = {};
+recipes.EG4.level = 28;
+recipes.EG4.exp = 40;
+recipes.EG4.timer = 120;
+recipes.EG4.item = 'I197';
+recipes.EG4.reagent1 = 'I359';
+recipes.EG4.amount1 = 1;
+
 
 //eengineering keys
 
@@ -9977,6 +10056,13 @@ jobPanels.EI.hidden = false;
 jobPanels.EI.unlocked = true;
 jobPanels.EI.category = 'engineeringRecipes';
 jobPanels.EI.icon = 'I44';
+
+jobPanels.EG = {}
+jobPanels.EG.name = 'Gemcutting';
+jobPanels.EG.hidden = false;
+jobPanels.EG.unlocked = true;
+jobPanels.EG.category = 'engineeringRecipes';
+jobPanels.EG.icon = 'I194';
 
 jobPanels.EK = {}
 jobPanels.EK.name = 'Keys';
@@ -10122,12 +10208,12 @@ shopItems.A2S8 = {}
 shopItems.A2S8.item = 'I125';
 shopItems.A2S8.price = 400000;
 shopItems.A2S8.stock = 1;
-
+/*
 shopItems.A2S9 = {}
 shopItems.A2S9.item = 'I34';
 shopItems.A2S9.price = 70000;
 shopItems.A2S9.stock = 1;
-
+*/
 shopItems.A2S10 = {}
 shopItems.A2S10.item = 'I48';
 shopItems.A2S10.price = 500;
@@ -13279,6 +13365,10 @@ fertiliser.f2 = {}
 fertiliser.f2.name = "Water-Retaining Fertiliser";
 fertiliser.f2.description = "Plants no longer need water nor speeds up growth, but plants grow to maturity 80% faster";
 
+fertiliser.f3 = {}
+fertiliser.f3.name = "Sack of Microbots";
+fertiliser.f3.description = "Plants get automatically replanted on death if you got their seeds, but they cannot crossbreed";
+
 for (var i in fertiliser) {
   fertiliser[i].unlocked = false;
 }
@@ -13381,6 +13471,15 @@ gardenShop.GS6I2.stock = 1;
 gardenShop.GS6I2.parent = 'gardenShopListing6'; 
 gardenShop.GS6I2.effect = 'items.I213.count++; addItem()';
 
+//shop 7
+
+gardenShop.GS7I1 = {}
+gardenShop.GS7I1.item = 'I494';
+gardenShop.GS7I1.price = 500;
+gardenShop.GS7I1.stock = 1;
+gardenShop.GS7I1.parent = 'gardenShopListing7'; 
+gardenShop.GS7I1.effect = 'playSound("audio/retro2.mp3"); items.I494.gotOnce=true ; unlocksReveal(); fertiliser.f3.unlocked = true;';
+
 /*
 gardenShop.GS6I1 = {}
 gardenShop.GS6I1.item = 'I303';
@@ -13429,6 +13528,14 @@ gametip.gt2 = {}
 gametip.gt2.name = "Equipment Upgrading";
 gametip.gt2.description = 'Gear with a level on their description is eligible to upgrade. To upgrade gear, press the'+colorTag("Upgrade", "#db4242")+'button on your inventory, and select the piece you want to upgrade.<br><br>As gear upgrades, it will often acquire new skills and bonuses if the level requirement is met. Gear will always keep their level even if its sold.<br><br>Keep in mind that higher rarities of gear will demand higher quantities of resources and shells, so consider the costs before upgrading them.';
 
+gametip.gt20 = {}
+gametip.gt20.name = "Player Stats";
+gametip.gt20.description = colorTag("Mastery", "#464ACB")+' increases your Health and Attack exponentially, and its the main way to get stronger.<br><br>'+colorTag("Align Bonus", "#46CB4C")+' will increase your damage from all sources of that specific alignment. Includes, but is not limited to, status effects, skills, weapon skills and consumable items.<br><br>'+colorTag("Align Resistances", "#CB5E46")+' decreases your damage taken from that specific align.<br><br>'+colorTag("Strength", "#CB7F46")+' increases the damage of your turtle\'s auto-attacks.<br><br>'+colorTag("Spellpower", "#446CC9")+' increases the percentage that magic skills use to determine their power.';
+
+gametip.gt21 = {}
+gametip.gt21.name = "Offline Gains";
+gametip.gt21.description = 'Your turtle will keep working hard while you are not inside the game. You will get resources, rare items, experience and defeats of the current enemy while doing so. Your'+colorTag("Offline Multiplier", "#45a3a2")+'determines how fast you can defeat the enemies.<br><br>However, to be eligible for this, you will need to defeat the enemy you want them to farm at least'+colorTag("100 times.", "coral")+'times.';
+
 gametip.gt6 = {}
 gametip.gt6.name = "Alignments";
 gametip.gt6.description = 'Every attack and enemy has an Alignment.<br><br>You can check which alignment the enemy has by hovering over it. Attacks will increase or decrease in damage depending on which Alignment is being attacked.<br><br>You can check at any time the chart in the Stats Panel by hovering over the duck.';
@@ -13438,11 +13545,11 @@ gametip.gt14.name = "Bosses and Mighty Foes";
 gametip.gt14.description ='While fighting a boss, passive Health regeneration will be'+colorTag("disabled.", "#db4242")+"If its your first time defeating said boss, you will get awarded with one random item of theirs.";
 
 gametip.gt15 = {}
-gametip.gt15.name = "Combat Tips I";
+gametip.gt15.name = "Combat: Alerted";
 gametip.gt15.description ='Sometimes, enemies will have some of their skills marked with a '+buffIcon("B34")+' next to them on their description.<br><br>During the fight, said skill will be showing up with anticipation, as well as a number attached to it. This number determines the amount of turns the enemy must go before the skill is used.<br><br>Be on your guard as such skills are usually critical for the fight and must be taken into consideration.';
 
 gametip.gt16 = {}
-gametip.gt16.name = "Combat Tips II";
+gametip.gt16.name = "Combat: Interrupting";
 gametip.gt16.description ='Sometimes, enemies will have some of their skills marked with a '+buffIcon("B39")+' next to them on their description.<br><br>During the fight, said skill will be showing up with anticipation, as well as a number attached to it. This number determines the amount of turns the enemy must go before the skill is used.<br><br>However, this attack can be interrupted in the process by any skill that can'+colorTag("Interrupt.", "#BE7150")+'<br><br>Its up to you to chose which attack you want to interrupt.';
 
 gametip.gt8 = {}
@@ -13451,15 +13558,15 @@ gametip.gt8.description = 'If your turtle gets defeated in battle, worry not!<br
 
 gametip.gt4 = {}
 gametip.gt4.name = "Weapon Stamping";
-gametip.gt4.description = 'Equip a weapon and use a stamp to apply them to it in various levels of effectivity. The current weapon stamps will be replaced and rerolled by new ones.<br><br>Some stamp effects might not be available until better stampers get acquired.<br><br>'+colorTag("Alignment Force", "#5CAA5D")+' such as Nature Force will increase the damage for that specific alignment.<br><br>'+colorTag("Titanic Grip", "#BE7150")+' will increase your Strength. Strength increases the damage of your auto-attacks.<br><br>'+colorTag("Dynamo", "#B062A1")+' will increase your Attack Speed.';
+gametip.gt4.description = 'Equip a weapon and use a stamp to apply them to it in various levels of effectivity. The current weapon stamps will be replaced and rerolled by new ones.<br><br>Some stamp effects might not be available until better stampers get acquired.<br><br>'+colorTag("Alignment Force", "#5CAA5D")+' such as Nature Force will increase the damage for that specific alignment.<br><br>'+colorTag("Titanic Grip", "#BE7150")+' will increase your Strength. Strength increases the damage of your auto-attacks.<br><br>'+colorTag("Dynamo", "#B062A1")+' will increase your Attack Speed.<br><br>'+colorTag("Afflictions", "purple")+' will decrease your align resistance.';
 
 gametip.gt3 = {}
 gametip.gt3.name = "Mastery";
-gametip.gt3.description = 'Mastery is a stat that increases both your defense and offense. It is crucial to level up this stat to progress.<br><br>Increase this stat through various means, such as doing quests, or engaging with the multiple systems of the game.';
+gametip.gt3.description = 'Mastery is a stat that increases both your defense and offense massively. It is crucial to level up this stat to progress.<br><br>Increase this stat through various means, such as doing quests, or engaging with the multiple systems of the game.';
 
 gametip.gt5 = {}
 gametip.gt5.name = "Crafting";
-gametip.gt5.description = 'Crafting is a good way to create items that will aid in your adventure, aswell as making profit. Crafted unique items sell for much more than non-unique ones. If another unique is crafted while you already own it, it will auto-sell at 35% of its original value.<br><br>There is no limit on how many different items you can craft at once. You can queue multiple items by pressing the crafting button again. This can be used to queue multiple large quantities of items at once.<br><br>Greyed out recipes will not yield any profession experience.';
+gametip.gt5.description = 'Crafting is a good way to create items that will aid in your adventure, aswell as making profit.<br><br>There is no limit on how many different items you can craft at once. You can queue multiple items by pressing the crafting button again. This can be used to queue multiple large quantities of items at once.<br><br>Greyed out recipes will not yield any profession experience.'+bestiaryTag("Money Making")+'Crafting multiplies the value of spent materials, and its the most reliable way to make Shells. Crafted unique items sell for much more than non-unique ones. If another unique or limited item is crafted while you already have the maximum amount of it, it will sell automatically.';
 
 gametip.gt7 = {}
 gametip.gt7.name = "The Armory";
@@ -13471,7 +13578,7 @@ gametip.gt12.description = "Dungeons are perilous instances where passive health
 
 gametip.gt10 = {}
 gametip.gt10.name = "Penguins Helpers";
-gametip.gt10.description ='Penguin Helpers will gather resources and experience for you while you are offline. Your'+colorTag("Offline Multiplier", "#45a3a2")+'determines how fast they gather said experience and materials.<br><br>However, to be eligible for this aid, you will need to defeat the enemy you want them to farm at least'+colorTag("100 times.", "coral")+'<br><br>Penguins are not affected by any stat other than Penguin Power. Penguins also do not give defeat stats for the enemy they are helping with.';
+gametip.gt10.description ='Penguin Helpers will gather resources for you while you are offline. You can select up to three different materials to farm at the same time, or select multiple of the same. They are eligible for '+colorTag("Offline Multiplier", "#45a3a2")+'bonuses too.';
 
 gametip.gt11 = {}
 gametip.gt11.name = "Skills And Stars";
@@ -13500,3 +13607,5 @@ gametip.gt3.unlocked = true;
 gametip.gt6.unlocked = true;
 gametip.gt14.unlocked = true;
 gametip.gt17.unlocked = true;
+gametip.gt20.unlocked = true;
+gametip.gt21.unlocked = true;
