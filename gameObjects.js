@@ -13534,7 +13534,7 @@ gametip.gt20.description = colorTag("Mastery", "#464ACB")+' increases your Healt
 
 gametip.gt21 = {}
 gametip.gt21.name = "Offline Gains";
-gametip.gt21.description = 'Turtlebot will keep working hard while you are not inside the game. You will get resources, rare items, collectibles, experience and defeats of the current enemy while doing so. Your'+colorTag("Offline Multiplier", "#45a3a2")+'determines how fast you can defeat the enemies.<br><br>However, to be eligible for this, you will need to defeat the enemy you want them to farm at least'+colorTag("100 times.", "coral")+'times.';
+gametip.gt21.description = 'Turtlebot will keep working hard while you are not inside the game. You will get resources, rare items, collectibles, experience and defeats of the current enemy while doing so. Your'+colorTag("Offline Multiplier", "#45a3a2")+'determines how fast you can defeat the enemies.<br><br>However, to be eligible for this, you will need to defeat the enemy you want them to farm at least'+colorTag("100 times.", "coral")+'';
 
 gametip.gt6 = {}
 gametip.gt6.name = "Alignments";
