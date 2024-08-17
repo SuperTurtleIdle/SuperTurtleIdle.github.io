@@ -141,7 +141,8 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
 
 
   if (buffs.B67.time>0 && currentEnemy!=="E15"){ //caltrops
-    currentHP -= Math.min((currentHP-1), (playerWeaponDamage*0.2)*playerSpellpower);
+    //currentHP -= Math.min((currentHP-1), (playerWeaponDamage*0.2)*playerSpellpower);
+    enemyBasicDamage(Math.min(playerWeaponDamage*0.2*playerSpellpower*Math.pow(1.005, playerMastery), currentHP-1),"zeroScale")
     enemyUpdate();
   }
 

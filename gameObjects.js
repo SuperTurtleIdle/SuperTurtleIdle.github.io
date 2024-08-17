@@ -3810,7 +3810,7 @@ items.I328.quality = 'Mythic';
 items.I328.sell = 'returnGearPrice("I328")';
 items.I328.max = 1;
 items.I328.use = 'gearSwap(items.I328.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")';
-items.I328.attackChance = 'playSound("audio/trumpet.mp3"); if (stats.currentEnemy==="E15") { enemyBasicDamage(50); if (rng(1,6)===1) {deleteEnemy("E43"); playSound("audio/hawk.mp3"); animParticleBurst(10 , "particleFire", "enemyPanel", 200);animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/explosion.mp3"); } }'
+items.I328.attackChance = 'playSound("audio/trumpet.mp3"); if (stats.currentEnemy==="E15") { enemyBasicDamage(50); if (rng(1,6)===1) {cd.presentCanSpawn=0; deleteEnemy("E43"); playSound("audio/hawk.mp3"); animParticleBurst(10 , "particleFire", "enemyPanel", 200);animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/explosion.mp3"); } }'
 items.I328.animation = 'ranged';
 items.I328.series = 'ancient';
 items.I328.noUpgrade = true;
