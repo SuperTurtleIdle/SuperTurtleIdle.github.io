@@ -1342,7 +1342,7 @@ function afkPenguinTooltip(x){
         did('tooltip').style.display = "flex";
         did("tooltipName").textContent = "Penguin Helper";
         did("tooltipPrice").innerHTML = '';
-        did("tooltipRarity").textContent = 'Hard-working birb';
+        did("tooltipRarity").textContent = 'Offline Gains';
         did("tooltipRarity").style.color = "#5A9AE5";      
         did("tooltipName").style.color = "white";     
         did('tooltipImage').src = "img/src/upgrades/P1.jpg";
