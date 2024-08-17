@@ -123,7 +123,7 @@ function returnGearPrice(i){
 }
 
 function itemIcon(id){
-  return '<img style="border-color: '+returnQualityColor(items[id].quality)+' " src="img/src/items/'+id+'.jpg">'
+  return '<img style="border-color: '+returnQualityColor(items[id].quality)+' " src="img/src/items/'+items[id].img+'.jpg">'
 }
 
 function buffIcon(id){
@@ -2932,7 +2932,7 @@ items.I208.max = 10;
 
 items.I209 = {};
 items.I209.name = 'Ephemeral Time Egg';
-items.I209.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 1 hour of offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
+items.I209.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 1 hour of Turtlebot\'s offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
 items.I209.flavor = '"...Time, the very essence of change and decay, which would hatch forth and the very heartbeat of existence, would find its genesis..."';
 items.I209.quality = 'Rare';
 items.I209.sell = 1000;
@@ -2941,7 +2941,7 @@ items.I209.max = 1;
 
 items.I210 = {};
 items.I210.name = 'Perennial Time Egg';
-items.I210.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 6 hour of offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
+items.I210.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 6 hour of Turtlebot\'s offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
 items.I210.flavor = '"...Encased within the shell of the cosmic ovum lay the potential for eternity, awaiting the pivotal moment of hatching, as within resided..."';
 items.I210.quality = 'Epic';
 items.I210.sell = 10000;
@@ -2950,7 +2950,7 @@ items.I210.max = 1;
 
 items.I211 = {};
 items.I211.name = 'Everlasting Time Egg';
-items.I211.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 3 days of offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
+items.I211.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 3 days of Turtlebot\'s offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
 items.I211.flavor = '"—In the depths of its ancient shell harbored the essence of creation itself. And so, in an epoch-shattering moment, amidst the swirling mists of eternity, it laid an egg..."';
 items.I211.quality = 'Mythic';
 items.I211.sell = 50000;
@@ -2959,7 +2959,7 @@ items.I211.max = 1;
 
 items.I212 = {};
 items.I212.name = 'Timeless Time Egg';
-items.I212.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 2 weeks of offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
+items.I212.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Gathers materials and experience worth 2 weeks of Turtlebot\'s offline progress<br><FONT COLOR="gray"> (Doesnt work if the current enemy has been defeated less than 100 times)'
 items.I212.flavor = '"...As it unfurled its wings, ages passed like fleeting shadows, civilizations rose and crumbled, and the land itself bore witness to the inexorable march of time."';
 items.I212.quality = 'Legendary';
 items.I212.sell = 200000;

@@ -1529,7 +1529,6 @@ if (!dungeonTime) {
     }
 
 
-
     if (concept==='egg'){
         createPopup('&#9201; Time Skipped and gathered '+beautify(killsGot)+'<img src="img/src/items/'+currentDrop+'.jpg">and '+beautify(enemies[stats.currentEnemy].exp * killsGot)+' EXP', '#4e9690')
 
@@ -1547,17 +1546,22 @@ if (stats.currentArea === "A4") rollTable(area4Loot, amount/7)
 if (unlocks.penguins){
 
 
-if (rpgPlayer.minipenguin1!=="none"){
-    items[rpgPlayer.minipenguin1].count += killsGot/4;
-}
+    if (rpgPlayer.minipenguin1!=="none"){
+        items[rpgPlayer.minipenguin1].count += Math.ceil(killsGot/4);
+        items[rpgPlayer.minipenguin1].timesGot += Math.ceil(killsGot/4);
+    }
+    
+    if (rpgPlayer.minipenguin2!=="none"){
+        items[rpgPlayer.minipenguin2].count += Math.ceil(killsGot/4);
+        items[rpgPlayer.minipenguin2].timesGot += Math.ceil(killsGot/4);
 
-if (rpgPlayer.minipenguin2!=="none"){
-    items[rpgPlayer.minipenguin2].count += killsGot/4;
-}
+    }
+    
+    if (rpgPlayer.minipenguin3!=="none"){
+        items[rpgPlayer.minipenguin3].count += Math.ceil(killsGot/4);
+        items[rpgPlayer.minipenguin3].timesGot += Math.ceil(killsGot/4);
 
-if (rpgPlayer.minipenguin3!=="none"){
-    items[rpgPlayer.minipenguin3].count += killsGot/4;
-}
+    }
 
     
 }
@@ -1566,6 +1570,7 @@ if (rpgPlayer.minipenguin3!=="none"){
 if (concept===undefined) enemies[stats.currentEnemy].killCount += killsGot
     
 items[currentDrop].count += killsGot;
+items[currentDrop].timesGot += killsGot;
 
 rpgClass[stats.currentClass].currentExp += enemies[stats.currentEnemy].exp * killsGot;
 
