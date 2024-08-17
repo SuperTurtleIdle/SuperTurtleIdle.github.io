@@ -8425,7 +8425,7 @@ areas.A8.color2 = "#38492f";
 areas.A8.areaEffect = true;
 areas.A8.mastery = 1200; //1000
 
-var A9Loot = { I399:{P:200,A:1}, /*chest*/ I415:{P:100000,A:1}, I416:{P:100000,A:1}, /*relics*/}
+var A9Loot = { I399:{P:200,A:1}, /*chest*/ I415:{P:100000,A:1}, I416:{P:100000,A:1} /*relics*/,M5:{P:100000,A:1} /*memo*/}
 areas.A9 = {};
 areas.A9.name = 'Ruined Laboratory';
 areas.A9.level = 50;
