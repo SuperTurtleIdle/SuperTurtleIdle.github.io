@@ -880,7 +880,7 @@ if (alt===undefined){
 }
 
 
-if (tag==="steal" && items[id].gotOnce)  return '<FONT COLOR='+returnQualityColor(items[id].quality)+'>✱ <img src="img/src/items/'+items[id].img+'.jpg" style="border: solid 1px '+returnQualityColor(items[id].quality)+'">'+items[id].name+" ✔️ <FONT COLOR=gray>["+alt+"]<br>";
+if (tag==="steal" && items[id].gotOnce)  return '<FONT COLOR='+returnQualityColor(items[id].quality)+'>✱ <img src="img/src/items/'+items[id].img+'.jpg" style="border: solid 1px '+returnQualityColor(items[id].quality)+'">'+items[id].name+" ✔️ <FONT COLOR=gray>[Steal]<img src='img/src/talents/TG1B.jpg'><FONT COLOR=gray>["+alt+"]<br>";
 else if (tag==="steal")  return '<FONT COLOR='+returnQualityColor(items[id].quality)+'>✱ <img src="img/src/items/'+items[id].img+'.jpg" style="border: solid 1px '+returnQualityColor(items[id].quality)+'">????? <FONT COLOR=gray>[Steal]<img src="img/src/talents/TG1B.jpg"><FONT COLOR=gray>['+alt+']<br>'
 
 return '<FONT COLOR='+returnQualityColor(items[id].quality)+'>★ <img src="img/src/items/'+items[id].img+'.jpg" style="border: solid 1px '+returnQualityColor(items[id].quality)+'">'+items[id].name;
