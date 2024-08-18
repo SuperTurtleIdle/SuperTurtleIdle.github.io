@@ -2279,7 +2279,7 @@ document.addEventListener('contextmenu', function(event) {
       
       if(items[itemID].count<1) resetTooltip()
 
-      if (!settings.disableAutoOpen){ //if a container
+      if (!settings.disableAutoOpen && "autoOpenLocked" in items[itemID]){ //if a container
 
         if (currentlyOpening===0 && items[itemID].count>9) autoOpenLocked()
 
