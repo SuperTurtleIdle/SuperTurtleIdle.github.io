@@ -465,9 +465,10 @@
                 <div class="skillMenuSubButton" id="exitSkillMenu">
                     <img src="img/src/icons/returnIcon.png">
                  </div>
-
+                 <span style="display: none;">
                 <div class="skillMenuSubButton" id="importStars" onclick="did('importStarsMenu').style.display = 'flex'; playSound('audio/button3.mp3'); did('resetTalentMenuOpen').style.display = 'none';">IMPORT STARS</div>
                 <div class="skillMenuSubButton" id="exportStars" onclick="exportStars()">EXPORT STARS</div>
+            </span>
                 <div class="skillMenuSubButton" id="resetTalentMenu" onclick="did('resetTalentMenuOpen').style.display = 'flex'; playSound('audio/button3.mp3'); did('importStarsMenu').style.display = 'none';">RESET STARS</div>
                 <div class="skillMenuSubButton" id="talentCounter">CURRENT SP: <strong></strong></div>
             
