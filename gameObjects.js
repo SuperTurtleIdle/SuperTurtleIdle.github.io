@@ -13589,8 +13589,8 @@ gametip.gt4.name = "Weapon Stamping";
 gametip.gt4.description = 'Equip a weapon and use a stamp to apply them to it in various levels of effectivity. The current weapon stamps will be replaced and rerolled by new ones.<br><br>Some stamp effects might not be available until better stampers get acquired.<br><br>'+colorTag("Alignment Force", "#5CAA5D")+' such as Nature Force will increase the damage for that specific alignment.<br><br>'+colorTag("Titanic Grip", "#BE7150")+' will increase your Strength. Strength increases the damage of your auto-attacks.<br><br>'+colorTag("Dynamo", "#B062A1")+' will increase your Attack Speed.<br><br>'+colorTag("Afflictions", "purple")+' will decrease your Alignment resistance.';
 
 gametip.gt3 = {}
-gametip.gt3.name = "Mastery";
-gametip.gt3.description = 'Mastery is a stat that increases both your defense and offense massively. It is crucial to level up this stat to progress.<br><br>Increase this stat through various means, such as doing quests, or engaging with the multiple systems of the game.';
+gametip.gt3.name = "Mastery and Area Mastery";
+gametip.gt3.description = 'Mastery is a stat that increases both your defense and offense massively. It is crucial to level up this stat to progress.Increase this stat through various means, such as doing quests, or engaging with the multiple systems of the game.<br><br>Initially, your Mastery is restrained by the area or dungeon you are in, preventing effective Mastery to go over a specific threshold, shown next to the area name.<br><br>Once you defeat the boss of the area, the limit will break, and you will be able to use exceeding mastery in that zone. ';
 
 gametip.gt5 = {}
 gametip.gt5.name = "Crafting";
