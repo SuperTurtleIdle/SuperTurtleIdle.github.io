@@ -24,23 +24,23 @@ const collectibleChance3 = 30000;
 let plantCompletionProgress = 0
 let plantCompletionProgressTotal = 0
 
-let uncommonDrop = 5000
-let rareDrop = 15000
-let epicDrop = 45000
-let mythicDrop = 450000
+let uncommonDrop = 5000 //15K (95%)
+let rareDrop = 15000 //50k (96%)
+let epicDrop = 45000 //150k (96%)
+let mythicDrop = 450000 //500k (67%)
 
-let relicDrop = 64000
+let relicDrop = 30000
+let relicDungeon = 60
 
-
-let uncommonChest = 30
+let uncommonChest = 30 
 let rareChest = 90
 let epicChest = 270
 let mythicChest = 2777
 
-let uncommonDungeon = 30
-let rareDungeon = 50
-let epicDungeon = 90
-let mythicDungeon = 170
+let uncommonDungeon = 30 //90 (95%)
+let rareDungeon = 50 //150 (95%)
+let epicDungeon = 90 //200 (89%)
+let mythicDungeon = 170 //200 (69%) 
 
 let commonThief = 3
 let uncommonThief = 10
@@ -167,6 +167,7 @@ function rUpgDmg(id, mod){
 function rUpgDmg(id, mod){
 
   let rarityPower = 1;
+  if (items[id].quality==="Poor") rarityPower = 0;
   if (items[id].quality==="Uncommon") rarityPower = 2;
   if (items[id].quality==="Rare") rarityPower = 3;
   if (items[id].quality==="Epic") rarityPower = 4;
@@ -174,7 +175,7 @@ function rUpgDmg(id, mod){
 
 
   let weaponTier = 1
-  if (items[id].tier!==undefined) weaponTier = items[id].tier
+  if (items[id].tier!==undefined) weaponTier = items[id].tier+1
 
 
   weaponPower = rarityPower + weaponTier - 2
@@ -569,6 +570,8 @@ let occultResist = 0;
 let deificResist = 0;
 
 let playerMastery = 0;
+let restrainedMastery = 0;
+
 
 rpgPlayer.debugMastery = 0;
 
@@ -609,7 +612,18 @@ playerMastery = stats.questsCompleted*10 + collectiblesGot*5 + totalArmoryGot*10
 if (rpgPlayer.debugMastery!=0) playerMastery = rpgPlayer.debugMastery
 if (buffs.B115.time>0 && playerMastery>buffs.B115.stacks)  playerMastery = buffs.B115.stacks
 
-//if ("masteryCap" in areas[stats.currentArea] && playerMastery>areas[stats.currentArea].masteryCap) playerMastery = areas[stats.currentArea].masteryCap
+
+restrainedMastery = 0;
+
+if ("masteryCap" in areas[stats.currentArea] && enemies[areas[stats.currentArea].boss].killCount===0){
+
+  restrainedMastery = areas[stats.currentArea].masteryCap
+
+  if (playerMastery>areas[stats.currentArea].masteryCap){
+    playerMastery = restrainedMastery
+  }
+  
+}
 
 if (settings.masteryToggle) playerMastery = 0;
 
@@ -942,7 +956,7 @@ enemies.E3.area = 'A1';
 enemies.E3.attack = 30;
 enemies.E3.difficulty = 'medium';
 enemies.E3.exp = returnExp(4)/200;
-enemies.E3.drop =  "dropItem('I51'); rareItemDrop('I59',uncommonDrop);";
+enemies.E3.drop =  "dropItem('I51'); rareItemDrop('I59',uncommonDrop,1,'drop');";
 enemies.E3.align = 'might';
 enemies.E3.bestiaryItem = 'bestiaryItem("I51", "drop")+bestiaryItem("I59", "drop",uncommonDrop)';
 
@@ -981,7 +995,7 @@ enemies.E4.description = 'An overgrown arachnid that doesn\'t seem too up for co
 enemies.E4.attack = 70;
 enemies.E4.exp = returnExp(10)/200;
 enemies.E4.attackChance = 'castHoopperoona()';
-enemies.E4.drop = 'rareItemDrop("I83",uncommonDrop)+rareItemDrop("I192",uncommonDrop)+rareItemDrop("I47",uncommonDrop)+dropItem("I57")'; 
+enemies.E4.drop = 'rareItemDrop("I83",uncommonDrop,1,"drop")+rareItemDrop("I192",uncommonDrop,1,"drop")+rareItemDrop("I47",uncommonDrop,1,"drop")+dropItem("I57")'; 
 enemies.E4.align = 'occult';
 enemies.E4.tag = 'areaBoss';
 enemies.E4.difficulty = 'boss';
@@ -1010,13 +1024,13 @@ enemies.E31.ignoreBestiary = true;
 enemies.E5 = {};
 enemies.E5.name = 'Jabbit';
 enemies.E5.level = '[lvl 11]';
-enemies.E5.hp = 1400;
+enemies.E5.hp = 1600;
 enemies.E5.description = 'Although it lacks poison or claws, does it really look like it couldn\'t hurt you?'
 enemies.E5.area = 'A2';
-enemies.E5.attack = 110;
+enemies.E5.attack = 140;
 enemies.E5.exp = returnExp(11)/300;
 enemies.E5.difficulty = 'easy';
-enemies.E5.drop =  "dropItem('I114'); rareItemDrop('I69', uncommonDrop)";
+enemies.E5.drop =  "dropItem('I114'); rareItemDrop('I69', uncommonDrop,1,'drop')";
 enemies.E5.align = 'might';
 enemies.E5.bestiaryItem = 'bestiaryItem("I114","drop")+bestiaryItem("I69","drop",uncommonDrop)';
 
@@ -1064,15 +1078,15 @@ var enemyPhase = 1;
 enemies.E8 = {};
 enemies.E8.name = 'King-Kat';
 enemies.E8.level = '[lvl 20]';
-enemies.E8.hp = 250000;
+enemies.E8.hp = 200000;
 enemies.E8.description = 'King of the jungle and king of all fighting styles. Try hitting its weakness.';
-enemies.E8.attack = 2000;
+enemies.E8.attack = 1400;
 enemies.E8.area = 'A2';
 enemies.E8.exp = returnExp(20)/300;
 enemies.E8.attackChance = 'castKingKat()';
 enemies.E8.defenseChance = ' if(rpgPlayer.weaponSlot==="I60") {logs.P39.unlocked=true;}';
 enemies.E8.align = 'nature';
-enemies.E8.drop =  'rareItemDrop("I137",rareDrop)+rareItemDrop("I15",rareDrop)+rareItemDrop("I132",uncommonDrop)+rareItemDrop("I133",uncommonDrop)+rareItemDrop("I134",uncommonDrop)+rareItemDrop("I135",uncommonDrop)+rareItemDrop("I136",uncommonDrop)+dropItem("I165")'; 
+enemies.E8.drop =  'rareItemDrop("I137",rareDrop,1,"drop")+rareItemDrop("I15",rareDrop,1,"drop")+rareItemDrop("I132",uncommonDrop,1,"drop")+rareItemDrop("I133",uncommonDrop,1,"drop")+rareItemDrop("I134",uncommonDrop,1,"drop")+rareItemDrop("I135",uncommonDrop,1,"drop")+rareItemDrop("I136",uncommonDrop,1,"drop")+dropItem("I165")'; 
 enemies.E8.tag = 'areaBoss';
 enemies.E8.difficulty = 'boss';
 enemies.E8.bigEnemy = true;
@@ -1209,11 +1223,11 @@ enemies.E23.name = 'Pringu Emperor';
 enemies.E23.level = '[lvl 32]';
 enemies.E23.hp = 5000000;
 enemies.E23.description = 'He hates to lose so be prepared when his HP is low. Be sure to save all your cards until then.'
-enemies.E23.attack = 50000;
+enemies.E23.attack = 45000;
 enemies.E23.exp = 0;
 enemies.E23.area = 'A5';
 enemies.E23.align = 'nature';
-enemies.E23.drop =  'rareItemDrop("I310",1,10)+rareItemDrop("I142",uncommonDungeon)+rareItemDrop("I141",uncommonDungeon)+rareItemDrop("I140",uncommonDungeon)+rareItemDrop("I139",uncommonDungeon)+rareItemDrop("I138",uncommonDungeon)+rareItemDrop("I60",rareDungeon)+                                      unlocksReveal(); shopItems.A3S22.unlocked = true; shopItems.A3S18.unlocked = true; shopItems.A3S19.unlocked = true;';
+enemies.E23.drop =  'rareItemDrop("I310",1,10)+rareItemDrop("I142",uncommonDungeon,1,"drop")+rareItemDrop("I141",uncommonDungeon,1,"drop")+rareItemDrop("I140",uncommonDungeon,1,"drop")+rareItemDrop("I139",uncommonDungeon,1,"drop")+rareItemDrop("I138",uncommonDungeon,1,"drop")+rareItemDrop("I60",rareDungeon,1,"drop")+                                      unlocksReveal(); shopItems.A3S22.unlocked = true; shopItems.A3S18.unlocked = true; shopItems.A3S19.unlocked = true;';
 enemies.E23.tag = "finalBoss";
 enemies.E23.attackChance = 'castPringuEmperor()';
 enemies.E23.bigEnemy = true;
@@ -1230,7 +1244,7 @@ enemies.E12.attack = 40000;
 enemies.E12.exp = returnExp(30)/1800;
 enemies.E12.area = 'A3';
 enemies.E12.align = 'elemental';
-enemies.E12.drop =  'dropItem("I71")+rareItemDrop("I27",epicDrop)+rareItemDrop("I173",uncommonDrop)+rareItemDrop("I288",rareDrop)';
+enemies.E12.drop =  'dropItem("I71")+rareItemDrop("I27",epicDrop,1,"drop")+rareItemDrop("I173",uncommonDrop,1,"drop")+rareItemDrop("I288",rareDrop,1,"drop")';
 enemies.E12.attackChance = 'castTerragosa()';
 enemies.E12.tag = 'areaBoss';
 enemies.E12.difficulty = 'boss';
@@ -1290,7 +1304,7 @@ enemies.E16.attack = 100000;
 enemies.E16.exp = returnExp(31)/1800;
 enemies.E16.difficulty = 'easy';
 enemies.E16.align = 'occult';
-enemies.E16.drop =  "dropItem('I40'); rareItemDrop('I72', mythicDrop)";
+enemies.E16.drop =  "dropItem('I40'); rareItemDrop('I72', mythicDrop,1,'drop')";
 enemies.E16.bestiaryItem = 'bestiaryItem("I40", "drop")+bestiaryItem("I72", "drop", mythicDrop)';
 
 enemies.E17 = {};
@@ -1356,10 +1370,10 @@ enemies.E20.bestiaryItem = 'bestiaryItem("I161","drop",10+" up to 1/"+10/5)+best
 enemies.E24 = {};
 enemies.E24.name = 'Pirate Parrot';
 enemies.E24.level = '[lvl 38]';
-enemies.E24.hp = 15000000;
+enemies.E24.hp = 200000000;
 enemies.E24.description = 'A chatty fellow tasked to guard the bar.'
 enemies.E24.area = 'A6';
-enemies.E24.attack = 400000;
+enemies.E24.attack = 6000000;
 enemies.E24.drop =  "rareItemDrop('I39', 1)";
 enemies.E24.exp = 0;
 enemies.E24.difficulty = 'easy';
@@ -1370,30 +1384,30 @@ enemies.E24.tag = 'dungeonEnemy';
 enemies.E25 = {};
 enemies.E25.name = 'Malvarrel';
 enemies.E25.level = '[lvl 40]';
-enemies.E25.hp = 260000000; 
+enemies.E25.hp = 1500000000; 
 enemies.E25.area = 'A6';
 enemies.E25.description = 'A terrible mutation manifested by the evil deeds of pirates.'
-enemies.E25.attack = 500000;
+enemies.E25.attack = 5000000;
 enemies.E25.exp = 0;
 enemies.E25.align = 'occult';
-enemies.E25.drop =  'rareItemDrop("I23",rareDungeon)+rareItemDrop("I467", 60)+rareItemDrop("I39",1, 10)'
+enemies.E25.drop =  'rareItemDrop("I23",rareDungeon,1,"drop")+rareItemDrop("I467", relicDungeon)+rareItemDrop("I39",1, 10)'
 enemies.E25.tag = "stageBoss1";
 enemies.E25.attackChance = 'castMalvarrel()';
 enemies.E25.bigEnemy = true;
-enemies.E25.bestiaryItem = 'bestiaryItem("I23","drop",rareDungeon)+bestiaryItem("I467","drop",60)'
+enemies.E25.bestiaryItem = 'bestiaryItem("I23","drop",rareDungeon)+bestiaryItem("I467","drop",relicDungeon)'
 enemies.E25.bestiarySkills = "❖ Booze Shot: Inflicts"+buffIcon("B1")+"Poison.<br>❖ Evil Stream: Inflicts"+buffIcon("B25")+"Hex.";
 
 //var plunderDrop =  { I147:{P:uncommonDungeon,A:1}, I146:{P:uncommonDungeon,A:1}, I145:{P:uncommonDungeon,A:1}, I144:{P:uncommonDungeon,A:1}, I143:{P:uncommonDungeon,A:1},  /*armor*/  I167:{P:epicDungeon,A:1},  /*scimitar*/ I61:{P:rareDungeon,A:1},  /*card*/} 
 enemies.E26 = {};
 enemies.E26.name = 'Cap. Plundergeist';
 enemies.E26.level = '[lvl 40]';
-enemies.E26.hp = 3500000000;
+enemies.E26.hp = 4500000000;
 enemies.E26.description = 'The restless spirit of the pirate captain. Be sure to not drag the fight for too long.';
-enemies.E26.attack = 2500000;
+enemies.E26.attack = 5000000;
 enemies.E26.exp = 0;
 enemies.E26.area = 'A6';
-enemies.E26.align = 'occult';
-enemies.E26.drop =  'rareItemDrop("I39",1, 10)+rareItemDrop("I147",uncommonDungeon)+rareItemDrop("I146",uncommonDungeon)+rareItemDrop("I145",uncommonDungeon)+rareItemDrop("I144",uncommonDungeon)+rareItemDrop("I143",uncommonDungeon)+rareItemDrop("I167",epicDungeon)+rareItemDrop("I61",rareDungeon);                          shopItems.A4S14.unlocked = true; shopItems.A4S15.unlocked = true;shopItems.A4S16.unlocked = true;shopItems.A4S20.unlocked = true;';
+enemies.E26.align = 'might';
+enemies.E26.drop =  'rareItemDrop("I39",1, 10)+rareItemDrop("I147",uncommonDungeon,1,"drop")+rareItemDrop("I146",uncommonDungeon,1,"drop")+rareItemDrop("I145",uncommonDungeon,1,"drop")+rareItemDrop("I144",uncommonDungeon,1,"drop")+rareItemDrop("I143",uncommonDungeon,1,"drop")+rareItemDrop("I167",epicDungeon,1,"drop")+rareItemDrop("I61",rareDungeon,1,"drop");                          shopItems.A4S14.unlocked = true; shopItems.A4S15.unlocked = true;shopItems.A4S16.unlocked = true;shopItems.A4S20.unlocked = true;';
 enemies.E26.tag = "finalBoss";
 enemies.E26.attackChance = 'castPlundergeist()';
 enemies.E26.bigEnemy = true;
@@ -1405,13 +1419,13 @@ enemies.E26.firstTimeReward = true;
 enemies.E27 = {};
 enemies.E27.name = 'Infernalus';
 enemies.E27.level = '[lvl 40]';
-enemies.E27.hp = 1200000000;
+enemies.E27.hp = 1450000000;
 enemies.E27.description = 'The lord of hellfire. Not a self-proclaimed title, everyone just kinda agreed on it after looking at it once.'
-enemies.E27.attack = 1000000;
+enemies.E27.attack = 1100000;
 enemies.E27.area = 'A4';
 enemies.E27.exp = returnExp(40)/1800;
 enemies.E27.align = 'elemental';
-enemies.E27.drop =  'rareItemDrop("I28",rareDrop)+rareItemDrop("I175",uncommonDrop)+rareItemDrop("I282",uncommonDrop)+rareItemDrop("I65",rareDrop)+dropItem("I100")';
+enemies.E27.drop =  'rareItemDrop("I28",rareDrop,1,"drop")+rareItemDrop("I175",uncommonDrop,1,"drop")+rareItemDrop("I282",uncommonDrop,1,"drop")+rareItemDrop("I65",rareDrop,1,"drop")+dropItem("I100")';
 enemies.E27.attackChance = 'castInfernalus();';
 enemies.E27.tag = 'areaBoss';
 enemies.E27.difficulty = 'boss';
@@ -1468,7 +1482,7 @@ enemies.E54.area = 'A8';
 enemies.E54.description = 'A really distant relative of a certain lizard we all know and love.'
 enemies.E54.attack = 1500000000;
 enemies.E54.exp = returnExp(52)/1800;
-enemies.E54.align = 'elemental';
+enemies.E54.align = 'nature';
 enemies.E54.drop =  "rareItemDrop('I371', rareDrop); logs.P63.unlocked=true;";
 enemies.E54.tag = "areaBoss";
 enemies.E54.attackChance = 'castRaijinGoran()';
@@ -1487,20 +1501,20 @@ enemies.E35.area = 'A8';
 enemies.E35.attack = 70000000; 
 enemies.E35.exp = returnExp(47)/1800;
 enemies.E35.difficulty = 'hard';
-enemies.E35.drop = "dropItem('I348'); rareItemDrop('I321',epicDrop);";
+enemies.E35.drop = "dropItem('I348'); rareItemDrop('I321',epicDrop,1,'drop');";
 enemies.E35.align = 'occult';
 enemies.E35.bestiaryItem = 'bestiaryItem("I348","drop")+bestiaryItem("I321","drop",epicDrop)';
 
 enemies.E36 = {};
 enemies.E36.name = 'Eis Zeith';
 enemies.E36.level = '[lvl 50]';
-enemies.E36.hp = 330000000000;
+enemies.E36.hp = 380000000000;
 enemies.E36.description = 'Tasked with protecting the valley millions of years ago, its mission remains unchanged.'
-enemies.E36.attack = 200000000;
+enemies.E36.attack = 160000000;
 enemies.E36.area = 'A8';
 enemies.E36.exp = returnExp(50)/1800;
 enemies.E36.align = 'deific';
-enemies.E36.drop =  'rareItemDrop("I319",epicDrop)+rareItemDrop("I383",rareDrop)+rareItemDrop("I425",uncommonDrop)+dropItem("I350"); logs.P61B.unlocked=true;'; 
+enemies.E36.drop =  'rareItemDrop("I319",epicDrop,1,"drop")+rareItemDrop("I383",rareDrop,1,"drop")+rareItemDrop("I425",uncommonDrop,1,"drop")+dropItem("I350"); logs.P61B.unlocked=true;'; 
 enemies.E36.attackChance = 'castEisZeith()';
 enemies.E36.tag = 'areaBoss';
 enemies.E36.difficulty = 'boss';
@@ -1526,7 +1540,7 @@ enemies.E44.bestiarySkills = "❖ Killing Instincts: Inflicts"+buffIcon("B31")+"
 enemies.E47 = {};
 enemies.E47.name = 'Dusk Cultist';
 enemies.E47.level = '[lvl 60]';
-enemies.E47.hp = 900000000000; 
+enemies.E47.hp = 1000000000000; 
 enemies.E47.description = 'A suspicious robbed member of the dusk temple. He didn\'t do anything nefarious yet, but you just know hes dying to do so.'
 enemies.E47.area = 'A10';
 enemies.E47.attack = 12000000000;
@@ -1540,13 +1554,13 @@ enemies.E47.tag = 'dungeonEnemy';
 enemies.E48 = {};
 enemies.E48.name = 'Kaw-Kaw';
 enemies.E48.level = '[lvl 62]';
-enemies.E48.hp = 13000000000000;
+enemies.E48.hp = 18000000000000;
 enemies.E48.area = 'A10';
 enemies.E48.description = 'A devoted raven priest of the highest order of the Dusk.'
-enemies.E48.attack = 17000000000;
+enemies.E48.attack = 14000000000;
 enemies.E48.exp = 0;
 enemies.E48.align = 'deific';
-enemies.E48.drop =  'rareItemDrop("I206",rareDungeon)+rareItemDrop("I313",1, 10)';
+enemies.E48.drop =  'rareItemDrop("I206",rareDungeon,1,"drop")+rareItemDrop("I313",1, 10)';
 enemies.E48.tag = "stageBoss1";
 enemies.E48.attackChance = 'castKawKaw()';
 enemies.E48.bestiaryItem = 'bestiaryItem("I206","drop",rareDungeon)'
@@ -1555,17 +1569,17 @@ enemies.E48.bestiarySkills = "❖ Dark Thunder: Deals High"+occultIcon+"Occult D
 enemies.E49 = {};
 enemies.E49.name = 'Yog-Kulth';
 enemies.E49.level = '[lvl 60]';
-enemies.E49.hp = 50000000000000; 
+enemies.E49.hp = 80000000000000; 
 enemies.E49.area = 'A10';
 enemies.E49.description = 'A dark entity transported from a realm without turtles. Clearly the worse realm.'
 enemies.E49.attack = 16000000000;
 enemies.E49.exp = 0;
 enemies.E49.align = 'occult';
-enemies.E49.drop =  "rareItemDrop('I325',mythicDungeon); rareItemDrop('I495',uncommonDungeon); rareItemDrop('I313',1, 10); rareItemDrop('I470',60); sendMail('MF7'); shopItems.A9S7.unlocked = true; shopItems.A9S8.unlocked = true; shopItems.A9S9.unlocked = true; shopItems.A9S10.unlocked = true; shopItems.A9S11.unlocked = true;"; // shopItems.A8S18.unlocked = true;
+enemies.E49.drop =  "rareItemDrop('I325',mythicDungeon,1,'drop'); rareItemDrop('I495',uncommonDungeon,1,'drop'); rareItemDrop('I313',1, 10); rareItemDrop('I470',relicDungeon); sendMail('MF7'); shopItems.A9S7.unlocked = true; shopItems.A9S8.unlocked = true; shopItems.A9S9.unlocked = true; shopItems.A9S10.unlocked = true; shopItems.A9S11.unlocked = true;"; // shopItems.A8S18.unlocked = true;
 enemies.E49.tag = "finalBoss";
 enemies.E49.attackChance = 'castYogKulth()';
 enemies.E49.bigEnemy = true;
-enemies.E49.bestiaryItem = 'bestiaryItem("I325","drop",mythicDungeon)+bestiaryItem("I495","drop",uncommonDungeon)+bestiaryItem("I470","drop",60)'
+enemies.E49.bestiaryItem = 'bestiaryItem("I325","drop",mythicDungeon)+bestiaryItem("I495","drop",uncommonDungeon)+bestiaryItem("I470","drop",relicDungeon)'
 enemies.E49.bestiarySkills = "❖ Inflicts the"+buffIcon("B41")+"Sanity debuff at the start of the fight. If it reaches 0, you will rapidly lose Health.<br>❖"+buffIcon("B39")+"Corruption: High"+natureIcon+"Nature Damage and decreases"+buffIcon("B41")+"Sanity by 15.<br>❖"+buffIcon("B42")+"Mindfly: Enemy attacks will drain 5 more"+buffIcon("B41")+"Sanity until"+deificIcon+"Deific Damage is dealt.<br>❖"+buffIcon("B34")+"Time Has Cometh: Drain 40"+buffIcon("B41")+"Sanity if your Health is under 80%.";
 enemies.E49.animation = 'ranged';
 enemies.E49.bigEnemy = true;
@@ -1606,7 +1620,7 @@ enemies.E40.attack = 5000000000;
 enemies.E40.exp = returnExp(57)/2000;
 enemies.E40.difficulty = 'hard';
 enemies.E40.attackChance = 'castArcaniteTower();';
-enemies.E40.drop = "dropItem('I353')+rareItemDrop('I375',rareDrop)";
+enemies.E40.drop = "dropItem('I353')+rareItemDrop('I375',rareDrop,1,'drop')";
 enemies.E40.align = 'elemental';
 enemies.E40.bestiaryItem = 'bestiaryItem("I353","drop")+bestiaryItem("I375","drop",rareDrop)';
 enemies.E40.bigEnemy = true;
@@ -1615,13 +1629,13 @@ enemies.E40.animation = 'ranged';
 enemies.E41 = {};
 enemies.E41.name = 'Xezdeth';
 enemies.E41.level = '[lvl 60]';
-enemies.E41.hp = 14000000000000;
+enemies.E41.hp = 10000000000000;
 enemies.E41.description = 'An ancient imprisoned fiend, now free from its chains.'
 enemies.E41.attack = 5000000000;
 enemies.E41.area = 'A9';
 enemies.E41.exp = returnExp(60)/2000;
-enemies.E41.align = 'occult';
-enemies.E41.drop =  'rareItemDrop("I378",epicDrop)+rareItemDrop("I82",rareDrop)+rareItemDrop("I376",rareDrop)+dropItem("I354")'; 
+enemies.E41.align = 'elemental';
+enemies.E41.drop =  'rareItemDrop("I378",epicDrop,1,"drop")+rareItemDrop("I82",rareDrop,1,"drop")+rareItemDrop("I376",rareDrop,1,"drop")+dropItem("I354")'; 
 enemies.E41.bestiaryItem = 'bestiaryItem("I378","drop",epicDrop)+bestiaryItem("I82","drop",rareDrop)+bestiaryItem("I376","drop",rareDrop)+bestiaryItem("I354","drop")'
 enemies.E41.attackChance = 'castXezdeth()';
 enemies.E41.tag = 'areaBoss';
@@ -3382,7 +3396,7 @@ items.I27.statUp = 0;
 items.I28 = {};
 items.I28.name = 'Edge Of Cataclysm';
 items.I28.description = `'Equipable - Weapon<br>'+rUpgLvl("I28")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I28", 1))+' Deific Damage'`;
-items.I28.skills = 'rUpgSkill("I28", "Meteora: Low chance to deal medium"+elementalIcon+"Elemental Damage 4 times","active",40)+"<br>"+rUpgSkill("I28", "Ignitio: Meteora now inflicts"+buffIcon("B16")+"Burn for 5 seconds","passive",50)'
+items.I28.skills = 'rUpgSkill("I28", "Meteora: Low chance to deal medium"+deificIcon+"Deific Damage 4 times","active",40)+"<br>"+rUpgSkill("I28", "Ignitio: Meteora now inflicts"+buffIcon("B16")+"Burn for 5 seconds","passive",50)'
 items.I28.flavor = '"Terrific blade wielded by the jailer of the hallowed grounds. Tasked with warding off souls, this weapon has become nearly sentient over time."';
 items.I28.quality = 'Rare';
 items.I28.sell = 'returnGearPrice("I28")';
@@ -3462,16 +3476,16 @@ items.I69.cap = 30;
 
 items.I78 = {};
 items.I78.name = 'Arcanite Darkblade';
-items.I78.description = `'Equipable - Weapon<br>'+rUpgLvl("I78")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I78", 1))+' Occult Damage'`;
-items.I78.flavor = '"A fine sword bestowed to the dark turtle riders. They say that blood spilled with this edge bleeds black."';
-items.I78.skills = 'rUpgSkill("I78", "Dark Slash: Medium chance to deal medium"+occultIcon+"Occult Damage","active",20)+"<br>"+rUpgSkill("I78", "Vanquish Holy: +20%"+occultIcon+"Occult Bonus","passive",35)'
-items.I78.quality = 'Common';
+items.I78.description = `'Equipable - Weapon<br>'+rUpgLvl("I78")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I78", 1))+' Deific Damage'`;
+items.I78.flavor = '"A fine sword bestowed to the holy turtle riders. They say that blood spilled with this edge bleeds black."';
+items.I78.skills = 'rUpgSkill("I78", "Dark Slash: Medium chance to deal medium"+deificIcon+"Deific Damage","active",20)+"<br>"+rUpgSkill("I78", "Vanquish Darkness: +20%"+deificIcon+"Deific Bonus","passive",35)'
+items.I78.quality = 'Uncommon';
 items.I78.sell = 'artisanBonus("SA4")';
 items.I78.max = 1;
 items.I78.use = 'gearSwap(items.I78.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")'
-items.I78.stats = 'weaponOccultDamage = rUpgDmg("I78", 1); if(items.I78.level>34) items.I78.statUp=0.2'
-items.I78.remove = 'weaponOccultDamage = 0; items.I78.statUp=0'
-items.I78.align = 'occult';
+items.I78.stats = 'weaponDeificDamage = rUpgDmg("I78", 1); if(items.I78.level>34) items.I78.statUp=0.2'
+items.I78.remove = 'weaponDeificDamage = 0; items.I78.statUp=0'
+items.I78.align = 'deific';
 items.I78.attackChance = 'castRegalBroadsword()'
 items.I78.series = 'forgotten';
 items.I78.cap = 40;
@@ -3496,14 +3510,14 @@ items.I81.cap = 50;
 
 items.I82 = {};
 items.I82.name = 'Dragonfell Sword';
-items.I82.description = `'Equipable - Weapon<br>'+rUpgLvl("I82")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I82", 1.7))+' Might Damage'`;
+items.I82.description = `'Equipable - Weapon<br>'+rUpgLvl("I82")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I82", 3))+' Might Damage'`;
 items.I82.skills = 'rUpgSkill("I82", "Dragonrender: -50% Attack Speed","active",0)+"<br>"+rUpgSkill("I82", "Aftershock: Dragonrender hits an additional time for Low"+mightIcon+"Might Damage","passive",70)'
 items.I82.flavor = '"Too big to be called a sword. Too big, too thick, too heavy, and too rough. It\'s more like a large hunk of iron."';
 items.I82.quality = 'Rare';
 items.I82.sell = 'returnGearPrice("I82")';
 items.I82.max = 1;
 items.I82.use = 'gearSwap(items.I82.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")';
-items.I82.stats = 'weaponMightDamage = rUpgDmg("I82", 1.7); items.I82.statUp= -0.5;'
+items.I82.stats = 'weaponMightDamage = rUpgDmg("I82", 3); items.I82.statUp= -0.5;'
 items.I82.remove = 'weaponMightDamage = 0; items.I82.statUp= 0;'
 items.I82.attackChance = 'castDragonfellSword()';
 items.I82.align = "might";
@@ -3817,14 +3831,14 @@ items.I328.noUpgrade = true;
 
 items.I371 = {};
 items.I371.name = 'Vice\'s Retribution';
-items.I371.description = `'Equipable - Weapon<br>'+rUpgLvl("I371")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I371", 1.7))+' Occult Damage'`;
+items.I371.description = `'Equipable - Weapon<br>'+rUpgLvl("I371")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I371", 2.5))+' Occult Damage'`;
 items.I371.skills = 'rUpgSkill("I371", "Jeweled Summon: Summons a creature to deal"+occultIcon+"Occult Damage for you","passive",0)+"<br>"+rUpgSkill("I371", "Abomination Boost: Increased damage of Jeweled Summon","active",70)+bestiaryTag("⚜️ Dedicated Content: pikacheecks ⚜️", "#A351AB")'
 items.I371.flavor = '"Sorry, but I won\'t hold back."';
 items.I371.quality = 'Rare';
 items.I371.sell = 'returnGearPrice("I371")';
 items.I371.max = 1;
 items.I371.use = 'gearSwap(items.I371.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")';
-items.I371.stats = 'weaponOccultDamage = rUpgDmg("I371", 1.7); '
+items.I371.stats = 'weaponOccultDamage = rUpgDmg("I371", 2.5); '
 items.I371.remove = 'weaponOccultDamage = 0;'
 items.I371.attackChance = 'castVicesRetribution()'
 items.I371.align = 'occult';
@@ -3970,7 +3984,7 @@ items.I2.tierDesc4 = "I6";
 items.I2.tierDesc5 = "I2";
 items.I2.tierArmorBonus = "★ Set bonus [5]: Low chance to dodge incoming attacks";
 items.I2.flavor = '"The kind your turtle grandmother would wear."';
-items.I2.quality = 'Common';
+items.I2.quality = 'Poor';
 items.I2.sell = 300;
 items.I2.max = 1;
 items.I2.use = 'gearSwap(items.I2.id, rpgPlayer.feetSlot, "rpgFeetSlot", "feet")'
@@ -3992,7 +4006,7 @@ items.I3.tierDesc3 = "I4";
 items.I3.tierDesc4 = "I6";
 items.I3.tierDesc5 = "I2";
 items.I3.tierArmorBonus = "★ Set bonus [5]: Low chance to dodge incoming attacks";
-items.I3.quality = 'Common';
+items.I3.quality = 'Poor';
 items.I3.sell = 300
 items.I3.max = 1; 
 items.I3.use = 'gearSwap(items.I3.id, rpgPlayer.headSlot, "rpgHeadSlot", "head")'
@@ -4014,7 +4028,7 @@ items.I4.tierDesc4 = "I6";
 items.I4.tierDesc5 = "I2";
 items.I4.armorTier ='Cloth Set';
 items.I4.tierArmorBonus = "★ Set bonus [5]: Low chance to dodge incoming attacks";
-items.I4.quality = 'Common';
+items.I4.quality = 'Poor';
 items.I4.sell = 300;
 items.I4.max = 1;
 items.I4.use = 'gearSwap(items.I4.id, rpgPlayer.handsSlot, "rpgHandsSlot", "hands")'
@@ -4036,7 +4050,7 @@ items.I5.tierDesc3 = "I4";
 items.I5.tierDesc4 = "I6";
 items.I5.tierDesc5 = "I2";
 items.I5.tierArmorBonus = "★ Set bonus [5]: Low chance to dodge incoming attacks";
-items.I5.quality = 'Common';
+items.I5.quality = 'Poor';
 items.I5.sell = 300;
 items.I5.max = 1;
 items.I5.use = 'gearSwap(items.I5.id, rpgPlayer.chestSlot, "rpgChestSlot", "chest")'
@@ -4052,7 +4066,7 @@ items.I6.description = `'Equipable - Legs<br>'+rUpgLvl("I6")+'<br><FONT COLOR="#
 items.I6.skills = 'rUpgSkill("I6", "Vitality: "+ colorTag("x1.1","#E57D08")+" Max Health","passive",10)'
 items.I6.flavor = '"They must at least be resistant if they were able to survive this long."';
 items.I6.armorTier ='Cloth Set';
-items.I6.quality = 'Common';
+items.I6.quality = 'Poor';
 items.I6.tierDesc1 = "I3";
 items.I6.tierDesc2 = "I5";
 items.I6.tierDesc3 = "I4";
@@ -8340,6 +8354,7 @@ areas.A1.bossKey = 'I106';
 areas.A1.unlockedOre = 0;
 areas.A1.color1 = "#59662d";
 areas.A1.color2 = "#50473e";
+areas.A1.masteryCap = 50;
 
 var A2Loot = { I10:{P:200,A:1}, /*chest*/ I259:{P:100000,A:1}, I260:{P:100000,A:1} /*relics*/ ,M2:{P:100000,A:1} /*memo*/}
 areas.A2 = {};
@@ -8351,6 +8366,8 @@ areas.A2.bossKey = 'I127';
 areas.A2.unlockedHerb = 0;
 areas.A2.color1 = "#485640";
 areas.A2.color2 = "#35443f";
+areas.A2.mastery = 100;
+areas.A2.masteryCap = 250;
 
 var A3Loot = { I43:{P:200,A:1}, /*chest*/ I261:{P:100000,A:1}, I262:{P:100000,A:1} /*relics*/ ,M3:{P:100000,A:1} /*memo*/}
 areas.A3 = {};
@@ -8363,7 +8380,7 @@ areas.A3.unlockedOre = 0;
 areas.A3.color1 = "#4a477a";
 areas.A3.color2 = "#3A3D56";
 areas.A3.mastery = 300;
-areas.A3.masteryCap = 700;
+areas.A3.masteryCap = 650;
 
 areas.A7 = {};
 areas.A7.name = '🏆 The Arena';
@@ -8384,6 +8401,7 @@ areas.A4.unlockedPond = 0;
 areas.A4.color1 = "#44304B";
 areas.A4.color2 = "#46374b";
 areas.A4.mastery = 700;
+areas.A4.masteryCap = 1100;
 
 areas.A5 = {};
 areas.A5.name = 'Penguin Glacier';
@@ -8392,11 +8410,13 @@ areas.A5.description = '"Chilly glacier home to a likeable breed of monster peng
 areas.A5.dungeon = true;
 areas.A5.dungeonTimer = 0;
 areas.A5.dungeonPoints = 10;
+areas.A5.boss = 'E23';
 areas.A5.boss1 = 'E23';
 areas.A5.key = 'I105';
 areas.A5.color1 = "#3d3d3d";
 areas.A5.color2 = "#578492";
 areas.A5.charges = 3;
+areas.A5.masteryCap = 600;
 
 areas.A6 = {};
 areas.A6.name = 'Pirate Galleon';
@@ -8411,6 +8431,8 @@ areas.A6.key = 'I126';
 areas.A6.color1 = "#3d3d3d";
 areas.A6.color2 = "#5c4440";
 areas.A6.charges = 3;
+areas.A6.masteryCap = 1200;
+areas.A6.boss = 'E26';
 
 var A8Loot = { I399:{P:200,A:1}, /*chest*/I380:{P:1000,A:1}, /*shroom*/ I413:{P:100000,A:1}, I414:{P:100000,A:1} /*relics*/ ,M4:{P:100000,A:1} /*memo*/}
 areas.A8 = {};
@@ -8423,11 +8445,12 @@ areas.A8.unlockedOre = 0;
 areas.A8.color1 = "#6e3f36";
 areas.A8.color2 = "#38492f";
 areas.A8.areaEffect = true;
-areas.A8.mastery = 1200; //1000
+areas.A8.mastery = 1200; 
+areas.A8.masteryCap = 1800; 
 
 var A9Loot = { I399:{P:200,A:1}, /*chest*/ I415:{P:100000,A:1}, I416:{P:100000,A:1} /*relics*/,M5:{P:100000,A:1} /*memo*/}
 areas.A9 = {};
-areas.A9.name = 'Ruined Laboratory';
+areas.A9.name = 'Ruined Lab';
 areas.A9.level = 50;
 areas.A9.description = '"Once bustling with magic experiments, this arcane workshop tasked with imprisoning a greater foe now lies silent, ran only by automata continuing their purpose in the eerie stillness."';
 areas.A9.boss = 'E41';
@@ -8437,6 +8460,7 @@ areas.A9.color1 = "#6e365b";
 areas.A9.color2 = "#46374b";
 areas.A9.areaEffect = true;
 areas.A9.mastery = 1800;
+areas.A9.masteryCap = 2100; 
 
 
 areas.A10 = {};
@@ -8452,6 +8476,10 @@ areas.A10.color1 = "#5f1f1f";
 areas.A10.color2 = "#313131";
 areas.A10.charges = 3;
 areas.A10.areaEffect = true;
+areas.A10.masteryCap = 2300; 
+areas.A10.boss = 'E49';
+
+
 /*
 areas.A11 = {};
 areas.A11.name = 'Temple of Dawn';
@@ -10137,7 +10165,7 @@ shopItems.A1S7.stock = "∞";
 
 shopItems.A1S9 = {}
 shopItems.A1S9.item = 'I104';
-shopItems.A1S9.price = 20000;
+shopItems.A1S9.price = 5000;
 shopItems.A1S9.stock = 1;
 
 shopItems.A1S10 = {}
@@ -10510,9 +10538,9 @@ shopItems.A8S13.unlockDescription = bestiaryTag('Clear the Temple of the Duck to
 */
 shopItems.A8S19 = {}
 shopItems.A8S19.item = 'I358';
-shopItems.A8S19.price = 1000000;
-shopItems.A8S19.stock = "5";
-shopItems.A8S19.restock = 5;
+shopItems.A8S19.price = 100000;
+shopItems.A8S19.stock = "∞";
+shopItems.A8S19.restock = "∞";
 shopItems.A8S19.unlocked = false;
 shopItems.A8S19.unlockDescription = bestiaryTag('Complete "Primal Bones" to unlock', '#CE4447');
 
@@ -11874,7 +11902,7 @@ talent.TA1D.parent = "TA1B"
 talent.TA1D.parent2 = "TA3"
 talent.TA1D.name = "Wizhard Shell";
 talent.TA1D.category = "Skill";
-talent.TA1D.description = `"Creates a magic barrier, <span style='color:orange'> absorbing damage worth "+(0.3*playerSpellpower*100).toFixed(0)+"% of your damage</span>"`; 
+talent.TA1D.description = `"Creates a magic barrier, <span style='color:orange'> absorbing damage worth 50% of your max health for 15 seconds</span>"`; 
 talent.TA1D.cast = "castWizhardShield()";
 talent.TA1D.cost = 10;
 talent.TA1D.cd = 40;

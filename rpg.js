@@ -111,7 +111,10 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
 
   if (stats.currentEnemy==="E15") div.style.animation= "enemySpawn 0.5s 1";
 
-  did("enemyName").innerHTML = enemies[currentEnemy].name;
+  let nameFlair = ""
+  if (settings.proudToggle && (bossTime || dungeonTime)) nameFlair = " 🔰"
+
+  did("enemyName").innerHTML = enemies[currentEnemy].name+nameFlair;
   did("enemyLevel").textContent = enemies[currentEnemy].level;
   currentHP = enemies[currentEnemy].hp;
   stats.currentEnemy = currentEnemy;
@@ -273,7 +276,7 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
 
     if (enemies[stats.currentEnemy].firstTimeReward && enemies[stats.currentEnemy].killCount===0) improbabilityDrive("guaranteed")
 
-        
+      
     if (dungeonTime) {
       dungeonPoints++;
       updateDungeonPoints()
@@ -339,6 +342,14 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
     enemies[stats.currentEnemy].killCount++;
     stats.totalKills++;
     if (bossTime) {stats.totalBossKills++;};
+
+
+    if (enemies[stats.currentEnemy].killCount===1 && stats.currentEnemy===areas[stats.currentArea].boss) {
+      createPopup('💠 Mastery cap released!', '#6FB1EE')
+      statsUpdate()
+      updateStatsUI()
+      did("areaLevel").style.display = "none"
+    }
     
     
     removeBuffs("clear");
@@ -976,6 +987,9 @@ function enemyDamage(damage, align, icon, type){
     playerDeificDamage(finalDamage/5)
   }
 
+
+  if (settings.proudToggle && (bossTime || dungeonTime)) finalDamage *= 0.7
+
   currentHP -= finalDamage;
   enemyUpdate();
 
@@ -1125,6 +1139,24 @@ function playerBasicDamage(damage){
 }
 
 
+let proudIncreasedDamage = 1.3
+
+
+
+function finalPlayerDamage(damageDealt){
+
+
+
+  if (settings.proudToggle && (bossTime || dungeonTime)) damageDealt *= 1.15
+
+
+
+
+  return damageDealt
+
+
+}
+
 
 function playerNatureDamage(damage){
   let icon;
@@ -1132,6 +1164,7 @@ function playerNatureDamage(damage){
   if (natureResist>0.49) {icon='weak';}
   if (natureResist<-0.49) {icon='strong';}
   if (buffs.B89.time>0 && buffs.B89.stacks>0) { damageDealt=0; buffs.B89.stacks--; playerBuffs();}
+  damageDealt = finalPlayerDamage(damageDealt)
   if (playerShield<=0) rpgPlayer.hp -= damageDealt;
   else { 
     playerShield-=damageDealt
@@ -1154,6 +1187,7 @@ function playerMightDamage(damage){
   if (mightResist<-0.49) {icon='strong';}
   if (rpgPlayer.align === 'nature') {damageDealt *= typeResist; icon='weak';}
   if (buffs.B89.time>0 && buffs.B89.stacks>0) { damageDealt=0; buffs.B89.stacks--; playerBuffs();}
+  damageDealt = finalPlayerDamage(damageDealt)
   if (playerShield<=0) rpgPlayer.hp -= damageDealt;
   else { 
     playerShield-=damageDealt
@@ -1172,6 +1206,7 @@ function playerElementalDamage(damage){
   if (elementalResist<-0.49) {icon='strong';}
   if (rpgPlayer.align === 'might') {damageDealt *= typeResist; icon='weak';}
   if (buffs.B89.time>0 && buffs.B89.stacks>0) { damageDealt=0; buffs.B89.stacks--; playerBuffs();}
+  damageDealt = finalPlayerDamage(damageDealt)
   if (playerShield<=0) rpgPlayer.hp -= damageDealt;
   else { 
     playerShield-=damageDealt
@@ -1190,6 +1225,7 @@ function playerOccultDamage(damage){
   if (occultResist<-0.49) {icon='strong';}
   if (rpgPlayer.align ===  'occult') {damageDealt *= typeResist; icon='weak';}
   if (buffs.B89.time>0 && buffs.B89.stacks>0) { damageDealt=0; buffs.B89.stacks--; playerBuffs();}
+  damageDealt = finalPlayerDamage(damageDealt)
   if (playerShield<=0) rpgPlayer.hp -= damageDealt;
   else { 
     playerShield-=damageDealt
@@ -1208,6 +1244,7 @@ function playerDeificDamage(damage){
   if (deificResist<-0.49) {icon='strong';}
   if (rpgPlayer.align ===  'deific') {damageDealt *= typeResist; icon='weak';}
   if (buffs.B89.time>0 && buffs.B89.stacks>0) { damageDealt=0; buffs.B89.stacks--; playerBuffs();}
+  damageDealt = finalPlayerDamage(damageDealt)
   if (playerShield<=0) rpgPlayer.hp -= damageDealt;
   else { 
     playerShield-=damageDealt
@@ -1641,12 +1678,8 @@ function rollTable(table, rolls, offline) { //droptable rolls
           if (items[dt].rarity===1) if (rng(1,4000)===1) items[dt].count += 1;
           if (items[dt].rarity===2) if (rng(1,8000)===1) items[dt].count += 1;
           if (items[dt].rarity===3) if (rng(1,16000)===1) items[dt].count += 1;
-          if (items[dt].rarity===4) if (rng(1,32000)===1) items[dt].count += 1;
-          if (items[dt].rarity===5) if (rng(1,64000)===1) items[dt].count += 1;
-
-
-
-
+          if (items[dt].rarity===4) if (rng(1,28000)===1) items[dt].count += 1;
+          if (items[dt].rarity===5) if (rng(1,32000)===1) items[dt].count += 1;
 
         }
 
@@ -1671,7 +1704,7 @@ function rollTable(table, rolls, offline) { //droptable rolls
 
 function pityDrop(id){
 
-  const regex = /rareItemDrop\(['"]([^'"]+)['"],\s*(rareDrop|uncommonDrop|uncommonDungeon|rareDungeon|epicDrop|epicDungeon)\s*\)/g;
+  const regex = /rareItemDrop\(['"]([^'"]+)['"],\s*(rareDrop|uncommonDrop|uncommonDungeon|rareDungeon|epicDrop|epicDungeon)(?:\s*,\s*[^)]+)*\s*\)/g;
   let match;
 const rareDropIds = [];
 const uncommonDropIds = [];
@@ -1732,8 +1765,11 @@ while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
 
 
 
-function rareItemDrop(dt, chance, amount){
+function rareItemDrop(dt, chance, amount, mod){
 
+
+  let toAdd = 1
+  if (amount!==undefined) toAdd = amount
   
 
 if (rng(1,chance)===1){
@@ -1741,8 +1777,7 @@ if (rng(1,chance)===1){
 
   
 
-  let toAdd = 1
-  if (amount!==undefined) toAdd = amount
+ 
 
   if (items[dt].max==1 && items[dt].count>0 && (chance===uncommonDrop || chance===uncommonDungeon || chance===rareDrop || chance===uncommonDungeon || chance===epicDrop || chance===epicDungeon)){
     pityDrop(dt)
@@ -1772,6 +1807,43 @@ if (rng(1,chance)===1){
 
 
 }
+
+
+
+if (mod==="drop" && !items[dt].gotOnce){
+
+  let threshold = 1
+
+  if (settings.nofarmToggle) threshold = 0.1
+
+
+  if ( (chance === uncommonDrop && enemies[stats.currentEnemy].killCount>(15000*threshold)) || 
+  (chance === rareDrop && enemies[stats.currentEnemy].killCount>(50000*threshold)) || 
+  (chance === epicDrop && enemies[stats.currentEnemy].killCount>(150000*threshold)) || 
+  (chance === mythicDrop && enemies[stats.currentEnemy].killCount>(500000*threshold)) ||
+
+  (chance === uncommonDungeon && enemies[stats.currentEnemy].killCount>(90*threshold)) ||
+  (chance === rareDungeon && enemies[stats.currentEnemy].killCount>(150*threshold)) ||
+  (chance === epicDungeon && enemies[stats.currentEnemy].killCount>(200*threshold)) ||
+  (chance === mythicDungeon && enemies[stats.currentEnemy].killCount>(200*threshold)) ) {
+
+
+    items[dt].count += toAdd;
+    items[dt].timesGot += toAdd;
+    addItem()
+    if (did(dt + "ItemOverlay")){
+      did(dt + "ItemOverlay").style.animation = "";
+      void did(dt + "ItemOverlay").offsetWidth;
+      did(dt + "ItemOverlay").style.animation = "newItemGot 50s 1, useSkill 0.5s 1";
+    }
+
+
+
+  }
+
+
+}
+
 
 
 
@@ -3003,7 +3075,7 @@ function sellItem(id, amount){
 
 function improbabilityDrive(mode){
 
-  const regex = /rareItemDrop\(['"]([^'"]+)['"],\s*(rareDrop|uncommonDrop|uncommonDungeon|rareDungeon)\s*\)/g;
+  const regex = /rareItemDrop\(['"]([^'"]+)['"],\s*(rareDrop|uncommonDrop|uncommonDungeon|rareDungeon)(?:\s*,\s*[^)]+)*\s*\)/g;
   let match;
 const rareDropIds = [];
 const uncommonDropIds = [];
@@ -3444,19 +3516,23 @@ function switchArea() {
   did("rpgCanvas").style.backgroundImage = "url(img/src/areas/" + stats.currentArea + ".png)";
   did(stats.currentArea + "area").classList.replace( "areaSlider", "areaSliderActive");
 
+      statsUpdate()
+
       dungeonPoints = 0;
       dungeonStage=0;
       updateDungeonPoints();
 
       
+      did("areaImage").src = "img/src/areas/"+stats.currentArea+"M.png"
 
       did("areaName").innerHTML = areas[stats.currentArea].name;
-      did("areaLevel").innerHTML = "LVL " + areas[stats.currentArea].level;
+      did("areaLevel").innerHTML = "MASTERY: " + areas[stats.currentArea].masteryCap;
+      did("areaLevel").style.background = "#6FB1EE";
+      did("areaLevel").style.display = "flex"
+      if (restrainedMastery===0) did("areaLevel").style.display = "none"
+
 
       areaEffect();
-      if (rpgClass[stats.currentClass].level < areas[stats.currentArea].level * 0.7) did("areaLevel").style.background = "#D85858";
-      if (rpgClass[stats.currentClass].level >= areas[stats.currentArea].level * 0.7) did("areaLevel").style.background = "#CD984D";
-      if (rpgClass[stats.currentClass].level >= areas[stats.currentArea].level) did("areaLevel").style.background = "#58B86C";
       did('questTab').innerHTML = "";
       did('shopListing').innerHTML = '';
       createShopItem();
@@ -3658,6 +3734,7 @@ function createQuest() {
     }
     else if(quests[q].state==='completed') {
       did(q + "questl").innerHTML = colorTag("COMPLETE", "gray", "nobr"); 
+      did(q + "quest").style.filter = "brightness(0.6)"
 
     }
 
@@ -7145,9 +7222,9 @@ function updateStatsUI() {
   did("statsExpMultiplier").style.display = playerEXPGain > 1 ? "inline" : "none";
   did("statsSpellpower").style.display =  playerSpellpower > 1 ? "inline" : "none";
 
-
-
-  did("statsOmni").innerHTML = "❖&nbsp;Mastery: " + playerMastery;
+  let displayedMastery = playerMastery
+  if (playerMastery===restrainedMastery) displayedMastery = "<FONT COLOR='cyan'>"+areas[stats.currentArea].masteryCap+" <FONT COLOR='gray'>(max)"
+  did("statsOmni").innerHTML = "❖&nbsp;Mastery: " + displayedMastery;
 
 
   did("statsHealth").innerHTML = "❖&nbsp;Max Health: " + beautify(playerMaxHp);

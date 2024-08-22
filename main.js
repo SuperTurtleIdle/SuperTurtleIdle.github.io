@@ -138,6 +138,7 @@ function updateCounters() { //DO NOT PUT HERE ANYTHING THATS NOT UI
     did("statJester").textContent = beautify(stats.jesterTurtleClicks);
     did("statPresents").textContent = beautify(stats.mysteryPresentsOpened);
     did("statPlants").textContent = beautify(stats.plantsHarvested);
+    did("statResearch").textContent = beautify(stats.researchedBuildings);
     
     did("statCoinsClick").textContent = beautify(playerCoinsPerClick);
     did("statCoinsClickMultiplier").textContent = "x"+multiplicativeCoinsPerClick.toFixed(1);
@@ -1397,7 +1398,8 @@ function offlineDrops(kills){
 
     let killsGot = Math.round((kills*(playerPenguinPower/15))/3)
 
-    const regex = /rareItemDrop\(['"]([^'"]+)['"],\s*(rareDrop|uncommonDrop|epicDrop|mythicDrop|relicDrop)\s*\)/g;
+    const regex = /rareItemDrop\(['"]([^'"]+)['"],\s*(rareDrop|uncommonDrop|epicDrop|mythicDrop|relicDrop)(?:\s*,\s*[^)]+)*\s*\)/g;
+
   let match;
 const rareDropIds = [];
 const uncommonDropIds = [];

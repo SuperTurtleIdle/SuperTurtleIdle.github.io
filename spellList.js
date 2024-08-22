@@ -763,7 +763,7 @@ function castEisZeith(){
         animImageSplash("soundWave", "enemyPanel", "wave", 100, undefined ,'boss');
         }
 
-        playerDeificDamage(enemies[stats.currentEnemy].attack*7)
+        playerDeificDamage(enemies[stats.currentEnemy].attack*9)
     
         }
     
@@ -992,7 +992,7 @@ function castEdgeOfCataclysm(){
     setTimeout(() => {
         animParticleBurst(1 , "particleFire", "enemyPanel", 0);
         animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
-        enemyElementalDamage(playerWeaponDamage);
+        enemyDeificDamage(playerWeaponDamage);
         
     }, 700);
     }
@@ -1139,7 +1139,7 @@ function castRegalBroadsword(){ //weapon skill
     if (rng(1,5)===1){
         animImageSplash("slash", "enemyPanel", "impact", 0);
         animState(stats.currentEnemy+"enemy", "shake 0.4s 1");
-        enemyOccultDamage(playerWeaponDamage);
+        enemyDeificDamage(playerWeaponDamage);
     }
 }
 
@@ -2425,7 +2425,7 @@ function castWizhardShield(){
     animState("rpgPlayerImg", "flash 0.5s 1");
     animImageSplash("magishield", "playerPanel", "hold", 0, 15);
     animParticleBurst(7 , "particleExp", "playerPanel", 0);
-    let shield =expectedPlayerDamage*0.3*playerSpellpower
+    let shield = playerMaxHp*0.5
     playerShield += shield
     setTimeout(() => {
         animState("rpgPlayerImg", "gelatineHigh 0.4s 1");

@@ -109,10 +109,15 @@
             <h3>Disable item drop logs<button id="disableDropsLog" onclick="toggleSettings('disableDropsLog')">OFF</button></h3>
             <h3>Disable skills logs<button id="disableSkillLog" onclick="toggleSettings('disableSkillLog')">OFF</button></h3>
 
-            <h2 id="specialSettings" style="display: flex;">Special</h2>
+            <h2 class="specialSettings" style="display: flex;">Special</h2>
             <h3 class="specialToggle" >Disable mastery<button id="masteryToggle" onclick="toggleSettings('masteryToggle'); statsUpdate(); updateStatsUI();">OFF</button></h3>
             <h3 class="specialToggle">Disable seasonal events<button id="sEventToggle" onclick="toggleSettings('sEventToggle')">OFF</button></h3>
             <h3 class="specialToggle">Disable gilded and present spawns<button id="randomEventToggle" onclick="toggleSettings('randomEventToggle')">OFF</button></h3>
+
+
+            <h2 class="specialSettings" style="display: flex;">🧬 Game Modifiers</h2>
+            <h3 class="gamemodeToggle">🔰 Proud mode <strong style="color: rgb(146, 134, 134);">(Increased game difficulty)</strong><button id="proudToggle" onclick="toggleSettings('proudToggle');">OFF</button></h3>
+            <h3 class="gamemodeToggle">No farm mode <strong style="color: rgb(146, 134, 134);">(Items will be more likely to drop)</strong><button id="nofarmToggle" onclick="toggleSettings('nofarmToggle')">OFF</button></h3>
 
 
 
@@ -193,7 +198,8 @@
             <h3>Quests completed: <button id="statQuestCompleted"></button></h3>
             <h3>Jester turtles clicked: <button id="statJester"></button></h3>
             <h3>Mystery presents opened: <button id="statPresents"></button></h3>
-            <h3>Plants Harvested: <button id="statPlants"></button></h3>
+            <h3>Plants harvested: <button id="statPlants"></button></h3>
+            <h3>Total researches: <button id="statResearch"></button></h3>
 
             <h2>Combat</h2>
             <h3>Total kills: <button id="statKills"></button></h3>
@@ -1516,7 +1522,7 @@
                     
                     </div>
                     <div class="contentHeaderCenter">
-                        <img src="img/src/areas/A1M.png"><span id="areaName">Lush Passageway</span><span id="areaLevel">lvl 5</span>
+                        <img src="img/src/areas/A1M.png" id="areaImage"><span id="areaName">Lush Passageway</span><span id="areaLevel">lvl 5</span>
                     </div>
                     <div class="contentHeaderRight">
 
