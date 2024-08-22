@@ -970,7 +970,7 @@ enemies.E2.attack = 50;
 enemies.E2.exp = returnExp(7)/200;
 enemies.E2.difficulty = 'hard';
 enemies.E2.drop = "dropItem('I37');";
-enemies.E2.align = 'nature';
+enemies.E2.align = 'might';
 enemies.E2.bestiaryItem = 'bestiaryItem("I37", "drop")';
 
 enemies.E13 = {};

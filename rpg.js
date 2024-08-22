@@ -4304,6 +4304,7 @@ function rUpgShells(id, mode){
   */
 
   let multiplier = 3
+  if (items[id].quality==="Poor") multiplier = 1;
   if (items[id].quality==="Uncommon") multiplier = 4;
   if (items[id].quality==="Rare") multiplier = 5;
   if (items[id].quality==="Epic") multiplier = 6;
