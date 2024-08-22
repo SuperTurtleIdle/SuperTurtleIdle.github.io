@@ -2189,7 +2189,7 @@ function retroactiveUpdate(){
     if (stats.currentVersion<0.44){for (var i in research) if (research[i].status === "completed") {research[i].status = "waiting"; research[i].unlocked = false; research[i].timer = research[i].timerMax; } }
 
     sanityCheck()
-    stats.currentVersion = 0.45;
+    stats.currentVersion = 0.46;
 }
 
 
