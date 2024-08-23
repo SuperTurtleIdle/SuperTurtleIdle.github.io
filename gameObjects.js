@@ -29,10 +29,10 @@ let rareDrop = 15000 //50k (96%)
 let epicDrop = 45000 //150k (96%)
 let mythicDrop = 450000 //500k (67%)
 
-let relicDrop = 30000
+let relicDrop = 30000 //relics do not have pity
 let relicDungeon = 60
 
-let uncommonChest = 30 
+let uncommonChest = 30 //chest do not have pity
 let rareChest = 90
 let epicChest = 270
 let mythicChest = 2777
@@ -42,7 +42,7 @@ let rareDungeon = 50 //150 (95%)
 let epicDungeon = 90 //200 (89%)
 let mythicDungeon = 170 //200 (69%) 
 
-let commonThief = 3
+let commonThief = 3 //thief does not have pity
 let uncommonThief = 10
 let rareThief = 20
 let epicThief = 60
@@ -615,7 +615,7 @@ if (buffs.B115.time>0 && playerMastery>buffs.B115.stacks)  playerMastery = buffs
 
 restrainedMastery = 0;
 
-if ("masteryCap" in areas[stats.currentArea] && enemies[areas[stats.currentArea].boss].killCount===0){
+if ("masteryCap" in areas[stats.currentArea] && enemies[areas[stats.currentArea].boss].killCount===0 && !settings.overpoweredToggle){
 
   restrainedMastery = areas[stats.currentArea].masteryCap
 
@@ -1227,7 +1227,7 @@ enemies.E23.attack = 45000;
 enemies.E23.exp = 0;
 enemies.E23.area = 'A5';
 enemies.E23.align = 'nature';
-enemies.E23.drop =  'rareItemDrop("I310",1,10)+rareItemDrop("I142",uncommonDungeon,1,"drop")+rareItemDrop("I141",uncommonDungeon,1,"drop")+rareItemDrop("I140",uncommonDungeon,1,"drop")+rareItemDrop("I139",uncommonDungeon,1,"drop")+rareItemDrop("I138",uncommonDungeon,1,"drop")+rareItemDrop("I60",rareDungeon,1,"drop")+                                      unlocksReveal(); shopItems.A3S22.unlocked = true; shopItems.A3S18.unlocked = true; shopItems.A3S19.unlocked = true;';
+enemies.E23.drop =  'rareItemDrop("I310",1,10);rareItemDrop("I142",uncommonDungeon,1,"drop");rareItemDrop("I141",uncommonDungeon,1,"drop");rareItemDrop("I140",uncommonDungeon,1,"drop");rareItemDrop("I139",uncommonDungeon,1,"drop");rareItemDrop("I138",uncommonDungeon,1,"drop");rareItemDrop("I60",rareDungeon,1,"drop");  sendMail("MO1");   unlocksReveal(); shopItems.A3S22.unlocked = true; shopItems.A3S18.unlocked = true; shopItems.A3S19.unlocked = true;';
 enemies.E23.tag = "finalBoss";
 enemies.E23.attackChance = 'castPringuEmperor()';
 enemies.E23.bigEnemy = true;
@@ -1238,7 +1238,7 @@ enemies.E23.firstTimeReward = true;
 enemies.E12 = {};
 enemies.E12.name = 'Terragosa';
 enemies.E12.level = '[lvl 35]';
-enemies.E12.hp = 20000000;
+enemies.E12.hp = 15000000;
 enemies.E12.description = 'A crystalline drake formed out of sheer willpower and pressure. Be wary of its Prismatic Shield.';
 enemies.E12.attack = 40000;
 enemies.E12.exp = returnExp(30)/1800;
@@ -3478,7 +3478,7 @@ items.I78 = {};
 items.I78.name = 'Arcanite Darkblade';
 items.I78.description = `'Equipable - Weapon<br>'+rUpgLvl("I78")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I78", 1))+' Deific Damage'`;
 items.I78.flavor = '"A fine sword bestowed to the holy turtle riders. They say that blood spilled with this edge bleeds black."';
-items.I78.skills = 'rUpgSkill("I78", "Dark Slash: Medium chance to deal medium"+deificIcon+"Deific Damage","active",20)+"<br>"+rUpgSkill("I78", "Vanquish Darkness: +20%"+deificIcon+"Deific Bonus","passive",35)'
+items.I78.skills = 'rUpgSkill("I78", "Holy Slash: Attacks deal extra medium"+deificIcon+"Deific Damage","active",20)+"<br>"+rUpgSkill("I78", "Vanquish Darkness: +20%"+deificIcon+"Deific Bonus","passive",35)'
 items.I78.quality = 'Uncommon';
 items.I78.sell = 'artisanBonus("SA4")';
 items.I78.max = 1;
@@ -5482,7 +5482,7 @@ items.I290.use = 'playSound("audio/retro2.mp3"); animParticleBurst(5 , "particle
 unlocks.armory = false;
 items.I474 = {}; 
 items.I474.name = 'Armory';
-items.I474.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently unlocks the Armory at the top of the screen. Store and level up gear and weapons on it to gain Mastery';
+items.I474.description = 'Consumable - Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Permanently unlocks the Armory at the top of the screen. Store and level up gear and weapons on it to gain Mastery. You can buy back adquired gear too';
 items.I474.flavor = '"How do you plan on carrying all of that?."';
 items.I474.quality = 'Upgrade';
 items.I474.sell = 0;
@@ -8510,7 +8510,7 @@ quests.A1Q1.difficulty = 1;
 quests.A1Q1.description = 'To complete the registation of the Super Turtle Adventure program, please terrorise the local wildlife.'+bestiaryTag("Tip: The game will run when tabbed out","#E57D08");
 quests.A1Q1.objective = `'Defeat a bunch of slugs <span class="questProgress">'+beautify(enemies.E1.killCount)+'/6</span>'`;
 quests.A1Q1.logic = 'enemies.E1.killCount>5';
-quests.A1Q1.effect = 'items.I8.count++;';
+quests.A1Q1.effect = 'items.I8.count++; tipPopUp("Quick Tips!","<br>The game progresses while offline, you will get rare items this way too<br><br>Hold down spacebar to quickly click the turtle<br><br>If you are ever lost, check the Game Guide<br><br>Upgrade your weapons as soon as possible to farm faster<br><br>Use the right weapon agains the right enemy, pay attention to alignments<br><br>Check your mail on the top left as soon as you get a new one<br><br>Check out the settings for alternate game modifiers")';
 quests.A1Q1.reward = `itemIcon("I8")+' A cool stick'`;
 quests.A1Q1.icon = "img/src/items/I9.jpg";
 
@@ -8564,7 +8564,7 @@ quests.A1Q4.difficulty = 3;
 quests.A1Q4.description = 'These scorpions keep blocking the road to our sweet, sweet rocks. Clear the road and well show you our rocky goodness.';
 quests.A1Q4.objective = `'Defeat 150 Stinglets <span class="questProgress">'+beautify(enemies.E2.killCount)+'/150</span>'`;
 quests.A1Q4.logic = 'enemies.E2.killCount>149';
-quests.A1Q4.effect = 'areas.A1.unlockedOre = 1;items.I37.count+=300';
+quests.A1Q4.effect = 'areas.A1.unlockedOre = 1;items.I37.count+=300; tipPopUp("Mastery","<br>Mastery is the most important stat of your turtle. It increases exponentially your health and damage, and allows you to progress the game<br><br>Gain mastery by interacting with the game systems.<br><br>Check out the mastery guide at the top of the screen for more details<br><br>Each area has a Mastery limit shown next to their name, and will unlock once the boss of the area has been defeated")';
 quests.A1Q4.reward = `itemIcon("I32")+'Unlock Mining Node'+'<br>★ '+itemIcon("I37")+' White Stinger x300'`;
 quests.A1Q4.icon = "img/src/items/I84.jpg";
 
@@ -8850,7 +8850,7 @@ quests.A4Q2B.logic = 'items.I423.count>0';
 quests.A4Q2B.effect = 'items.I423.count=0;items.I211.count++';
 quests.A4Q2B.icon = "img/src/items/I423.jpg";
 quests.A4Q2B.warning1 = "I211";
-quests.A4Q2B.warning2 = 5;
+quests.A4Q2B.warning2 = 1;
 
 quests.A4Q4 = {};
 quests.A4Q4.name = 'Begone Dark Presences';
@@ -8861,8 +8861,8 @@ quests.A4Q4.reward = `itemIcon("I209")+'Ephemeral Time Egg'`;
 quests.A4Q4.logic = 'stats.purifiedMorgatosDefeated>2'; 
 quests.A4Q4.effect = 'items.I209.count+=1';
 quests.A4Q4.icon = "img/src/items/I18.jpg";
-quests.A4Q4.warning1 = "I211";
-quests.A4Q4.warning2 = 5;
+quests.A4Q4.warning1 = "I209";
+quests.A4Q4.warning2 = 1;
 
 quests.A4Q3 = {};
 quests.A4Q3.name = 'Always A Catch';
@@ -13538,7 +13538,7 @@ let gametip = {}
 
 gametip.gt0 = {}
 gametip.gt0.name = "Introduction";
-gametip.gt0.description ='Welcome to Super Turtle Idle, an horizontal incremental idle RPG. Complete quests, gather materials by idling, and tackle mighty foes!<br><br>Upgrade any weapon or armor you want and use it as long as you want, no pressure or strings attached. Is the foe too mighty? Engage with the different systems of the game to gain Mastery or try your luck getting new gear you never got before.<br><br>Getting rare items can be a daunting task at first, so dont hesitate to come back later when you\'re able to efficiently farm them. Do not worry, as said gear will always be useful no matter when you decide to get it!';
+gametip.gt0.description ='Welcome to Super Turtle Idle, an incremental idle RPG. Complete quests, gather materials by idling, and tackle mighty foes!<br><br>Upgrade any weapon or armor you want, no pressure or strings attached. Is the foe too mighty? Engage with the different systems of the game to gain Mastery or try your luck getting new gear you never got before.<br><br>Getting rare items can be a daunting task at first, so dont hesitate to come back later when you\'re able to efficiently farm them. Do not worry, as said gear will always be useful no matter when you decide to get it!';
 
 gametip.gt1 = {}
 gametip.gt1.name = "Inventory I";
@@ -13589,7 +13589,7 @@ gametip.gt4.name = "Weapon Stamping";
 gametip.gt4.description = 'Equip a weapon and use a stamp to apply them to it in various levels of effectivity. The current weapon stamps will be replaced and rerolled by new ones.<br><br>Some stamp effects might not be available until better stampers get acquired.<br><br>'+colorTag("Alignment Force", "#5CAA5D")+' such as Nature Force will increase the damage for that specific alignment.<br><br>'+colorTag("Titanic Grip", "#BE7150")+' will increase your Strength. Strength increases the damage of your auto-attacks.<br><br>'+colorTag("Dynamo", "#B062A1")+' will increase your Attack Speed.<br><br>'+colorTag("Afflictions", "purple")+' will decrease your Alignment resistance.';
 
 gametip.gt3 = {}
-gametip.gt3.name = "Mastery and Area Mastery";
+gametip.gt3.name = "Mastery and Area Cap";
 gametip.gt3.description = 'Mastery is a stat that increases both your defense and offense massively. It is crucial to level up this stat to progress.Increase this stat through various means, such as doing quests, or engaging with the multiple systems of the game.<br><br>Initially, your Mastery is restrained by the area or dungeon you are in, preventing effective Mastery to go over a specific threshold, shown next to the area name.<br><br>Once you defeat the boss of the area, the limit will break, and you will be able to use exceeding mastery in that zone. ';
 
 gametip.gt5 = {}

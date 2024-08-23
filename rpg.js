@@ -112,7 +112,7 @@ function spawnEnemy(enemy) { //spawns enemy based on current difficulty and area
   if (stats.currentEnemy==="E15") div.style.animation= "enemySpawn 0.5s 1";
 
   let nameFlair = ""
-  if (settings.proudToggle && (bossTime || dungeonTime)) nameFlair = " 🔰"
+  if (settings.proudToggle && enemies[stats.currentEnemy].killCount===0 && (bossTime || dungeonTime)) nameFlair = " 🔰"
 
   did("enemyName").innerHTML = enemies[currentEnemy].name+nameFlair;
   did("enemyLevel").textContent = enemies[currentEnemy].level;
@@ -776,6 +776,17 @@ function logPrint(print) {
   
 }
 
+
+function tipPopUp(title, desc){
+
+  did("tipPanel").style.display = "flex"
+  did("tipPanelName").innerHTML = title
+  did("tipPanelDesc").innerHTML = desc
+  playSound("audio/button3.mp3");
+  did("bodyCover").style.display = "flex";
+  
+}
+
 document.getElementById("combatLog").addEventListener('scroll', function() {
   var combatLog = document.getElementById("combatLog");
   
@@ -988,7 +999,7 @@ function enemyDamage(damage, align, icon, type){
   }
 
 
-  if (settings.proudToggle && (bossTime || dungeonTime)) finalDamage *= 0.7
+  if (settings.proudToggle && enemies[stats.currentEnemy].killCount===0 && (bossTime || dungeonTime)) finalDamage *= 0.7
 
   currentHP -= finalDamage;
   enemyUpdate();
@@ -1147,7 +1158,7 @@ function finalPlayerDamage(damageDealt){
 
 
 
-  if (settings.proudToggle && (bossTime || dungeonTime)) damageDealt *= 1.15
+  if (enemies[stats.currentEnemy].killCount===0 && settings.proudToggle && (bossTime || dungeonTime)) damageDealt *= 1.15
 
 
 
@@ -3529,7 +3540,7 @@ function switchArea() {
       did("areaLevel").innerHTML = "MASTERY: " + areas[stats.currentArea].masteryCap;
       did("areaLevel").style.background = "#6FB1EE";
       did("areaLevel").style.display = "flex"
-      if (restrainedMastery===0) did("areaLevel").style.display = "none"
+      if (restrainedMastery===0 || settings.overpoweredToggle) did("areaLevel").style.display = "none"
 
 
       areaEffect();
@@ -4229,6 +4240,7 @@ function rUpgBaseMat(id, mode){
     if (items[id].quality==="Epic") multiplier = 9;
     if (items[id].quality==="Mythic") multiplier = 20;
     */
+    if (items[id].quality==="Poor") multiplier = 0.5;
     if (items[id].quality==="Uncommon") multiplier = 2;
     if (items[id].quality==="Rare") multiplier = 3;
     if (items[id].quality==="Epic") multiplier = 4;
@@ -7224,7 +7236,7 @@ function updateStatsUI() {
   did("statsSpellpower").style.display =  playerSpellpower > 1 ? "inline" : "none";
 
   let displayedMastery = playerMastery
-  if (playerMastery===restrainedMastery) displayedMastery = "<FONT COLOR='cyan'>"+areas[stats.currentArea].masteryCap+" <FONT COLOR='gray'>(max)"
+  if (playerMastery===restrainedMastery && !settings.overpoweredToggle) displayedMastery = "<FONT COLOR='cyan'>"+areas[stats.currentArea].masteryCap+" <FONT COLOR='gray'>(max)"
   did("statsOmni").innerHTML = "❖&nbsp;Mastery: " + displayedMastery;
 
 

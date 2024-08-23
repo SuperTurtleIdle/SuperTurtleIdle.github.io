@@ -1175,11 +1175,11 @@
     background-size: 20%;
 }
 
-#deleteData .settingsFlex, #outdatedData  .settingsFlex {
+#deleteData .settingsFlex, #outdatedData  .settingsFlex, #tipPanel .settingsFlex {
     padding: 1rem 2rem;
 }
 
-#deleteData p, #outdatedData p {
+#deleteData p, #outdatedData p, #tipPanel p {
     width: 100%;
     height: auto;
     font-size: 1.4rem;
@@ -1187,7 +1187,11 @@
     flex-shrink: 0;
 }
 
-#deleteData span img, #outdatedData span img {
+#tipPanel{
+    height: 40rem !important;
+}
+
+#deleteData span img, #outdatedData span img , #tipPanel span img{
     margin-top: 0rem;
 }
 
@@ -7150,7 +7154,7 @@ border: none;
 }
 
 #equipmentTabStatsPanel p{
-font-size:  min(1.7vw, 1.7vh);
+font-size:  1.1rem;
 padding-left: 0.3rem;
 border-radius: 0.3rem;
 color: white;

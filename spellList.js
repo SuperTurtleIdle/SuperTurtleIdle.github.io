@@ -1136,11 +1136,11 @@ function castBoneShuriken(){
 
 
 function castRegalBroadsword(){ //weapon skill
-    if (rng(1,5)===1){
+
         animImageSplash("slash", "enemyPanel", "impact", 0);
         animState(stats.currentEnemy+"enemy", "shake 0.4s 1");
         enemyDeificDamage(playerWeaponDamage);
-    }
+    
 }
 
 function castFossilClub(){

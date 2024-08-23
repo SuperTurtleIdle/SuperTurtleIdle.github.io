@@ -883,6 +883,7 @@ function closePanels(){
     did("rankMenu").style.display = "none";
     did("gardenShop").style.display = "none";
     did("turtleRename").style.display = "none";
+    did("tipPanel").style.display = "none";
     did("masteryGuide").style.display = "none";
     did("gameGuide").style.display = "none";
     did("plantCatalogue").style.display = "none";
@@ -1545,23 +1546,26 @@ if (stats.currentArea === "A3") rollTable(area3Loot, amount/7)
 if (stats.currentArea === "A4") rollTable(area4Loot, amount/7)
     */
 
-if (unlocks.penguins){
+if (unlocks.penguins && concept===undefined){
 
 
     if (rpgPlayer.minipenguin1!=="none"){
         items[rpgPlayer.minipenguin1].count += Math.ceil(killsGot/4);
         items[rpgPlayer.minipenguin1].timesGot += Math.ceil(killsGot/4);
+        logPrint("<FONT COLOR='#8fba77'>Your penguin gathered " + bestiaryItem(rpgPlayer.minipenguin1) +" x"+Math.ceil(killsGot/4)+"!");
     }
     
     if (rpgPlayer.minipenguin2!=="none"){
         items[rpgPlayer.minipenguin2].count += Math.ceil(killsGot/4);
         items[rpgPlayer.minipenguin2].timesGot += Math.ceil(killsGot/4);
+        logPrint("<FONT COLOR='#8fba77'>Your penguin gathered " + bestiaryItem(rpgPlayer.minipenguin2) +" x"+Math.ceil(killsGot/4)+"!");
 
     }
     
     if (rpgPlayer.minipenguin3!=="none"){
         items[rpgPlayer.minipenguin3].count += Math.ceil(killsGot/4);
         items[rpgPlayer.minipenguin3].timesGot += Math.ceil(killsGot/4);
+        logPrint("<FONT COLOR='#8fba77'>Your penguin gathered " + bestiaryItem(rpgPlayer.minipenguin3) +" x"+Math.ceil(killsGot/4)+"!");
 
     }
 
@@ -1575,6 +1579,10 @@ items[currentDrop].count += killsGot;
 items[currentDrop].timesGot += killsGot;
 
 rpgClass[stats.currentClass].currentExp += enemies[stats.currentEnemy].exp * killsGot;
+
+
+logPrint("<FONT COLOR='#8fba77'>Your Turtlebot gathered " + bestiaryItem(currentDrop) +" x"+Math.ceil(killsGot)+" and "+beautify(enemies[stats.currentEnemy].exp * killsGot)+" EXP!");
+
 
 /*
 did("idleItem").innerHTML = beautify(killsGot);
@@ -2163,6 +2171,9 @@ stats.currentVersion = undefined;
 function retroactiveUpdate(){
 
     if (stats.currentVersion === undefined && enemies.E1.killCount>3) { did("outdatedData").style.display = "flex"; did("bodyCover").style.display = "flex"; items.I317.count++}
+
+    if (stats.currentVersion === undefined) tipPopUp("Welcome!","<br>Welcome to Super Turtle Idle, an incremental idle RPG. Complete quests, gather materials by idling, and tackle mighty foes!<br><br>Upgrade any weapon or armor you want, no pressure or strings attached. Is the foe too mighty? Engage with the different systems of the game to gain Mastery or try your luck getting new gear you never got before.<br><br>Getting rare items can be a daunting task at first, so dont hesitate to come back later when you're able to efficiently farm them. Do not worry, as said gear will always be useful no matter when you decide to get it!")
+
 
     if (items.I113.statUp!==0) items.I113.statUp = 25 
     if (items.I124.statUp!==0) items.I124.statUp = 35

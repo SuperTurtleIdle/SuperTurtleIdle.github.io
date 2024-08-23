@@ -118,6 +118,7 @@
             <h2 class="specialSettings" style="display: flex;">🧬 Game Modifiers</h2>
             <h3 class="gamemodeToggle">🔰 Proud mode <strong style="color: rgb(146, 134, 134);">(Increased game difficulty)</strong><button id="proudToggle" onclick="toggleSettings('proudToggle');">OFF</button></h3>
             <h3 class="gamemodeToggle">No farm mode <strong style="color: rgb(146, 134, 134);">(Items will be more likely to drop)</strong><button id="nofarmToggle" onclick="toggleSettings('nofarmToggle')">OFF</button></h3>
+            <h3 class="gamemodeToggle">Overpower mode <strong style="color: rgb(146, 134, 134);">(Area mastery cap is lifted)</strong><button id="overpoweredToggle" onclick="toggleSettings('overpoweredToggle')">OFF</button></h3>
 
 
 
@@ -345,6 +346,15 @@
             <img src="img/sys/deleteData.png">
             <p><br>With the release of 0.4, the game got overhauled and 0.3 saves became outdated, as the two versions are too fundamentally different from each other. It is <strong>very advised</strong> that you start over a new savefile by deleting the current data.<br><br><strong style="color: #B5DD7B;">Soulbound</strong> items such as the completition medal and some extra goodies will carry over this new save automatically. For more information, check the game's Discord.<br><br>Sorry for the trouble.</p>
             <button style="border: white solid 2px; color:white; background: red; font-weight: 400;" onclick="closePanels()">UNDERSTOOD</button>
+            </span>
+        </div>
+
+        <div id="tipPanel" class="panelOpciones" style="display:none; height: 80%; width: 40%;">
+            <h1 id="tipPanelName">Welcome!</h1>
+            <div class="separatorHeader"><div class="separator"></div>(Click outside the window to close)<div class="separator"></div></div>
+            <span class="settingsFlex">
+            <img src="img/sys/nerd.png">
+            <p id="tipPanelDesc"><br>Welcome to Super Turtle Idle, an incremental idle RPG. Complete quests, gather materials by idling, and tackle mighty foes!<br><br>Upgrade any weapon or armor you want, no pressure or strings attached. Is the foe too mighty? Engage with the different systems of the game to gain Mastery or try your luck getting new gear you never got before.<br><br>Getting rare items can be a daunting task at first, so dont hesitate to come back later when you're able to efficiently farm them. Do not worry, as said gear will always be useful no matter when you decide to get it!</p>
             </span>
         </div>
 
