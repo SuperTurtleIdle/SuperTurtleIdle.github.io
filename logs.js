@@ -16,6 +16,20 @@ document.addEventListener("click", function(event) {
   }
 });
 
+document.addEventListener("click", function(event) {
+  // Asegúrate de que el elemento clicado es una imagen
+  if (event.target.tagName === 'IMG') {
+    // Compara el atributo src del elemento clicado
+    if (event.target.src.includes('img/src/enemies/E41.png')) {
+      logs.P73.unlocked = true;
+      logCheck();
+      animState(stats.currentEnemy+"enemy", "gelatine 0.3s 1");
+
+
+    }
+  }
+});
+
 
 
 function calculateInsight(){
@@ -102,7 +116,7 @@ function tooltipLog(i) {
     did('tooltipImage').src = "img/src/icons/pageLocked.jpg";     
     }
         
-    did("tooltipFlavor").textContent = logs[i].hint;
+    did("tooltipFlavor").innerHTML = logs[i].hint;
     did("tooltipArrowUp").style.display = 'flex';
     did("tooltipArrow").style.display = 'none';
 
@@ -694,21 +708,21 @@ function createBestiary() {
     
 
 
-    if (enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'finalBoss')
+    if (enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'stageBoss3' && enemies[i].tag !== 'finalBoss')
          { enemies[i].medal = "none"; totalBestiaryPoints++ }//eligible
 
 
     if (unlocks.bestiary){
 
 if (enemies[i].killCount>=10000
-  && enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'finalBoss')
+  && enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'stageBoss3' && enemies[i].tag !== 'finalBoss')
      { enemies[i].medal = "gold"; }//gold medal
 
 
 
 
 if (enemies[i].killCount>=100000
-  && enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'finalBoss')
+  && enemies[i].tag !== 'dungeonEnemy' && !enemies[i].noMedal && enemies[i].tag !== 'showdownBoss' && enemies[i].tag !== 'stageBoss1' && enemies[i].tag !== 'stageBoss2' && enemies[i].tag !== 'stageBoss3' && enemies[i].tag !== 'finalBoss')
     { //platinum medal
       
       
@@ -734,9 +748,9 @@ if (enemies[i].killCount>=1 || enemies[i].sawOnce){
   if (enemies[i].medal==="gold") enemyMedal = "🥇"
   if (enemies[i].medal==="platinum") enemyMedal = "🥈"
 
-  did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+ enemyMedal +'</span>';
-  if (enemies[i].tag==="areaBoss") did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+' 💀' + enemyMedal +'</span>';
-  if (enemies[i].ignoreBestiaryPercentage) did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+' ❌</span>';
+  did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+'</span> <strong> ' + enemyMedal +' </strong>';
+  if (enemies[i].tag==="areaBoss") did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+' 💀</span> <strong>' + enemyMedal +' </strong>';
+  if (enemies[i].ignoreBestiaryPercentage) did(i+"bestiary").innerHTML = '<img src="img/src/enemies/'+i+'M.png"></img><span>'+enemies[i].name+'</span> <strong> ❌ </strong>';
 } else{
   did(i+"bestiary").innerHTML = '<span>?????</span>';
 }
@@ -747,7 +761,7 @@ if (enemies[i].killCount>=1 || enemies[i].sawOnce){
   }
 
  
-  for (i in enemies) if (enemies[i].medal==="none" && enemies[i].sawOnce) elibileEnemies++
+  for (i in enemies) if (enemies[i].medal==="none") elibileEnemies++
 
 bestiaryPercentage = ( ( bestiaryPointEntry + medalsGot ) / (totalBestiaryPoints) * 100 ) 
 did("bestiaryProgress").innerHTML = bestiaryPercentage.toFixed(1)+"%";

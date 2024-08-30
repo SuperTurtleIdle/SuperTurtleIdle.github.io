@@ -448,7 +448,7 @@ function createGardenPlots() {
 
 
 
-              if (offlineTime===undefined && plot[i].water>0 && plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,15)===1){ // bonus mutation
+              if (plants[plot[i].slot].harvested>0 && offlineTime===undefined && plot[i].water>0 && plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,15)===1){ // bonus mutation
                 if (plot[i].mature) plants[plot[i].slot].planted--
                 plot[i].slot = plot[i].slot+"a";
                 plot[i].renewable = true;
@@ -479,7 +479,7 @@ function createGardenPlots() {
             } 
 
 
-            if(rng(1,1000000)===1){ //corruption
+            if(plants[plot[i].slot].harvested>0 && rng(1,1000000)===1){ //corruption
               if (plot[i].mature) plants[plot[i].slot].planted--;
               plot[i].age = 0;
               plot[i].water = 100;
@@ -533,7 +533,7 @@ function createGardenPlots() {
 
               //if (rpgPlayer.currentFertiliser === "f2") mutationChance = baseMutationChance*2
 
-              if (plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,mutationChance)===1){ //mutation
+              if (plants[plot[i].slot].harvested>0 && plot[i].slot !== "g16" && plot[i].slot.slice(-1) !== 'a' && rng(1,mutationChance)===1){ //mutation
                 //if (plot[i].mature) plants[plot[i].slot].planted--
                 plants[plot[i].slot].planted--
                 plot[i].slot = plot[i].slot+"a";
@@ -730,7 +730,7 @@ if (plants.g3a.planted>0 && plants.g15.planted>0) createNewPlant("g9", (plants.g
 if (plants.g16.planted>0 && plants.g12.planted>0) createNewPlant("g18", (plants.g16.planted+plants.g12.planted)) //glitch y cactuspiña
 
 //t4
-if (plants.g19a.planted>0 && plants.g14a.planted>0) createNewPlant("g11", (plants.g19a.planted+plants.g14a.planted)) //dragonfruit m y woodflower
+if (plants.g19a.planted>0 && plants.g14.planted>0) createNewPlant("g11", (plants.g19a.planted+plants.g14.planted)) //dragonfruit m y woodflower
 if (plants.g16.planted>0 && plants.g9a.planted>0) createNewPlant("g17", (plants.g16.planted+plants.g9a.planted)) //glitch y blacklotus
 
 }
@@ -1211,7 +1211,7 @@ if (plants[i].harvested>0){
   
 
   did(i+"plantCatalogue").innerHTML = '<img src="img/src/garden/'+i+'.png"></img><span>'+plants[i].name+" ("+plants[i].count+")"+'</span>';
-  if (unlocks.seedShipping && i.slice(-1) !== 'a' && i !== "g2") did(i+"plantCatalogue").innerHTML = '<img src="img/src/garden/'+i+'.png"></img><span>'+plants[i].name+" ("+plants[i].count+")"+' 📦</span>';
+  if (unlocks.seedShipping && i.slice(-1) !== 'a' && i !== "g2") did(i+"plantCatalogue").innerHTML = '<img src="img/src/garden/'+i+'.png"></img><span>'+plants[i].name+" ("+plants[i].count+")"+'</span><strong>📦</strong>';
 } else{
   did(i+"plantCatalogue").innerHTML = '<span>?????</span>';
 }

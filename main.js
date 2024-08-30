@@ -74,11 +74,14 @@ window.addEventListener('keydown', function (event) { //disables alt key
 
 function setCursor() {
 
+    let cursorIdleImg = "cursorHand"
+    if (settings.wubblyCursorToggle) cursorIdleImg = "cursorHandAlt"
+
     var estilo = document.createElement('style');
 
     if (!settings.disableCustomCursor) {
-        document.body.style.cursor = "url('img/sys/cursorHand.png'), auto";
-        estilo.innerHTML = ` button:hover { cursor: url('img/sys/cursorHand.png'), auto; } input:hover { cursor: url('img/sys/cursorHand.png'), auto; } `;
+        document.body.style.cursor = "url('img/sys/"+cursorIdleImg+".png'), auto";
+        estilo.innerHTML = ` button:hover { cursor: url('img/sys/`+cursorIdleImg+`.png'), auto; } input:hover { cursor: url('img/sys/`+cursorIdleImg+`.png'), auto; } `;
         document.head.appendChild(estilo);
         
     } else {
@@ -110,12 +113,21 @@ document.addEventListener('dragstart', function(event) { //thanks firefox very c
 
 
 document.addEventListener("click", function() {
+
+    let cursorIdleImg = "cursorHand"
+    let cursorClickImg = "cursorHandClick"
+
+    if (settings.wubblyCursorToggle){
+        cursorIdleImg = "cursorHandAlt"
+        cursorClickImg = "cursorHandClickAlt"
+    } 
+
     if (!settings.disableCustomCursor){
 
-    document.body.style.cursor = "url('img/sys/cursorHandClick.png'), auto";
+    document.body.style.cursor = "url('img/sys/"+cursorClickImg+".png'), auto";
 
     setTimeout(function() {
-        document.body.style.cursor = "url('img/sys/cursorHand.png'), auto";
+        document.body.style.cursor = "url('img/sys/"+cursorIdleImg+".png'), auto";
     }, 100);
 }
 });
@@ -170,7 +182,17 @@ unlocks.present = false;
 
 stats.recievedPresents = 0;
 
-did("tortugaClick").onclick = turtleClick;
+unlocks.wobblyCursor = false;
+
+did("tortugaClick").onclick = manualClick;
+let manualClicks = 0
+
+function manualClick(){
+    manualClicks++;
+    turtleClick()
+    if (manualClicks>1000 && !unlocks.wobblyCursor) {unlocks.wobblyCursor=true; settings.wubblyCursorToggle = true; setCursor(); unlocksReveal()}
+}
+
 
 function turtleClick(alt){
 
@@ -594,14 +616,14 @@ function weatherCheck() {
     if (stats.rpgTime===480){
         stats.currentWeather='day' 
         if(rng(1,15)===1) stats.currentWeather='rain'
-        if(rng(1,50)===1) stats.currentWeather='sakura'
+        if(rng(1,30)===1) stats.currentWeather='sakura'
     }
 
     if (stats.rpgTime===1200){
         stats.currentWeather='night'
-        if(rng(1,30)===1) stats.currentWeather='bluemoon'
-        if(rng(1,30)===1) stats.currentWeather='snow'
-        if(rng(1,100)===1) stats.currentWeather='vortex'
+        if(rng(1,20)===1) stats.currentWeather='bluemoon'
+        if(rng(1,20)===1) stats.currentWeather='snow'
+        if(rng(1,50)===1) stats.currentWeather='vortex'
     }
 
     //este codigo se repite multiples veces pese a que claramente no deberia y no se que hacer con esto
@@ -697,7 +719,7 @@ function tooltipWeather() {
      if (stats.currentWeather==="vortex"){
         did("tooltipName").textContent = "Reality Shift";
         did("tooltipFlavor").textContent = '"Well that doesnt look good at all."';
-        did("tooltipDescription").innerHTML = '<span style="color:gray">No special weather bonuses.</span>';
+        did("tooltipDescription").innerHTML = '<span style="color:#1EFF0C">❖ Alignment weakness and strengths switched!</span>';
      }
 
 
@@ -1164,12 +1186,14 @@ function calculateInactiveTime() { //calculates idle time
         const currentTime = new Date().getTime();
         const inactiveTime = currentTime - parseInt(lastVisitTime);
         const secondsInactive = Math.floor(inactiveTime / 1000);
+        //const secondsInactive = 40000*3;
 
         lastofflinetime = secondsInactive
 
         if (secondsInactive > 60) {
             stats.totalSeconds += secondsInactive; 
             for (let i in cd) if (cd[i]>0) {cd[i]-=secondsInactive};
+
             if (enemies[stats.currentEnemy].killCount>99 && !dungeonTime){
                 offlineRewards((secondsInactive/60));
                 if (!settings.disablePenguinRecap) { did("penguinRecap").style.display = "flex"; }
@@ -1209,6 +1233,9 @@ function calculateInactiveTime() { //calculates idle time
             
             }
 
+            setTimeout(() => {
+                save();
+            }, 1500);
             save();
         }
 
@@ -1247,9 +1274,13 @@ function tooltipPenguin() {
     
 
     if (did("penguinCurrentResource")){
-    if (enemies[stats.currentEnemy].difficulty !== "pond") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: '+bestiaryItem(currentDrop),"#2C8A97");
-    if (enemies[stats.currentEnemy].difficulty === "pond") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: ... fish?',"#2C8A97");
-    if (enemies[stats.currentEnemy].killCount<99) did("penguinCurrentResource").innerHTML = '<FONT COLOR="gray">Defeat the current enemy at least 100 times to autofarm it'
+    if (currentDrop==="") {did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: Nothing at all',"#2C8A97");}
+    else{
+        if (enemies[stats.currentEnemy].difficulty !== "pond") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: '+bestiaryItem(currentDrop),"#2C8A97");
+        if (enemies[stats.currentEnemy].difficulty === "pond") did("penguinCurrentResource").innerHTML = colorTag('Currently Gathering: ... fish?',"#2C8A97");
+        if (enemies[stats.currentEnemy].killCount<99) did("penguinCurrentResource").innerHTML = '<FONT COLOR="gray">Defeat the current enemy at least 100 times to autofarm it'
+    }
+
     
     }
 
@@ -1397,7 +1428,7 @@ function afkPenguinTooltip(x){
 
 function offlineDrops(kills){
 
-    let killsGot = Math.round((kills*(playerPenguinPower/15))/3)
+    let killsGot = Math.round((kills*(playerPenguinPower/15)))
 
     const regex = /rareItemDrop\(['"]([^'"]+)['"],\s*(rareDrop|uncommonDrop|epicDrop|mythicDrop|relicDrop)(?:\s*,\s*[^)]+)*\s*\)/g;
 
@@ -1442,15 +1473,19 @@ while ((match = regex.exec(enemies[stats.currentEnemy].drop)) !== null) {
   */
 
 
+
+
   if (uncommonDropIds.length>0) uncommonDropIds.forEach(id => { rareItemDrop(id, Math.max(uncommonDrop/Math.ceil(killsGot,1)));});
   if (rareDropIds.length>0) rareDropIds.forEach(id => { rareItemDrop(id, Math.max(rareDrop/Math.ceil(killsGot,1)));});
   if (epicDropIds.length>0) epicDropIds.forEach(id => { rareItemDrop(id, Math.max(epicDrop/Math.ceil(killsGot,1)));});
   if (mythicDropIds.length>0) mythicDropIds.forEach(id => { rareItemDrop(id, Math.max(mythicDrop/Math.ceil(killsGot,1)));});
   if (relicDropIds.length>0) relicDropIds.forEach(id => { rareItemDrop(id, Math.max(relicDrop/Math.ceil(killsGot,1)));});
 
-  console.log("uncommon:"+ Math.max(uncommonDrop/Math.ceil(killsGot,1)) +"rare:"+Math.max(rareDrop/Math.ceil(killsGot,1))+"relic :"+Math.max(relicDrop/Math.ceil(killsGot,1))+"epic :"+Math.max(mythicDrop/Math.ceil(killsGot,1))+"mythic :"+Math.max(mythicDrop/Math.ceil(killsGot,1)))
+  console.log("uncommon:"+ Math.max(uncommonDrop/Math.ceil(killsGot,1)) +"rare:"+Math.max(rareDrop/Math.ceil(killsGot,1))+"relic :"+Math.max(relicDrop/Math.ceil(killsGot,1))+"epic :"+Math.max(epicDrop/Math.ceil(killsGot,1))+"mythic :"+Math.max(mythicDrop/Math.ceil(killsGot,1)))
 
     
+  killsGot = Math.round((kills*(playerPenguinPower/15))/2)
+  
   if (stats.currentEnemy === "E13") rollTable(copperCollectibles, 1, killsGot)
   if (stats.currentEnemy === "E14") rollTable(snapthornCollectibles, 1, killsGot)
   if (stats.currentEnemy === "E19") rollTable(arcaniteCollectibles, 1, killsGot)
@@ -1635,6 +1670,8 @@ function diablo() {document.getElementById("cheatPanel").style.display = "flex";
 
 function masteryGuide(){
 
+
+
 let totalQuests = 58
 did("MGQuesting").innerHTML = `<img src="img/src/items/quest.jpg"><h1>Questing</h1><h2><strong><img src="img/src/icons/insight.png">`+stats.questsCompleted*10+`/`+(totalQuests*10)+`</strong> `+stats.questsCompleted+`/`+totalQuests+` (`+(stats.questsCompleted/totalQuests*100).toFixed(1)+`%)</h2><div class="masteryGuideProgress"><div style="width:`+(stats.questsCompleted/totalQuests*100).toFixed(1)+`%"></div></div>`
 
@@ -1648,6 +1685,12 @@ if (unlocks.bestiary) did("MGBestiary").innerHTML = `<img src="img/src/items/I29
 
 if (unlocks.garden) did("MGGarden").innerHTML = `<img src="img/src/items/I287.jpg"><h1>Garden</h1><h2><strong><img src="img/src/icons/insight.png">`+plantCompletionProgress*6+`/`+(plantCompletionProgressTotal*6)+`</strong> `+plantCompletionProgress+`/`+plantCompletionProgressTotal+` (`+(plantCompletionProgress/plantCompletionProgressTotal*100).toFixed(1)+`%)</h2><div class="masteryGuideProgress"><div style="width:`+(plantCompletionProgress/plantCompletionProgressTotal*100).toFixed(1)+`%"></div></div>`
 
+
+let currentMastery = (stats.questsCompleted*10+collectiblesGot*5+stats.logsGot*5+totalArmoryGot*10+medalsGot*10+plantCompletionProgress*6)
+let totalMastery = ((totalQuests*10)+(collectiblesTotal*5)+(totalLogs*5)+(totalArmory*10)+((elibileEnemies+medalsGot)*10)+(plantCompletionProgressTotal*6))
+
+
+did("masteryCompletion").innerHTML = `<img src="img/src/icons/insight.png" style="height:1.5rem;width:1.5rem; border-radius:0.3rem; margin-right:0.3rem">`+currentMastery+`/`+totalMastery+` Total Mastery <strong style="color:darkorange">(`+(currentMastery/totalMastery*100).toFixed(1)+` %)</strong>`
 
 
 
@@ -2094,6 +2137,7 @@ function unlocksReveal(){
     if (unlocks.journal) did('achievementsTab').style.display = "flex";
     if (unlocks.bestiary) {did('bestiaryMastery').style.display = "flex"; did('bestiaryProgress2').style.display = "flex"; did('bestiaryBadge').style.display = "flex";}
     if (unlocks.armory) did('armoryButton').style.display = "flex";
+    if (unlocks.wobblyCursor) did('wubblySettings').style.display = "flex";
     if (unlocks.penguins) {
         
         did("minipenguin1").style.display = "flex"
@@ -2172,7 +2216,7 @@ function retroactiveUpdate(){
 
     if (stats.currentVersion === undefined && enemies.E1.killCount>3) { did("outdatedData").style.display = "flex"; did("bodyCover").style.display = "flex"; items.I317.count++}
 
-    if (stats.currentVersion === undefined) tipPopUp("Welcome!","<br>Welcome to Super Turtle Idle, an incremental idle RPG. Complete quests, gather materials by idling, and tackle mighty foes!<br><br>Upgrade any weapon or armor you want, no pressure or strings attached. Is the foe too mighty? Engage with the different systems of the game to gain Mastery or try your luck getting new gear you never got before.<br><br>Getting rare items can be a daunting task at first, so dont hesitate to come back later when you're able to efficiently farm them. Do not worry, as said gear will always be useful no matter when you decide to get it!")
+    if (stats.currentVersion === undefined && enemies.E1.killCount===0) tipPopUp("Welcome!","<br>Welcome to Super Turtle Idle, an incremental idle RPG. Complete quests, gather materials by idling, and tackle mighty foes!<br><br>Upgrade any weapon or armor you want, no pressure or strings attached. Is the foe too mighty? Engage with the different systems of the game to gain Mastery or try your luck getting new gear you never got before.<br><br>Getting rare items can be a daunting task at first, so dont hesitate to come back later when you're able to efficiently farm them. Do not worry, as said gear will always be useful no matter when you decide to get it!")
 
 
     if (items.I113.statUp!==0) items.I113.statUp = 25 
@@ -2200,7 +2244,7 @@ function retroactiveUpdate(){
     if (stats.currentVersion<0.44){for (var i in research) if (research[i].status === "completed") {research[i].status = "waiting"; research[i].unlocked = false; research[i].timer = research[i].timerMax; } }
 
     sanityCheck()
-    stats.currentVersion = 0.46;
+    stats.currentVersion = 0.47;
 }
 
 

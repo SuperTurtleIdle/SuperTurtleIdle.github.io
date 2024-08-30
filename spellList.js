@@ -132,7 +132,7 @@ function castLightsOut(){
     }, 400);
     setTimeout(() => {
         castInterrupt()
-        enemyDeificDamage(playerWeaponDamage*2, "sp");
+        enemyDeificDamage(playerWeaponDamage*4, "sp");
         animParticleBurst(15 , "particleSmoke", "enemyPanel", 0);
         animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
         animImageSplash("circle", "enemyPanel", "explosion", 0);
@@ -629,6 +629,131 @@ function castRaijinGoran(){
 
 }
 
+
+
+function castLadyoftheLake(){
+
+
+    enemyTurn++
+
+    if (currentHP < enemies[stats.currentEnemy].hp*0.31 && enemyPhase===1) {
+        enemyPhase=2;
+        buffs.B83.time=10;
+        buffs.B95.time=10;
+        buffs.B95.stacks=10;
+        playerBuffs();
+
+        setTimeout(() => {
+            enemyPhase=3;
+            enemyTurn=0;
+        }, 10000);
+
+
+
+
+    };
+
+    if(enemyPhase===1){
+
+        if (enemyTurn===2){castEnemyCasting(3)}
+        if (enemyTurn===4) if (buffs.B90.time>0) {lance()}
+    
+        if (enemyTurn===6){castEnemyCasting(3)}
+        if (enemyTurn===8) if (buffs.B90.time>0) {lance()}
+    
+        if (enemyTurn===11){castEnemyAlerted(3)}
+        if (enemyTurn===13){curse(); enemyTurn=0;}
+
+    }
+
+
+    if(enemyPhase===3){
+
+        if (enemyTurn===2){castEnemyCasting(3)}
+        if (enemyTurn===4) if (buffs.B90.time>0) {lance()}
+
+        if (enemyTurn===5){invul()}
+
+        if (enemyTurn===6){drown(); enemyTurn=0;}
+
+
+
+
+    }
+
+
+
+    
+
+
+    
+
+    function lance(){
+        animParticleProjectile("holyLance", "reverseArrow", 9, "particleGlow2", 250);
+        setTimeout(() => {
+        animState("rpgPlayerImg", "shake 0.4s 1");
+        animImageSplash("soundWave", "playerPanel", "wave", 200);
+        rareItemDrop("I491",1)
+        playerDeificDamage(enemies[stats.currentEnemy].attack*3)
+        }, 500);
+    }
+
+    function curse(){
+
+    animState("rpgPlayerImg", "shake 0.4s 1");
+    animParticleBurst(5 , "particleFire", "playerPanel", 130);
+    animImageSplash("soundWave", "playerPanel", "wave", 200, undefined ,'boss');
+
+    playerOccultDamage(enemies[stats.currentEnemy].attack*2);
+
+    buffs.B80.time=15;
+    playerBuffs();
+    }
+
+    function drown(){
+
+        animState("rpgPlayerImg", "shake 0.4s 1");
+        animParticleBurst(5 , "particleFire", "playerPanel", 130);
+        animImageSplash("soundWave", "playerPanel", "wave", 200, undefined ,'boss');
+    
+        buffs.B58.time=1000;
+        buffs.B58.stacks+=3;
+        if (buffs.B58.stacks>14){
+        rpgPlayer.hp = 0;
+        playerUpdate();
+        buffs.B58.time=0;
+    }
+    playerBuffs(); 
+
+    }
+
+
+    function invul(){
+
+
+        for (let i = 0; i < 3; i++) { setTimeout(loop, 150 * i);}
+    function loop() {
+    animState(stats.currentEnemy+"enemy", "gelatineHigh 0.4s 1");
+    animImageSplash("soundWave", "enemyPanel", "wave", 100, undefined ,'boss');
+    }
+
+
+        buffs.B83.time=20;
+        playerBuffs();
+
+
+
+
+
+
+    }
+
+
+    castEnemyCastingDecay()
+    castEnemyAlertedDecay()
+
+}
+
 function castArcaniteTower(){
 
     animImageSplash("lightning", "playerPanel", "impact", 0);
@@ -752,7 +877,7 @@ function castEisZeith(){
         animParticleBurst(2 , "particleGlow2", "playerPanel", 100);
         animState("rpgPlayerImg", "shakeFlash 0.4s 1");
         buffs.B74.time=10;
-        playerMightDamage(enemies[stats.currentEnemy].attack*3)
+        playerMightDamage(enemies[stats.currentEnemy].attack*3);
         playerBuffs();
     }
 
@@ -983,7 +1108,7 @@ function castEdgeOfCataclysm(){
 
     if (items.I28.level>39 && rng(1,10)===1){
     for (let i = 0; i < 4; i++) { setTimeout(loop, 250 * i);}
-    if (items.I28.level>49) buffs.B110.time+=5;
+    if (items.I28.level>49) buffs.B112.time+=5;
     playerBuffs()
     function loop() {
     
@@ -1116,13 +1241,28 @@ function castPringuSet(){
 }
 
 function castPineBoomerang(){
-    logPrint(`<FONT COLOR="#18ccba"> You throw a Pine Boomerang`);
     animParticleProjectile("boomerang", "throw", 0, "particleSmoke", 0);
     animState("rpgPlayerImg", "gelatineHigh 0.3s 1");
     setTimeout(() => {
         enemyNatureDamage(playerWeaponDamage*0.5);
         animState(stats.currentEnemy+"enemy", "gelatine 0.4s 1");
         playSound("audio/throw.mp3")}, 700);
+}
+
+function castHolyLance(){
+    animParticleProjectile("holyLance", "throwArrow", 0, "particleSmoke", 0);
+    animState("rpgPlayerImg", "gelatineHigh 0.3s 1");
+    setTimeout(() => {
+        
+        if (stats.currentEnemy==="E56" && enemyPhase===3){
+            buffs.B83.time=0
+            playerBuffs()
+            animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
+            playSound("audio/explosion.mp3")
+
+        }
+        playSound("audio/throw.mp3")
+    }, 600);
 }
 
 function castBoneShuriken(){
@@ -1637,7 +1777,7 @@ function castPlundergeist(){ //weapon skill
         animState("rpgPlayerImg", "shake 0.4s 1");
         buffs.B60.time=15;
         playerBuffs(); 
-        }
+    }
 
 
     
@@ -1710,6 +1850,35 @@ function castVicesRetribution(){ //weapon skill
 
 
 
+
+
+
+
+    
+}
+
+
+function castWarbanner(){
+
+
+    if (items.I498.cd===0) {
+        items.I498.cd=70;
+        if (items.I495.level>79) items.I498.cd=60;
+
+        buffs.B20B.time=20;
+        playerBuffs(); 
+
+        animImageSplash("banner", "playerPanel", "holdFloat", 0, 20, "vice");
+        animState("rpgPlayerImg", "gelatineHigh 0.4s 1");
+        animImageSplash("circle", "playerPanel", "explosion", 0);
+        animParticleBurst(7 , "particleElectric", "playerPanel", 0);
+
+        setTimeout(() => {
+            animState("rpgPlayerImg", "gelatineHigh 0.4s 1");
+            animImageSplash("circle", "playerPanel", "explosion", 0);
+            }, 20000);
+
+    }
 
 
 
@@ -2342,7 +2511,7 @@ function castIncendiaryBunny(){
     animParticleProjectile("none", "throw", 6, "particleConfetti", 0);
     animImageSplash("hat", "playerPanel", "impact", 0);
     setTimeout(() => {
-        enemyElementalDamage(playerWeaponDamage, "sp");
+        enemyElementalDamage(playerWeaponDamage*4, "sp");
         animParticleBurst(10 , "particleFire", "enemyPanel", 0);
         animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
         animImageSplash("circle", "enemyPanel", "explosion", 0);
@@ -2361,7 +2530,7 @@ function castPolymorph(){
     setTimeout(() => {
         animParticleBurst(5 , "particleSpark", "enemyPanel", 0);
         animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
-        enemyElementalDamage(playerWeaponDamage, "sp");
+        enemyElementalDamage(playerWeaponDamage*3, "sp");
         castInterrupt()
         }, 700);
 
@@ -2456,7 +2625,7 @@ function castCardFan(){
     animState("rpgPlayerImg", "gelatine 0.3s 1");
     animParticleProjectile("card", "throwArrow", 0, "particleFire", 0);
     setTimeout(() => {
-        enemyMightDamage(playerWeaponDamage*0.15, "sp");
+        enemyMightDamage(playerWeaponDamage*0.25, "sp");
         animState(stats.currentEnemy+"enemy", "gelatine 0.4s 1");
         playSound("audio/throw.mp3")}, 700);}
 }
@@ -2481,7 +2650,7 @@ function castDoveFlock(){
     animState("rpgPlayerImg", "gelatine 0.3s 1");
     animParticleProjectile("dove", "throwArrow", 0, "particleFeather", 0);
     setTimeout(() => {
-        enemyNatureDamage(playerWeaponDamage*0.3, "sp");
+        enemyNatureDamage(playerWeaponDamage*0.5, "sp");
         animState(stats.currentEnemy+"enemy", "gelatine 0.4s 1");
         animParticleBurst(2 , "particleFeather", "enemyPanel", 200);
         playSound("audio/throw.mp3")}, 700);}}
@@ -2512,7 +2681,7 @@ function castDoveFlock(){
         if (rollRng===1){ //fireball
             animParticleProjectile("none", "throwArrow", 9, "particleFire", 120);
             setTimeout(() => {
-                enemyElementalDamage(playerWeaponDamage*5, "sp");
+                enemyElementalDamage(playerWeaponDamage*8, "sp");
                 animParticleBurst(15 , "particleFire", "enemyPanel", 120);
                 animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
                 animImageSplash("circle", "enemyPanel", "explosion", 0);
@@ -2586,7 +2755,7 @@ function castConjureViolinNote(){ //side skill
     animParticleProjectile("note", "throwArrow", 0, "particleSmoke", 0);
     animParticleBurst(5 , "particleExp", "playerPanel", 100);
     setTimeout(() => {
-        enemyNatureDamage(playerWeaponDamage*0.8, "sp");
+        enemyNatureDamage(playerWeaponDamage*1, "sp");
         playSound("audio/button4.mp3")}, 600);}
 
  function castRiffTempo(){
@@ -2596,7 +2765,7 @@ function castConjureViolinNote(){ //side skill
     animState("rpgPlayerImg", "gelatineHigh 0.4s 1");
     animImageSplash("soundWave", "playerPanel", "wave", 0);
     setTimeout(() => {
-        enemyNatureDamage(playerWeaponDamage*0.3, "sp");
+        enemyNatureDamage(playerWeaponDamage*0.6, "sp");
         }, 500);}
     }
         
@@ -2688,7 +2857,7 @@ function castRhythmHellHit(){
     playSound("audio/osu.mp3");
     animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1");
     damageText('Good', 'damageText', '#818181', undefined, "enemyPanel");
-    enemyNatureDamage(playerWeaponDamage*0.5, "sp");
+    enemyNatureDamage(playerWeaponDamage*0.8, "sp");
     animImageSplash("soundWave", "enemyPanel", "reverseWave", 0);
     animImageSplash("circle", "enemyPanel", "explosion", 0);
     setTimeout(() => {

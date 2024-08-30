@@ -110,15 +110,16 @@
             <h3>Disable skills logs<button id="disableSkillLog" onclick="toggleSettings('disableSkillLog')">OFF</button></h3>
 
             <h2 class="specialSettings" style="display: flex;">Special</h2>
-            <h3 class="specialToggle" >Disable mastery<button id="masteryToggle" onclick="toggleSettings('masteryToggle'); statsUpdate(); updateStatsUI();">OFF</button></h3>
+            <h3 class="specialToggle">Disable mastery<button id="masteryToggle" onclick="toggleSettings('masteryToggle'); statsUpdate(); updateStatsUI();">OFF</button></h3>
             <h3 class="specialToggle">Disable seasonal events<button id="sEventToggle" onclick="toggleSettings('sEventToggle')">OFF</button></h3>
             <h3 class="specialToggle">Disable gilded and present spawns<button id="randomEventToggle" onclick="toggleSettings('randomEventToggle')">OFF</button></h3>
+            <h3 class="specialToggle" id="wubblySettings" style="display: none;">Wubble wobbly cursor<button id="wubblyCursorToggle" onclick="toggleSettings('wubblyCursorToggle'); setCursor()">OFF</button></h3>
 
 
             <h2 class="specialSettings" style="display: flex;">🧬 Game Modifiers</h2>
             <h3 class="gamemodeToggle">🔰 Proud mode <strong style="color: rgb(146, 134, 134);">(Increased game difficulty)</strong><button id="proudToggle" onclick="toggleSettings('proudToggle');">OFF</button></h3>
-            <h3 class="gamemodeToggle">No farm mode <strong style="color: rgb(146, 134, 134);">(Items will be more likely to drop)</strong><button id="nofarmToggle" onclick="toggleSettings('nofarmToggle')">OFF</button></h3>
-            <h3 class="gamemodeToggle">Overpower mode <strong style="color: rgb(146, 134, 134);">(Area mastery cap is lifted)</strong><button id="overpoweredToggle" onclick="toggleSettings('overpoweredToggle')">OFF</button></h3>
+            <h3 class="gamemodeToggle">No farm mode <strong style="color: rgb(146, 134, 134);">(Increased drop and exp gains)</strong><button id="nofarmToggle" onclick="toggleSettings('nofarmToggle')">OFF</button></h3>
+            <h3 class="gamemodeToggle">Overpower mode <strong style="color: rgb(146, 134, 134);">(Lifted area mastery cap)</strong><button id="overpoweredToggle" onclick="toggleSettings('overpoweredToggle')">OFF</button></h3>
 
 
 
@@ -140,7 +141,8 @@
             <h1>MASTERY GUIDE</h1>
             <div class="separatorHeader"><div class="separator"></div>(Click outside the window to close)<div class="separator"></div></div>
             <span class="settingsFlex">
-            <div style="display: flex; margin-right: auto; font-size: 1.5rem; font-family: fredoka; color: rgb(194, 194, 194); background: transparent; font-weight: 400; flex-shrink: 0;"><img src="img/src/icons/masteryGuide.png">< Mastery is the fastest way to get stronger!</div>
+            <div style="display: flex; margin-right: auto; font-size: 1.5rem; font-family: fredoka; color: rgb(194, 194, 194); background: transparent; font-weight: 400; flex-shrink: 0; position: relative;"><img src="img/src/icons/masteryGuide.png">< Mastery is the fastest way to get stronger!<span id="masteryCompletion">dddddddddd</span></div>
+            <div class="separator"></div>
             <div class="masteryGuideBox" id="MGQuesting"><img src="img/src/items/quest.jpg"><h1>Questing</h1><h2><strong><img src="img/src/icons/insight.png">330/550</strong> 32/82 (15%)</h2><div class="masteryGuideProgress"><div></div></div></div>
             <div class="masteryGuideBox" id="MGCollection"><img src="img/src/icons/collection.jpg"><h1>Collection</h1><h2><strong><img src="img/src/icons/insight.png">330/550</strong> 32/82 (15%)</h2><div class="masteryGuideProgress"><div></div></div></div>
             <div class="masteryGuideBox" id="MGGrandArchive"><img src="img/src/items/I0.jpg" style="outline: white solid 1px;"><h1 style="color: gray;">?????</h1><div class="masteryGuideProgress"><div></div></div></div>
@@ -896,7 +898,7 @@
                     <div class=nombreTortuga>
                         <p id="turtleName">Jeffrey</p>
                     </div>
-                    <img id="tortugaClick" src="img/src/tortugasdefault/img1.png" draggable="false"/>                    
+                    <img id="tortugaClick" src="img/src/tortugasdefault/img1.png" draggable="false">                    
                     <div id="turtleBuffWrapper">
 
                         </div>

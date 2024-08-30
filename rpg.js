@@ -237,9 +237,10 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
           if (enemies[stats.currentEnemy].align==="occult") rareItemDrop("I437", smallCrystalDropChance)
           if (enemies[stats.currentEnemy].align==="deific") rareItemDrop("I438", smallCrystalDropChance)
 
+            let extraExp = 1
+            if (settings.nofarmToggle) extraExp = 2
 
-
-          var totalEXP = Math.round(enemies[stats.currentEnemy].exp * playerEXPGain);
+          var totalEXP = Math.round(enemies[stats.currentEnemy].exp * playerEXPGain * extraExp);
           if (talent.TI3C2.active && (enemies[stats.currentEnemy].medal==="gold" || enemies[stats.currentEnemy].medal==="platinum")) totalEXP *= 1.5
           rpgClass[stats.currentClass].currentExp += totalEXP;
           stats.totalExp += totalEXP;
@@ -342,6 +343,19 @@ function enemyUpdate() { //updates enemy HP and checks if enemy is dead
     enemies[stats.currentEnemy].killCount++;
     stats.totalKills++;
     if (bossTime) {stats.totalBossKills++;};
+
+
+    if (settings.nofarmToggle) {
+
+      enemies[stats.currentEnemy].killCount++;
+      stats.totalKills++;
+      if (bossTime) {stats.totalBossKills++;};
+      eval(enemies[stats.currentEnemy].drop);
+
+
+
+
+    }
 
 
     if (enemies[stats.currentEnemy].killCount===1 && stats.currentEnemy===areas[stats.currentArea].boss) {
@@ -482,7 +496,7 @@ function playerUpdate(){ //updates player HP and checks if its dead
 
   if (rpgPlayer.hp <= 0 && rpgPlayer.alive && !godmode) {
     rpgPlayer.hp = 0;
-    if ((stats.currentDifficulty==="boss") && buffs.B64.time<=0) { //if a boss kills the turtle
+    if ((stats.currentDifficulty==="boss" || enemies[stats.currentEnemy].tag === "areaBoss") && buffs.B64.time<=0) { //if a boss kills the turtle
       bossTime = false;
       stats.currentDifficulty="easy"
       encounterButtonPress() 
@@ -725,7 +739,7 @@ function damageTicks() {
   enemyElementalDot = 0 + buffs.B43.statUp  + buffs.B110.statUp + buffs.B65.statUp;
   enemyMightDot = buffs.B111.statUp;
   enemyOccultDot = 0 + buffs.B33.statUp + buffs.B50.statUp + buffs.B109.statUp;
-  enemyDeificDot = 0;
+  enemyDeificDot = buffs.B112.statUp;
   enemyHealingDot = 0 + buffs.B95.statUp;
 
 
@@ -1016,11 +1030,14 @@ function enemyDamage(damage, align, icon, type){
 
 
   if (finalDamage.toFixed(0) == 69) logs.L1P4.unlocked = true;
+  if (finalDamage.toFixed(0) == 0) logs.L1P4A1.unlocked = true;
   if (finalDamage > 999) logs.P35.unlocked = true;
   if (finalDamage > 99999) logs.P35A.unlocked = true;
   if (finalDamage > 999999) logs.P35B.unlocked = true;
   if (finalDamage > 9999999) logs.P35BA.unlocked = true;
   if (finalDamage > 99999999) logs.P35BB.unlocked = true;
+  if (finalDamage > 99999999999) logs.P35BC.unlocked = true;
+  if (finalDamage > 99999999999999) logs.P35BD.unlocked = true;
 
 
   if (battleData) dataDamageDealt += finalDamage
@@ -1041,8 +1058,14 @@ function enemyNatureDamage(damage, type){
   if (type==="sp") damageDealt = damage * (1+natureDamageBonus) * (playerSpellpower)
   if (type==="noScale" || type==="zeroScale") damageDealt = damage
   let icon;
-  if (enemies[stats.currentEnemy].align === 'elemental') {damageDealt *= typeResist; icon='weak';}
-  if (enemies[stats.currentEnemy].align === 'might') {damageDealt *= typestrength; icon='strong';}
+  if (stats.currentWeather === 'vortex'){
+    if (enemies[stats.currentEnemy].align === 'elemental') {damageDealt *= typestrength; icon='strong';}
+    if (enemies[stats.currentEnemy].align === 'might') {damageDealt *= typeResist; icon='weak';}
+  } else {
+    if (enemies[stats.currentEnemy].align === 'elemental') {damageDealt *= typeResist; icon='weak';}
+    if (enemies[stats.currentEnemy].align === 'might') {damageDealt *= typestrength; icon='strong';}
+  }
+
 
   enemyDamage(damageDealt, "Nature", icon, type)
 
@@ -1059,8 +1082,14 @@ function enemyMightDamage(damage, type){
   if (type==="sp") damageDealt = damage * (1+mightDamageBonus) * (playerSpellpower)
   if (type==="noScale" || type==="zeroScale") damageDealt = damage
   let icon;
-  if (enemies[stats.currentEnemy].align === 'nature') {damageDealt *= typeResist; icon='weak';}
-  if (enemies[stats.currentEnemy].align === 'occult') {damageDealt *= typestrength; icon='strong';}
+  if (stats.currentWeather === 'vortex'){
+    if (enemies[stats.currentEnemy].align === 'nature') {damageDealt *= typestrength; icon='strong';}
+    if (enemies[stats.currentEnemy].align === 'occult') {damageDealt *= typeResist; icon='weak';}
+  } else {
+    if (enemies[stats.currentEnemy].align === 'nature') {damageDealt *= typeResist; icon='weak';}
+    if (enemies[stats.currentEnemy].align === 'occult') {damageDealt *= typestrength; icon='strong';}
+  }
+
 
   enemyDamage(damageDealt, "Might", icon, type)
 
@@ -1073,8 +1102,13 @@ function enemyElementalDamage(damage, type){
   if (type==="sp") damageDealt = damage * (1+elementalDamageBonus) * (playerSpellpower)
   if (type==="noScale" || type==="zeroScale") damageDealt = damage
   let icon;
-  if (enemies[stats.currentEnemy].align === 'deific') {damageDealt *= typeResist; icon='weak';}
+  if (stats.currentWeather === 'vortex'){
+    if (enemies[stats.currentEnemy].align === 'deific') {damageDealt *= typestrength; icon='strong';}
+    if (enemies[stats.currentEnemy].align === 'nature') {damageDealt *= typeResist; icon='weak';}
+  } else {
+    if (enemies[stats.currentEnemy].align === 'deific') {damageDealt *= typeResist; icon='weak';}
   if (enemies[stats.currentEnemy].align === 'nature') {damageDealt *= typestrength; icon='strong';}
+  }
 
   enemyDamage(damageDealt, "Elemental", icon, type)
 
@@ -1093,8 +1127,13 @@ function enemyOccultDamage(damage, type){
   if (type==="sp") damageDealt = damage * (1+occultDamageBonus) * (playerSpellpower)
   if (type==="noScale" || type==="zeroScale") damageDealt = damage
   let icon;
-  if (enemies[stats.currentEnemy].align === 'might') {damageDealt *= typeResist; icon='weak';}
-  if (enemies[stats.currentEnemy].align === 'deific') {damageDealt *= typestrength; icon='strong';}
+  if (stats.currentWeather === 'vortex'){
+    if (enemies[stats.currentEnemy].align === 'might') {damageDealt *= typestrength; icon='strong';} 
+    if (enemies[stats.currentEnemy].align === 'deific') {damageDealt *= typeResist; icon='weak';}
+  } else {
+    if (enemies[stats.currentEnemy].align === 'might') {damageDealt *= typeResist; icon='weak';}
+    if (enemies[stats.currentEnemy].align === 'deific') {damageDealt *= typestrength; icon='strong';} 
+  }
 
   enemyDamage(damageDealt, "Occult", icon, type)
 
@@ -1110,9 +1149,14 @@ function enemyDeificDamage(damage, type){
   if (type==="sp") damageDealt = damage * (1+deificDamageBonus) * (playerSpellpower)
   if (type==="noScale" || type==="zeroScale") damageDealt = damage
   let icon;
-  if (enemies[stats.currentEnemy].align === 'occult') {damageDealt *= typeResist; icon='weak';}
-  if (enemies[stats.currentEnemy].align === 'elemental') {damageDealt *= typestrength; icon='strong';}
-
+  if (stats.currentWeather === 'vortex'){
+    if (enemies[stats.currentEnemy].align === 'occult') {damageDealt *= typestrength; icon='strong';}
+    if (enemies[stats.currentEnemy].align === 'elemental') {damageDealt *= typeResist; icon='weak';}
+  } else {
+    if (enemies[stats.currentEnemy].align === 'occult') {damageDealt *= typeResist; icon='weak';}
+    if (enemies[stats.currentEnemy].align === 'elemental') {damageDealt *= typestrength; icon='strong';}
+   
+  }
   enemyDamage(damageDealt, "Deific", icon, type)
 
   if (buffs.B93.time>0) buffs.B93.time = 0 //yog kulth
@@ -1302,6 +1346,7 @@ function animParticleProjectile(img, throwAnimation, particleCount, particleType
   if (type === "throw") { projectile.style.animation = "sexyY 0.8s infinite ease-in-out, sexyX 0.8s infinite ease-in-out, itemThrowRotate 0.8s infinite ease-out";   setTimeout(function () { projectile.remove(); }, 800);}
   if (type === "reverseThrow") { projectile.style.animation = "sexyY 0.8s infinite ease-in-out, sexyX 0.8s infinite ease-in-out, itemThrowRotate 0.8s infinite ease-out"; projectile.style.animationDirection = "reverse";   setTimeout(function () { projectile.remove(); }, 800);}
   if (type === "throwArrow") { projectile.style.animation = "sexyY 0.6s infinite ease-in-out, sexyX 0.6s infinite ease-in-out, itemThrowArrow 0.6s infinite ease-out";   setTimeout(function () { projectile.remove(); }, 600);}
+  if (type === "reverseArrow") { projectile.style.animation = "sexyY 0.6s infinite ease-in-out, sexyX 0.6s infinite ease-in-out, itemThrowArrow 0.6s infinite ease-out";  projectile.style.animationDirection = "reverse";   setTimeout(function () { projectile.remove(); }, 600);}
   if (type === "rain") { projectile.style.animation = "itemRain 0.8s 1 ease-in-out"; projectile.style.margin = rng(30,90)+"%" ; setTimeout(function () { projectile.remove(); }, 750);}
   if (type === "slow") { projectile.style.animation = "slowProjectile 2s 1 linear";   setTimeout(function () { projectile.remove(); }, 2000);}
   if (type === "fast") { projectile.style.animation = "slowProjectile 1s 1 linear";   setTimeout(function () { projectile.remove(); }, 1000);}
@@ -1608,6 +1653,7 @@ function dropItem(ID) { //dedicated drop rolls
 
   if (did(stats.currentEnemy+"enemy") && did(stats.currentEnemy+"enemy").classList.contains('gilded')) {
     itemdrop = 300;
+    if (talent.TG1E1.active) itemdrop = 450;
     stats.gildedKilled++;
     if (enemies[stats.currentEnemy].align==="nature") rareItemDrop("I434",1)
     if (enemies[stats.currentEnemy].align==="might") rareItemDrop("I435",1)
@@ -3601,18 +3647,7 @@ function specialButtonUi() { //shows or hides special buttons depending on zone
       }
 }
 
-did("bossButton").addEventListener("click", summonAreaBoss);
 
-function summonAreaBoss(){
-  
-
-    playSound("audio/button3.mp3")
-    bossTime = true;
-    deleteEnemy();
-    resetTooltip();
-    enemyUpdate();
-  
-}
 
 unlocks.autoBoss = false;
 var togleAutoBoss = false
@@ -7021,7 +7056,7 @@ setTimeout(() => {
 
 
 let rareItems = ["I91","I92","I93" /*stampers*/,"I298" /*paint*/,"I222" /*magnifying*/, "I118" /*gamba*/]
-let rareItems2 = ["I311","I312" /*stampers2*/, "I209" /*egg1*/, "I200" /*phoenix*/, "I96" /*gold gamba*/, "I174" /*dungeon voucher*/, "I208" /*jackinabox*/, "I177" /*expVoucher*/, "I219" /*improv drive*/, "I205" /*kidsmeal*/, "I483","I484","I485","I486","I487" /*glitterchips*/]
+let rareItems2 = ["I311","I312" /*stampers2*/, "I209" /*egg1*/, "I200" /*phoenix*/, "I96" /*gold gamba*/, "I174" /*dungeon voucher*/, "I208" /*jackinabox*/, "I177" /*expVoucher*/, "I219" /*improv drive*/, "I205" /*kidsmeal*/, "I483","I484","I485","I486","I487","I496" /*glitterchips*/]
 let rareItems3 = ["I210" /*egg2*/]
 
 function startMysteryMinigame(){
