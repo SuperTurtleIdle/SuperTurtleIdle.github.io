@@ -1757,8 +1757,6 @@ enemies.E53.bestiaryItem = 'bestiaryItem("I23","rare")'
 enemies.E53.bestiarySkills = "❖ Light Of Ruin: Inflicts"+buffIcon("B24")+"Burning.<br>❖"+buffIcon("B39")+"Zealous Sentence: Inflicts"+buffIcon("B17")+"Silence."+bestiaryTag("Second Phase")+"❖ Five Crowns: Periodically rotates alignment buffs. If no corresponding alignment damage is dealt before the buff expires, restores a portion of the Health. Dealing damage of the corresponding alignment of the buff will cancel it.";
 enemies.E53.ignoreBestiary = true;
 
-
-
 enemies.R1 = {};
 enemies.R1.name = 'Seaprism Slug';
 enemies.R1.level = '[lvl 30]';
@@ -1767,7 +1765,7 @@ enemies.R1.attack = 100000;
 enemies.R1.exp = 518;
 enemies.R1.align = 'elemental';
 enemies.R1.tag = "skirmish";
-enemies.R1.noMedal = true;
+enemies.R1.ignoreBestiary = true;
 
 enemies.R2 = {};
 enemies.R2.name = 'Devotree';
@@ -1778,7 +1776,7 @@ enemies.R2.exp = 518;
 enemies.R2.align = 'deific';
 enemies.R2.tag = "wave2";
 enemies.R2.showdown = "S1";
-enemies.R2.noMedal = true;
+enemies.R2.ignoreBestiary = true;
 
 enemies.R3 = {};
 enemies.R3.name = 'Fluffarose';
@@ -1789,7 +1787,7 @@ enemies.R3.exp = 518;
 enemies.R3.align = 'occult';
 enemies.R3.tag = "wave3";
 enemies.R3.showdown = "S1";
-enemies.R3.noMedal = true;
+enemies.R3.ignoreBestiary = true;
 
 enemies.R4 = {};
 enemies.R4.name = 'Plasmite';
@@ -1800,7 +1798,7 @@ enemies.R4.exp = 518;
 enemies.R4.align = 'elemental';
 enemies.R4.tag = "wave4";
 enemies.R4.showdown = "S1";
-enemies.R4.noMedal = true;
+enemies.R4.ignoreBestiary = true;
 
 enemies.R5 = {};
 enemies.R5.name = 'Toximire';
@@ -1811,7 +1809,7 @@ enemies.R5.exp = 518;
 enemies.R5.align = 'might';
 enemies.R5.tag = "wave5";
 enemies.R5.showdown = "S1";
-enemies.R5.noMedal = true;
+enemies.R5.ignoreBestiary = true;
 
 enemies.R6 = {};
 enemies.R6.name = 'Sandiablo';
@@ -1822,7 +1820,7 @@ enemies.R6.exp = 518;
 enemies.R6.align = 'nature';
 enemies.R6.tag = "wave6";
 enemies.R6.showdown = "S1";
-enemies.R6.noMedal = true;
+enemies.R6.ignoreBestiary = true;
 
 enemies.R7 = {};
 enemies.R7.name = 'Garabato';
@@ -1833,7 +1831,7 @@ enemies.R7.exp = 518;
 enemies.R7.align = 'occult';
 enemies.R7.tag = "wave7";
 enemies.R7.showdown = "S1";
-enemies.R7.noMedal = true;
+enemies.R7.ignoreBestiary = true;
 
 
 Object.keys(enemies).forEach(function(key) {
