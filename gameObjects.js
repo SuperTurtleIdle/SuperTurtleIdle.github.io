@@ -1968,7 +1968,8 @@ items.I358.description = 'Miscellaneous<br><FONT COLOR="#1EFF0C">Use: Summon a b
 items.I358.flavor = '"Nap time is over."';
 items.I358.quality = 'Rare';
 items.I358.sell = 15000;
-items.I358.use = ' if (stats.currentArea==="A8") { bossTime=true; deleteEnemy("E54"); bossTime=true; items.I358.count--; playSound("audio/hawk.mp3"); animParticleBurst(10 , "particleFire", "enemyPanel", 200); animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/explosion.mp3");} ;'
+items.I358.use = ' if (stats.currentArea==="A8") { bossTime=true; deleteEnemy("E54"); bossTime=true; playSound("audio/hawk.mp3"); animParticleBurst(10 , "particleFire", "enemyPanel", 200); animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/explosion.mp3");} ;'
+items.I358.max = 1;
 
 items.I386 = {};
 items.I386.name = 'Lake Orb';
@@ -1976,7 +1977,8 @@ items.I386.description = 'Miscellaneous<br><FONT COLOR="#1EFF0C">Use: ?????'
 items.I386.flavor = '"Return it to its rightful owner."';
 items.I386.quality = 'Rare';
 items.I386.sell = 15000;
-items.I386.use = ' if (enemies[stats.currentEnemy].difficulty==="pond") { bossTime=true; deleteEnemy("E56"); bossTime=true; items.I386.count--; playSound("audio/hawk.mp3"); animParticleBurst(10 , "particleFire", "enemyPanel", 200); animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/explosion.mp3");} ;'
+items.I386.use = ' if (enemies[stats.currentEnemy].difficulty==="pond") { bossTime=true; deleteEnemy("E56"); bossTime=true; playSound("audio/hawk.mp3"); animParticleBurst(10 , "particleFire", "enemyPanel", 200); animParticleBurst(10 , "particleSpark", "enemyPanel", 200); animImageSplash("soundWave", "enemyPanel", "wave", 200); animState(stats.currentEnemy+"enemy", "shakeFlash 0.4s 1"); playSound("audio/explosion.mp3");} ;'
+items.I386.max = 1;
 
 var meatBeat = 0
 
@@ -3271,13 +3273,13 @@ items.I84.series = "millionaire"
 items.I85 = {};
 items.I85.name = 'Reinforced Mattock';
 items.I85.description = 'Equipable - Tool<br><FONT COLOR="#1EFF0C">+2 Gathering Level';
-items.I85.skills = 'rUpgSkill("I85", "Tempered Steel: +5% Attack Speed","passive",0)'
+items.I85.skills = 'rUpgSkill("I85", "Tempered Steel: +10% Attack Speed","passive",0)'
 items.I85.flavor = '"For when you had enough with your hoe."';
 items.I85.quality = 'Uncommon';
 items.I85.sell = 5000;
 items.I85.max = 1;
 items.I85.use = 'gearSwap(items.I85.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")'
-items.I85.stats = 'weaponGatheringLevel = 2; items.I85.statUp=0.05'
+items.I85.stats = 'weaponGatheringLevel = 2; items.I85.statUp=0.1'
 items.I85.remove = 'weaponGatheringLevel = 0; items.I85.statUp=0';
 items.I85.tag = "mattock"
 items.I85.series = "millionaire"
@@ -3286,13 +3288,13 @@ items.I85.statUp=0;
 items.I24 = {};
 items.I24.name = 'Prismatic Mattock';
 items.I24.description = 'Equipable - Tool<br><FONT COLOR="#1EFF0C">+3 Gathering Level';
-items.I24.skills = 'rUpgSkill("I24", "Polychrome: +10% Attack Speed","passive",0)'
+items.I24.skills = 'rUpgSkill("I24", "Polychrome: +20% Attack Speed","passive",0)'
 items.I24.flavor = '"It feels like a waste to smash this onto a rock."';
 items.I24.quality = 'Rare';
 items.I24.sell = 15000;
 items.I24.max = 1;
 items.I24.use = 'gearSwap(items.I24.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")'
-items.I24.stats = 'weaponGatheringLevel = 3; items.I24.statUp=0.1'
+items.I24.stats = 'weaponGatheringLevel = 3; items.I24.statUp=0.2'
 items.I24.remove = 'weaponGatheringLevel = 0; items.I24.statUp=0';
 items.I24.tag = "mattock";
 items.I24.statUp=0;
@@ -3316,13 +3318,13 @@ items.I162.series = "millionaire"
 items.I171 = {};
 items.I171.name = 'Good Fishing Rod';
 items.I171.description = 'Equipable - Tool<br><FONT COLOR="#1EFF0C">+2 Fishing Level';
-items.I171.skills = 'rUpgSkill("I171", "Tacklebox: +5% Attack Speed","passive",0)'
+items.I171.skills = 'rUpgSkill("I171", "Tacklebox: +10% Attack Speed","passive",0)'
 items.I171.flavor = '"No more magic carps."';
 items.I171.quality = 'Uncommon';
 items.I171.sell = 'returnGearPrice("I171")';
 items.I171.max = 1;
 items.I171.use = 'gearSwap(items.I171.id, rpgPlayer.weaponSlot, "rpgWeaponSlot", "weapon")'
-items.I171.stats = 'items.I171.statUp=2; items.I171.statUp2=0.05; weaponSwap("W25")'
+items.I171.stats = 'items.I171.statUp=2; items.I171.statUp2=0.1; weaponSwap("W25")'
 items.I171.remove = 'items.I171.statUp=0; items.I171.statUp2=0; weaponSwap("W0")';
 items.I171.tag = "rod"
 items.I171.animation = 'ranged';
@@ -3358,7 +3360,7 @@ items.I8 = {};
 items.I8.name = 'Wooden Sword';
 items.I8.description = `'Equipable - Weapon<br>'+rUpgLvl("I8")+'<br><FONT COLOR="#1EFF0C">+'+ beautify(rUpgDmg("I8", 1))+' Might Damage'`;
 items.I8.flavor = '"A wooden stick shaped like a sword, retaining all the properties of a wooden stick and none of a sword."';
-items.I8.skills = 'rUpgSkill("I8", "Splintered Hilt: +20%"+mightIcon+"Might Bonus","passive",10)'
+items.I8.skills = 'rUpgSkill("I8", "Splintered Hilt: +20%"+mightIcon+"Might Bonus","passive",10)+"<br>"+bestiaryTag("Right Click to equip gear")'
 items.I8.quality = 'Common';
 items.I8.sell = 100;
 items.I8.max = 1
@@ -5404,7 +5406,7 @@ items.I498.max = 1;
 items.I498.stats = 'trinketAdditiveMaxHp = rUpgDmg("I498", 1);'
 items.I498.remove = 'trinketAdditiveMaxHp = 0; items.I498.statUp= 0'
 items.I498.use = 'gearSwap(items.I498.id, rpgPlayer.trinketSlot, "rpgTrinketSlot", "trinket")';
-items.I498.defenseChance = 'castWarbanner()';
+items.I498.attackChance = 'castWarbanner()';
 items.I498.series = "malevolent"; 
 items.I498.cap = 90;
 items.I498.cd = 0;
@@ -13455,7 +13457,7 @@ plants.g19a.color = "#629496";
 plants.g19a.description = 'Enemies drop 30 Shells when defeated'+bestiaryTag("⚜️ Dedicated Content: invisibilia_draconis ⚜️", "#A351AB", "auto");
 plants.g19a.age = plantLifespanMedium;
 plants.g19a.exp = plantTier4exp;
-plants.g19a.catalogue = 'returnPlantCatalogue("g19a")+ " + " +returnPlantCatalogue("g14a")+ " = " +returnPlantCatalogue("g11")';
+plants.g19a.catalogue = 'returnPlantCatalogue("g19a")+ " + " +returnPlantCatalogue("g14")+ " = " +returnPlantCatalogue("g11")';
 plants.g19a.tier = 3;
 
 plants.g11 = {}

@@ -601,10 +601,6 @@ function castTURTLE(){
 
 function castRaijinGoran(){
 
-
-    if (!(buffs.B115.time>0)) {buffs.B115.stacks=2000; buffs.B115.time=1000; playerBuffs(); updateStatsUI();}
-
-
     enemyTurn++
 
     buffs.B76.time=100; buffs.B76.stacks++;
