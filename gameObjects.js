@@ -13702,7 +13702,7 @@ gametip.gt21.description = 'Turtlebot will keep working hard while you are not i
 
 gametip.gt6 = {}
 gametip.gt6.name = "Alignments";
-gametip.gt6.description = 'Every attack and enemy has an Alignment.<br><br>You can check which alignment the enemy has by hovering over it. Attacks will increase or decrease in damage depending on which Alignment is being attacked.<br><br>You can check at any time the chart in the Stats Panel by hovering over the duck.';
+gametip.gt6.description = 'Every attack and enemy has an Alignment.<br><br>You can check which alignment the enemy has by hovering over it. Attacks will increase or decrease in damage depending on which Alignment is being attacked.<br><br>'+mightIcon+' Might<br>'+occultIcon+' Occult<br>'+deificIcon+' Deific<br>'+elementalIcon+' Elemental<br>'+natureIcon+' Nature<br><br>The color of the text of the damage indicates the alignment of that damage. You can see if an attack is strong or weak to the current enemy by checking the icon at the top left of the damage text.<br><br>Check at any time the chart in the Stats Panel by hovering over the duck.';
 
 gametip.gt14 = {}
 gametip.gt14.name = "Bosses and Mighty Foes";
