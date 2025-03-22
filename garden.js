@@ -3,23 +3,6 @@ let selectedSeed = "none";
 
 
 
-var gardenReflectPower = 0;
-var gardenNaturePower = 0;
-var gardenElementalPower = 0;
-var gardenMightPower = 0;
-var gardenDeificPower = 0;
-var gardenOccultPower = 0;
-var gardenPatPower = 0;
-var gardenStrengthPower = 0;
-var gardenSpellpower = 0;
-var gardenDropChancePower = 0;
-var gardenExpGainPower = 0;
-var gardenHealthPower = 0;
-var gardenFlowerPower = 0;
-var gardenMutationPower = 0;
-var gardenDragonGoldPower = 0;
-var gardenMagicRegenPower = 0;
-
 const gardenMaxLevel = 7;
 
 
