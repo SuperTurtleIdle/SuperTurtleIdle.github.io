@@ -3,22 +3,22 @@ let selectedSeed = "none";
 
 
 
-let gardenReflectPower = 0;
-let gardenNaturePower = 0;
-let gardenElementalPower = 0;
-let gardenMightPower = 0;
-let gardenDeificPower = 0;
-let gardenOccultPower = 0;
-let gardenPatPower = 0;
-let gardenStrengthPower = 0;
-let gardenSpellpower = 0;
-let gardenDropChancePower = 0;
-let gardenExpGainPower = 0;
-let gardenHealthPower = 0;
-let gardenFlowerPower = 0;
-let gardenMutationPower = 0;
-let gardenDragonGoldPower = 0;
-let gardenMagicRegenPower = 0;
+var gardenReflectPower = 0;
+var gardenNaturePower = 0;
+var gardenElementalPower = 0;
+var gardenMightPower = 0;
+var gardenDeificPower = 0;
+var gardenOccultPower = 0;
+var gardenPatPower = 0;
+var gardenStrengthPower = 0;
+var gardenSpellpower = 0;
+var gardenDropChancePower = 0;
+var gardenExpGainPower = 0;
+var gardenHealthPower = 0;
+var gardenFlowerPower = 0;
+var gardenMutationPower = 0;
+var gardenDragonGoldPower = 0;
+var gardenMagicRegenPower = 0;
 
 const gardenMaxLevel = 7;
 
@@ -44,6 +44,8 @@ function calculateGardenStats(){
     gardenMagicRegenPower = 0
     gardenDragonGoldPower = 0
 
+
+
   } else {
 
     gardenFlowerPower = ((plants.g17.planted)*10 + (plants.g17a.planted*30)) + (talent.TI2B1.statUp) + sakuraDropUp;
@@ -62,6 +64,9 @@ function calculateGardenStats(){
     gardenMutationPower = ((plants.g15.planted)*20 + (plants.g15a.planted*75))*(1+(gardenFlowerPower/3)/100);
     gardenMagicRegenPower = ((plants.g18.planted)*1 + (plants.g18a.planted*5))/100*(1+gardenFlowerPower/100);
     gardenDragonGoldPower = ((plants.g19.planted)*3 + (plants.g19a.planted*30))*(1+(gardenFlowerPower)/100);
+
+
+
     
   }
 

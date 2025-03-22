@@ -563,11 +563,11 @@ let additiveStrength = 0;
 
 let additiveOmni = 0;
 
-let natureResist = 0;
-let mightResist = 0;
-let elementalResist = 0;
-let occultResist = 0;
-let deificResist = 0;
+var natureResist = 0;
+var mightResist = 0;
+var elementalResist = 0;
+var occultResist = 0;
+var deificResist = 0;
 
 let playerMastery = 0;
 let restrainedMastery = 0;
@@ -575,9 +575,42 @@ let restrainedMastery = 0;
 
 rpgPlayer.debugMastery = 0;
 
+
+
+
+var gardenReflectPower = 0;
+var gardenNaturePower = 0;
+var gardenElementalPower = 0;
+var gardenMightPower = 0;
+var gardenDeificPower = 0;
+var gardenOccultPower = 0;
+var gardenPatPower = 0;
+var gardenStrengthPower = 0;
+var gardenSpellpower = 0;
+var gardenDropChancePower = 0;
+var gardenExpGainPower = 0;
+var gardenHealthPower = 0;
+var gardenFlowerPower = 0;
+var gardenMutationPower = 0;
+var gardenDragonGoldPower = 0;
+var gardenMagicRegenPower = 0;
+
+
+
+
+
 //#endregion
 
 function statsUpdate(){
+
+
+
+
+
+
+
+
+
 
   apprenticePoints = 0;
   gamblerPoints = 0;
